@@ -1,0 +1,25 @@
+{
+	"name": "wpanchorbay/productbay-pro",
+	"description": "Premium add-on for ProductBay — unlock advanced features for your WooCommerce product tables.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "WPAnchorBay",
+			"email": "support@wpanchorbay.com",
+			"homepage": "https://wpanchorbay.com/"
+		}
+	],
+	"require": {
+		"php": ">=7.4"
+	},
+	"autoload": {
+		"psr-4": {
+			"WpabProductBayPro\\": "app/"
+		}
+	},
+	"config": {
+		"optimize-autoloader": true,
+		"sort-packages": true
+	}
+}

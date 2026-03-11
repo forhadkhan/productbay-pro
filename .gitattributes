@@ -1,0 +1,21 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.php text
+*.js text
+*.ts text
+*.tsx text
+*.json text
+*.css text
+*.md text
+*.svg text
+*.scss text
+
+# Ignore formatting on some binaries
+*.jpg binary
+*.png binary
+*.gif binary
+*.woff binary
+*.woff2 binary
