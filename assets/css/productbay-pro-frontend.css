@@ -1,0 +1,135 @@
+/* ==========================================================================
+   ProductBay Pro - Price Filter Styles
+   ========================================================================== */
+
+.productbay-wrapper .productbay-price-filter {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.productbay-wrapper .productbay-price-slider-wrap {
+    position: relative;
+    width: 200px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.productbay-wrapper .productbay-price-slider-wrap::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    z-index: 0;
+}
+
+.productbay-wrapper .productbay-price-slider-track-fill {
+    position: absolute;
+    height: 4px;
+    background: #3b82f6;
+    z-index: 1;
+    border-radius: 2px;
+}
+
+.productbay-wrapper .productbay-price-slider-wrap input[type="range"] {
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    height: 4px;
+    outline: none;
+}
+
+.productbay-wrapper .productbay-price-slider-wrap input[type="range"]:focus {
+    outline: none;
+}
+
+.productbay-wrapper .productbay-price-slider-wrap input[type="range"]::-webkit-slider-thumb {
+    pointer-events: all;
+    background: #3b82f6;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    -webkit-appearance: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.productbay-wrapper .productbay-price-slider-wrap input[type="range"]::-moz-range-thumb {
+    pointer-events: all;
+    background: #3b82f6;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.productbay-wrapper .productbay-price-tooltip {
+    position: absolute;
+    bottom: 100%;
+    top: auto;
+    left: 0;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 3;
+    margin-bottom: 8px;
+}
+
+.productbay-wrapper .productbay-price-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -4px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #1e293b transparent transparent transparent;
+}
+
+.productbay-wrapper .productbay-price-slider-wrap:hover .productbay-price-tooltip {
+    opacity: 1;
+}
+
+.productbay-wrapper .productbay-price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.productbay-wrapper .productbay-price-inputs input[type="number"] {
+    width: 70px;
+    padding: 4px 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.productbay-wrapper .productbay-price-sep {
+    color: #64748b;
+    font-size: 14px;
+}

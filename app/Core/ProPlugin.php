@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace WpabProductBayPro\Core;
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -23,7 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package WpabProductBayPro\Core
  * @since 1.0.0
  */
-class ProPlugin {
+class ProPlugin
+{
 
 	/**
 	 * Initialize the pro plugin.
@@ -36,15 +37,49 @@ class ProPlugin {
 	 *
 	 * @return void
 	 */
-	public function init() {
+	public function init()
+	{
 		// Hook into the free plugin's loaded action.
-		\add_action( 'productbay_loaded', array( $this, 'on_free_loaded' ) );
+		\add_action('productbay_loaded', array($this, 'on_free_loaded'));
 
 		// Extend admin script data to signal pro is active.
-		\add_filter( 'productbay_admin_script_data', array( $this, 'extend_admin_data' ) );
+		\add_filter('productbay_admin_script_data', array($this, 'extend_admin_data'));
 
 		// Extend system status with pro info.
-		\add_filter( 'productbay_system_status', array( $this, 'extend_system_status' ) );
+		\add_filter('productbay_system_status', array($this, 'extend_system_status'));
+
+		// Enqueue Pro admin assets for SlotFill.
+		\add_action('productbay_enqueue_admin_assets', array($this, 'enqueue_admin_assets'));
+	}
+
+	/**
+	 * Enqueue Pro admin assets.
+	 *
+	 * @since 1.0.0
+	 */
+	public function enqueue_admin_assets()
+	{
+		$asset_file = PRODUCTBAY_PRO_PATH . 'assets/js/productbay-pro-admin.asset.php';
+		if (!file_exists($asset_file)) {
+			return;
+		}
+
+		$asset = require $asset_file;
+
+		\wp_enqueue_script(
+			'productbay-pro-admin',
+			PRODUCTBAY_PRO_URL . 'assets/js/productbay-pro-admin.js',
+			array_merge($asset['dependencies'], array('productbay-admin', 'wp-components', 'wp-element', 'wp-i18n')),
+			(string) time(),
+			true
+		);
+
+		\wp_enqueue_style(
+			'productbay-pro-admin',
+			PRODUCTBAY_PRO_URL . 'assets/css/productbay-pro-admin.css',
+			array('productbay-admin'),
+			(string) time()
+		);
 	}
 
 	/**
@@ -55,12 +90,12 @@ class ProPlugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $plugin The free plugin instance.
 	 * @return void
 	 */
-	public function on_free_loaded( $plugin ) {
-		// Pro components will be initialized here.
-		// Example: new \WpabProductBayPro\Features\AdvancedExport();
+	public function on_free_loaded()
+	{
+		// Initialize Pro modules.
+		new \WpabProductBayPro\Modules\PriceFilter\PriceFilterModule();
 	}
 
 	/**
@@ -73,9 +108,10 @@ class ProPlugin {
 	 * @param array $data The localized script data.
 	 * @return array Modified script data.
 	 */
-	public function extend_admin_data( $data ) {
-		$data['proActive']   = true;
-		$data['proVersion']  = PRODUCTBAY_PRO_VERSION;
+	public function extend_admin_data($data)
+	{
+		$data['proActive'] = true;
+		$data['proVersion'] = PRODUCTBAY_PRO_VERSION;
 
 		return $data;
 	}
@@ -88,8 +124,9 @@ class ProPlugin {
 	 * @param array $status The system status data.
 	 * @return array Modified status data.
 	 */
-	public function extend_system_status( $status ) {
-		$status['pro_active']  = true;
+	public function extend_system_status($status)
+	{
+		$status['pro_active'] = true;
 		$status['pro_version'] = PRODUCTBAY_PRO_VERSION;
 
 		return $status;
