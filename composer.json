@@ -8,6 +8,11 @@
 			"name": "WPAnchorBay",
 			"email": "support@wpanchorbay.com",
 			"homepage": "https://wpanchorbay.com/"
+		},
+		{
+			"name": "Forhad Khan",
+			"email": "dev@forhadkhan.com",
+			"homepage": "https://forhadkhan.com/"
 		}
 	],
 	"require": {
@@ -21,5 +26,9 @@
 	"config": {
 		"optimize-autoloader": true,
 		"sort-packages": true
+	},
+	"require-dev": {
+		"php-stubs/woocommerce-stubs": "^10.6",
+		"php-stubs/wordpress-stubs": "^6.9"
 	}
 }
