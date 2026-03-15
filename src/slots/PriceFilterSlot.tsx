@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/utils/cn';
 import { __ } from '@wordpress/i18n';
 import { Fill } from '@wordpress/components';
-import { Toggle } from '@/components/ui/Toggle';
+import { Toggle, Select } from '@/components/ui';
 import SectionHeading from '@/components/Table/SectionHeading';
 import { SettingsOption } from '@/components/Table/SettingsOption';
 
@@ -66,7 +66,7 @@ const PriceFilterFill = () => {
                 >
                     <Toggle
                         checked={!!config.enabled}
-                        onChange={(e) => setFeatures({
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFeatures({
                             priceFilter: { ...config, enabled: e.target.checked }
                         })}
                     />
@@ -82,17 +82,18 @@ const PriceFilterFill = () => {
                         title={__('Filter Mode', 'productbay-pro')}
                         description={__('Choose between range slider, numeric inputs, or both', 'productbay-pro')}
                     >
-                        <select
+                        <Select
                             value={config.mode || 'both'}
-                            onChange={(e) => setFeatures({
-                                priceFilter: { ...config, mode: e.target.value }
+                            onChange={(value: string) => setFeatures({
+                                priceFilter: { ...config, mode: value }
                             })}
-                            className="w-40 h-9 px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
-                        >
-                            <option value="slider">{__('Slider Only', 'productbay-pro')}</option>
-                            <option value="input">{__('Inputs Only', 'productbay-pro')}</option>
-                            <option value="both">{__('Both (Slider + Inputs)', 'productbay-pro')}</option>
-                        </select>
+                            options={[
+                                { label: __('Slider Only', 'productbay-pro'), value: 'slider' },
+                                { label: __('Inputs Only', 'productbay-pro'), value: 'input' },
+                                { label: __('Both (Slider + Inputs)', 'productbay-pro'), value: 'both' }
+                            ]}
+                            className="w-60"
+                        />
                     </SettingsOption>
 
                     {/* Step Value */}
@@ -105,7 +106,7 @@ const PriceFilterFill = () => {
                             min="0.01"
                             step="0.01"
                             value={config.step || 1}
-                            onChange={(e) => setFeatures({
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFeatures({
                                 priceFilter: { ...config, step: parseFloat(e.target.value) || 1 }
                             })}
                             className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
@@ -122,7 +123,7 @@ const PriceFilterFill = () => {
                             min="0"
                             placeholder="Auto"
                             value={config.customMin ?? ''}
-                            onChange={(e) => setFeatures({
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFeatures({
                                 priceFilter: { ...config, customMin: e.target.value === '' ? null : parseFloat(e.target.value) }
                             })}
                             className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
@@ -139,7 +140,7 @@ const PriceFilterFill = () => {
                             min="0"
                             placeholder="Auto"
                             value={config.customMax ?? ''}
-                            onChange={(e) => setFeatures({
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFeatures({
                                 priceFilter: { ...config, customMax: e.target.value === '' ? null : parseFloat(e.target.value) }
                             })}
                             className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
