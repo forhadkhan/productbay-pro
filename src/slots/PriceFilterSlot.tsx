@@ -1,10 +1,10 @@
 import React from 'react';
-import { Fill } from '@wordpress/components';
+import { cn } from '@/utils/cn';
 import { __ } from '@wordpress/i18n';
-import { SettingsOption } from '@/components/Table/SettingsOption';
+import { Fill } from '@wordpress/components';
 import { Toggle } from '@/components/ui/Toggle';
 import SectionHeading from '@/components/Table/SectionHeading';
-import { cn } from '@/utils/cn';
+import { SettingsOption } from '@/components/Table/SettingsOption';
 
 /**
  * SettingsSection Component (Internal Helper shadowed from Free)
@@ -39,20 +39,20 @@ const SettingsSection = ({
 const PriceFilterFill = () => {
     // Access the global store hook exposed by the Free plugin
     const useTableStore = (window as any).productbay?.useTableStore;
-    
+
     if (!useTableStore) {
         return null;
     }
 
     const { settings, setFeatures } = useTableStore();
-    
+
     // Default config if not present
-    const config = settings?.features?.priceFilter || { 
-        enabled: false, 
-        mode: 'both', 
-        step: 1 
+    const config = settings?.features?.priceFilter || {
+        enabled: false,
+        mode: 'both',
+        step: 1
     };
-    
+
     return (
         <Fill name="productbay-pro-options">
             <SettingsSection
@@ -66,12 +66,12 @@ const PriceFilterFill = () => {
                 >
                     <Toggle
                         checked={!!config.enabled}
-                        onChange={(e) => setFeatures({ 
-                            priceFilter: { ...config, enabled: e.target.checked } 
+                        onChange={(e) => setFeatures({
+                            priceFilter: { ...config, enabled: e.target.checked }
                         })}
                     />
                 </SettingsOption>
-                
+
                 {/* Sub-options */}
                 <div className={cn(
                     "transition-all duration-300 space-y-2",
@@ -84,8 +84,8 @@ const PriceFilterFill = () => {
                     >
                         <select
                             value={config.mode || 'both'}
-                            onChange={(e) => setFeatures({ 
-                                priceFilter: { ...config, mode: e.target.value } 
+                            onChange={(e) => setFeatures({
+                                priceFilter: { ...config, mode: e.target.value }
                             })}
                             className="w-40 h-9 px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                         >
@@ -105,8 +105,42 @@ const PriceFilterFill = () => {
                             min="0.01"
                             step="0.01"
                             value={config.step || 1}
-                            onChange={(e) => setFeatures({ 
-                                priceFilter: { ...config, step: parseFloat(e.target.value) || 1 } 
+                            onChange={(e) => setFeatures({
+                                priceFilter: { ...config, step: parseFloat(e.target.value) || 1 }
+                            })}
+                            className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+                        />
+                    </SettingsOption>
+
+                    {/* Custom Minimum Price */}
+                    <SettingsOption
+                        title={__('Custom Minimum Price', 'productbay-pro')}
+                        description={__('Leave empty to auto-detect from products', 'productbay-pro')}
+                    >
+                        <input
+                            type="number"
+                            min="0"
+                            placeholder="Auto"
+                            value={config.customMin ?? ''}
+                            onChange={(e) => setFeatures({
+                                priceFilter: { ...config, customMin: e.target.value === '' ? null : parseFloat(e.target.value) }
+                            })}
+                            className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+                        />
+                    </SettingsOption>
+
+                    {/* Custom Maximum Price */}
+                    <SettingsOption
+                        title={__('Custom Maximum Price', 'productbay-pro')}
+                        description={__('Leave empty to auto-detect from products', 'productbay-pro')}
+                    >
+                        <input
+                            type="number"
+                            min="0"
+                            placeholder="Auto"
+                            value={config.customMax ?? ''}
+                            onChange={(e) => setFeatures({
+                                priceFilter: { ...config, customMax: e.target.value === '' ? null : parseFloat(e.target.value) }
                             })}
                             className="w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                         />

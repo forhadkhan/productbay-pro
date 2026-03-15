@@ -78,7 +78,7 @@ function productbay_pro_init()
 	$pro = new Core\ProPlugin();
 	$pro->init();
 }
-\add_action('plugins_loaded', __NAMESPACE__ . '\\productbay_pro_init', 20);
+\add_action('plugins_loaded', __NAMESPACE__ . '\\productbay_pro_init', 5);
 
 /**
  * Admin notice: Free plugin not found.

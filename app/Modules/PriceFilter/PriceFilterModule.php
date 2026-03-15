@@ -43,6 +43,7 @@ class PriceFilterModule {
 		\add_filter( 'productbay_default_settings', array( $this, 'add_default_settings' ) );
 	}
 
+
 	/**
 	 * Add default settings for the Price Filter feature.
 	 *
@@ -98,20 +99,25 @@ class PriceFilterModule {
 	 * @param array $runtime_args Runtime args from AJAX.
 	 * @return array
 	 */
-	public function apply_price_query( $args, $settings, $runtime_args ) {
+	public function apply_price_query( $args, $settings, $runtime_args = array() ) {
 		// Check if feature is enabled in settings.
 		if ( empty( $settings['features']['priceFilter']['enabled'] ) ) {
 			return $args;
 		}
 
-		$has_runtime_min = isset( $runtime_args['price_min'] );
-		$has_runtime_max = isset( $runtime_args['price_max'] );
+		$has_runtime_min = isset( $runtime_args['price_min'] ) && $runtime_args['price_min'] !== '';
+		$has_runtime_max = isset( $runtime_args['price_max'] ) && $runtime_args['price_max'] !== '';
 		$has_query_min   = isset( $settings['features']['priceFilter']['customMin'] );
 		$has_query_max   = isset( $settings['features']['priceFilter']['customMax'] );
 
 		if ( $has_runtime_min || $has_runtime_max || $has_query_min || $has_query_max ) {
-			$min = $has_runtime_min ? floatval( $runtime_args['price_min'] ) : ( $has_query_min ? floatval( $settings['features']['priceFilter']['customMin'] ) : 0 );
+			$min = $has_runtime_min ? floatval( $runtime_args['price_min'] ) : ( $has_query_min ? floatval( $settings['features']['priceFilter']['customMin'] ) : -1 );
 			$max = $has_runtime_max ? floatval( $runtime_args['price_max'] ) : ( $has_query_max ? floatval( $settings['features']['priceFilter']['customMax'] ) : null );
+
+			// If no runtime values and no custom bounds, don't filter (fallback to auto)
+			if ( ! $has_runtime_min && ! $has_runtime_max && ! $has_query_min && ! $has_query_max ) {
+				return $args;
+			}
 
 			if ( ! isset( $args['meta_query'] ) ) {
 				$args['meta_query'] = array();
@@ -120,7 +126,7 @@ class PriceFilterModule {
 			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			$args['meta_query'][] = array(
 				'key'     => '_price',
-				'value'   => array( $min, $max ? $max : 999999999 ),
+				'value'   => array( $min >= 0 ? $min : 0, $max ? $max : 999999999 ),
 				'compare' => 'BETWEEN',
 				'type'    => 'NUMERIC',
 			);
@@ -148,33 +154,19 @@ class PriceFilterModule {
 		}
 
 		// Auto-detect from this table's products. We do a lightweight query.
-		// Since we're in the Pro plugin we don't have direct access to build_query_args.
-		// We'll let the free plugin build it through a filter or we can replicate it.
-		// Fortunately, the free plugin's TableRepository provides a way to get args.
+		$args = array(
+			'post_type'      => 'product',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+		);
 
-		// For now, let's use a simpler approach: get all items from the TableRepository.
-		// Wait, we need the exact query. The free plugin doesn't expose `build_query_args` globally.
-		// Let's fire a filter to get the base query args from the free plugin.
-
-		$args = \apply_filters( 'productbay_base_query_args', array(), $source, $settings );
-
-		// If the filter isn't implemented yet, fallback to a basic query.
-		if ( empty( $args ) ) {
-			// Basic fallback just in case.
-			$args = array(
-				'post_type'      => 'product',
-				'post_status'    => 'publish',
-				'posts_per_page' => -1,
+		if ( ! empty( $source['categories'] ) ) {
+			$args['tax_query'][] = array(
+				'taxonomy' => 'product_cat',
+				'field'    => 'term_id',
+				'terms'    => wp_list_pluck( (array) $source['categories'], 'value' ),
+				'operator' => 'IN',
 			);
-
-			if ( ! empty( $source['categories'] ) ) {
-				$args['tax_query'][] = array(
-					'taxonomy' => 'product_cat',
-					'field'    => 'term_id',
-					'terms'    => wp_list_pluck( (array) $source['categories'], 'value' ),
-					'operator' => 'IN',
-				);
-			}
 		}
 
 		$args['posts_per_page'] = -1;
@@ -223,12 +215,6 @@ class PriceFilterModule {
 		$range = $this->get_price_range( $source, $settings );
 		$mode  = $config['mode'] ?? 'both';
 		$step  = $config['step'] ?? 1;
-
-		// Add separator if other filters exist.
-		$has_tax_filters = ! empty( $settings['filters']['enabled'] );
-		if ( $has_tax_filters ) {
-			echo '<span class="productbay-filter-separator"></span>';
-		}
 
 		echo '<div class="productbay-price-filter" data-min="' . esc_attr( (string) $range['min'] ) . '" data-max="' . esc_attr( (string) $range['max'] ) . '" data-step="' . esc_attr( (string) $step ) . '" data-mode="' . esc_attr( $mode ) . '">';
 		echo '<span class="productbay-filter-label">' . esc_html__( 'Price:', 'productbay-pro' ) . '</span>';
