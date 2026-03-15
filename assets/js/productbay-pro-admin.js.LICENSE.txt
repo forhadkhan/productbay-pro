@@ -1,4 +1,12 @@
 /**
+ * @license @wordpress/components
+ * version: 32.3.0
+ * Author: The WordPress Contributors
+ * License: GPL-2.0-or-later
+ * URL: https://github.com/WordPress/gutenberg/tree/HEAD/packages/components/README.md
+ */
+
+/**
  * @license class-variance-authority
  * version: 0.7.1
  * Author: Joe Bell (https://joebell.co.uk)

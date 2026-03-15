@@ -27,8 +27,10 @@ const ZIP_NAME = includeVersion
 // Files/Folders to COPY to the release.
 const INCLUDES = [
 	'app',
+	'assets',
 	'languages',
 	'productbay-pro.php',
+	'readme.txt',
 	'LICENSE.txt',
 	'composer.json',
 ];
@@ -54,6 +56,10 @@ async function stripComposerDevSections(composerPath) {
 		await fs.remove(BUILD_DIR);
 		await fs.remove(path.join(ROOT_DIR, ZIP_NAME));
 		await fs.ensureDir(PLUGIN_DIR);
+
+		// Build JS and CSS assets before copying
+		console.log('🏗️ Building assets...');
+		execSync('npm run build', { stdio: 'inherit', cwd: ROOT_DIR });
 
 		// 2. Copy plugin files.
 		console.log('📂 Copying plugin files...');
