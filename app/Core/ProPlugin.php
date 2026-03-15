@@ -50,6 +50,26 @@ class ProPlugin
 
 		// Enqueue Pro admin assets for SlotFill.
 		\add_action('productbay_enqueue_admin_assets', array($this, 'enqueue_admin_assets'));
+
+		// Inject Pro CSS into the live preview iframe.
+		\add_filter('productbay_preview_css_urls', array($this, 'inject_preview_css'));
+	}
+
+	/**
+	 * Inject Pro frontend CSS into the Live Preview iframe.
+	 *
+	 * @since 1.0.0
+	 * @param array $urls Existing CSS URLs.
+	 * @return array Modified CSS URLs.
+	 */
+	public function inject_preview_css($urls)
+	{
+		$css_file = PRODUCTBAY_PRO_PATH . 'assets/css/productbay-pro-frontend.css';
+		$css_ver  = file_exists($css_file) ? filemtime($css_file) : PRODUCTBAY_PRO_VERSION;
+		
+		$urls[] = PRODUCTBAY_PRO_URL . 'assets/css/productbay-pro-frontend.css?ver=' . $css_ver;
+		
+		return $urls;
 	}
 
 	/**
