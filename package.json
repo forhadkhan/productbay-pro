@@ -11,6 +11,10 @@
 			"url": "https://forhadkhan.com/"
 		}
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/forhadkhan/productbay-pro.git"
+	},
 	"license": "GPL-2.0-or-later",
 	"scripts": {
 		"wpbuild": "wp-scripts build",
@@ -33,11 +37,13 @@
 		"@wordpress/i18n": "^6.10.0",
 		"@wordpress/scripts": "^31.2.0",
 		"archiver": "^7.0.1",
-		"class-variance-authority": "^0.7.1",
-		"clsx": "^2.1.1",
 		"fs-extra": "^11.3.3",
 		"npm-run-all": "^4.1.5",
-		"tailwind-merge": "^3.4.0",
 		"typescript": "^5.9.3"
+	},
+	"dependencies": {
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"tailwind-merge": "^3.4.0"
 	}
 }
