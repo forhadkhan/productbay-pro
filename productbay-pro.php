@@ -47,7 +47,7 @@ define('PRODUCTBAY_PRO_PLUGIN_BASENAME', \plugin_basename(__FILE__));
 /**
  * Minimum required free plugin version.
  */
-define('PRODUCTBAY_PRO_MIN_FREE_VERSION', '1.0.1');
+define('PRODUCTBAY_PRO_MIN_FREE_VERSION', '1.0.0');
 
 // Autoloader (must be loaded before using any classes).
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {

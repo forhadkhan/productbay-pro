@@ -3,8 +3,8 @@ import { cn } from '@/utils/cn';
 import { __ } from '@wordpress/i18n';
 import { Fill } from '@wordpress/components';
 import { Select } from '@/components/ui';
-import SectionHeading from '@/components/Table/SectionHeading';
-import { SettingsOption } from '@/components/Table/SettingsOption';
+
+const { SectionHeading, SettingsOption } = (window as any).productbay?.components || {};
 
 /**
  * SettingsSection Component (Internal Helper shadowed from Free)
