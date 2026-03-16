@@ -213,6 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			.then(response => {
 				if (response.success) {
 					content.innerHTML = response.data.html;
+					if (window.jQuery) {
+						window.jQuery(document.body).trigger('productbay_pro_modal_loaded', [content]);
+					}
 				} else {
 					content.innerHTML = `<p style="color:red; padding: 20px;">Error: ${response.data}</p>`;
 				}
