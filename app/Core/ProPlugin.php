@@ -53,6 +53,26 @@ class ProPlugin
 
 		// Inject Pro CSS into the live preview iframe.
 		\add_filter('productbay_preview_css_urls', array($this, 'inject_preview_css'));
+
+		// Inject Pro JS into the live preview iframe.
+		\add_filter('productbay_preview_js_urls', array($this, 'inject_preview_js'));
+	}
+
+	/**
+	 * Inject Pro frontend JS into the Live Preview iframe.
+	 *
+	 * @since 1.0.0
+	 * @param array $urls Existing JS URLs.
+	 * @return array Modified JS URLs.
+	 */
+	public function inject_preview_js($urls)
+	{
+		$js_file = PRODUCTBAY_PRO_PATH . 'assets/js/productbay-pro-frontend.js';
+		$js_ver  = file_exists($js_file) ? filemtime($js_file) : PRODUCTBAY_PRO_VERSION;
+		
+		$urls[] = PRODUCTBAY_PRO_URL . 'assets/js/productbay-pro-frontend.js?ver=' . $js_ver;
+		
+		return $urls;
 	}
 
 	/**
@@ -116,6 +136,9 @@ class ProPlugin
 	{
 		// Initialize Pro modules.
 		new \WpabProductBayPro\Modules\PriceFilter\PriceFilterModule();
+		
+		$variations_module = new \WpabProductBayPro\Modules\Variations\VariationsModule();
+		$variations_module->init();
 	}
 
 	/**

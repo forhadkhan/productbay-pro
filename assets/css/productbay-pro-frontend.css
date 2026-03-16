@@ -1,3 +1,578 @@
+/* ============================================================
+   ProductBay Pro — Variations Modal
+   Design system: refined neutral palette, smooth motion,
+   modern e-commerce feel
+   ============================================================ */
+
+/* --- Design Tokens --- */
+:root {
+    --pb-radius-sm: 4px;
+    --pb-radius-md: 8px;
+    --pb-radius-lg: 12px;
+    --pb-radius-xl: 16px;
+
+    --pb-shadow-sm: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
+    --pb-shadow-md: 0 4px 12px rgba(0, 0, 0, .08), 0 2px 4px rgba(0, 0, 0, .04);
+    --pb-shadow-lg: 0 20px 40px rgba(0, 0, 0, .12), 0 8px 16px rgba(0, 0, 0, .06);
+
+    --pb-color-bg: #ffffff;
+    --pb-color-surface: #ffeeee;
+    --pb-color-surface-hover: #f1f5f9;
+    --pb-color-border: #ababab;
+    --pb-color-border-soft: #d0d5d9;
+
+    --pb-color-text-primary: #0f172a;
+    --pb-color-text-secondary: #3e4f66;
+    --pb-color-text-muted: #5c5f65;
+    --pb-color-text-hint: #177646;
+
+    --pb-color-accent: #434343;
+    --pb-color-accent-dark: #0284c7;
+    --pb-color-accent-light: #e0f2fe;
+    --pb-color-accent-subtle: #f0f9ff;
+
+    --pb-color-danger: #ef4444;
+    --pb-color-success: #009938;
+    --pb-color-sale: #f97316;
+
+    --pb-font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --pb-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --pb-transition-md: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* ============================================================
+   MODAL — Dialog + Backdrop
+   ============================================================ */
+
+dialog.productbay-pro-variations-modal {
+    padding: 0;
+    border: none;
+    border-radius: var(--pb-radius-xl);
+    box-shadow: var(--pb-shadow-lg);
+    width: min(92vw, 100%);
+    max-width: 800px;
+    background: var(--pb-color-bg);
+    overflow: hidden;
+    /* Entrance animation */
+    animation: pb-modal-in var(--pb-transition-md) both;
+}
+
+@keyframes pb-modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+dialog.productbay-pro-variations-modal::backdrop,
+.productbay-pro-variations-backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    width: 100%;
+    animation: pb-backdrop-in var(--pb-transition-md) both;
+}
+
+@keyframes pb-backdrop-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* ============================================================
+   MODAL — Content Shell
+   ============================================================ */
+
+.productbay-pro-variations-content {
+    position: relative;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    max-height: min(82vh, 680px);
+    background: var(--pb-color-bg);
+}
+
+.productbay-pro-variations-inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    padding: 28px 28px 24px;
+}
+
+
+/* ============================================================
+   CLOSE BUTTON
+   ============================================================ */
+
+.productbay-pro-variations-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pb-color-surface);
+    border: 1px solid var(--pb-color-border);
+    border-radius: var(--pb-radius-md);
+    font-size: 18px;
+    line-height: 1;
+    color: var(--pb-color-text-secondary);
+    cursor: pointer;
+    transition: background var(--pb-transition),
+        color var(--pb-transition),
+        border-color var(--pb-transition),
+        transform var(--pb-transition);
+}
+
+.productbay-pro-variations-close:hover {
+    background: var(--pb-color-surface-hover);
+    border-color: var(--pb-color-text-hint);
+    color: var(--pb-color-text-primary);
+    transform: rotate(90deg);
+}
+
+.productbay-pro-variations-close:active {
+    transform: rotate(90deg) scale(0.92);
+}
+
+
+/* ============================================================
+   POPUP HEADER
+   ============================================================ */
+
+.productbay-pro-popup-header {
+    margin-bottom: 20px;
+    padding-right: 40px;
+    /* clear the close btn */
+}
+
+.productbay-pro-popup-header h3 {
+    margin: 0 0 4px;
+    font-family: var(--pb-font-sans);
+    font-size: 1.2rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    color: var(--pb-color-text-primary);
+    line-height: 1.3;
+}
+
+.productbay-pro-popup-header p,
+.productbay-pro-popup-header .productbay-pro-popup-subtitle {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--pb-color-text-secondary);
+}
+
+
+/* ============================================================
+   TABLE WRAPPER — Scrollable
+   ============================================================ */
+
+.productbay-pro-popup-table-wrap {
+    flex: 1;
+    min-height: 100px;
+    max-height: 980px;
+    overflow-y: auto;
+    border: 1px solid var(--pb-color-border);
+    border-radius: var(--pb-radius-lg);
+    scroll-behavior: smooth;
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--pb-color-border) transparent;
+}
+
+.productbay-pro-popup-table-wrap::-webkit-scrollbar {
+    width: 5px;
+}
+
+.productbay-pro-popup-table-wrap::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.productbay-pro-popup-table-wrap::-webkit-scrollbar-thumb {
+    background: var(--pb-color-border);
+    border-radius: 99px;
+}
+
+.productbay-pro-popup-table-wrap::-webkit-scrollbar-thumb:hover {
+    background: var(--pb-color-text-hint);
+}
+
+
+/* ============================================================
+   POPUP TABLE
+   ============================================================ */
+
+table.productbay-pro-popup-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin: 0;
+    font-family: var(--pb-font-sans);
+}
+
+/* Header */
+table.productbay-pro-popup-table thead tr {
+    border-bottom: 1px solid var(--pb-color-border);
+    color: #2a2e34;
+}
+
+table.productbay-pro-popup-table th {
+    background: var(--pb-color-surface);
+    padding: 11px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--pb-color-text-muted);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--pb-color-border);
+    white-space: nowrap;
+}
+
+/* Rows */
+table.productbay-pro-popup-table tbody tr {
+    transition: background var(--pb-transition);
+    border-bottom: 1px solid var(--pb-color-border-soft);
+}
+
+table.productbay-pro-popup-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+table.productbay-pro-popup-table tbody tr:hover {
+    background: var(--pb-color-accent-subtle);
+}
+
+/* Cells */
+table.productbay-pro-popup-table td {
+    padding: 13px 16px;
+    vertical-align: middle;
+    font-size: 0.87rem;
+    color: var(--pb-color-text-primary);
+    line-height: 1.4;
+}
+
+/* Product name column */
+table.productbay-pro-popup-table td.productbay-pro-popup-col-name {
+    font-weight: 500;
+}
+
+/* Price column */
+table.productbay-pro-popup-table td.productbay-pro-popup-col-price {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    color: var(--pb-color-text-secondary);
+}
+
+/* Sale price: strike-through */
+table.productbay-pro-popup-table td.productbay-pro-popup-col-price del {
+    color: var(--pb-color-text-hint);
+    margin-right: 4px;
+}
+
+table.productbay-pro-popup-table td.productbay-pro-popup-col-price ins {
+    text-decoration: none;
+    color: var(--pb-color-sale);
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   QTY WRAP — Input + Stepper
+   ============================================================ */
+
+table.productbay-pro-popup-table .productbay-qty-wrap {
+    display: inline-flex;
+    align-items: stretch;
+    border: 1px solid var(--pb-color-border);
+    border-radius: var(--pb-radius-md);
+    overflow: hidden;
+    background: var(--pb-color-bg);
+    transition: border-color var(--pb-transition),
+        box-shadow var(--pb-transition);
+}
+
+table.productbay-pro-popup-table .productbay-qty-wrap:focus-within {
+    border-color: var(--pb-color-accent);
+    box-shadow: 0 0 0 3px var(--pb-color-accent-light);
+}
+
+table.productbay-pro-popup-table .productbay-pro-popup-qty-input {
+    width: 52px;
+    padding: 7px 4px;
+    text-align: center;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--pb-color-text-primary);
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+table.productbay-pro-popup-table .productbay-pro-popup-qty-input::-webkit-outer-spin-button,
+table.productbay-pro-popup-table .productbay-pro-popup-qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Stepper buttons */
+.productbay-qty-btns {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--pb-color-border);
+}
+
+.productbay-qty-plus,
+.productbay-qty-minus {
+    flex: 1;
+    width: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--pb-color-text-secondary);
+    cursor: pointer;
+    transition: background var(--pb-transition), color var(--pb-transition);
+    padding: 0;
+}
+
+.productbay-qty-plus {
+    border-bottom: 1px solid var(--pb-color-border);
+}
+
+.productbay-qty-plus:hover,
+.productbay-qty-minus:hover {
+    background: var(--pb-color-surface);
+    color: var(--pb-color-accent);
+}
+
+.productbay-qty-plus:active,
+.productbay-qty-minus:active {
+    background: var(--pb-color-accent-light);
+}
+
+
+/* ============================================================
+   ACTION COLUMN — Add Button + Checkbox
+   ============================================================ */
+
+table.productbay-pro-popup-table td.productbay-pro-popup-col-action>div {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Add button */
+table.productbay-pro-popup-table .productbay-pro-popup-add-btn {
+    padding: 7px 18px;
+    border-radius: var(--pb-radius-md);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    min-width: 92px;
+    white-space: nowrap;
+    background: var(--pb-color-accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background var(--pb-transition),
+        box-shadow var(--pb-transition),
+        transform var(--pb-transition);
+}
+
+table.productbay-pro-popup-table .productbay-pro-popup-add-btn:hover {
+    background: var(--pb-color-accent-dark);
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
+    transform: translateY(-1px);
+}
+
+table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Checkbox */
+.productbay-checkbox {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.productbay-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.productbay-checkbox-mark {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--pb-color-border);
+    border-radius: var(--pb-radius-sm);
+    background: var(--pb-color-bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color var(--pb-transition),
+        background var(--pb-transition),
+        box-shadow var(--pb-transition);
+    flex-shrink: 0;
+}
+
+.productbay-checkbox input:checked+.productbay-checkbox-mark {
+    background: var(--pb-color-accent);
+    border-color: var(--pb-color-accent);
+    box-shadow: 0 0 0 3px var(--pb-color-accent-light);
+}
+
+.productbay-checkbox input:checked+.productbay-checkbox-mark::after {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 9px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg) translate(-0.5px, -1px);
+}
+
+.productbay-checkbox:hover .productbay-checkbox-mark {
+    border-color: var(--pb-color-accent);
+}
+
+
+/* ============================================================
+   NESTED ROW ITEMS (main table)
+   ============================================================ */
+
+.productbay-table tr.productbay-pro-nested-row-item {
+    background-color: var(--pb-color-surface);
+    transition: background var(--pb-transition);
+}
+
+.productbay-table tr.productbay-pro-nested-row-item:hover {
+    background-color: var(--pb-color-accent-subtle);
+}
+
+.productbay-table tr.productbay-pro-nested-row-item td.productbay-col-name {
+    padding-left: 36px;
+    position: relative;
+}
+
+.productbay-table tr.productbay-pro-nested-row-item td.productbay-col-name::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    width: 14px;
+    height: 1px;
+    background: var(--pb-color-text-hint);
+}
+
+.productbay-table tr.productbay-pro-nested-row-item td.productbay-col-name::after {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    height: 50%;
+    width: 1px;
+    background: var(--pb-color-text-hint);
+}
+
+
+/* ============================================================
+   POPUP / NESTED TRIGGER BUTTONS (main table)
+   ============================================================ */
+
+.productbay-pro-btn-popup,
+.productbay-pro-btn-nested {
+    width: 100%;
+    margin-top: 4px;
+    background: var(--pb-color-bg);
+    color: var(--pb-color-text-secondary);
+    border: 1px solid var(--pb-color-border);
+    border-radius: var(--pb-radius-md);
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background var(--pb-transition),
+        border-color var(--pb-transition),
+        color var(--pb-transition),
+        box-shadow var(--pb-transition);
+}
+
+.productbay-pro-btn-popup:hover,
+.productbay-pro-btn-nested:hover {
+    background: var(--pb-color-accent-subtle);
+    border-color: var(--pb-color-accent);
+    color: var(--pb-color-accent-dark);
+    box-shadow: var(--pb-shadow-sm);
+}
+
+
+/* ============================================================
+   POPUP MESSAGE (status / feedback bar)
+   ============================================================ */
+
+.productbay-pro-popup-message {
+    margin-top: 14px;
+    min-height: 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--pb-color-accent);
+    text-align: center;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 480px) {
+    dialog.productbay-pro-variations-modal {
+        width: 96vw;
+        border-radius: var(--pb-radius-lg);
+    }
+
+    .productbay-pro-variations-inner {
+        padding: 20px 16px 18px;
+    }
+
+    table.productbay-pro-popup-table th,
+    table.productbay-pro-popup-table td {
+        padding: 10px 12px;
+    }
+
+    table.productbay-pro-popup-table .productbay-pro-popup-add-btn {
+        padding: 7px 12px;
+        min-width: 56px;
+    }
+}
+
 /* ==========================================================================
    ProductBay Pro - Price Filter Styles
    ========================================================================== */
@@ -65,7 +640,7 @@
     width: 16px;
     height: 16px;
     -webkit-appearance: none;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .productbay-wrapper .productbay-price-slider-wrap input[type="range"]::-moz-range-thumb {
@@ -76,7 +651,7 @@
     cursor: pointer;
     width: 16px;
     height: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .productbay-wrapper .productbay-price-tooltip {
