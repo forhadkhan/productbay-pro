@@ -63,7 +63,7 @@ const VariationsSlot = () => {
                             variationsMode: value
                         })}
                         options={[
-                            { label: __('Inline (Default)', 'productbay-pro'), value: 'inline' },
+                            { label: __('Inline Dropdown', 'productbay-pro'), value: 'inline' },
                             { label: __('Popup Modal', 'productbay-pro'), value: 'popup' },
                             { label: __('Nested Rows', 'productbay-pro'), value: 'nested' }
                         ]}
