@@ -4,3 +4,5 @@
 *.zip
 .env
 *.log
+node_modules
+.meta-worktree/
