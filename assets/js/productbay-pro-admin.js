@@ -10,4 +10,3826 @@
  *
  * For license information please see [base].LICENSE.txt
  */
-(()=>{"use strict";var e={n:o=>{var r=o&&o.__esModule?()=>o.default:()=>o;return e.d(r,{a:r}),r},d:(o,r)=>{for(var t in r)e.o(r,t)&&!e.o(o,t)&&Object.defineProperty(o,t,{enumerable:!0,get:r[t]})},o:(e,o)=>Object.prototype.hasOwnProperty.call(e,o)};const o=window.wp.domReady;var r=e.n(o);function t(e){var o,r,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var s=e.length;for(o=0;o<s;o++)e[o]&&(r=t(e[o]))&&(n&&(n+=" "),n+=r)}else for(r in e)e[r]&&(n&&(n+=" "),n+=r);return n}window.React;const n=(e=new Map,o=null,r)=>({nextPart:e,validators:o,classGroupId:r}),s="-",a=[],l=e=>{const o=d(e),{conflictingClassGroups:r,conflictingClassGroupModifiers:t}=e;return{getClassGroupId:e=>{if(e.startsWith("[")&&e.endsWith("]"))return c(e);const r=e.split(s),t=""===r[0]&&r.length>1?1:0;return i(r,t,o)},getConflictingClassGroupIds:(e,o)=>{if(o){const o=t[e],n=r[e];return o?n?((e,o)=>{const r=new Array(e.length+o.length);for(let o=0;o<e.length;o++)r[o]=e[o];for(let t=0;t<o.length;t++)r[e.length+t]=o[t];return r})(n,o):o:n||a}return r[e]||a}}},i=(e,o,r)=>{if(0===e.length-o)return r.classGroupId;const t=e[o],n=r.nextPart.get(t);if(n){const r=i(e,o+1,n);if(r)return r}const a=r.validators;if(null===a)return;const l=0===o?e.join(s):e.slice(o).join(s),c=a.length;for(let e=0;e<c;e++){const o=a[e];if(o.validator(l))return o.classGroupId}},c=e=>-1===e.slice(1,-1).indexOf(":")?void 0:(()=>{const o=e.slice(1,-1),r=o.indexOf(":"),t=o.slice(0,r);return t?"arbitrary.."+t:void 0})(),d=e=>{const{theme:o,classGroups:r}=e;return p(r,o)},p=(e,o)=>{const r=n();for(const t in e){const n=e[t];m(n,r,t,o)}return r},m=(e,o,r,t)=>{const n=e.length;for(let s=0;s<n;s++){const n=e[s];u(n,o,r,t)}},u=(e,o,r,t)=>{"string"!=typeof e?"function"!=typeof e?g(e,o,r,t):f(e,o,r,t):b(e,o,r)},b=(e,o,r)=>{(""===e?o:h(o,e)).classGroupId=r},f=(e,o,r,t)=>{x(e)?m(e(t),o,r,t):(null===o.validators&&(o.validators=[]),o.validators.push(((e,o)=>({classGroupId:e,validator:o}))(r,e)))},g=(e,o,r,t)=>{const n=Object.entries(e),s=n.length;for(let e=0;e<s;e++){const[s,a]=n[e];m(a,h(o,s),r,t)}},h=(e,o)=>{let r=e;const t=o.split(s),a=t.length;for(let e=0;e<a;e++){const o=t[e];let s=r.nextPart.get(o);s||(s=n(),r.nextPart.set(o,s)),r=s}return r},x=e=>"isThemeGetter"in e&&!0===e.isThemeGetter,y=e=>{if(e<1)return{get:()=>{},set:()=>{}};let o=0,r=Object.create(null),t=Object.create(null);const n=(n,s)=>{r[n]=s,o++,o>e&&(o=0,t=r,r=Object.create(null))};return{get(e){let o=r[e];return void 0!==o?o:void 0!==(o=t[e])?(n(e,o),o):void 0},set(e,o){e in r?r[e]=o:n(e,o)}}},w=[],k=(e,o,r,t,n)=>({modifiers:e,hasImportantModifier:o,baseClassName:r,maybePostfixModifierPosition:t,isExternal:n}),v=e=>{const{prefix:o,experimentalParseClassName:r}=e;let t=e=>{const o=[];let r,t=0,n=0,s=0;const a=e.length;for(let l=0;l<a;l++){const a=e[l];if(0===t&&0===n){if(":"===a){o.push(e.slice(s,l)),s=l+1;continue}if("/"===a){r=l;continue}}"["===a?t++:"]"===a?t--:"("===a?n++:")"===a&&n--}const l=0===o.length?e:e.slice(s);let i=l,c=!1;return l.endsWith("!")?(i=l.slice(0,-1),c=!0):l.startsWith("!")&&(i=l.slice(1),c=!0),k(o,c,i,r&&r>s?r-s:void 0)};if(o){const e=o+":",r=t;t=o=>o.startsWith(e)?r(o.slice(e.length)):k(w,!1,o,void 0,!0)}if(r){const e=t;t=o=>r({className:o,parseClassName:e})}return t},z=e=>{const o=new Map;return e.orderSensitiveModifiers.forEach((e,r)=>{o.set(e,1e6+r)}),e=>{const r=[];let t=[];for(let n=0;n<e.length;n++){const s=e[n],a="["===s[0],l=o.has(s);a||l?(t.length>0&&(t.sort(),r.push(...t),t=[]),r.push(s)):t.push(s)}return t.length>0&&(t.sort(),r.push(...t)),r}},_=/\s+/,j=e=>{if("string"==typeof e)return e;let o,r="";for(let t=0;t<e.length;t++)e[t]&&(o=j(e[t]))&&(r&&(r+=" "),r+=o);return r},C=[],M=e=>{const o=o=>o[e]||C;return o.isThemeGetter=!0,o},N=/^\[(?:(\w[\w-]*):)?(.+)\]$/i,S=/^\((?:(\w[\w-]*):)?(.+)\)$/i,P=/^\d+(?:\.\d+)?\/\d+(?:\.\d+)?$/,G=/^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/,F=/\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/,I=/^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/,O=/^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/,T=/^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/,R=e=>P.test(e),$=e=>!!e&&!Number.isNaN(Number(e)),A=e=>!!e&&Number.isInteger(Number(e)),E=e=>e.endsWith("%")&&$(e.slice(0,-1)),W=e=>G.test(e),B=()=>!0,D=e=>F.test(e)&&!I.test(e),L=()=>!1,q=e=>O.test(e),H=e=>T.test(e),J=e=>!X(e)&&!re(e),V=e=>de(e,be,L),X=e=>N.test(e),K=e=>de(e,fe,D),Q=e=>de(e,ge,$),U=e=>de(e,xe,B),Y=e=>de(e,he,L),Z=e=>de(e,me,L),ee=e=>de(e,ue,H),oe=e=>de(e,ye,q),re=e=>S.test(e),te=e=>pe(e,fe),ne=e=>pe(e,he),se=e=>pe(e,me),ae=e=>pe(e,be),le=e=>pe(e,ue),ie=e=>pe(e,ye,!0),ce=e=>pe(e,xe,!0),de=(e,o,r)=>{const t=N.exec(e);return!!t&&(t[1]?o(t[1]):r(t[2]))},pe=(e,o,r=!1)=>{const t=S.exec(e);return!!t&&(t[1]?o(t[1]):r)},me=e=>"position"===e||"percentage"===e,ue=e=>"image"===e||"url"===e,be=e=>"length"===e||"size"===e||"bg-size"===e,fe=e=>"length"===e,ge=e=>"number"===e,he=e=>"family-name"===e,xe=e=>"number"===e||"weight"===e,ye=e=>"shadow"===e,we=((e,...o)=>{let r,t,n,s;const a=e=>{const o=t(e);if(o)return o;const s=((e,o)=>{const{parseClassName:r,getClassGroupId:t,getConflictingClassGroupIds:n,sortModifiers:s}=o,a=[],l=e.trim().split(_);let i="";for(let e=l.length-1;e>=0;e-=1){const o=l[e],{isExternal:c,modifiers:d,hasImportantModifier:p,baseClassName:m,maybePostfixModifierPosition:u}=r(o);if(c){i=o+(i.length>0?" "+i:i);continue}let b=!!u,f=t(b?m.substring(0,u):m);if(!f){if(!b){i=o+(i.length>0?" "+i:i);continue}if(f=t(m),!f){i=o+(i.length>0?" "+i:i);continue}b=!1}const g=0===d.length?"":1===d.length?d[0]:s(d).join(":"),h=p?g+"!":g,x=h+f;if(a.indexOf(x)>-1)continue;a.push(x);const y=n(f,b);for(let e=0;e<y.length;++e){const o=y[e];a.push(h+o)}i=o+(i.length>0?" "+i:i)}return i})(e,r);return n(e,s),s};return s=i=>{const c=o.reduce((e,o)=>o(e),e());return r=(e=>({cache:y(e.cacheSize),parseClassName:v(e),sortModifiers:z(e),...l(e)}))(c),t=r.cache.get,n=r.cache.set,s=a,a(i)},(...e)=>s(((...e)=>{let o,r,t=0,n="";for(;t<e.length;)(o=e[t++])&&(r=j(o))&&(n&&(n+=" "),n+=r);return n})(...e))})((Symbol.toStringTag,()=>{const e=M("color"),o=M("font"),r=M("text"),t=M("font-weight"),n=M("tracking"),s=M("leading"),a=M("breakpoint"),l=M("container"),i=M("spacing"),c=M("radius"),d=M("shadow"),p=M("inset-shadow"),m=M("text-shadow"),u=M("drop-shadow"),b=M("blur"),f=M("perspective"),g=M("aspect"),h=M("ease"),x=M("animate"),y=()=>["center","top","bottom","left","right","top-left","left-top","top-right","right-top","bottom-right","right-bottom","bottom-left","left-bottom",re,X],w=()=>[re,X,i],k=()=>[R,"full","auto",...w()],v=()=>[A,"none","subgrid",re,X],z=()=>["auto",{span:["full",A,re,X]},A,re,X],_=()=>[A,"auto",re,X],j=()=>["auto","min","max","fr",re,X],C=()=>["auto",...w()],N=()=>[R,"auto","full","dvw","dvh","lvw","lvh","svw","svh","min","max","fit",...w()],S=()=>[R,"screen","full","dvw","lvw","svw","min","max","fit",...w()],P=()=>[R,"screen","full","lh","dvh","lvh","svh","min","max","fit",...w()],G=()=>[e,re,X],F=()=>["center","top","bottom","left","right","top-left","left-top","top-right","right-top","bottom-right","right-bottom","bottom-left","left-bottom",se,Z,{position:[re,X]}],I=()=>["auto","cover","contain",ae,V,{size:[re,X]}],O=()=>[E,te,K],T=()=>["","none","full",c,re,X],D=()=>["",$,te,K],L=()=>[$,E,se,Z],q=()=>["","none",b,re,X],H=()=>["none",$,re,X],de=()=>["none",$,re,X],pe=()=>[$,re,X],me=()=>[R,"full",...w()];return{cacheSize:500,theme:{animate:["spin","ping","pulse","bounce"],aspect:["video"],blur:[W],breakpoint:[W],color:[B],container:[W],"drop-shadow":[W],ease:["in","out","in-out"],font:[J],"font-weight":["thin","extralight","light","normal","medium","semibold","bold","extrabold","black"],"inset-shadow":[W],leading:["none","tight","snug","normal","relaxed","loose"],perspective:["dramatic","near","normal","midrange","distant","none"],radius:[W],shadow:[W],spacing:["px",$],text:[W],"text-shadow":[W],tracking:["tighter","tight","normal","wide","wider","widest"]},classGroups:{aspect:[{aspect:["auto","square",R,X,re,g]}],container:["container"],columns:[{columns:[$,X,re,l]}],"break-after":[{"break-after":["auto","avoid","all","avoid-page","page","left","right","column"]}],"break-before":[{"break-before":["auto","avoid","all","avoid-page","page","left","right","column"]}],"break-inside":[{"break-inside":["auto","avoid","avoid-page","avoid-column"]}],"box-decoration":[{"box-decoration":["slice","clone"]}],box:[{box:["border","content"]}],display:["block","inline-block","inline","flex","inline-flex","table","inline-table","table-caption","table-cell","table-column","table-column-group","table-footer-group","table-header-group","table-row-group","table-row","flow-root","grid","inline-grid","contents","list-item","hidden"],sr:["sr-only","not-sr-only"],float:[{float:["right","left","none","start","end"]}],clear:[{clear:["left","right","both","none","start","end"]}],isolation:["isolate","isolation-auto"],"object-fit":[{object:["contain","cover","fill","none","scale-down"]}],"object-position":[{object:y()}],overflow:[{overflow:["auto","hidden","clip","visible","scroll"]}],"overflow-x":[{"overflow-x":["auto","hidden","clip","visible","scroll"]}],"overflow-y":[{"overflow-y":["auto","hidden","clip","visible","scroll"]}],overscroll:[{overscroll:["auto","contain","none"]}],"overscroll-x":[{"overscroll-x":["auto","contain","none"]}],"overscroll-y":[{"overscroll-y":["auto","contain","none"]}],position:["static","fixed","absolute","relative","sticky"],inset:[{inset:k()}],"inset-x":[{"inset-x":k()}],"inset-y":[{"inset-y":k()}],start:[{"inset-s":k(),start:k()}],end:[{"inset-e":k(),end:k()}],"inset-bs":[{"inset-bs":k()}],"inset-be":[{"inset-be":k()}],top:[{top:k()}],right:[{right:k()}],bottom:[{bottom:k()}],left:[{left:k()}],visibility:["visible","invisible","collapse"],z:[{z:[A,"auto",re,X]}],basis:[{basis:[R,"full","auto",l,...w()]}],"flex-direction":[{flex:["row","row-reverse","col","col-reverse"]}],"flex-wrap":[{flex:["nowrap","wrap","wrap-reverse"]}],flex:[{flex:[$,R,"auto","initial","none",X]}],grow:[{grow:["",$,re,X]}],shrink:[{shrink:["",$,re,X]}],order:[{order:[A,"first","last","none",re,X]}],"grid-cols":[{"grid-cols":v()}],"col-start-end":[{col:z()}],"col-start":[{"col-start":_()}],"col-end":[{"col-end":_()}],"grid-rows":[{"grid-rows":v()}],"row-start-end":[{row:z()}],"row-start":[{"row-start":_()}],"row-end":[{"row-end":_()}],"grid-flow":[{"grid-flow":["row","col","dense","row-dense","col-dense"]}],"auto-cols":[{"auto-cols":j()}],"auto-rows":[{"auto-rows":j()}],gap:[{gap:w()}],"gap-x":[{"gap-x":w()}],"gap-y":[{"gap-y":w()}],"justify-content":[{justify:["start","end","center","between","around","evenly","stretch","baseline","center-safe","end-safe","normal"]}],"justify-items":[{"justify-items":["start","end","center","stretch","center-safe","end-safe","normal"]}],"justify-self":[{"justify-self":["auto","start","end","center","stretch","center-safe","end-safe"]}],"align-content":[{content:["normal","start","end","center","between","around","evenly","stretch","baseline","center-safe","end-safe"]}],"align-items":[{items:["start","end","center","stretch","center-safe","end-safe",{baseline:["","last"]}]}],"align-self":[{self:["auto","start","end","center","stretch","center-safe","end-safe",{baseline:["","last"]}]}],"place-content":[{"place-content":["start","end","center","between","around","evenly","stretch","baseline","center-safe","end-safe"]}],"place-items":[{"place-items":["start","end","center","stretch","center-safe","end-safe","baseline"]}],"place-self":[{"place-self":["auto","start","end","center","stretch","center-safe","end-safe"]}],p:[{p:w()}],px:[{px:w()}],py:[{py:w()}],ps:[{ps:w()}],pe:[{pe:w()}],pbs:[{pbs:w()}],pbe:[{pbe:w()}],pt:[{pt:w()}],pr:[{pr:w()}],pb:[{pb:w()}],pl:[{pl:w()}],m:[{m:C()}],mx:[{mx:C()}],my:[{my:C()}],ms:[{ms:C()}],me:[{me:C()}],mbs:[{mbs:C()}],mbe:[{mbe:C()}],mt:[{mt:C()}],mr:[{mr:C()}],mb:[{mb:C()}],ml:[{ml:C()}],"space-x":[{"space-x":w()}],"space-x-reverse":["space-x-reverse"],"space-y":[{"space-y":w()}],"space-y-reverse":["space-y-reverse"],size:[{size:N()}],"inline-size":[{inline:["auto",...S()]}],"min-inline-size":[{"min-inline":["auto",...S()]}],"max-inline-size":[{"max-inline":["none",...S()]}],"block-size":[{block:["auto",...P()]}],"min-block-size":[{"min-block":["auto",...P()]}],"max-block-size":[{"max-block":["none",...P()]}],w:[{w:[l,"screen",...N()]}],"min-w":[{"min-w":[l,"screen","none",...N()]}],"max-w":[{"max-w":[l,"screen","none","prose",{screen:[a]},...N()]}],h:[{h:["screen","lh",...N()]}],"min-h":[{"min-h":["screen","lh","none",...N()]}],"max-h":[{"max-h":["screen","lh",...N()]}],"font-size":[{text:["base",r,te,K]}],"font-smoothing":["antialiased","subpixel-antialiased"],"font-style":["italic","not-italic"],"font-weight":[{font:[t,ce,U]}],"font-stretch":[{"font-stretch":["ultra-condensed","extra-condensed","condensed","semi-condensed","normal","semi-expanded","expanded","extra-expanded","ultra-expanded",E,X]}],"font-family":[{font:[ne,Y,o]}],"font-features":[{"font-features":[X]}],"fvn-normal":["normal-nums"],"fvn-ordinal":["ordinal"],"fvn-slashed-zero":["slashed-zero"],"fvn-figure":["lining-nums","oldstyle-nums"],"fvn-spacing":["proportional-nums","tabular-nums"],"fvn-fraction":["diagonal-fractions","stacked-fractions"],tracking:[{tracking:[n,re,X]}],"line-clamp":[{"line-clamp":[$,"none",re,Q]}],leading:[{leading:[s,...w()]}],"list-image":[{"list-image":["none",re,X]}],"list-style-position":[{list:["inside","outside"]}],"list-style-type":[{list:["disc","decimal","none",re,X]}],"text-alignment":[{text:["left","center","right","justify","start","end"]}],"placeholder-color":[{placeholder:G()}],"text-color":[{text:G()}],"text-decoration":["underline","overline","line-through","no-underline"],"text-decoration-style":[{decoration:["solid","dashed","dotted","double","wavy"]}],"text-decoration-thickness":[{decoration:[$,"from-font","auto",re,K]}],"text-decoration-color":[{decoration:G()}],"underline-offset":[{"underline-offset":[$,"auto",re,X]}],"text-transform":["uppercase","lowercase","capitalize","normal-case"],"text-overflow":["truncate","text-ellipsis","text-clip"],"text-wrap":[{text:["wrap","nowrap","balance","pretty"]}],indent:[{indent:w()}],"vertical-align":[{align:["baseline","top","middle","bottom","text-top","text-bottom","sub","super",re,X]}],whitespace:[{whitespace:["normal","nowrap","pre","pre-line","pre-wrap","break-spaces"]}],break:[{break:["normal","words","all","keep"]}],wrap:[{wrap:["break-word","anywhere","normal"]}],hyphens:[{hyphens:["none","manual","auto"]}],content:[{content:["none",re,X]}],"bg-attachment":[{bg:["fixed","local","scroll"]}],"bg-clip":[{"bg-clip":["border","padding","content","text"]}],"bg-origin":[{"bg-origin":["border","padding","content"]}],"bg-position":[{bg:F()}],"bg-repeat":[{bg:["no-repeat",{repeat:["","x","y","space","round"]}]}],"bg-size":[{bg:I()}],"bg-image":[{bg:["none",{linear:[{to:["t","tr","r","br","b","bl","l","tl"]},A,re,X],radial:["",re,X],conic:[A,re,X]},le,ee]}],"bg-color":[{bg:G()}],"gradient-from-pos":[{from:O()}],"gradient-via-pos":[{via:O()}],"gradient-to-pos":[{to:O()}],"gradient-from":[{from:G()}],"gradient-via":[{via:G()}],"gradient-to":[{to:G()}],rounded:[{rounded:T()}],"rounded-s":[{"rounded-s":T()}],"rounded-e":[{"rounded-e":T()}],"rounded-t":[{"rounded-t":T()}],"rounded-r":[{"rounded-r":T()}],"rounded-b":[{"rounded-b":T()}],"rounded-l":[{"rounded-l":T()}],"rounded-ss":[{"rounded-ss":T()}],"rounded-se":[{"rounded-se":T()}],"rounded-ee":[{"rounded-ee":T()}],"rounded-es":[{"rounded-es":T()}],"rounded-tl":[{"rounded-tl":T()}],"rounded-tr":[{"rounded-tr":T()}],"rounded-br":[{"rounded-br":T()}],"rounded-bl":[{"rounded-bl":T()}],"border-w":[{border:D()}],"border-w-x":[{"border-x":D()}],"border-w-y":[{"border-y":D()}],"border-w-s":[{"border-s":D()}],"border-w-e":[{"border-e":D()}],"border-w-bs":[{"border-bs":D()}],"border-w-be":[{"border-be":D()}],"border-w-t":[{"border-t":D()}],"border-w-r":[{"border-r":D()}],"border-w-b":[{"border-b":D()}],"border-w-l":[{"border-l":D()}],"divide-x":[{"divide-x":D()}],"divide-x-reverse":["divide-x-reverse"],"divide-y":[{"divide-y":D()}],"divide-y-reverse":["divide-y-reverse"],"border-style":[{border:["solid","dashed","dotted","double","hidden","none"]}],"divide-style":[{divide:["solid","dashed","dotted","double","hidden","none"]}],"border-color":[{border:G()}],"border-color-x":[{"border-x":G()}],"border-color-y":[{"border-y":G()}],"border-color-s":[{"border-s":G()}],"border-color-e":[{"border-e":G()}],"border-color-bs":[{"border-bs":G()}],"border-color-be":[{"border-be":G()}],"border-color-t":[{"border-t":G()}],"border-color-r":[{"border-r":G()}],"border-color-b":[{"border-b":G()}],"border-color-l":[{"border-l":G()}],"divide-color":[{divide:G()}],"outline-style":[{outline:["solid","dashed","dotted","double","none","hidden"]}],"outline-offset":[{"outline-offset":[$,re,X]}],"outline-w":[{outline:["",$,te,K]}],"outline-color":[{outline:G()}],shadow:[{shadow:["","none",d,ie,oe]}],"shadow-color":[{shadow:G()}],"inset-shadow":[{"inset-shadow":["none",p,ie,oe]}],"inset-shadow-color":[{"inset-shadow":G()}],"ring-w":[{ring:D()}],"ring-w-inset":["ring-inset"],"ring-color":[{ring:G()}],"ring-offset-w":[{"ring-offset":[$,K]}],"ring-offset-color":[{"ring-offset":G()}],"inset-ring-w":[{"inset-ring":D()}],"inset-ring-color":[{"inset-ring":G()}],"text-shadow":[{"text-shadow":["none",m,ie,oe]}],"text-shadow-color":[{"text-shadow":G()}],opacity:[{opacity:[$,re,X]}],"mix-blend":[{"mix-blend":["normal","multiply","screen","overlay","darken","lighten","color-dodge","color-burn","hard-light","soft-light","difference","exclusion","hue","saturation","color","luminosity","plus-darker","plus-lighter"]}],"bg-blend":[{"bg-blend":["normal","multiply","screen","overlay","darken","lighten","color-dodge","color-burn","hard-light","soft-light","difference","exclusion","hue","saturation","color","luminosity"]}],"mask-clip":[{"mask-clip":["border","padding","content","fill","stroke","view"]},"mask-no-clip"],"mask-composite":[{mask:["add","subtract","intersect","exclude"]}],"mask-image-linear-pos":[{"mask-linear":[$]}],"mask-image-linear-from-pos":[{"mask-linear-from":L()}],"mask-image-linear-to-pos":[{"mask-linear-to":L()}],"mask-image-linear-from-color":[{"mask-linear-from":G()}],"mask-image-linear-to-color":[{"mask-linear-to":G()}],"mask-image-t-from-pos":[{"mask-t-from":L()}],"mask-image-t-to-pos":[{"mask-t-to":L()}],"mask-image-t-from-color":[{"mask-t-from":G()}],"mask-image-t-to-color":[{"mask-t-to":G()}],"mask-image-r-from-pos":[{"mask-r-from":L()}],"mask-image-r-to-pos":[{"mask-r-to":L()}],"mask-image-r-from-color":[{"mask-r-from":G()}],"mask-image-r-to-color":[{"mask-r-to":G()}],"mask-image-b-from-pos":[{"mask-b-from":L()}],"mask-image-b-to-pos":[{"mask-b-to":L()}],"mask-image-b-from-color":[{"mask-b-from":G()}],"mask-image-b-to-color":[{"mask-b-to":G()}],"mask-image-l-from-pos":[{"mask-l-from":L()}],"mask-image-l-to-pos":[{"mask-l-to":L()}],"mask-image-l-from-color":[{"mask-l-from":G()}],"mask-image-l-to-color":[{"mask-l-to":G()}],"mask-image-x-from-pos":[{"mask-x-from":L()}],"mask-image-x-to-pos":[{"mask-x-to":L()}],"mask-image-x-from-color":[{"mask-x-from":G()}],"mask-image-x-to-color":[{"mask-x-to":G()}],"mask-image-y-from-pos":[{"mask-y-from":L()}],"mask-image-y-to-pos":[{"mask-y-to":L()}],"mask-image-y-from-color":[{"mask-y-from":G()}],"mask-image-y-to-color":[{"mask-y-to":G()}],"mask-image-radial":[{"mask-radial":[re,X]}],"mask-image-radial-from-pos":[{"mask-radial-from":L()}],"mask-image-radial-to-pos":[{"mask-radial-to":L()}],"mask-image-radial-from-color":[{"mask-radial-from":G()}],"mask-image-radial-to-color":[{"mask-radial-to":G()}],"mask-image-radial-shape":[{"mask-radial":["circle","ellipse"]}],"mask-image-radial-size":[{"mask-radial":[{closest:["side","corner"],farthest:["side","corner"]}]}],"mask-image-radial-pos":[{"mask-radial-at":["center","top","bottom","left","right","top-left","left-top","top-right","right-top","bottom-right","right-bottom","bottom-left","left-bottom"]}],"mask-image-conic-pos":[{"mask-conic":[$]}],"mask-image-conic-from-pos":[{"mask-conic-from":L()}],"mask-image-conic-to-pos":[{"mask-conic-to":L()}],"mask-image-conic-from-color":[{"mask-conic-from":G()}],"mask-image-conic-to-color":[{"mask-conic-to":G()}],"mask-mode":[{mask:["alpha","luminance","match"]}],"mask-origin":[{"mask-origin":["border","padding","content","fill","stroke","view"]}],"mask-position":[{mask:F()}],"mask-repeat":[{mask:["no-repeat",{repeat:["","x","y","space","round"]}]}],"mask-size":[{mask:I()}],"mask-type":[{"mask-type":["alpha","luminance"]}],"mask-image":[{mask:["none",re,X]}],filter:[{filter:["","none",re,X]}],blur:[{blur:q()}],brightness:[{brightness:[$,re,X]}],contrast:[{contrast:[$,re,X]}],"drop-shadow":[{"drop-shadow":["","none",u,ie,oe]}],"drop-shadow-color":[{"drop-shadow":G()}],grayscale:[{grayscale:["",$,re,X]}],"hue-rotate":[{"hue-rotate":[$,re,X]}],invert:[{invert:["",$,re,X]}],saturate:[{saturate:[$,re,X]}],sepia:[{sepia:["",$,re,X]}],"backdrop-filter":[{"backdrop-filter":["","none",re,X]}],"backdrop-blur":[{"backdrop-blur":q()}],"backdrop-brightness":[{"backdrop-brightness":[$,re,X]}],"backdrop-contrast":[{"backdrop-contrast":[$,re,X]}],"backdrop-grayscale":[{"backdrop-grayscale":["",$,re,X]}],"backdrop-hue-rotate":[{"backdrop-hue-rotate":[$,re,X]}],"backdrop-invert":[{"backdrop-invert":["",$,re,X]}],"backdrop-opacity":[{"backdrop-opacity":[$,re,X]}],"backdrop-saturate":[{"backdrop-saturate":[$,re,X]}],"backdrop-sepia":[{"backdrop-sepia":["",$,re,X]}],"border-collapse":[{border:["collapse","separate"]}],"border-spacing":[{"border-spacing":w()}],"border-spacing-x":[{"border-spacing-x":w()}],"border-spacing-y":[{"border-spacing-y":w()}],"table-layout":[{table:["auto","fixed"]}],caption:[{caption:["top","bottom"]}],transition:[{transition:["","all","colors","opacity","shadow","transform","none",re,X]}],"transition-behavior":[{transition:["normal","discrete"]}],duration:[{duration:[$,"initial",re,X]}],ease:[{ease:["linear","initial",h,re,X]}],delay:[{delay:[$,re,X]}],animate:[{animate:["none",x,re,X]}],backface:[{backface:["hidden","visible"]}],perspective:[{perspective:[f,re,X]}],"perspective-origin":[{"perspective-origin":y()}],rotate:[{rotate:H()}],"rotate-x":[{"rotate-x":H()}],"rotate-y":[{"rotate-y":H()}],"rotate-z":[{"rotate-z":H()}],scale:[{scale:de()}],"scale-x":[{"scale-x":de()}],"scale-y":[{"scale-y":de()}],"scale-z":[{"scale-z":de()}],"scale-3d":["scale-3d"],skew:[{skew:pe()}],"skew-x":[{"skew-x":pe()}],"skew-y":[{"skew-y":pe()}],transform:[{transform:[re,X,"","none","gpu","cpu"]}],"transform-origin":[{origin:y()}],"transform-style":[{transform:["3d","flat"]}],translate:[{translate:me()}],"translate-x":[{"translate-x":me()}],"translate-y":[{"translate-y":me()}],"translate-z":[{"translate-z":me()}],"translate-none":["translate-none"],accent:[{accent:G()}],appearance:[{appearance:["none","auto"]}],"caret-color":[{caret:G()}],"color-scheme":[{scheme:["normal","dark","light","light-dark","only-dark","only-light"]}],cursor:[{cursor:["auto","default","pointer","wait","text","move","help","not-allowed","none","context-menu","progress","cell","crosshair","vertical-text","alias","copy","no-drop","grab","grabbing","all-scroll","col-resize","row-resize","n-resize","e-resize","s-resize","w-resize","ne-resize","nw-resize","se-resize","sw-resize","ew-resize","ns-resize","nesw-resize","nwse-resize","zoom-in","zoom-out",re,X]}],"field-sizing":[{"field-sizing":["fixed","content"]}],"pointer-events":[{"pointer-events":["auto","none"]}],resize:[{resize:["none","","y","x"]}],"scroll-behavior":[{scroll:["auto","smooth"]}],"scroll-m":[{"scroll-m":w()}],"scroll-mx":[{"scroll-mx":w()}],"scroll-my":[{"scroll-my":w()}],"scroll-ms":[{"scroll-ms":w()}],"scroll-me":[{"scroll-me":w()}],"scroll-mbs":[{"scroll-mbs":w()}],"scroll-mbe":[{"scroll-mbe":w()}],"scroll-mt":[{"scroll-mt":w()}],"scroll-mr":[{"scroll-mr":w()}],"scroll-mb":[{"scroll-mb":w()}],"scroll-ml":[{"scroll-ml":w()}],"scroll-p":[{"scroll-p":w()}],"scroll-px":[{"scroll-px":w()}],"scroll-py":[{"scroll-py":w()}],"scroll-ps":[{"scroll-ps":w()}],"scroll-pe":[{"scroll-pe":w()}],"scroll-pbs":[{"scroll-pbs":w()}],"scroll-pbe":[{"scroll-pbe":w()}],"scroll-pt":[{"scroll-pt":w()}],"scroll-pr":[{"scroll-pr":w()}],"scroll-pb":[{"scroll-pb":w()}],"scroll-pl":[{"scroll-pl":w()}],"snap-align":[{snap:["start","end","center","align-none"]}],"snap-stop":[{snap:["normal","always"]}],"snap-type":[{snap:["none","x","y","both"]}],"snap-strictness":[{snap:["mandatory","proximity"]}],touch:[{touch:["auto","none","manipulation"]}],"touch-x":[{"touch-pan":["x","left","right"]}],"touch-y":[{"touch-pan":["y","up","down"]}],"touch-pz":["touch-pinch-zoom"],select:[{select:["none","text","all","auto"]}],"will-change":[{"will-change":["auto","scroll","contents","transform",re,X]}],fill:[{fill:["none",...G()]}],"stroke-w":[{stroke:[$,te,K,Q]}],stroke:[{stroke:["none",...G()]}],"forced-color-adjust":[{"forced-color-adjust":["auto","none"]}]},conflictingClassGroups:{overflow:["overflow-x","overflow-y"],overscroll:["overscroll-x","overscroll-y"],inset:["inset-x","inset-y","inset-bs","inset-be","start","end","top","right","bottom","left"],"inset-x":["right","left"],"inset-y":["top","bottom"],flex:["basis","grow","shrink"],gap:["gap-x","gap-y"],p:["px","py","ps","pe","pbs","pbe","pt","pr","pb","pl"],px:["pr","pl"],py:["pt","pb"],m:["mx","my","ms","me","mbs","mbe","mt","mr","mb","ml"],mx:["mr","ml"],my:["mt","mb"],size:["w","h"],"font-size":["leading"],"fvn-normal":["fvn-ordinal","fvn-slashed-zero","fvn-figure","fvn-spacing","fvn-fraction"],"fvn-ordinal":["fvn-normal"],"fvn-slashed-zero":["fvn-normal"],"fvn-figure":["fvn-normal"],"fvn-spacing":["fvn-normal"],"fvn-fraction":["fvn-normal"],"line-clamp":["display","overflow"],rounded:["rounded-s","rounded-e","rounded-t","rounded-r","rounded-b","rounded-l","rounded-ss","rounded-se","rounded-ee","rounded-es","rounded-tl","rounded-tr","rounded-br","rounded-bl"],"rounded-s":["rounded-ss","rounded-es"],"rounded-e":["rounded-se","rounded-ee"],"rounded-t":["rounded-tl","rounded-tr"],"rounded-r":["rounded-tr","rounded-br"],"rounded-b":["rounded-br","rounded-bl"],"rounded-l":["rounded-tl","rounded-bl"],"border-spacing":["border-spacing-x","border-spacing-y"],"border-w":["border-w-x","border-w-y","border-w-s","border-w-e","border-w-bs","border-w-be","border-w-t","border-w-r","border-w-b","border-w-l"],"border-w-x":["border-w-r","border-w-l"],"border-w-y":["border-w-t","border-w-b"],"border-color":["border-color-x","border-color-y","border-color-s","border-color-e","border-color-bs","border-color-be","border-color-t","border-color-r","border-color-b","border-color-l"],"border-color-x":["border-color-r","border-color-l"],"border-color-y":["border-color-t","border-color-b"],translate:["translate-x","translate-y","translate-none"],"translate-none":["translate","translate-x","translate-y","translate-z"],"scroll-m":["scroll-mx","scroll-my","scroll-ms","scroll-me","scroll-mbs","scroll-mbe","scroll-mt","scroll-mr","scroll-mb","scroll-ml"],"scroll-mx":["scroll-mr","scroll-ml"],"scroll-my":["scroll-mt","scroll-mb"],"scroll-p":["scroll-px","scroll-py","scroll-ps","scroll-pe","scroll-pbs","scroll-pbe","scroll-pt","scroll-pr","scroll-pb","scroll-pl"],"scroll-px":["scroll-pr","scroll-pl"],"scroll-py":["scroll-pt","scroll-pb"],touch:["touch-x","touch-y","touch-pz"],"touch-x":["touch"],"touch-y":["touch"],"touch-pz":["touch"]},conflictingClassGroupModifiers:{"font-size":["leading"]},orderSensitiveModifiers:["*","**","after","backdrop","before","details-content","file","first-letter","first-line","marker","placeholder","selection"]}}));function ke(...e){return we(function(){for(var e,o,r=0,n="",s=arguments.length;r<s;r++)(e=arguments[r])&&(o=t(e))&&(n&&(n+=" "),n+=o);return n}(e))}const ve=window.wp.i18n,ze=window.wp.components,{Alert:_e,Button:je,CardRadioGroup:Ce,ColorPicker:Me,Confetti:Ne,ConfirmButton:Se,DropdownMenu:Pe,EditableText:Ge,Input:Fe,Modal:Ie,ProductBayIcon:Oe,ProductBayLogo:Te,Select:Re,Skeleton:$e,Stepper:Ae,Tabs:Ee,Toast:We,Toaster:Be,Toggle:De,Tooltip:Le}=window.productbay?.ui||{},qe=window.ReactJSXRuntime,{SectionHeading:He,SettingsOption:Je}=window.productbay?.components||{},Ve=({title:e,description:o,children:r})=>(0,qe.jsxs)("section",{className:"space-y-6 pt-8 border-t border-gray-100 mt-8",children:[(0,qe.jsx)(He,{title:e,description:o}),(0,qe.jsx)("div",{className:"space-y-2",children:r})]}),Xe=()=>{const e=window.productbay?.useTableStore;if(!e)return null;const{settings:o,setFeatures:r}=e(),t=o?.features?.priceFilter||{enabled:!1,mode:"both",step:1};return(0,qe.jsx)(ze.Fill,{name:"productbay-pro-options",children:(0,qe.jsxs)(Ve,{title:(0,ve.__)("Price Range Filter (Pro)","productbay-pro"),description:(0,ve.__)("Configure frontend price filtering options","productbay-pro"),children:[(0,qe.jsx)(Je,{title:(0,ve.__)("Enable Price Filter","productbay-pro"),description:(0,ve.__)("Show a price range slider/input in the table toolbar","productbay-pro"),children:(0,qe.jsx)(De,{checked:!!t.enabled,onChange:e=>r({priceFilter:{...t,enabled:e.target.checked}})})}),(0,qe.jsxs)("div",{className:ke("transition-all duration-300 space-y-2",t.enabled?"opacity-100":"opacity-40 pointer-events-none grayscale"),children:[(0,qe.jsx)(Je,{title:(0,ve.__)("Filter Mode","productbay-pro"),description:(0,ve.__)("Choose between range slider, numeric inputs, or both","productbay-pro"),children:(0,qe.jsx)(Re,{value:t.mode||"both",onChange:e=>r({priceFilter:{...t,mode:e}}),options:[{label:(0,ve.__)("Slider Only","productbay-pro"),value:"slider"},{label:(0,ve.__)("Inputs Only","productbay-pro"),value:"input"},{label:(0,ve.__)("Both (Slider + Inputs)","productbay-pro"),value:"both"}],className:"w-60"})}),(0,qe.jsx)(Je,{title:(0,ve.__)("Filter Step","productbay-pro"),description:(0,ve.__)("Increment value for slider and inputs","productbay-pro"),children:(0,qe.jsx)("input",{type:"number",min:"0.01",step:"0.01",value:t.step||1,onChange:e=>r({priceFilter:{...t,step:parseFloat(e.target.value)||1}}),className:"w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"})}),(0,qe.jsx)(Je,{title:(0,ve.__)("Custom Minimum Price","productbay-pro"),description:(0,ve.__)("Leave empty to auto-detect from products","productbay-pro"),children:(0,qe.jsx)("input",{type:"number",min:"0",placeholder:"Auto",value:t.customMin??"",onChange:e=>r({priceFilter:{...t,customMin:""===e.target.value?null:parseFloat(e.target.value)}}),className:"w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"})}),(0,qe.jsx)(Je,{title:(0,ve.__)("Custom Maximum Price","productbay-pro"),description:(0,ve.__)("Leave empty to auto-detect from products","productbay-pro"),children:(0,qe.jsx)("input",{type:"number",min:"0",placeholder:"Auto",value:t.customMax??"",onChange:e=>r({priceFilter:{...t,customMax:""===e.target.value?null:parseFloat(e.target.value)}}),className:"w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"})})]})]})})},{SectionHeading:Ke,SettingsOption:Qe}=window.productbay?.components||{},Ue=({title:e,description:o,children:r})=>(0,qe.jsxs)("section",{className:"space-y-6 pt-8 border-t border-gray-100 mt-8",children:[(0,qe.jsx)(Ke,{title:e,description:o}),(0,qe.jsx)("div",{className:"space-y-2",children:r})]}),Ye=()=>{const e=window.productbay?.useTableStore;if(!e)return null;const{settings:o,setFeatures:r}=e(),t=o?.features?.variationsMode||"inline";return(0,qe.jsx)(ze.Fill,{name:"productbay-pro-options",children:(0,qe.jsx)(Ue,{title:(0,ve.__)("Variable & Grouped Products (Pro)","productbay-pro"),description:(0,ve.__)("Configure how complex products are displayed in the table","productbay-pro"),children:(0,qe.jsx)(Qe,{title:(0,ve.__)("Display Mode","productbay-pro"),description:(0,ve.__)("Choose how variations and grouped child products are shown","productbay-pro"),children:(0,qe.jsx)(Re,{value:t,onChange:e=>r({variationsMode:e}),options:[{label:(0,ve.__)("Inline (Default)","productbay-pro"),value:"inline"},{label:(0,ve.__)("Popup Modal","productbay-pro"),value:"popup"},{label:(0,ve.__)("Nested Rows","productbay-pro"),value:"nested"}],className:"w-60"})})})})};r()(()=>{const e=window.productbay?.useExtensionStore;e&&(e.getState().addFill(Xe),e.getState().addFill(Ye))})})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/components/ui/index.ts"
+/*!************************************!*\
+  !*** ./src/components/ui/index.ts ***!
+  \************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Alert: () => (/* binding */ Alert),
+/* harmony export */   Button: () => (/* binding */ Button),
+/* harmony export */   CardRadioGroup: () => (/* binding */ CardRadioGroup),
+/* harmony export */   ColorPicker: () => (/* binding */ ColorPicker),
+/* harmony export */   Confetti: () => (/* binding */ Confetti),
+/* harmony export */   ConfirmButton: () => (/* binding */ ConfirmButton),
+/* harmony export */   DropdownMenu: () => (/* binding */ DropdownMenu),
+/* harmony export */   EditableText: () => (/* binding */ EditableText),
+/* harmony export */   Input: () => (/* binding */ Input),
+/* harmony export */   Modal: () => (/* binding */ Modal),
+/* harmony export */   ProductBayIcon: () => (/* binding */ ProductBayIcon),
+/* harmony export */   ProductBayLogo: () => (/* binding */ ProductBayLogo),
+/* harmony export */   Select: () => (/* binding */ Select),
+/* harmony export */   Skeleton: () => (/* binding */ Skeleton),
+/* harmony export */   Stepper: () => (/* binding */ Stepper),
+/* harmony export */   Tabs: () => (/* binding */ Tabs),
+/* harmony export */   Toast: () => (/* binding */ Toast),
+/* harmony export */   Toaster: () => (/* binding */ Toaster),
+/* harmony export */   Toggle: () => (/* binding */ Toggle),
+/* harmony export */   Tooltip: () => (/* binding */ Tooltip)
+/* harmony export */ });
+/**
+ * Proxy Exporter for Global ProductBay UI Components
+ *
+ * This file allows the Pro plugin to import UI components symmetrically
+ * to the Free plugin (e.g., `import { Button } from '@/components/ui'`)
+ * without actually bundling them into the Pro payload.
+ */
+
+const {
+  Alert,
+  Button,
+  CardRadioGroup,
+  ColorPicker,
+  Confetti,
+  ConfirmButton,
+  DropdownMenu,
+  EditableText,
+  Input,
+  Modal,
+  ProductBayIcon,
+  ProductBayLogo,
+  Select,
+  Skeleton,
+  Stepper,
+  Tabs,
+  Toast,
+  Toaster,
+  Toggle,
+  Tooltip
+} = window.productbay?.ui || {};
+
+/***/ },
+
+/***/ "./src/slots/PriceFilterSlot.tsx"
+/*!***************************************!*\
+  !*** ./src/slots/PriceFilterSlot.tsx ***!
+  \***************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/ui */ "./src/components/ui/index.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+const {
+  SectionHeading,
+  SettingsOption
+} = window.productbay?.components || {};
+
+/**
+ * SettingsSection Component (Internal Helper shadowed from Free)
+ */
+
+const SettingsSection = ({
+  title,
+  description,
+  children
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("section", {
+  className: "space-y-6 pt-8 border-t border-gray-100 mt-8",
+  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SectionHeading, {
+    title: title,
+    description: description
+  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    className: "space-y-2",
+    children: children
+  })]
+});
+
+/**
+ * PriceFilterFill component
+ * 
+ * This component renders the Price Filter settings into the 'productbay-pro-options' slot.
+ */
+const PriceFilterFill = () => {
+  // Access the global store hook exposed by the Free plugin
+  const useTableStore = window.productbay?.useTableStore;
+  if (!useTableStore) {
+    return null;
+  }
+  const {
+    settings,
+    setFeatures
+  } = useTableStore();
+
+  // Default config if not present
+  const config = settings?.features?.priceFilter || {
+    enabled: false,
+    mode: 'both',
+    step: 1
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Fill, {
+    name: "productbay-pro-options",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Price Range Filter (Pro)', 'productbay-pro'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Configure frontend price filtering options', 'productbay-pro'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Price Filter', 'productbay-pro'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show a price range slider/input in the table toolbar', 'productbay-pro'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_4__.Toggle, {
+          checked: !!config.enabled,
+          onChange: e => setFeatures({
+            priceFilter: {
+              ...config,
+              enabled: e.target.checked
+            }
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("transition-all duration-300 space-y-2", config.enabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Filter Mode', 'productbay-pro'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose between range slider, numeric inputs, or both', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_4__.Select, {
+            value: config.mode || 'both',
+            onChange: value => setFeatures({
+              priceFilter: {
+                ...config,
+                mode: value
+              }
+            }),
+            options: [{
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slider Only', 'productbay-pro'),
+              value: 'slider'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Inputs Only', 'productbay-pro'),
+              value: 'input'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Both (Slider + Inputs)', 'productbay-pro'),
+              value: 'both'
+            }],
+            className: "w-60"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Filter Step', 'productbay-pro'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Increment value for slider and inputs', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+            type: "number",
+            min: "0.01",
+            step: "0.01",
+            value: config.step || 1,
+            onChange: e => setFeatures({
+              priceFilter: {
+                ...config,
+                step: parseFloat(e.target.value) || 1
+              }
+            }),
+            className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Minimum Price', 'productbay-pro'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Leave empty to auto-detect from products', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+            type: "number",
+            min: "0",
+            placeholder: "Auto",
+            value: config.customMin ?? '',
+            onChange: e => setFeatures({
+              priceFilter: {
+                ...config,
+                customMin: e.target.value === '' ? null : parseFloat(e.target.value)
+              }
+            }),
+            className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Maximum Price', 'productbay-pro'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Leave empty to auto-detect from products', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+            type: "number",
+            min: "0",
+            placeholder: "Auto",
+            value: config.customMax ?? '',
+            onChange: e => setFeatures({
+              priceFilter: {
+                ...config,
+                customMax: e.target.value === '' ? null : parseFloat(e.target.value)
+              }
+            }),
+            className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+          })
+        })]
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PriceFilterFill);
+
+/***/ },
+
+/***/ "./src/slots/VariationsSlot.tsx"
+/*!**************************************!*\
+  !*** ./src/slots/VariationsSlot.tsx ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ui */ "./src/components/ui/index.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+const {
+  SectionHeading,
+  SettingsOption
+} = window.productbay?.components || {};
+
+/**
+ * SettingsSection Component (Internal Helper shadowed from Free)
+ */
+
+const SettingsSection = ({
+  title,
+  description,
+  children
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
+  className: "space-y-6 pt-8 border-t border-gray-100 mt-8",
+  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SectionHeading, {
+    title: title,
+    description: description
+  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    className: "space-y-2",
+    children: children
+  })]
+});
+
+/**
+ * VariationsSlot component
+ * 
+ * Renders the Variations Config into the 'productbay-pro-options' slot.
+ */
+const VariationsSlot = () => {
+  // Access the global store hook exposed by the Free plugin
+  const useTableStore = window.productbay?.useTableStore;
+  if (!useTableStore) {
+    return null;
+  }
+  const {
+    settings,
+    setFeatures
+  } = useTableStore();
+  const configMode = settings?.features?.variationsMode || 'inline';
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Fill, {
+    name: "productbay-pro-options",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Variable & Grouped Products (Pro)', 'productbay-pro'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Configure how complex products are displayed in the table', 'productbay-pro'),
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display Mode', 'productbay-pro'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose how variations and grouped child products are shown', 'productbay-pro'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_3__.Select, {
+          value: configMode,
+          onChange: value => setFeatures({
+            variationsMode: value
+          }),
+          options: [{
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Inline Dropdown', 'productbay-pro'),
+            value: 'inline'
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Popup Modal', 'productbay-pro'),
+            value: 'popup'
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Nested Rows', 'productbay-pro'),
+            value: 'nested'
+          }],
+          className: "w-60"
+        })
+      })
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VariationsSlot);
+
+/***/ },
+
+/***/ "./src/utils/cn.ts"
+/*!*************************!*\
+  !*** ./src/utils/cn.ts ***!
+  \*************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cn: () => (/* binding */ cn)
+/* harmony export */ });
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var tailwind_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tailwind-merge */ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs");
+
+
+function cn(...inputs) {
+  return (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_1__.twMerge)((0,clsx__WEBPACK_IMPORTED_MODULE_0__.clsx)(inputs));
+}
+
+/***/ },
+
+/***/ "react"
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+(module) {
+
+module.exports = window["React"];
+
+/***/ },
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/dom-ready"
+/*!**********************************!*\
+  !*** external ["wp","domReady"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["domReady"];
+
+/***/ },
+
+/***/ "@wordpress/i18n"
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ },
+
+/***/ "./node_modules/clsx/dist/clsx.mjs"
+/*!*****************************************!*\
+  !*** ./node_modules/clsx/dist/clsx.mjs ***!
+  \*****************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   clsx: () => (/* binding */ clsx),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var o=e.length;for(t=0;t<o;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f)}else for(f in e)e[f]&&(n&&(n+=" "),n+=f);return n}function clsx(){for(var e,t,f=0,n="",o=arguments.length;f<o;f++)(e=arguments[f])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (clsx);
+
+/***/ },
+
+/***/ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs"
+/*!*********************************************************!*\
+  !*** ./node_modules/tailwind-merge/dist/bundle-mjs.mjs ***!
+  \*********************************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createTailwindMerge: () => (/* binding */ createTailwindMerge),
+/* harmony export */   extendTailwindMerge: () => (/* binding */ extendTailwindMerge),
+/* harmony export */   fromTheme: () => (/* binding */ fromTheme),
+/* harmony export */   getDefaultConfig: () => (/* binding */ getDefaultConfig),
+/* harmony export */   mergeConfigs: () => (/* binding */ mergeConfigs),
+/* harmony export */   twJoin: () => (/* binding */ twJoin),
+/* harmony export */   twMerge: () => (/* binding */ twMerge),
+/* harmony export */   validators: () => (/* binding */ validators)
+/* harmony export */ });
+/**
+ * Concatenates two arrays faster than the array spread operator.
+ */
+const concatArrays = (array1, array2) => {
+  // Pre-allocate for better V8 optimization
+  const combinedArray = new Array(array1.length + array2.length);
+  for (let i = 0; i < array1.length; i++) {
+    combinedArray[i] = array1[i];
+  }
+  for (let i = 0; i < array2.length; i++) {
+    combinedArray[array1.length + i] = array2[i];
+  }
+  return combinedArray;
+};
+
+// Factory function ensures consistent object shapes
+const createClassValidatorObject = (classGroupId, validator) => ({
+  classGroupId,
+  validator
+});
+// Factory ensures consistent ClassPartObject shape
+const createClassPartObject = (nextPart = new Map(), validators = null, classGroupId) => ({
+  nextPart,
+  validators,
+  classGroupId
+});
+const CLASS_PART_SEPARATOR = '-';
+const EMPTY_CONFLICTS = [];
+// I use two dots here because one dot is used as prefix for class groups in plugins
+const ARBITRARY_PROPERTY_PREFIX = 'arbitrary..';
+const createClassGroupUtils = config => {
+  const classMap = createClassMap(config);
+  const {
+    conflictingClassGroups,
+    conflictingClassGroupModifiers
+  } = config;
+  const getClassGroupId = className => {
+    if (className.startsWith('[') && className.endsWith(']')) {
+      return getGroupIdForArbitraryProperty(className);
+    }
+    const classParts = className.split(CLASS_PART_SEPARATOR);
+    // Classes like `-inset-1` produce an empty string as first classPart. We assume that classes for negative values are used correctly and skip it.
+    const startIndex = classParts[0] === '' && classParts.length > 1 ? 1 : 0;
+    return getGroupRecursive(classParts, startIndex, classMap);
+  };
+  const getConflictingClassGroupIds = (classGroupId, hasPostfixModifier) => {
+    if (hasPostfixModifier) {
+      const modifierConflicts = conflictingClassGroupModifiers[classGroupId];
+      const baseConflicts = conflictingClassGroups[classGroupId];
+      if (modifierConflicts) {
+        if (baseConflicts) {
+          // Merge base conflicts with modifier conflicts
+          return concatArrays(baseConflicts, modifierConflicts);
+        }
+        // Only modifier conflicts
+        return modifierConflicts;
+      }
+      // Fall back to without postfix if no modifier conflicts
+      return baseConflicts || EMPTY_CONFLICTS;
+    }
+    return conflictingClassGroups[classGroupId] || EMPTY_CONFLICTS;
+  };
+  return {
+    getClassGroupId,
+    getConflictingClassGroupIds
+  };
+};
+const getGroupRecursive = (classParts, startIndex, classPartObject) => {
+  const classPathsLength = classParts.length - startIndex;
+  if (classPathsLength === 0) {
+    return classPartObject.classGroupId;
+  }
+  const currentClassPart = classParts[startIndex];
+  const nextClassPartObject = classPartObject.nextPart.get(currentClassPart);
+  if (nextClassPartObject) {
+    const result = getGroupRecursive(classParts, startIndex + 1, nextClassPartObject);
+    if (result) return result;
+  }
+  const validators = classPartObject.validators;
+  if (validators === null) {
+    return undefined;
+  }
+  // Build classRest string efficiently by joining from startIndex onwards
+  const classRest = startIndex === 0 ? classParts.join(CLASS_PART_SEPARATOR) : classParts.slice(startIndex).join(CLASS_PART_SEPARATOR);
+  const validatorsLength = validators.length;
+  for (let i = 0; i < validatorsLength; i++) {
+    const validatorObj = validators[i];
+    if (validatorObj.validator(classRest)) {
+      return validatorObj.classGroupId;
+    }
+  }
+  return undefined;
+};
+/**
+ * Get the class group ID for an arbitrary property.
+ *
+ * @param className - The class name to get the group ID for. Is expected to be string starting with `[` and ending with `]`.
+ */
+const getGroupIdForArbitraryProperty = className => className.slice(1, -1).indexOf(':') === -1 ? undefined : (() => {
+  const content = className.slice(1, -1);
+  const colonIndex = content.indexOf(':');
+  const property = content.slice(0, colonIndex);
+  return property ? ARBITRARY_PROPERTY_PREFIX + property : undefined;
+})();
+/**
+ * Exported for testing only
+ */
+const createClassMap = config => {
+  const {
+    theme,
+    classGroups
+  } = config;
+  return processClassGroups(classGroups, theme);
+};
+// Split into separate functions to maintain monomorphic call sites
+const processClassGroups = (classGroups, theme) => {
+  const classMap = createClassPartObject();
+  for (const classGroupId in classGroups) {
+    const group = classGroups[classGroupId];
+    processClassesRecursively(group, classMap, classGroupId, theme);
+  }
+  return classMap;
+};
+const processClassesRecursively = (classGroup, classPartObject, classGroupId, theme) => {
+  const len = classGroup.length;
+  for (let i = 0; i < len; i++) {
+    const classDefinition = classGroup[i];
+    processClassDefinition(classDefinition, classPartObject, classGroupId, theme);
+  }
+};
+// Split into separate functions for each type to maintain monomorphic call sites
+const processClassDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  if (typeof classDefinition === 'string') {
+    processStringDefinition(classDefinition, classPartObject, classGroupId);
+    return;
+  }
+  if (typeof classDefinition === 'function') {
+    processFunctionDefinition(classDefinition, classPartObject, classGroupId, theme);
+    return;
+  }
+  processObjectDefinition(classDefinition, classPartObject, classGroupId, theme);
+};
+const processStringDefinition = (classDefinition, classPartObject, classGroupId) => {
+  const classPartObjectToEdit = classDefinition === '' ? classPartObject : getPart(classPartObject, classDefinition);
+  classPartObjectToEdit.classGroupId = classGroupId;
+};
+const processFunctionDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  if (isThemeGetter(classDefinition)) {
+    processClassesRecursively(classDefinition(theme), classPartObject, classGroupId, theme);
+    return;
+  }
+  if (classPartObject.validators === null) {
+    classPartObject.validators = [];
+  }
+  classPartObject.validators.push(createClassValidatorObject(classGroupId, classDefinition));
+};
+const processObjectDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  const entries = Object.entries(classDefinition);
+  const len = entries.length;
+  for (let i = 0; i < len; i++) {
+    const [key, value] = entries[i];
+    processClassesRecursively(value, getPart(classPartObject, key), classGroupId, theme);
+  }
+};
+const getPart = (classPartObject, path) => {
+  let current = classPartObject;
+  const parts = path.split(CLASS_PART_SEPARATOR);
+  const len = parts.length;
+  for (let i = 0; i < len; i++) {
+    const part = parts[i];
+    let next = current.nextPart.get(part);
+    if (!next) {
+      next = createClassPartObject();
+      current.nextPart.set(part, next);
+    }
+    current = next;
+  }
+  return current;
+};
+// Type guard maintains monomorphic check
+const isThemeGetter = func => 'isThemeGetter' in func && func.isThemeGetter === true;
+
+// LRU cache implementation using plain objects for simplicity
+const createLruCache = maxCacheSize => {
+  if (maxCacheSize < 1) {
+    return {
+      get: () => undefined,
+      set: () => {}
+    };
+  }
+  let cacheSize = 0;
+  let cache = Object.create(null);
+  let previousCache = Object.create(null);
+  const update = (key, value) => {
+    cache[key] = value;
+    cacheSize++;
+    if (cacheSize > maxCacheSize) {
+      cacheSize = 0;
+      previousCache = cache;
+      cache = Object.create(null);
+    }
+  };
+  return {
+    get(key) {
+      let value = cache[key];
+      if (value !== undefined) {
+        return value;
+      }
+      if ((value = previousCache[key]) !== undefined) {
+        update(key, value);
+        return value;
+      }
+    },
+    set(key, value) {
+      if (key in cache) {
+        cache[key] = value;
+      } else {
+        update(key, value);
+      }
+    }
+  };
+};
+const IMPORTANT_MODIFIER = '!';
+const MODIFIER_SEPARATOR = ':';
+const EMPTY_MODIFIERS = [];
+// Pre-allocated result object shape for consistency
+const createResultObject = (modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition, isExternal) => ({
+  modifiers,
+  hasImportantModifier,
+  baseClassName,
+  maybePostfixModifierPosition,
+  isExternal
+});
+const createParseClassName = config => {
+  const {
+    prefix,
+    experimentalParseClassName
+  } = config;
+  /**
+   * Parse class name into parts.
+   *
+   * Inspired by `splitAtTopLevelOnly` used in Tailwind CSS
+   * @see https://github.com/tailwindlabs/tailwindcss/blob/v3.2.2/src/util/splitAtTopLevelOnly.js
+   */
+  let parseClassName = className => {
+    // Use simple array with push for better performance
+    const modifiers = [];
+    let bracketDepth = 0;
+    let parenDepth = 0;
+    let modifierStart = 0;
+    let postfixModifierPosition;
+    const len = className.length;
+    for (let index = 0; index < len; index++) {
+      const currentCharacter = className[index];
+      if (bracketDepth === 0 && parenDepth === 0) {
+        if (currentCharacter === MODIFIER_SEPARATOR) {
+          modifiers.push(className.slice(modifierStart, index));
+          modifierStart = index + 1;
+          continue;
+        }
+        if (currentCharacter === '/') {
+          postfixModifierPosition = index;
+          continue;
+        }
+      }
+      if (currentCharacter === '[') bracketDepth++;else if (currentCharacter === ']') bracketDepth--;else if (currentCharacter === '(') parenDepth++;else if (currentCharacter === ')') parenDepth--;
+    }
+    const baseClassNameWithImportantModifier = modifiers.length === 0 ? className : className.slice(modifierStart);
+    // Inline important modifier check
+    let baseClassName = baseClassNameWithImportantModifier;
+    let hasImportantModifier = false;
+    if (baseClassNameWithImportantModifier.endsWith(IMPORTANT_MODIFIER)) {
+      baseClassName = baseClassNameWithImportantModifier.slice(0, -1);
+      hasImportantModifier = true;
+    } else if (
+    /**
+     * In Tailwind CSS v3 the important modifier was at the start of the base class name. This is still supported for legacy reasons.
+     * @see https://github.com/dcastil/tailwind-merge/issues/513#issuecomment-2614029864
+     */
+    baseClassNameWithImportantModifier.startsWith(IMPORTANT_MODIFIER)) {
+      baseClassName = baseClassNameWithImportantModifier.slice(1);
+      hasImportantModifier = true;
+    }
+    const maybePostfixModifierPosition = postfixModifierPosition && postfixModifierPosition > modifierStart ? postfixModifierPosition - modifierStart : undefined;
+    return createResultObject(modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition);
+  };
+  if (prefix) {
+    const fullPrefix = prefix + MODIFIER_SEPARATOR;
+    const parseClassNameOriginal = parseClassName;
+    parseClassName = className => className.startsWith(fullPrefix) ? parseClassNameOriginal(className.slice(fullPrefix.length)) : createResultObject(EMPTY_MODIFIERS, false, className, undefined, true);
+  }
+  if (experimentalParseClassName) {
+    const parseClassNameOriginal = parseClassName;
+    parseClassName = className => experimentalParseClassName({
+      className,
+      parseClassName: parseClassNameOriginal
+    });
+  }
+  return parseClassName;
+};
+
+/**
+ * Sorts modifiers according to following schema:
+ * - Predefined modifiers are sorted alphabetically
+ * - When an arbitrary variant appears, it must be preserved which modifiers are before and after it
+ */
+const createSortModifiers = config => {
+  // Pre-compute weights for all known modifiers for O(1) comparison
+  const modifierWeights = new Map();
+  // Assign weights to sensitive modifiers (highest priority, but preserve order)
+  config.orderSensitiveModifiers.forEach((mod, index) => {
+    modifierWeights.set(mod, 1000000 + index); // High weights for sensitive mods
+  });
+  return modifiers => {
+    const result = [];
+    let currentSegment = [];
+    // Process modifiers in one pass
+    for (let i = 0; i < modifiers.length; i++) {
+      const modifier = modifiers[i];
+      // Check if modifier is sensitive (starts with '[' or in orderSensitiveModifiers)
+      const isArbitrary = modifier[0] === '[';
+      const isOrderSensitive = modifierWeights.has(modifier);
+      if (isArbitrary || isOrderSensitive) {
+        // Sort and flush current segment alphabetically
+        if (currentSegment.length > 0) {
+          currentSegment.sort();
+          result.push(...currentSegment);
+          currentSegment = [];
+        }
+        result.push(modifier);
+      } else {
+        // Regular modifier - add to current segment for batch sorting
+        currentSegment.push(modifier);
+      }
+    }
+    // Sort and add any remaining segment items
+    if (currentSegment.length > 0) {
+      currentSegment.sort();
+      result.push(...currentSegment);
+    }
+    return result;
+  };
+};
+const createConfigUtils = config => ({
+  cache: createLruCache(config.cacheSize),
+  parseClassName: createParseClassName(config),
+  sortModifiers: createSortModifiers(config),
+  ...createClassGroupUtils(config)
+});
+const SPLIT_CLASSES_REGEX = /\s+/;
+const mergeClassList = (classList, configUtils) => {
+  const {
+    parseClassName,
+    getClassGroupId,
+    getConflictingClassGroupIds,
+    sortModifiers
+  } = configUtils;
+  /**
+   * Set of classGroupIds in following format:
+   * `{importantModifier}{variantModifiers}{classGroupId}`
+   * @example 'float'
+   * @example 'hover:focus:bg-color'
+   * @example 'md:!pr'
+   */
+  const classGroupsInConflict = [];
+  const classNames = classList.trim().split(SPLIT_CLASSES_REGEX);
+  let result = '';
+  for (let index = classNames.length - 1; index >= 0; index -= 1) {
+    const originalClassName = classNames[index];
+    const {
+      isExternal,
+      modifiers,
+      hasImportantModifier,
+      baseClassName,
+      maybePostfixModifierPosition
+    } = parseClassName(originalClassName);
+    if (isExternal) {
+      result = originalClassName + (result.length > 0 ? ' ' + result : result);
+      continue;
+    }
+    let hasPostfixModifier = !!maybePostfixModifierPosition;
+    let classGroupId = getClassGroupId(hasPostfixModifier ? baseClassName.substring(0, maybePostfixModifierPosition) : baseClassName);
+    if (!classGroupId) {
+      if (!hasPostfixModifier) {
+        // Not a Tailwind class
+        result = originalClassName + (result.length > 0 ? ' ' + result : result);
+        continue;
+      }
+      classGroupId = getClassGroupId(baseClassName);
+      if (!classGroupId) {
+        // Not a Tailwind class
+        result = originalClassName + (result.length > 0 ? ' ' + result : result);
+        continue;
+      }
+      hasPostfixModifier = false;
+    }
+    // Fast path: skip sorting for empty or single modifier
+    const variantModifier = modifiers.length === 0 ? '' : modifiers.length === 1 ? modifiers[0] : sortModifiers(modifiers).join(':');
+    const modifierId = hasImportantModifier ? variantModifier + IMPORTANT_MODIFIER : variantModifier;
+    const classId = modifierId + classGroupId;
+    if (classGroupsInConflict.indexOf(classId) > -1) {
+      // Tailwind class omitted due to conflict
+      continue;
+    }
+    classGroupsInConflict.push(classId);
+    const conflictGroups = getConflictingClassGroupIds(classGroupId, hasPostfixModifier);
+    for (let i = 0; i < conflictGroups.length; ++i) {
+      const group = conflictGroups[i];
+      classGroupsInConflict.push(modifierId + group);
+    }
+    // Tailwind class not in conflict
+    result = originalClassName + (result.length > 0 ? ' ' + result : result);
+  }
+  return result;
+};
+
+/**
+ * The code in this file is copied from https://github.com/lukeed/clsx and modified to suit the needs of tailwind-merge better.
+ *
+ * Specifically:
+ * - Runtime code from https://github.com/lukeed/clsx/blob/v1.2.1/src/index.js
+ * - TypeScript types from https://github.com/lukeed/clsx/blob/v1.2.1/clsx.d.ts
+ *
+ * Original code has MIT license: Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
+ */
+const twJoin = (...classLists) => {
+  let index = 0;
+  let argument;
+  let resolvedValue;
+  let string = '';
+  while (index < classLists.length) {
+    if (argument = classLists[index++]) {
+      if (resolvedValue = toValue(argument)) {
+        string && (string += ' ');
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+};
+const toValue = mix => {
+  // Fast path for strings
+  if (typeof mix === 'string') {
+    return mix;
+  }
+  let resolvedValue;
+  let string = '';
+  for (let k = 0; k < mix.length; k++) {
+    if (mix[k]) {
+      if (resolvedValue = toValue(mix[k])) {
+        string && (string += ' ');
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+};
+const createTailwindMerge = (createConfigFirst, ...createConfigRest) => {
+  let configUtils;
+  let cacheGet;
+  let cacheSet;
+  let functionToCall;
+  const initTailwindMerge = classList => {
+    const config = createConfigRest.reduce((previousConfig, createConfigCurrent) => createConfigCurrent(previousConfig), createConfigFirst());
+    configUtils = createConfigUtils(config);
+    cacheGet = configUtils.cache.get;
+    cacheSet = configUtils.cache.set;
+    functionToCall = tailwindMerge;
+    return tailwindMerge(classList);
+  };
+  const tailwindMerge = classList => {
+    const cachedResult = cacheGet(classList);
+    if (cachedResult) {
+      return cachedResult;
+    }
+    const result = mergeClassList(classList, configUtils);
+    cacheSet(classList, result);
+    return result;
+  };
+  functionToCall = initTailwindMerge;
+  return (...args) => functionToCall(twJoin(...args));
+};
+const fallbackThemeArr = [];
+const fromTheme = key => {
+  const themeGetter = theme => theme[key] || fallbackThemeArr;
+  themeGetter.isThemeGetter = true;
+  return themeGetter;
+};
+const arbitraryValueRegex = /^\[(?:(\w[\w-]*):)?(.+)\]$/i;
+const arbitraryVariableRegex = /^\((?:(\w[\w-]*):)?(.+)\)$/i;
+const fractionRegex = /^\d+(?:\.\d+)?\/\d+(?:\.\d+)?$/;
+const tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
+const lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
+const colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/;
+// Shadow always begins with x and y offset separated by underscore optionally prepended by inset
+const shadowRegex = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
+const imageRegex = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
+const isFraction = value => fractionRegex.test(value);
+const isNumber = value => !!value && !Number.isNaN(Number(value));
+const isInteger = value => !!value && Number.isInteger(Number(value));
+const isPercent = value => value.endsWith('%') && isNumber(value.slice(0, -1));
+const isTshirtSize = value => tshirtUnitRegex.test(value);
+const isAny = () => true;
+const isLengthOnly = value =>
+// `colorFunctionRegex` check is necessary because color functions can have percentages in them which which would be incorrectly classified as lengths.
+// For example, `hsl(0 0% 0%)` would be classified as a length without this check.
+// I could also use lookbehind assertion in `lengthUnitRegex` but that isn't supported widely enough.
+lengthUnitRegex.test(value) && !colorFunctionRegex.test(value);
+const isNever = () => false;
+const isShadow = value => shadowRegex.test(value);
+const isImage = value => imageRegex.test(value);
+const isAnyNonArbitrary = value => !isArbitraryValue(value) && !isArbitraryVariable(value);
+const isArbitrarySize = value => getIsArbitraryValue(value, isLabelSize, isNever);
+const isArbitraryValue = value => arbitraryValueRegex.test(value);
+const isArbitraryLength = value => getIsArbitraryValue(value, isLabelLength, isLengthOnly);
+const isArbitraryNumber = value => getIsArbitraryValue(value, isLabelNumber, isNumber);
+const isArbitraryWeight = value => getIsArbitraryValue(value, isLabelWeight, isAny);
+const isArbitraryFamilyName = value => getIsArbitraryValue(value, isLabelFamilyName, isNever);
+const isArbitraryPosition = value => getIsArbitraryValue(value, isLabelPosition, isNever);
+const isArbitraryImage = value => getIsArbitraryValue(value, isLabelImage, isImage);
+const isArbitraryShadow = value => getIsArbitraryValue(value, isLabelShadow, isShadow);
+const isArbitraryVariable = value => arbitraryVariableRegex.test(value);
+const isArbitraryVariableLength = value => getIsArbitraryVariable(value, isLabelLength);
+const isArbitraryVariableFamilyName = value => getIsArbitraryVariable(value, isLabelFamilyName);
+const isArbitraryVariablePosition = value => getIsArbitraryVariable(value, isLabelPosition);
+const isArbitraryVariableSize = value => getIsArbitraryVariable(value, isLabelSize);
+const isArbitraryVariableImage = value => getIsArbitraryVariable(value, isLabelImage);
+const isArbitraryVariableShadow = value => getIsArbitraryVariable(value, isLabelShadow, true);
+const isArbitraryVariableWeight = value => getIsArbitraryVariable(value, isLabelWeight, true);
+// Helpers
+const getIsArbitraryValue = (value, testLabel, testValue) => {
+  const result = arbitraryValueRegex.exec(value);
+  if (result) {
+    if (result[1]) {
+      return testLabel(result[1]);
+    }
+    return testValue(result[2]);
+  }
+  return false;
+};
+const getIsArbitraryVariable = (value, testLabel, shouldMatchNoLabel = false) => {
+  const result = arbitraryVariableRegex.exec(value);
+  if (result) {
+    if (result[1]) {
+      return testLabel(result[1]);
+    }
+    return shouldMatchNoLabel;
+  }
+  return false;
+};
+// Labels
+const isLabelPosition = label => label === 'position' || label === 'percentage';
+const isLabelImage = label => label === 'image' || label === 'url';
+const isLabelSize = label => label === 'length' || label === 'size' || label === 'bg-size';
+const isLabelLength = label => label === 'length';
+const isLabelNumber = label => label === 'number';
+const isLabelFamilyName = label => label === 'family-name';
+const isLabelWeight = label => label === 'number' || label === 'weight';
+const isLabelShadow = label => label === 'shadow';
+const validators = /*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  isAny,
+  isAnyNonArbitrary,
+  isArbitraryFamilyName,
+  isArbitraryImage,
+  isArbitraryLength,
+  isArbitraryNumber,
+  isArbitraryPosition,
+  isArbitraryShadow,
+  isArbitrarySize,
+  isArbitraryValue,
+  isArbitraryVariable,
+  isArbitraryVariableFamilyName,
+  isArbitraryVariableImage,
+  isArbitraryVariableLength,
+  isArbitraryVariablePosition,
+  isArbitraryVariableShadow,
+  isArbitraryVariableSize,
+  isArbitraryVariableWeight,
+  isArbitraryWeight,
+  isFraction,
+  isInteger,
+  isNumber,
+  isPercent,
+  isTshirtSize
+}, Symbol.toStringTag, {
+  value: 'Module'
+});
+const getDefaultConfig = () => {
+  /**
+   * Theme getters for theme variable namespaces
+   * @see https://tailwindcss.com/docs/theme#theme-variable-namespaces
+   */
+  /***/
+  const themeColor = fromTheme('color');
+  const themeFont = fromTheme('font');
+  const themeText = fromTheme('text');
+  const themeFontWeight = fromTheme('font-weight');
+  const themeTracking = fromTheme('tracking');
+  const themeLeading = fromTheme('leading');
+  const themeBreakpoint = fromTheme('breakpoint');
+  const themeContainer = fromTheme('container');
+  const themeSpacing = fromTheme('spacing');
+  const themeRadius = fromTheme('radius');
+  const themeShadow = fromTheme('shadow');
+  const themeInsetShadow = fromTheme('inset-shadow');
+  const themeTextShadow = fromTheme('text-shadow');
+  const themeDropShadow = fromTheme('drop-shadow');
+  const themeBlur = fromTheme('blur');
+  const themePerspective = fromTheme('perspective');
+  const themeAspect = fromTheme('aspect');
+  const themeEase = fromTheme('ease');
+  const themeAnimate = fromTheme('animate');
+  /**
+   * Helpers to avoid repeating the same scales
+   *
+   * We use functions that create a new array every time they're called instead of static arrays.
+   * This ensures that users who modify any scale by mutating the array (e.g. with `array.push(element)`) don't accidentally mutate arrays in other parts of the config.
+   */
+  /***/
+  const scaleBreak = () => ['auto', 'avoid', 'all', 'avoid-page', 'page', 'left', 'right', 'column'];
+  const scalePosition = () => ['center', 'top', 'bottom', 'left', 'right', 'top-left',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'left-top', 'top-right',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'right-top', 'bottom-right',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'right-bottom', 'bottom-left',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'left-bottom'];
+  const scalePositionWithArbitrary = () => [...scalePosition(), isArbitraryVariable, isArbitraryValue];
+  const scaleOverflow = () => ['auto', 'hidden', 'clip', 'visible', 'scroll'];
+  const scaleOverscroll = () => ['auto', 'contain', 'none'];
+  const scaleUnambiguousSpacing = () => [isArbitraryVariable, isArbitraryValue, themeSpacing];
+  const scaleInset = () => [isFraction, 'full', 'auto', ...scaleUnambiguousSpacing()];
+  const scaleGridTemplateColsRows = () => [isInteger, 'none', 'subgrid', isArbitraryVariable, isArbitraryValue];
+  const scaleGridColRowStartAndEnd = () => ['auto', {
+    span: ['full', isInteger, isArbitraryVariable, isArbitraryValue]
+  }, isInteger, isArbitraryVariable, isArbitraryValue];
+  const scaleGridColRowStartOrEnd = () => [isInteger, 'auto', isArbitraryVariable, isArbitraryValue];
+  const scaleGridAutoColsRows = () => ['auto', 'min', 'max', 'fr', isArbitraryVariable, isArbitraryValue];
+  const scaleAlignPrimaryAxis = () => ['start', 'end', 'center', 'between', 'around', 'evenly', 'stretch', 'baseline', 'center-safe', 'end-safe'];
+  const scaleAlignSecondaryAxis = () => ['start', 'end', 'center', 'stretch', 'center-safe', 'end-safe'];
+  const scaleMargin = () => ['auto', ...scaleUnambiguousSpacing()];
+  const scaleSizing = () => [isFraction, 'auto', 'full', 'dvw', 'dvh', 'lvw', 'lvh', 'svw', 'svh', 'min', 'max', 'fit', ...scaleUnambiguousSpacing()];
+  const scaleSizingInline = () => [isFraction, 'screen', 'full', 'dvw', 'lvw', 'svw', 'min', 'max', 'fit', ...scaleUnambiguousSpacing()];
+  const scaleSizingBlock = () => [isFraction, 'screen', 'full', 'lh', 'dvh', 'lvh', 'svh', 'min', 'max', 'fit', ...scaleUnambiguousSpacing()];
+  const scaleColor = () => [themeColor, isArbitraryVariable, isArbitraryValue];
+  const scaleBgPosition = () => [...scalePosition(), isArbitraryVariablePosition, isArbitraryPosition, {
+    position: [isArbitraryVariable, isArbitraryValue]
+  }];
+  const scaleBgRepeat = () => ['no-repeat', {
+    repeat: ['', 'x', 'y', 'space', 'round']
+  }];
+  const scaleBgSize = () => ['auto', 'cover', 'contain', isArbitraryVariableSize, isArbitrarySize, {
+    size: [isArbitraryVariable, isArbitraryValue]
+  }];
+  const scaleGradientStopPosition = () => [isPercent, isArbitraryVariableLength, isArbitraryLength];
+  const scaleRadius = () => [
+  // Deprecated since Tailwind CSS v4.0.0
+  '', 'none', 'full', themeRadius, isArbitraryVariable, isArbitraryValue];
+  const scaleBorderWidth = () => ['', isNumber, isArbitraryVariableLength, isArbitraryLength];
+  const scaleLineStyle = () => ['solid', 'dashed', 'dotted', 'double'];
+  const scaleBlendMode = () => ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+  const scaleMaskImagePosition = () => [isNumber, isPercent, isArbitraryVariablePosition, isArbitraryPosition];
+  const scaleBlur = () => [
+  // Deprecated since Tailwind CSS v4.0.0
+  '', 'none', themeBlur, isArbitraryVariable, isArbitraryValue];
+  const scaleRotate = () => ['none', isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleScale = () => ['none', isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleSkew = () => [isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleTranslate = () => [isFraction, 'full', ...scaleUnambiguousSpacing()];
+  return {
+    cacheSize: 500,
+    theme: {
+      animate: ['spin', 'ping', 'pulse', 'bounce'],
+      aspect: ['video'],
+      blur: [isTshirtSize],
+      breakpoint: [isTshirtSize],
+      color: [isAny],
+      container: [isTshirtSize],
+      'drop-shadow': [isTshirtSize],
+      ease: ['in', 'out', 'in-out'],
+      font: [isAnyNonArbitrary],
+      'font-weight': ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
+      'inset-shadow': [isTshirtSize],
+      leading: ['none', 'tight', 'snug', 'normal', 'relaxed', 'loose'],
+      perspective: ['dramatic', 'near', 'normal', 'midrange', 'distant', 'none'],
+      radius: [isTshirtSize],
+      shadow: [isTshirtSize],
+      spacing: ['px', isNumber],
+      text: [isTshirtSize],
+      'text-shadow': [isTshirtSize],
+      tracking: ['tighter', 'tight', 'normal', 'wide', 'wider', 'widest']
+    },
+    classGroups: {
+      // --------------
+      // --- Layout ---
+      // --------------
+      /**
+       * Aspect Ratio
+       * @see https://tailwindcss.com/docs/aspect-ratio
+       */
+      aspect: [{
+        aspect: ['auto', 'square', isFraction, isArbitraryValue, isArbitraryVariable, themeAspect]
+      }],
+      /**
+       * Container
+       * @see https://tailwindcss.com/docs/container
+       * @deprecated since Tailwind CSS v4.0.0
+       */
+      container: ['container'],
+      /**
+       * Columns
+       * @see https://tailwindcss.com/docs/columns
+       */
+      columns: [{
+        columns: [isNumber, isArbitraryValue, isArbitraryVariable, themeContainer]
+      }],
+      /**
+       * Break After
+       * @see https://tailwindcss.com/docs/break-after
+       */
+      'break-after': [{
+        'break-after': scaleBreak()
+      }],
+      /**
+       * Break Before
+       * @see https://tailwindcss.com/docs/break-before
+       */
+      'break-before': [{
+        'break-before': scaleBreak()
+      }],
+      /**
+       * Break Inside
+       * @see https://tailwindcss.com/docs/break-inside
+       */
+      'break-inside': [{
+        'break-inside': ['auto', 'avoid', 'avoid-page', 'avoid-column']
+      }],
+      /**
+       * Box Decoration Break
+       * @see https://tailwindcss.com/docs/box-decoration-break
+       */
+      'box-decoration': [{
+        'box-decoration': ['slice', 'clone']
+      }],
+      /**
+       * Box Sizing
+       * @see https://tailwindcss.com/docs/box-sizing
+       */
+      box: [{
+        box: ['border', 'content']
+      }],
+      /**
+       * Display
+       * @see https://tailwindcss.com/docs/display
+       */
+      display: ['block', 'inline-block', 'inline', 'flex', 'inline-flex', 'table', 'inline-table', 'table-caption', 'table-cell', 'table-column', 'table-column-group', 'table-footer-group', 'table-header-group', 'table-row-group', 'table-row', 'flow-root', 'grid', 'inline-grid', 'contents', 'list-item', 'hidden'],
+      /**
+       * Screen Reader Only
+       * @see https://tailwindcss.com/docs/display#screen-reader-only
+       */
+      sr: ['sr-only', 'not-sr-only'],
+      /**
+       * Floats
+       * @see https://tailwindcss.com/docs/float
+       */
+      float: [{
+        float: ['right', 'left', 'none', 'start', 'end']
+      }],
+      /**
+       * Clear
+       * @see https://tailwindcss.com/docs/clear
+       */
+      clear: [{
+        clear: ['left', 'right', 'both', 'none', 'start', 'end']
+      }],
+      /**
+       * Isolation
+       * @see https://tailwindcss.com/docs/isolation
+       */
+      isolation: ['isolate', 'isolation-auto'],
+      /**
+       * Object Fit
+       * @see https://tailwindcss.com/docs/object-fit
+       */
+      'object-fit': [{
+        object: ['contain', 'cover', 'fill', 'none', 'scale-down']
+      }],
+      /**
+       * Object Position
+       * @see https://tailwindcss.com/docs/object-position
+       */
+      'object-position': [{
+        object: scalePositionWithArbitrary()
+      }],
+      /**
+       * Overflow
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      overflow: [{
+        overflow: scaleOverflow()
+      }],
+      /**
+       * Overflow X
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      'overflow-x': [{
+        'overflow-x': scaleOverflow()
+      }],
+      /**
+       * Overflow Y
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      'overflow-y': [{
+        'overflow-y': scaleOverflow()
+      }],
+      /**
+       * Overscroll Behavior
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      overscroll: [{
+        overscroll: scaleOverscroll()
+      }],
+      /**
+       * Overscroll Behavior X
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      'overscroll-x': [{
+        'overscroll-x': scaleOverscroll()
+      }],
+      /**
+       * Overscroll Behavior Y
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      'overscroll-y': [{
+        'overscroll-y': scaleOverscroll()
+      }],
+      /**
+       * Position
+       * @see https://tailwindcss.com/docs/position
+       */
+      position: ['static', 'fixed', 'absolute', 'relative', 'sticky'],
+      /**
+       * Inset
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      inset: [{
+        inset: scaleInset()
+      }],
+      /**
+       * Inset Inline
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-x': [{
+        'inset-x': scaleInset()
+      }],
+      /**
+       * Inset Block
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-y': [{
+        'inset-y': scaleInset()
+      }],
+      /**
+       * Inset Inline Start
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       * @todo class group will be renamed to `inset-s` in next major release
+       */
+      start: [{
+        'inset-s': scaleInset(),
+        /**
+         * @deprecated since Tailwind CSS v4.2.0 in favor of `inset-s-*` utilities.
+         * @see https://github.com/tailwindlabs/tailwindcss/pull/19613
+         */
+        start: scaleInset()
+      }],
+      /**
+       * Inset Inline End
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       * @todo class group will be renamed to `inset-e` in next major release
+       */
+      end: [{
+        'inset-e': scaleInset(),
+        /**
+         * @deprecated since Tailwind CSS v4.2.0 in favor of `inset-e-*` utilities.
+         * @see https://github.com/tailwindlabs/tailwindcss/pull/19613
+         */
+        end: scaleInset()
+      }],
+      /**
+       * Inset Block Start
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-bs': [{
+        'inset-bs': scaleInset()
+      }],
+      /**
+       * Inset Block End
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-be': [{
+        'inset-be': scaleInset()
+      }],
+      /**
+       * Top
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      top: [{
+        top: scaleInset()
+      }],
+      /**
+       * Right
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      right: [{
+        right: scaleInset()
+      }],
+      /**
+       * Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      bottom: [{
+        bottom: scaleInset()
+      }],
+      /**
+       * Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      left: [{
+        left: scaleInset()
+      }],
+      /**
+       * Visibility
+       * @see https://tailwindcss.com/docs/visibility
+       */
+      visibility: ['visible', 'invisible', 'collapse'],
+      /**
+       * Z-Index
+       * @see https://tailwindcss.com/docs/z-index
+       */
+      z: [{
+        z: [isInteger, 'auto', isArbitraryVariable, isArbitraryValue]
+      }],
+      // ------------------------
+      // --- Flexbox and Grid ---
+      // ------------------------
+      /**
+       * Flex Basis
+       * @see https://tailwindcss.com/docs/flex-basis
+       */
+      basis: [{
+        basis: [isFraction, 'full', 'auto', themeContainer, ...scaleUnambiguousSpacing()]
+      }],
+      /**
+       * Flex Direction
+       * @see https://tailwindcss.com/docs/flex-direction
+       */
+      'flex-direction': [{
+        flex: ['row', 'row-reverse', 'col', 'col-reverse']
+      }],
+      /**
+       * Flex Wrap
+       * @see https://tailwindcss.com/docs/flex-wrap
+       */
+      'flex-wrap': [{
+        flex: ['nowrap', 'wrap', 'wrap-reverse']
+      }],
+      /**
+       * Flex
+       * @see https://tailwindcss.com/docs/flex
+       */
+      flex: [{
+        flex: [isNumber, isFraction, 'auto', 'initial', 'none', isArbitraryValue]
+      }],
+      /**
+       * Flex Grow
+       * @see https://tailwindcss.com/docs/flex-grow
+       */
+      grow: [{
+        grow: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Flex Shrink
+       * @see https://tailwindcss.com/docs/flex-shrink
+       */
+      shrink: [{
+        shrink: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Order
+       * @see https://tailwindcss.com/docs/order
+       */
+      order: [{
+        order: [isInteger, 'first', 'last', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Grid Template Columns
+       * @see https://tailwindcss.com/docs/grid-template-columns
+       */
+      'grid-cols': [{
+        'grid-cols': scaleGridTemplateColsRows()
+      }],
+      /**
+       * Grid Column Start / End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-start-end': [{
+        col: scaleGridColRowStartAndEnd()
+      }],
+      /**
+       * Grid Column Start
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-start': [{
+        'col-start': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Column End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-end': [{
+        'col-end': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Template Rows
+       * @see https://tailwindcss.com/docs/grid-template-rows
+       */
+      'grid-rows': [{
+        'grid-rows': scaleGridTemplateColsRows()
+      }],
+      /**
+       * Grid Row Start / End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-start-end': [{
+        row: scaleGridColRowStartAndEnd()
+      }],
+      /**
+       * Grid Row Start
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-start': [{
+        'row-start': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Row End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-end': [{
+        'row-end': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Auto Flow
+       * @see https://tailwindcss.com/docs/grid-auto-flow
+       */
+      'grid-flow': [{
+        'grid-flow': ['row', 'col', 'dense', 'row-dense', 'col-dense']
+      }],
+      /**
+       * Grid Auto Columns
+       * @see https://tailwindcss.com/docs/grid-auto-columns
+       */
+      'auto-cols': [{
+        'auto-cols': scaleGridAutoColsRows()
+      }],
+      /**
+       * Grid Auto Rows
+       * @see https://tailwindcss.com/docs/grid-auto-rows
+       */
+      'auto-rows': [{
+        'auto-rows': scaleGridAutoColsRows()
+      }],
+      /**
+       * Gap
+       * @see https://tailwindcss.com/docs/gap
+       */
+      gap: [{
+        gap: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Gap X
+       * @see https://tailwindcss.com/docs/gap
+       */
+      'gap-x': [{
+        'gap-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Gap Y
+       * @see https://tailwindcss.com/docs/gap
+       */
+      'gap-y': [{
+        'gap-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Justify Content
+       * @see https://tailwindcss.com/docs/justify-content
+       */
+      'justify-content': [{
+        justify: [...scaleAlignPrimaryAxis(), 'normal']
+      }],
+      /**
+       * Justify Items
+       * @see https://tailwindcss.com/docs/justify-items
+       */
+      'justify-items': [{
+        'justify-items': [...scaleAlignSecondaryAxis(), 'normal']
+      }],
+      /**
+       * Justify Self
+       * @see https://tailwindcss.com/docs/justify-self
+       */
+      'justify-self': [{
+        'justify-self': ['auto', ...scaleAlignSecondaryAxis()]
+      }],
+      /**
+       * Align Content
+       * @see https://tailwindcss.com/docs/align-content
+       */
+      'align-content': [{
+        content: ['normal', ...scaleAlignPrimaryAxis()]
+      }],
+      /**
+       * Align Items
+       * @see https://tailwindcss.com/docs/align-items
+       */
+      'align-items': [{
+        items: [...scaleAlignSecondaryAxis(), {
+          baseline: ['', 'last']
+        }]
+      }],
+      /**
+       * Align Self
+       * @see https://tailwindcss.com/docs/align-self
+       */
+      'align-self': [{
+        self: ['auto', ...scaleAlignSecondaryAxis(), {
+          baseline: ['', 'last']
+        }]
+      }],
+      /**
+       * Place Content
+       * @see https://tailwindcss.com/docs/place-content
+       */
+      'place-content': [{
+        'place-content': scaleAlignPrimaryAxis()
+      }],
+      /**
+       * Place Items
+       * @see https://tailwindcss.com/docs/place-items
+       */
+      'place-items': [{
+        'place-items': [...scaleAlignSecondaryAxis(), 'baseline']
+      }],
+      /**
+       * Place Self
+       * @see https://tailwindcss.com/docs/place-self
+       */
+      'place-self': [{
+        'place-self': ['auto', ...scaleAlignSecondaryAxis()]
+      }],
+      // Spacing
+      /**
+       * Padding
+       * @see https://tailwindcss.com/docs/padding
+       */
+      p: [{
+        p: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Inline
+       * @see https://tailwindcss.com/docs/padding
+       */
+      px: [{
+        px: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Block
+       * @see https://tailwindcss.com/docs/padding
+       */
+      py: [{
+        py: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Inline Start
+       * @see https://tailwindcss.com/docs/padding
+       */
+      ps: [{
+        ps: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Inline End
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pe: [{
+        pe: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Block Start
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pbs: [{
+        pbs: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Block End
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pbe: [{
+        pbe: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Top
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pt: [{
+        pt: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Right
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pr: [{
+        pr: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Bottom
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pb: [{
+        pb: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Left
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pl: [{
+        pl: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Margin
+       * @see https://tailwindcss.com/docs/margin
+       */
+      m: [{
+        m: scaleMargin()
+      }],
+      /**
+       * Margin Inline
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mx: [{
+        mx: scaleMargin()
+      }],
+      /**
+       * Margin Block
+       * @see https://tailwindcss.com/docs/margin
+       */
+      my: [{
+        my: scaleMargin()
+      }],
+      /**
+       * Margin Inline Start
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ms: [{
+        ms: scaleMargin()
+      }],
+      /**
+       * Margin Inline End
+       * @see https://tailwindcss.com/docs/margin
+       */
+      me: [{
+        me: scaleMargin()
+      }],
+      /**
+       * Margin Block Start
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mbs: [{
+        mbs: scaleMargin()
+      }],
+      /**
+       * Margin Block End
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mbe: [{
+        mbe: scaleMargin()
+      }],
+      /**
+       * Margin Top
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mt: [{
+        mt: scaleMargin()
+      }],
+      /**
+       * Margin Right
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mr: [{
+        mr: scaleMargin()
+      }],
+      /**
+       * Margin Bottom
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mb: [{
+        mb: scaleMargin()
+      }],
+      /**
+       * Margin Left
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ml: [{
+        ml: scaleMargin()
+      }],
+      /**
+       * Space Between X
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-x': [{
+        'space-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Space Between X Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-x-reverse': ['space-x-reverse'],
+      /**
+       * Space Between Y
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-y': [{
+        'space-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Space Between Y Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-y-reverse': ['space-y-reverse'],
+      // --------------
+      // --- Sizing ---
+      // --------------
+      /**
+       * Size
+       * @see https://tailwindcss.com/docs/width#setting-both-width-and-height
+       */
+      size: [{
+        size: scaleSizing()
+      }],
+      /**
+       * Inline Size
+       * @see https://tailwindcss.com/docs/width
+       */
+      'inline-size': [{
+        inline: ['auto', ...scaleSizingInline()]
+      }],
+      /**
+       * Min-Inline Size
+       * @see https://tailwindcss.com/docs/min-width
+       */
+      'min-inline-size': [{
+        'min-inline': ['auto', ...scaleSizingInline()]
+      }],
+      /**
+       * Max-Inline Size
+       * @see https://tailwindcss.com/docs/max-width
+       */
+      'max-inline-size': [{
+        'max-inline': ['none', ...scaleSizingInline()]
+      }],
+      /**
+       * Block Size
+       * @see https://tailwindcss.com/docs/height
+       */
+      'block-size': [{
+        block: ['auto', ...scaleSizingBlock()]
+      }],
+      /**
+       * Min-Block Size
+       * @see https://tailwindcss.com/docs/min-height
+       */
+      'min-block-size': [{
+        'min-block': ['auto', ...scaleSizingBlock()]
+      }],
+      /**
+       * Max-Block Size
+       * @see https://tailwindcss.com/docs/max-height
+       */
+      'max-block-size': [{
+        'max-block': ['none', ...scaleSizingBlock()]
+      }],
+      /**
+       * Width
+       * @see https://tailwindcss.com/docs/width
+       */
+      w: [{
+        w: [themeContainer, 'screen', ...scaleSizing()]
+      }],
+      /**
+       * Min-Width
+       * @see https://tailwindcss.com/docs/min-width
+       */
+      'min-w': [{
+        'min-w': [themeContainer, 'screen', /** Deprecated. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        'none', ...scaleSizing()]
+      }],
+      /**
+       * Max-Width
+       * @see https://tailwindcss.com/docs/max-width
+       */
+      'max-w': [{
+        'max-w': [themeContainer, 'screen', 'none', /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        'prose', /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        {
+          screen: [themeBreakpoint]
+        }, ...scaleSizing()]
+      }],
+      /**
+       * Height
+       * @see https://tailwindcss.com/docs/height
+       */
+      h: [{
+        h: ['screen', 'lh', ...scaleSizing()]
+      }],
+      /**
+       * Min-Height
+       * @see https://tailwindcss.com/docs/min-height
+       */
+      'min-h': [{
+        'min-h': ['screen', 'lh', 'none', ...scaleSizing()]
+      }],
+      /**
+       * Max-Height
+       * @see https://tailwindcss.com/docs/max-height
+       */
+      'max-h': [{
+        'max-h': ['screen', 'lh', ...scaleSizing()]
+      }],
+      // ------------------
+      // --- Typography ---
+      // ------------------
+      /**
+       * Font Size
+       * @see https://tailwindcss.com/docs/font-size
+       */
+      'font-size': [{
+        text: ['base', themeText, isArbitraryVariableLength, isArbitraryLength]
+      }],
+      /**
+       * Font Smoothing
+       * @see https://tailwindcss.com/docs/font-smoothing
+       */
+      'font-smoothing': ['antialiased', 'subpixel-antialiased'],
+      /**
+       * Font Style
+       * @see https://tailwindcss.com/docs/font-style
+       */
+      'font-style': ['italic', 'not-italic'],
+      /**
+       * Font Weight
+       * @see https://tailwindcss.com/docs/font-weight
+       */
+      'font-weight': [{
+        font: [themeFontWeight, isArbitraryVariableWeight, isArbitraryWeight]
+      }],
+      /**
+       * Font Stretch
+       * @see https://tailwindcss.com/docs/font-stretch
+       */
+      'font-stretch': [{
+        'font-stretch': ['ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal', 'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded', isPercent, isArbitraryValue]
+      }],
+      /**
+       * Font Family
+       * @see https://tailwindcss.com/docs/font-family
+       */
+      'font-family': [{
+        font: [isArbitraryVariableFamilyName, isArbitraryFamilyName, themeFont]
+      }],
+      /**
+       * Font Feature Settings
+       * @see https://tailwindcss.com/docs/font-feature-settings
+       */
+      'font-features': [{
+        'font-features': [isArbitraryValue]
+      }],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-normal': ['normal-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-ordinal': ['ordinal'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-slashed-zero': ['slashed-zero'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-figure': ['lining-nums', 'oldstyle-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-spacing': ['proportional-nums', 'tabular-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-fraction': ['diagonal-fractions', 'stacked-fractions'],
+      /**
+       * Letter Spacing
+       * @see https://tailwindcss.com/docs/letter-spacing
+       */
+      tracking: [{
+        tracking: [themeTracking, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Line Clamp
+       * @see https://tailwindcss.com/docs/line-clamp
+       */
+      'line-clamp': [{
+        'line-clamp': [isNumber, 'none', isArbitraryVariable, isArbitraryNumber]
+      }],
+      /**
+       * Line Height
+       * @see https://tailwindcss.com/docs/line-height
+       */
+      leading: [{
+        leading: [/** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        themeLeading, ...scaleUnambiguousSpacing()]
+      }],
+      /**
+       * List Style Image
+       * @see https://tailwindcss.com/docs/list-style-image
+       */
+      'list-image': [{
+        'list-image': ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * List Style Position
+       * @see https://tailwindcss.com/docs/list-style-position
+       */
+      'list-style-position': [{
+        list: ['inside', 'outside']
+      }],
+      /**
+       * List Style Type
+       * @see https://tailwindcss.com/docs/list-style-type
+       */
+      'list-style-type': [{
+        list: ['disc', 'decimal', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Text Alignment
+       * @see https://tailwindcss.com/docs/text-align
+       */
+      'text-alignment': [{
+        text: ['left', 'center', 'right', 'justify', 'start', 'end']
+      }],
+      /**
+       * Placeholder Color
+       * @deprecated since Tailwind CSS v3.0.0
+       * @see https://v3.tailwindcss.com/docs/placeholder-color
+       */
+      'placeholder-color': [{
+        placeholder: scaleColor()
+      }],
+      /**
+       * Text Color
+       * @see https://tailwindcss.com/docs/text-color
+       */
+      'text-color': [{
+        text: scaleColor()
+      }],
+      /**
+       * Text Decoration
+       * @see https://tailwindcss.com/docs/text-decoration
+       */
+      'text-decoration': ['underline', 'overline', 'line-through', 'no-underline'],
+      /**
+       * Text Decoration Style
+       * @see https://tailwindcss.com/docs/text-decoration-style
+       */
+      'text-decoration-style': [{
+        decoration: [...scaleLineStyle(), 'wavy']
+      }],
+      /**
+       * Text Decoration Thickness
+       * @see https://tailwindcss.com/docs/text-decoration-thickness
+       */
+      'text-decoration-thickness': [{
+        decoration: [isNumber, 'from-font', 'auto', isArbitraryVariable, isArbitraryLength]
+      }],
+      /**
+       * Text Decoration Color
+       * @see https://tailwindcss.com/docs/text-decoration-color
+       */
+      'text-decoration-color': [{
+        decoration: scaleColor()
+      }],
+      /**
+       * Text Underline Offset
+       * @see https://tailwindcss.com/docs/text-underline-offset
+       */
+      'underline-offset': [{
+        'underline-offset': [isNumber, 'auto', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Text Transform
+       * @see https://tailwindcss.com/docs/text-transform
+       */
+      'text-transform': ['uppercase', 'lowercase', 'capitalize', 'normal-case'],
+      /**
+       * Text Overflow
+       * @see https://tailwindcss.com/docs/text-overflow
+       */
+      'text-overflow': ['truncate', 'text-ellipsis', 'text-clip'],
+      /**
+       * Text Wrap
+       * @see https://tailwindcss.com/docs/text-wrap
+       */
+      'text-wrap': [{
+        text: ['wrap', 'nowrap', 'balance', 'pretty']
+      }],
+      /**
+       * Text Indent
+       * @see https://tailwindcss.com/docs/text-indent
+       */
+      indent: [{
+        indent: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Vertical Alignment
+       * @see https://tailwindcss.com/docs/vertical-align
+       */
+      'vertical-align': [{
+        align: ['baseline', 'top', 'middle', 'bottom', 'text-top', 'text-bottom', 'sub', 'super', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Whitespace
+       * @see https://tailwindcss.com/docs/whitespace
+       */
+      whitespace: [{
+        whitespace: ['normal', 'nowrap', 'pre', 'pre-line', 'pre-wrap', 'break-spaces']
+      }],
+      /**
+       * Word Break
+       * @see https://tailwindcss.com/docs/word-break
+       */
+      break: [{
+        break: ['normal', 'words', 'all', 'keep']
+      }],
+      /**
+       * Overflow Wrap
+       * @see https://tailwindcss.com/docs/overflow-wrap
+       */
+      wrap: [{
+        wrap: ['break-word', 'anywhere', 'normal']
+      }],
+      /**
+       * Hyphens
+       * @see https://tailwindcss.com/docs/hyphens
+       */
+      hyphens: [{
+        hyphens: ['none', 'manual', 'auto']
+      }],
+      /**
+       * Content
+       * @see https://tailwindcss.com/docs/content
+       */
+      content: [{
+        content: ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      // -------------------
+      // --- Backgrounds ---
+      // -------------------
+      /**
+       * Background Attachment
+       * @see https://tailwindcss.com/docs/background-attachment
+       */
+      'bg-attachment': [{
+        bg: ['fixed', 'local', 'scroll']
+      }],
+      /**
+       * Background Clip
+       * @see https://tailwindcss.com/docs/background-clip
+       */
+      'bg-clip': [{
+        'bg-clip': ['border', 'padding', 'content', 'text']
+      }],
+      /**
+       * Background Origin
+       * @see https://tailwindcss.com/docs/background-origin
+       */
+      'bg-origin': [{
+        'bg-origin': ['border', 'padding', 'content']
+      }],
+      /**
+       * Background Position
+       * @see https://tailwindcss.com/docs/background-position
+       */
+      'bg-position': [{
+        bg: scaleBgPosition()
+      }],
+      /**
+       * Background Repeat
+       * @see https://tailwindcss.com/docs/background-repeat
+       */
+      'bg-repeat': [{
+        bg: scaleBgRepeat()
+      }],
+      /**
+       * Background Size
+       * @see https://tailwindcss.com/docs/background-size
+       */
+      'bg-size': [{
+        bg: scaleBgSize()
+      }],
+      /**
+       * Background Image
+       * @see https://tailwindcss.com/docs/background-image
+       */
+      'bg-image': [{
+        bg: ['none', {
+          linear: [{
+            to: ['t', 'tr', 'r', 'br', 'b', 'bl', 'l', 'tl']
+          }, isInteger, isArbitraryVariable, isArbitraryValue],
+          radial: ['', isArbitraryVariable, isArbitraryValue],
+          conic: [isInteger, isArbitraryVariable, isArbitraryValue]
+        }, isArbitraryVariableImage, isArbitraryImage]
+      }],
+      /**
+       * Background Color
+       * @see https://tailwindcss.com/docs/background-color
+       */
+      'bg-color': [{
+        bg: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops From Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-from-pos': [{
+        from: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops Via Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-via-pos': [{
+        via: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops To Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-to-pos': [{
+        to: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops From
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-from': [{
+        from: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops Via
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-via': [{
+        via: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops To
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-to': [{
+        to: scaleColor()
+      }],
+      // ---------------
+      // --- Borders ---
+      // ---------------
+      /**
+       * Border Radius
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      rounded: [{
+        rounded: scaleRadius()
+      }],
+      /**
+       * Border Radius Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-s': [{
+        'rounded-s': scaleRadius()
+      }],
+      /**
+       * Border Radius End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-e': [{
+        'rounded-e': scaleRadius()
+      }],
+      /**
+       * Border Radius Top
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-t': [{
+        'rounded-t': scaleRadius()
+      }],
+      /**
+       * Border Radius Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-r': [{
+        'rounded-r': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-b': [{
+        'rounded-b': scaleRadius()
+      }],
+      /**
+       * Border Radius Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-l': [{
+        'rounded-l': scaleRadius()
+      }],
+      /**
+       * Border Radius Start Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-ss': [{
+        'rounded-ss': scaleRadius()
+      }],
+      /**
+       * Border Radius Start End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-se': [{
+        'rounded-se': scaleRadius()
+      }],
+      /**
+       * Border Radius End End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-ee': [{
+        'rounded-ee': scaleRadius()
+      }],
+      /**
+       * Border Radius End Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-es': [{
+        'rounded-es': scaleRadius()
+      }],
+      /**
+       * Border Radius Top Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-tl': [{
+        'rounded-tl': scaleRadius()
+      }],
+      /**
+       * Border Radius Top Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-tr': [{
+        'rounded-tr': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-br': [{
+        'rounded-br': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-bl': [{
+        'rounded-bl': scaleRadius()
+      }],
+      /**
+       * Border Width
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w': [{
+        border: scaleBorderWidth()
+      }],
+      /**
+       * Border Width Inline
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-x': [{
+        'border-x': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Block
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-y': [{
+        'border-y': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Inline Start
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-s': [{
+        'border-s': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Inline End
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-e': [{
+        'border-e': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Block Start
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-bs': [{
+        'border-bs': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Block End
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-be': [{
+        'border-be': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Top
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-t': [{
+        'border-t': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Right
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-r': [{
+        'border-r': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Bottom
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-b': [{
+        'border-b': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Left
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-l': [{
+        'border-l': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width X
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-x': [{
+        'divide-x': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width X Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-x-reverse': ['divide-x-reverse'],
+      /**
+       * Divide Width Y
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-y': [{
+        'divide-y': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width Y Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-y-reverse': ['divide-y-reverse'],
+      /**
+       * Border Style
+       * @see https://tailwindcss.com/docs/border-style
+       */
+      'border-style': [{
+        border: [...scaleLineStyle(), 'hidden', 'none']
+      }],
+      /**
+       * Divide Style
+       * @see https://tailwindcss.com/docs/border-style#setting-the-divider-style
+       */
+      'divide-style': [{
+        divide: [...scaleLineStyle(), 'hidden', 'none']
+      }],
+      /**
+       * Border Color
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color': [{
+        border: scaleColor()
+      }],
+      /**
+       * Border Color Inline
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-x': [{
+        'border-x': scaleColor()
+      }],
+      /**
+       * Border Color Block
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-y': [{
+        'border-y': scaleColor()
+      }],
+      /**
+       * Border Color Inline Start
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-s': [{
+        'border-s': scaleColor()
+      }],
+      /**
+       * Border Color Inline End
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-e': [{
+        'border-e': scaleColor()
+      }],
+      /**
+       * Border Color Block Start
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-bs': [{
+        'border-bs': scaleColor()
+      }],
+      /**
+       * Border Color Block End
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-be': [{
+        'border-be': scaleColor()
+      }],
+      /**
+       * Border Color Top
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-t': [{
+        'border-t': scaleColor()
+      }],
+      /**
+       * Border Color Right
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-r': [{
+        'border-r': scaleColor()
+      }],
+      /**
+       * Border Color Bottom
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-b': [{
+        'border-b': scaleColor()
+      }],
+      /**
+       * Border Color Left
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-l': [{
+        'border-l': scaleColor()
+      }],
+      /**
+       * Divide Color
+       * @see https://tailwindcss.com/docs/divide-color
+       */
+      'divide-color': [{
+        divide: scaleColor()
+      }],
+      /**
+       * Outline Style
+       * @see https://tailwindcss.com/docs/outline-style
+       */
+      'outline-style': [{
+        outline: [...scaleLineStyle(), 'none', 'hidden']
+      }],
+      /**
+       * Outline Offset
+       * @see https://tailwindcss.com/docs/outline-offset
+       */
+      'outline-offset': [{
+        'outline-offset': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Outline Width
+       * @see https://tailwindcss.com/docs/outline-width
+       */
+      'outline-w': [{
+        outline: ['', isNumber, isArbitraryVariableLength, isArbitraryLength]
+      }],
+      /**
+       * Outline Color
+       * @see https://tailwindcss.com/docs/outline-color
+       */
+      'outline-color': [{
+        outline: scaleColor()
+      }],
+      // ---------------
+      // --- Effects ---
+      // ---------------
+      /**
+       * Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow
+       */
+      shadow: [{
+        shadow: [
+        // Deprecated since Tailwind CSS v4.0.0
+        '', 'none', themeShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
+       */
+      'shadow-color': [{
+        shadow: scaleColor()
+      }],
+      /**
+       * Inset Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
+       */
+      'inset-shadow': [{
+        'inset-shadow': ['none', themeInsetShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Inset Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
+       */
+      'inset-shadow-color': [{
+        'inset-shadow': scaleColor()
+      }],
+      /**
+       * Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-a-ring
+       */
+      'ring-w': [{
+        ring: scaleBorderWidth()
+      }],
+      /**
+       * Ring Width Inset
+       * @see https://v3.tailwindcss.com/docs/ring-width#inset-rings
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-w-inset': ['ring-inset'],
+      /**
+       * Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
+       */
+      'ring-color': [{
+        ring: scaleColor()
+      }],
+      /**
+       * Ring Offset Width
+       * @see https://v3.tailwindcss.com/docs/ring-offset-width
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-offset-w': [{
+        'ring-offset': [isNumber, isArbitraryLength]
+      }],
+      /**
+       * Ring Offset Color
+       * @see https://v3.tailwindcss.com/docs/ring-offset-color
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-offset-color': [{
+        'ring-offset': scaleColor()
+      }],
+      /**
+       * Inset Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
+       */
+      'inset-ring-w': [{
+        'inset-ring': scaleBorderWidth()
+      }],
+      /**
+       * Inset Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
+       */
+      'inset-ring-color': [{
+        'inset-ring': scaleColor()
+      }],
+      /**
+       * Text Shadow
+       * @see https://tailwindcss.com/docs/text-shadow
+       */
+      'text-shadow': [{
+        'text-shadow': ['none', themeTextShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Text Shadow Color
+       * @see https://tailwindcss.com/docs/text-shadow#setting-the-shadow-color
+       */
+      'text-shadow-color': [{
+        'text-shadow': scaleColor()
+      }],
+      /**
+       * Opacity
+       * @see https://tailwindcss.com/docs/opacity
+       */
+      opacity: [{
+        opacity: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Mix Blend Mode
+       * @see https://tailwindcss.com/docs/mix-blend-mode
+       */
+      'mix-blend': [{
+        'mix-blend': [...scaleBlendMode(), 'plus-darker', 'plus-lighter']
+      }],
+      /**
+       * Background Blend Mode
+       * @see https://tailwindcss.com/docs/background-blend-mode
+       */
+      'bg-blend': [{
+        'bg-blend': scaleBlendMode()
+      }],
+      /**
+       * Mask Clip
+       * @see https://tailwindcss.com/docs/mask-clip
+       */
+      'mask-clip': [{
+        'mask-clip': ['border', 'padding', 'content', 'fill', 'stroke', 'view']
+      }, 'mask-no-clip'],
+      /**
+       * Mask Composite
+       * @see https://tailwindcss.com/docs/mask-composite
+       */
+      'mask-composite': [{
+        mask: ['add', 'subtract', 'intersect', 'exclude']
+      }],
+      /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */
+      'mask-image-linear-pos': [{
+        'mask-linear': [isNumber]
+      }],
+      'mask-image-linear-from-pos': [{
+        'mask-linear-from': scaleMaskImagePosition()
+      }],
+      'mask-image-linear-to-pos': [{
+        'mask-linear-to': scaleMaskImagePosition()
+      }],
+      'mask-image-linear-from-color': [{
+        'mask-linear-from': scaleColor()
+      }],
+      'mask-image-linear-to-color': [{
+        'mask-linear-to': scaleColor()
+      }],
+      'mask-image-t-from-pos': [{
+        'mask-t-from': scaleMaskImagePosition()
+      }],
+      'mask-image-t-to-pos': [{
+        'mask-t-to': scaleMaskImagePosition()
+      }],
+      'mask-image-t-from-color': [{
+        'mask-t-from': scaleColor()
+      }],
+      'mask-image-t-to-color': [{
+        'mask-t-to': scaleColor()
+      }],
+      'mask-image-r-from-pos': [{
+        'mask-r-from': scaleMaskImagePosition()
+      }],
+      'mask-image-r-to-pos': [{
+        'mask-r-to': scaleMaskImagePosition()
+      }],
+      'mask-image-r-from-color': [{
+        'mask-r-from': scaleColor()
+      }],
+      'mask-image-r-to-color': [{
+        'mask-r-to': scaleColor()
+      }],
+      'mask-image-b-from-pos': [{
+        'mask-b-from': scaleMaskImagePosition()
+      }],
+      'mask-image-b-to-pos': [{
+        'mask-b-to': scaleMaskImagePosition()
+      }],
+      'mask-image-b-from-color': [{
+        'mask-b-from': scaleColor()
+      }],
+      'mask-image-b-to-color': [{
+        'mask-b-to': scaleColor()
+      }],
+      'mask-image-l-from-pos': [{
+        'mask-l-from': scaleMaskImagePosition()
+      }],
+      'mask-image-l-to-pos': [{
+        'mask-l-to': scaleMaskImagePosition()
+      }],
+      'mask-image-l-from-color': [{
+        'mask-l-from': scaleColor()
+      }],
+      'mask-image-l-to-color': [{
+        'mask-l-to': scaleColor()
+      }],
+      'mask-image-x-from-pos': [{
+        'mask-x-from': scaleMaskImagePosition()
+      }],
+      'mask-image-x-to-pos': [{
+        'mask-x-to': scaleMaskImagePosition()
+      }],
+      'mask-image-x-from-color': [{
+        'mask-x-from': scaleColor()
+      }],
+      'mask-image-x-to-color': [{
+        'mask-x-to': scaleColor()
+      }],
+      'mask-image-y-from-pos': [{
+        'mask-y-from': scaleMaskImagePosition()
+      }],
+      'mask-image-y-to-pos': [{
+        'mask-y-to': scaleMaskImagePosition()
+      }],
+      'mask-image-y-from-color': [{
+        'mask-y-from': scaleColor()
+      }],
+      'mask-image-y-to-color': [{
+        'mask-y-to': scaleColor()
+      }],
+      'mask-image-radial': [{
+        'mask-radial': [isArbitraryVariable, isArbitraryValue]
+      }],
+      'mask-image-radial-from-pos': [{
+        'mask-radial-from': scaleMaskImagePosition()
+      }],
+      'mask-image-radial-to-pos': [{
+        'mask-radial-to': scaleMaskImagePosition()
+      }],
+      'mask-image-radial-from-color': [{
+        'mask-radial-from': scaleColor()
+      }],
+      'mask-image-radial-to-color': [{
+        'mask-radial-to': scaleColor()
+      }],
+      'mask-image-radial-shape': [{
+        'mask-radial': ['circle', 'ellipse']
+      }],
+      'mask-image-radial-size': [{
+        'mask-radial': [{
+          closest: ['side', 'corner'],
+          farthest: ['side', 'corner']
+        }]
+      }],
+      'mask-image-radial-pos': [{
+        'mask-radial-at': scalePosition()
+      }],
+      'mask-image-conic-pos': [{
+        'mask-conic': [isNumber]
+      }],
+      'mask-image-conic-from-pos': [{
+        'mask-conic-from': scaleMaskImagePosition()
+      }],
+      'mask-image-conic-to-pos': [{
+        'mask-conic-to': scaleMaskImagePosition()
+      }],
+      'mask-image-conic-from-color': [{
+        'mask-conic-from': scaleColor()
+      }],
+      'mask-image-conic-to-color': [{
+        'mask-conic-to': scaleColor()
+      }],
+      /**
+       * Mask Mode
+       * @see https://tailwindcss.com/docs/mask-mode
+       */
+      'mask-mode': [{
+        mask: ['alpha', 'luminance', 'match']
+      }],
+      /**
+       * Mask Origin
+       * @see https://tailwindcss.com/docs/mask-origin
+       */
+      'mask-origin': [{
+        'mask-origin': ['border', 'padding', 'content', 'fill', 'stroke', 'view']
+      }],
+      /**
+       * Mask Position
+       * @see https://tailwindcss.com/docs/mask-position
+       */
+      'mask-position': [{
+        mask: scaleBgPosition()
+      }],
+      /**
+       * Mask Repeat
+       * @see https://tailwindcss.com/docs/mask-repeat
+       */
+      'mask-repeat': [{
+        mask: scaleBgRepeat()
+      }],
+      /**
+       * Mask Size
+       * @see https://tailwindcss.com/docs/mask-size
+       */
+      'mask-size': [{
+        mask: scaleBgSize()
+      }],
+      /**
+       * Mask Type
+       * @see https://tailwindcss.com/docs/mask-type
+       */
+      'mask-type': [{
+        'mask-type': ['alpha', 'luminance']
+      }],
+      /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */
+      'mask-image': [{
+        mask: ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      // ---------------
+      // --- Filters ---
+      // ---------------
+      /**
+       * Filter
+       * @see https://tailwindcss.com/docs/filter
+       */
+      filter: [{
+        filter: [
+        // Deprecated since Tailwind CSS v3.0.0
+        '', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Blur
+       * @see https://tailwindcss.com/docs/blur
+       */
+      blur: [{
+        blur: scaleBlur()
+      }],
+      /**
+       * Brightness
+       * @see https://tailwindcss.com/docs/brightness
+       */
+      brightness: [{
+        brightness: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Contrast
+       * @see https://tailwindcss.com/docs/contrast
+       */
+      contrast: [{
+        contrast: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Drop Shadow
+       * @see https://tailwindcss.com/docs/drop-shadow
+       */
+      'drop-shadow': [{
+        'drop-shadow': [
+        // Deprecated since Tailwind CSS v4.0.0
+        '', 'none', themeDropShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Drop Shadow Color
+       * @see https://tailwindcss.com/docs/filter-drop-shadow#setting-the-shadow-color
+       */
+      'drop-shadow-color': [{
+        'drop-shadow': scaleColor()
+      }],
+      /**
+       * Grayscale
+       * @see https://tailwindcss.com/docs/grayscale
+       */
+      grayscale: [{
+        grayscale: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Hue Rotate
+       * @see https://tailwindcss.com/docs/hue-rotate
+       */
+      'hue-rotate': [{
+        'hue-rotate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Invert
+       * @see https://tailwindcss.com/docs/invert
+       */
+      invert: [{
+        invert: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Saturate
+       * @see https://tailwindcss.com/docs/saturate
+       */
+      saturate: [{
+        saturate: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Sepia
+       * @see https://tailwindcss.com/docs/sepia
+       */
+      sepia: [{
+        sepia: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Filter
+       * @see https://tailwindcss.com/docs/backdrop-filter
+       */
+      'backdrop-filter': [{
+        'backdrop-filter': [
+        // Deprecated since Tailwind CSS v3.0.0
+        '', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Blur
+       * @see https://tailwindcss.com/docs/backdrop-blur
+       */
+      'backdrop-blur': [{
+        'backdrop-blur': scaleBlur()
+      }],
+      /**
+       * Backdrop Brightness
+       * @see https://tailwindcss.com/docs/backdrop-brightness
+       */
+      'backdrop-brightness': [{
+        'backdrop-brightness': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Contrast
+       * @see https://tailwindcss.com/docs/backdrop-contrast
+       */
+      'backdrop-contrast': [{
+        'backdrop-contrast': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Grayscale
+       * @see https://tailwindcss.com/docs/backdrop-grayscale
+       */
+      'backdrop-grayscale': [{
+        'backdrop-grayscale': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Hue Rotate
+       * @see https://tailwindcss.com/docs/backdrop-hue-rotate
+       */
+      'backdrop-hue-rotate': [{
+        'backdrop-hue-rotate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Invert
+       * @see https://tailwindcss.com/docs/backdrop-invert
+       */
+      'backdrop-invert': [{
+        'backdrop-invert': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Opacity
+       * @see https://tailwindcss.com/docs/backdrop-opacity
+       */
+      'backdrop-opacity': [{
+        'backdrop-opacity': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Saturate
+       * @see https://tailwindcss.com/docs/backdrop-saturate
+       */
+      'backdrop-saturate': [{
+        'backdrop-saturate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Sepia
+       * @see https://tailwindcss.com/docs/backdrop-sepia
+       */
+      'backdrop-sepia': [{
+        'backdrop-sepia': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      // --------------
+      // --- Tables ---
+      // --------------
+      /**
+       * Border Collapse
+       * @see https://tailwindcss.com/docs/border-collapse
+       */
+      'border-collapse': [{
+        border: ['collapse', 'separate']
+      }],
+      /**
+       * Border Spacing
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing': [{
+        'border-spacing': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Border Spacing X
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing-x': [{
+        'border-spacing-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Border Spacing Y
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing-y': [{
+        'border-spacing-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Table Layout
+       * @see https://tailwindcss.com/docs/table-layout
+       */
+      'table-layout': [{
+        table: ['auto', 'fixed']
+      }],
+      /**
+       * Caption Side
+       * @see https://tailwindcss.com/docs/caption-side
+       */
+      caption: [{
+        caption: ['top', 'bottom']
+      }],
+      // ---------------------------------
+      // --- Transitions and Animation ---
+      // ---------------------------------
+      /**
+       * Transition Property
+       * @see https://tailwindcss.com/docs/transition-property
+       */
+      transition: [{
+        transition: ['', 'all', 'colors', 'opacity', 'shadow', 'transform', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Behavior
+       * @see https://tailwindcss.com/docs/transition-behavior
+       */
+      'transition-behavior': [{
+        transition: ['normal', 'discrete']
+      }],
+      /**
+       * Transition Duration
+       * @see https://tailwindcss.com/docs/transition-duration
+       */
+      duration: [{
+        duration: [isNumber, 'initial', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Timing Function
+       * @see https://tailwindcss.com/docs/transition-timing-function
+       */
+      ease: [{
+        ease: ['linear', 'initial', themeEase, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Delay
+       * @see https://tailwindcss.com/docs/transition-delay
+       */
+      delay: [{
+        delay: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Animation
+       * @see https://tailwindcss.com/docs/animation
+       */
+      animate: [{
+        animate: ['none', themeAnimate, isArbitraryVariable, isArbitraryValue]
+      }],
+      // ------------------
+      // --- Transforms ---
+      // ------------------
+      /**
+       * Backface Visibility
+       * @see https://tailwindcss.com/docs/backface-visibility
+       */
+      backface: [{
+        backface: ['hidden', 'visible']
+      }],
+      /**
+       * Perspective
+       * @see https://tailwindcss.com/docs/perspective
+       */
+      perspective: [{
+        perspective: [themePerspective, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Perspective Origin
+       * @see https://tailwindcss.com/docs/perspective-origin
+       */
+      'perspective-origin': [{
+        'perspective-origin': scalePositionWithArbitrary()
+      }],
+      /**
+       * Rotate
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      rotate: [{
+        rotate: scaleRotate()
+      }],
+      /**
+       * Rotate X
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-x': [{
+        'rotate-x': scaleRotate()
+      }],
+      /**
+       * Rotate Y
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-y': [{
+        'rotate-y': scaleRotate()
+      }],
+      /**
+       * Rotate Z
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-z': [{
+        'rotate-z': scaleRotate()
+      }],
+      /**
+       * Scale
+       * @see https://tailwindcss.com/docs/scale
+       */
+      scale: [{
+        scale: scaleScale()
+      }],
+      /**
+       * Scale X
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-x': [{
+        'scale-x': scaleScale()
+      }],
+      /**
+       * Scale Y
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-y': [{
+        'scale-y': scaleScale()
+      }],
+      /**
+       * Scale Z
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-z': [{
+        'scale-z': scaleScale()
+      }],
+      /**
+       * Scale 3D
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-3d': ['scale-3d'],
+      /**
+       * Skew
+       * @see https://tailwindcss.com/docs/skew
+       */
+      skew: [{
+        skew: scaleSkew()
+      }],
+      /**
+       * Skew X
+       * @see https://tailwindcss.com/docs/skew
+       */
+      'skew-x': [{
+        'skew-x': scaleSkew()
+      }],
+      /**
+       * Skew Y
+       * @see https://tailwindcss.com/docs/skew
+       */
+      'skew-y': [{
+        'skew-y': scaleSkew()
+      }],
+      /**
+       * Transform
+       * @see https://tailwindcss.com/docs/transform
+       */
+      transform: [{
+        transform: [isArbitraryVariable, isArbitraryValue, '', 'none', 'gpu', 'cpu']
+      }],
+      /**
+       * Transform Origin
+       * @see https://tailwindcss.com/docs/transform-origin
+       */
+      'transform-origin': [{
+        origin: scalePositionWithArbitrary()
+      }],
+      /**
+       * Transform Style
+       * @see https://tailwindcss.com/docs/transform-style
+       */
+      'transform-style': [{
+        transform: ['3d', 'flat']
+      }],
+      /**
+       * Translate
+       * @see https://tailwindcss.com/docs/translate
+       */
+      translate: [{
+        translate: scaleTranslate()
+      }],
+      /**
+       * Translate X
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-x': [{
+        'translate-x': scaleTranslate()
+      }],
+      /**
+       * Translate Y
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-y': [{
+        'translate-y': scaleTranslate()
+      }],
+      /**
+       * Translate Z
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-z': [{
+        'translate-z': scaleTranslate()
+      }],
+      /**
+       * Translate None
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-none': ['translate-none'],
+      // ---------------------
+      // --- Interactivity ---
+      // ---------------------
+      /**
+       * Accent Color
+       * @see https://tailwindcss.com/docs/accent-color
+       */
+      accent: [{
+        accent: scaleColor()
+      }],
+      /**
+       * Appearance
+       * @see https://tailwindcss.com/docs/appearance
+       */
+      appearance: [{
+        appearance: ['none', 'auto']
+      }],
+      /**
+       * Caret Color
+       * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
+       */
+      'caret-color': [{
+        caret: scaleColor()
+      }],
+      /**
+       * Color Scheme
+       * @see https://tailwindcss.com/docs/color-scheme
+       */
+      'color-scheme': [{
+        scheme: ['normal', 'dark', 'light', 'light-dark', 'only-dark', 'only-light']
+      }],
+      /**
+       * Cursor
+       * @see https://tailwindcss.com/docs/cursor
+       */
+      cursor: [{
+        cursor: ['auto', 'default', 'pointer', 'wait', 'text', 'move', 'help', 'not-allowed', 'none', 'context-menu', 'progress', 'cell', 'crosshair', 'vertical-text', 'alias', 'copy', 'no-drop', 'grab', 'grabbing', 'all-scroll', 'col-resize', 'row-resize', 'n-resize', 'e-resize', 's-resize', 'w-resize', 'ne-resize', 'nw-resize', 'se-resize', 'sw-resize', 'ew-resize', 'ns-resize', 'nesw-resize', 'nwse-resize', 'zoom-in', 'zoom-out', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Field Sizing
+       * @see https://tailwindcss.com/docs/field-sizing
+       */
+      'field-sizing': [{
+        'field-sizing': ['fixed', 'content']
+      }],
+      /**
+       * Pointer Events
+       * @see https://tailwindcss.com/docs/pointer-events
+       */
+      'pointer-events': [{
+        'pointer-events': ['auto', 'none']
+      }],
+      /**
+       * Resize
+       * @see https://tailwindcss.com/docs/resize
+       */
+      resize: [{
+        resize: ['none', '', 'y', 'x']
+      }],
+      /**
+       * Scroll Behavior
+       * @see https://tailwindcss.com/docs/scroll-behavior
+       */
+      'scroll-behavior': [{
+        scroll: ['auto', 'smooth']
+      }],
+      /**
+       * Scroll Margin
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-m': [{
+        'scroll-m': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Inline
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mx': [{
+        'scroll-mx': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Block
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-my': [{
+        'scroll-my': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Inline Start
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-ms': [{
+        'scroll-ms': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Inline End
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-me': [{
+        'scroll-me': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Block Start
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mbs': [{
+        'scroll-mbs': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Block End
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mbe': [{
+        'scroll-mbe': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Top
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mt': [{
+        'scroll-mt': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Right
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mr': [{
+        'scroll-mr': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Bottom
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mb': [{
+        'scroll-mb': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Left
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-ml': [{
+        'scroll-ml': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-p': [{
+        'scroll-p': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Inline
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-px': [{
+        'scroll-px': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Block
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-py': [{
+        'scroll-py': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Inline Start
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-ps': [{
+        'scroll-ps': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Inline End
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pe': [{
+        'scroll-pe': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Block Start
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pbs': [{
+        'scroll-pbs': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Block End
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pbe': [{
+        'scroll-pbe': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Top
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pt': [{
+        'scroll-pt': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Right
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pr': [{
+        'scroll-pr': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Bottom
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pb': [{
+        'scroll-pb': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Left
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pl': [{
+        'scroll-pl': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Snap Align
+       * @see https://tailwindcss.com/docs/scroll-snap-align
+       */
+      'snap-align': [{
+        snap: ['start', 'end', 'center', 'align-none']
+      }],
+      /**
+       * Scroll Snap Stop
+       * @see https://tailwindcss.com/docs/scroll-snap-stop
+       */
+      'snap-stop': [{
+        snap: ['normal', 'always']
+      }],
+      /**
+       * Scroll Snap Type
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      'snap-type': [{
+        snap: ['none', 'x', 'y', 'both']
+      }],
+      /**
+       * Scroll Snap Type Strictness
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      'snap-strictness': [{
+        snap: ['mandatory', 'proximity']
+      }],
+      /**
+       * Touch Action
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      touch: [{
+        touch: ['auto', 'none', 'manipulation']
+      }],
+      /**
+       * Touch Action X
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-x': [{
+        'touch-pan': ['x', 'left', 'right']
+      }],
+      /**
+       * Touch Action Y
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-y': [{
+        'touch-pan': ['y', 'up', 'down']
+      }],
+      /**
+       * Touch Action Pinch Zoom
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-pz': ['touch-pinch-zoom'],
+      /**
+       * User Select
+       * @see https://tailwindcss.com/docs/user-select
+       */
+      select: [{
+        select: ['none', 'text', 'all', 'auto']
+      }],
+      /**
+       * Will Change
+       * @see https://tailwindcss.com/docs/will-change
+       */
+      'will-change': [{
+        'will-change': ['auto', 'scroll', 'contents', 'transform', isArbitraryVariable, isArbitraryValue]
+      }],
+      // -----------
+      // --- SVG ---
+      // -----------
+      /**
+       * Fill
+       * @see https://tailwindcss.com/docs/fill
+       */
+      fill: [{
+        fill: ['none', ...scaleColor()]
+      }],
+      /**
+       * Stroke Width
+       * @see https://tailwindcss.com/docs/stroke-width
+       */
+      'stroke-w': [{
+        stroke: [isNumber, isArbitraryVariableLength, isArbitraryLength, isArbitraryNumber]
+      }],
+      /**
+       * Stroke
+       * @see https://tailwindcss.com/docs/stroke
+       */
+      stroke: [{
+        stroke: ['none', ...scaleColor()]
+      }],
+      // ---------------------
+      // --- Accessibility ---
+      // ---------------------
+      /**
+       * Forced Color Adjust
+       * @see https://tailwindcss.com/docs/forced-color-adjust
+       */
+      'forced-color-adjust': [{
+        'forced-color-adjust': ['auto', 'none']
+      }]
+    },
+    conflictingClassGroups: {
+      overflow: ['overflow-x', 'overflow-y'],
+      overscroll: ['overscroll-x', 'overscroll-y'],
+      inset: ['inset-x', 'inset-y', 'inset-bs', 'inset-be', 'start', 'end', 'top', 'right', 'bottom', 'left'],
+      'inset-x': ['right', 'left'],
+      'inset-y': ['top', 'bottom'],
+      flex: ['basis', 'grow', 'shrink'],
+      gap: ['gap-x', 'gap-y'],
+      p: ['px', 'py', 'ps', 'pe', 'pbs', 'pbe', 'pt', 'pr', 'pb', 'pl'],
+      px: ['pr', 'pl'],
+      py: ['pt', 'pb'],
+      m: ['mx', 'my', 'ms', 'me', 'mbs', 'mbe', 'mt', 'mr', 'mb', 'ml'],
+      mx: ['mr', 'ml'],
+      my: ['mt', 'mb'],
+      size: ['w', 'h'],
+      'font-size': ['leading'],
+      'fvn-normal': ['fvn-ordinal', 'fvn-slashed-zero', 'fvn-figure', 'fvn-spacing', 'fvn-fraction'],
+      'fvn-ordinal': ['fvn-normal'],
+      'fvn-slashed-zero': ['fvn-normal'],
+      'fvn-figure': ['fvn-normal'],
+      'fvn-spacing': ['fvn-normal'],
+      'fvn-fraction': ['fvn-normal'],
+      'line-clamp': ['display', 'overflow'],
+      rounded: ['rounded-s', 'rounded-e', 'rounded-t', 'rounded-r', 'rounded-b', 'rounded-l', 'rounded-ss', 'rounded-se', 'rounded-ee', 'rounded-es', 'rounded-tl', 'rounded-tr', 'rounded-br', 'rounded-bl'],
+      'rounded-s': ['rounded-ss', 'rounded-es'],
+      'rounded-e': ['rounded-se', 'rounded-ee'],
+      'rounded-t': ['rounded-tl', 'rounded-tr'],
+      'rounded-r': ['rounded-tr', 'rounded-br'],
+      'rounded-b': ['rounded-br', 'rounded-bl'],
+      'rounded-l': ['rounded-tl', 'rounded-bl'],
+      'border-spacing': ['border-spacing-x', 'border-spacing-y'],
+      'border-w': ['border-w-x', 'border-w-y', 'border-w-s', 'border-w-e', 'border-w-bs', 'border-w-be', 'border-w-t', 'border-w-r', 'border-w-b', 'border-w-l'],
+      'border-w-x': ['border-w-r', 'border-w-l'],
+      'border-w-y': ['border-w-t', 'border-w-b'],
+      'border-color': ['border-color-x', 'border-color-y', 'border-color-s', 'border-color-e', 'border-color-bs', 'border-color-be', 'border-color-t', 'border-color-r', 'border-color-b', 'border-color-l'],
+      'border-color-x': ['border-color-r', 'border-color-l'],
+      'border-color-y': ['border-color-t', 'border-color-b'],
+      translate: ['translate-x', 'translate-y', 'translate-none'],
+      'translate-none': ['translate', 'translate-x', 'translate-y', 'translate-z'],
+      'scroll-m': ['scroll-mx', 'scroll-my', 'scroll-ms', 'scroll-me', 'scroll-mbs', 'scroll-mbe', 'scroll-mt', 'scroll-mr', 'scroll-mb', 'scroll-ml'],
+      'scroll-mx': ['scroll-mr', 'scroll-ml'],
+      'scroll-my': ['scroll-mt', 'scroll-mb'],
+      'scroll-p': ['scroll-px', 'scroll-py', 'scroll-ps', 'scroll-pe', 'scroll-pbs', 'scroll-pbe', 'scroll-pt', 'scroll-pr', 'scroll-pb', 'scroll-pl'],
+      'scroll-px': ['scroll-pr', 'scroll-pl'],
+      'scroll-py': ['scroll-pt', 'scroll-pb'],
+      touch: ['touch-x', 'touch-y', 'touch-pz'],
+      'touch-x': ['touch'],
+      'touch-y': ['touch'],
+      'touch-pz': ['touch']
+    },
+    conflictingClassGroupModifiers: {
+      'font-size': ['leading']
+    },
+    orderSensitiveModifiers: ['*', '**', 'after', 'backdrop', 'before', 'details-content', 'file', 'first-letter', 'first-line', 'marker', 'placeholder', 'selection']
+  };
+};
+
+/**
+ * @param baseConfig Config where other config will be merged into. This object will be mutated.
+ * @param configExtension Partial config to merge into the `baseConfig`.
+ */
+const mergeConfigs = (baseConfig, {
+  cacheSize,
+  prefix,
+  experimentalParseClassName,
+  extend = {},
+  override = {}
+}) => {
+  overrideProperty(baseConfig, 'cacheSize', cacheSize);
+  overrideProperty(baseConfig, 'prefix', prefix);
+  overrideProperty(baseConfig, 'experimentalParseClassName', experimentalParseClassName);
+  overrideConfigProperties(baseConfig.theme, override.theme);
+  overrideConfigProperties(baseConfig.classGroups, override.classGroups);
+  overrideConfigProperties(baseConfig.conflictingClassGroups, override.conflictingClassGroups);
+  overrideConfigProperties(baseConfig.conflictingClassGroupModifiers, override.conflictingClassGroupModifiers);
+  overrideProperty(baseConfig, 'orderSensitiveModifiers', override.orderSensitiveModifiers);
+  mergeConfigProperties(baseConfig.theme, extend.theme);
+  mergeConfigProperties(baseConfig.classGroups, extend.classGroups);
+  mergeConfigProperties(baseConfig.conflictingClassGroups, extend.conflictingClassGroups);
+  mergeConfigProperties(baseConfig.conflictingClassGroupModifiers, extend.conflictingClassGroupModifiers);
+  mergeArrayProperties(baseConfig, extend, 'orderSensitiveModifiers');
+  return baseConfig;
+};
+const overrideProperty = (baseObject, overrideKey, overrideValue) => {
+  if (overrideValue !== undefined) {
+    baseObject[overrideKey] = overrideValue;
+  }
+};
+const overrideConfigProperties = (baseObject, overrideObject) => {
+  if (overrideObject) {
+    for (const key in overrideObject) {
+      overrideProperty(baseObject, key, overrideObject[key]);
+    }
+  }
+};
+const mergeConfigProperties = (baseObject, mergeObject) => {
+  if (mergeObject) {
+    for (const key in mergeObject) {
+      mergeArrayProperties(baseObject, mergeObject, key);
+    }
+  }
+};
+const mergeArrayProperties = (baseObject, mergeObject, key) => {
+  const mergeValue = mergeObject[key];
+  if (mergeValue !== undefined) {
+    baseObject[key] = baseObject[key] ? baseObject[key].concat(mergeValue) : mergeValue;
+  }
+};
+const extendTailwindMerge = (configExtension, ...createConfig) => typeof configExtension === 'function' ? createTailwindMerge(getDefaultConfig, configExtension, ...createConfig) : createTailwindMerge(() => mergeConfigs(getDefaultConfig(), configExtension), ...createConfig);
+const twMerge = /*#__PURE__*/createTailwindMerge(getDefaultConfig);
+
+//# sourceMappingURL=bundle-mjs.mjs.map
+
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!***********************!*\
+  !*** ./src/index.tsx ***!
+  \***********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./slots/PriceFilterSlot */ "./src/slots/PriceFilterSlot.tsx");
+/* harmony import */ var _slots_VariationsSlot__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slots/VariationsSlot */ "./src/slots/VariationsSlot.tsx");
+
+
+
+_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default()(() => {
+  // If the free plugin exposes useExtensionStore, register our Fill
+  const store = window.productbay?.useExtensionStore;
+  if (store) {
+    store.getState().addFill(_slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    store.getState().addFill(_slots_VariationsSlot__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  }
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=productbay-pro-admin.js.map
