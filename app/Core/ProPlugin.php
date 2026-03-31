@@ -139,6 +139,9 @@ class ProPlugin
 		
 		$variations_module = new \WpabProductBayPro\Modules\Variations\VariationsModule();
 		$variations_module->init();
+
+		$custom_fields_module = new \WpabProductBayPro\Modules\CustomFields\CustomFieldsModule();
+		$custom_fields_module->init();
 	}
 
 	/**

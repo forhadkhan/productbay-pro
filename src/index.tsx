@@ -1,6 +1,7 @@
 import domReady from '@wordpress/dom-ready';
 import PriceFilterFill from './slots/PriceFilterSlot';
 import VariationsSlot from './slots/VariationsSlot';
+import CustomFieldsSlot from './slots/CustomFieldsSlot';
 
 domReady(() => {
     // If the free plugin exposes useExtensionStore, register our Fill
@@ -8,5 +9,6 @@ domReady(() => {
     if (store) {
         store.getState().addFill(PriceFilterFill);
         store.getState().addFill(VariationsSlot);
+        store.getState().addFill(CustomFieldsSlot);
     }
 });
