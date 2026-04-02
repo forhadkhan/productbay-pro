@@ -1,41 +1,45 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Fill } from '@wordpress/components';
-import { PackageIcon, SearchIcon, SparklesIcon, X } from 'lucide-react';
+import { BoltIcon, PackageIcon, SearchIcon, SparklesIcon, StoreIcon, X } from 'lucide-react';
 import { Select } from '@/components/ui';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
 
 /**
- * Interface representing a meta key entry returned from the REST API.
- * Contains information about the meta key, its human-readable label, type, and optional group.
+ * MetaKeyEntry Interface
+ *
+ * Defines the structure of an individual meta key object returned by the Pro API.
+ * These represent database keys like '_price', 'product_brand', etc.
  */
 interface MetaKeyEntry {
-    /** The actual meta key string used in the database (e.g., '_price'). */
+    /** The raw database key string. */
     key: string;
-    /** A human-friendly label for the meta key (e.g., 'Regular Price'). */
+    /** Human-readable name for the field (e.g. "Regular Price"). */
     label: string;
-    /** The data type of the meta key value (e.g., 'number', 'text'). */
+    /** The expected data type (e.g. "number", "text", "image"). */
     type: string;
-    /** Optional grouping identifier, primarily used for ACF fields. */
+    /** Parent group name, used specifically to categorize ACF fields into their Field Groups. */
     group?: string;
 }
 
 /**
- * Interface representing the grouped meta keys response from the backend API.
- * Organizes meta keys into logical source categories.
+ * MetaKeysResponse Interface
+ *
+ * The shape of the JSON response from the `productbay/v1/pro/meta-keys` endpoint.
+ * Data is pre-grouped by the backend into common logical sources.
  */
 interface MetaKeysResponse {
-    /** Meta keys registered by WooCommerce. */
+    /** Product meta registered by WooCommerce core. */
     woocommerce: MetaKeyEntry[];
-    /** Meta keys created via Advanced Custom Fields (ACF). */
+    /** Custom fields discovered from Advanced Custom Fields plugin. */
     acf: MetaKeyEntry[];
-    /** Standard or unknown custom meta keys. */
+    /** Random or unhandled meta keys found in the postmeta table. */
     custom: MetaKeyEntry[];
 }
 
 /**
- * Configuration for available display format options for custom field values.
- * Used to populate the format selector dropdown.
+ * Available display formats for Custom Field columns.
+ * These options allow users to hint how the raw meta value should be rendered on the frontend.
  */
 const DISPLAY_FORMATS = [
     { value: 'auto', label: __('Auto Detect', 'productbay-pro') },
@@ -48,7 +52,7 @@ const DISPLAY_FORMATS = [
 ];
 
 /**
- * Human-readable group labels mapped to their internal identifiers.
+ * Human-readable mapping for meta key group identifiers.
  */
 const GROUP_LABELS: Record<string, string> = {
     woocommerce: __('WooCommerce', 'productbay-pro'),
@@ -57,56 +61,44 @@ const GROUP_LABELS: Record<string, string> = {
 };
 
 /**
- * CustomFieldsSlot Component.
+ * CustomFieldsSlot Component
  *
- * This component acts as a bridge to the `productbay-pro-cf-settings` slot.
- * It is rendered within each custom field column configuration in the ProductBay table editor.
+ * This is the entry point for the Pro-only Custom Field settings.
+ * It uses the WordPress `Fill` component to "inject" itself into the `productbay-pro-cf-settings`
+ * slot defined in the Free plugin's `ColumnItem.tsx`.
  *
- * @returns {JSX.Element | null} The Fill component or null if the table store is unavailable.
+ * IMPORTANT: It uses the function-as-child pattern to receive `fillProps` from the Slot.
+ * These props include the current `column` object and the `onUpdate` dispatcher.
  */
 const CustomFieldsSlot = () => {
-    const useTableStore = (window as any).productbay?.useTableStore;
-
-    if (!useTableStore) {
-        return null;
-    }
-
     return (
         <Fill name="productbay-pro-cf-settings">
-            <CustomFieldsPanel />
+            {(fillProps: any) => <CustomFieldsPanel {...fillProps} />}
         </Fill>
     );
 };
 
 /**
- * The core logic and UI of the Custom Fields selection panel.
- * Contains search state, data fetching logic, and the UI for browsing meta keys.
+ * useMetaKeys Hook
  *
- * @returns {JSX.Element} The rendered panel.
+ * A specialized state management hook for the Advanced Meta Selector.
+ * Handles:
+ * 1. Async fetching of meta keys from the WP REST API.
+ * 2. Search input state and debounced query syncing.
+ * 3. Client-side filtering of results across all groups.
+ *
+ * @returns {Object} State and setters for the meta selector UI.
  */
-const CustomFieldsPanel = () => {
-    const useTableStore = (window as any).productbay?.useTableStore;
-
-    const columns = useTableStore?.((state: any) => state.columns) || [];
-    const updateColumn = useTableStore?.((state: any) => state.updateColumn);
-
-    // Find the currently expanded cf column.
-    // We get the column that triggered this Fill render by looking at
-    // which cf column is currently in the DOM context.
-    // Since the Slot renders inside ColumnItem for each cf column,
-    // we need to identify which one. We use a simple approach: find the
-    // nearest cf column by checking DOM context or use all cf columns.
-    const [metaKeys, setMetaKeys] = useState<MetaKeysResponse | null>(null); // Fetched meta keys data
-    const [isLoading, setIsLoading] = useState(false);                      // Loading state for API request
-    const [inputValue, setInputValue] = useState('');                       // Intermediate search input value
-    const [searchQuery, setSearchQuery] = useState('');                     // Debounced search query
-    const [error, setError] = useState<string | null>(null);                // Fetching error message
-    const [selectedFormat, setSelectedFormat] = useState('auto');           // Currently selected display format
-    const selectRef = useRef<HTMLDivElement>(null);                         // Ref used for event dispatching
+const useMetaKeys = () => {
+    const [metaKeys, setMetaKeys] = useState<MetaKeysResponse | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [inputValue, setInputValue] = useState('');      // Raw typing value (fast)
+    const [searchQuery, setSearchQuery] = useState('');     // Debounced value (slow, used for filtering)
+    const [error, setError] = useState<string | null>(null);
 
     /**
-     * Lazy search implementation.
-     * Debounces the input value changes to prevent excessive filtering during typing.
+     * Debounce the search input to prevent expensive filtering/re-renders
+     * on every single keystroke.
      */
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -116,8 +108,8 @@ const CustomFieldsPanel = () => {
     }, [inputValue]);
 
     /**
-     * Fetch meta keys from the Pro REST endpoint on component mount.
-     * Uses the site-provided API URL and security nonce.
+     * Fetch all available meta keys from the server.
+     * This happens only once when the first CF column is expanded.
      */
     useEffect(() => {
         const fetchMetaKeys = async () => {
@@ -125,24 +117,17 @@ const CustomFieldsPanel = () => {
             setError(null);
 
             try {
-                // Get global settings provided by the PHP backend.
+                // Settings are localized via PHP in Includes/Pro/Assets.php
                 const settings = (window as any).productBaySettings || {};
                 const apiUrl = settings.apiUrl;
                 const endpoint = apiUrl ? `${apiUrl}pro/meta-keys` : '/wp-json/productbay/v1/pro/meta-keys';
                 const nonce = settings.nonce || (window as any).wpApiSettings?.nonce || '';
 
-                const response = await fetch(
-                    endpoint,
-                    {
-                        headers: {
-                            'X-WP-Nonce': nonce, // Required for authenticated REST requests in WP
-                        },
-                    }
-                );
+                const response = await fetch(endpoint, {
+                    headers: { 'X-WP-Nonce': nonce },
+                });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
                 const data = await response.json();
                 setMetaKeys(data);
@@ -158,8 +143,8 @@ const CustomFieldsPanel = () => {
     }, []);
 
     /**
-     * Memoized computation of filtered meta keys based on the current search query.
-     * Matches against keys, labels, and group names.
+     * Compute the filtered list of meta keys based on the debounced search query.
+     * Searches against key, label, and ACF group names.
      */
     const filteredKeys = useMemo(() => {
         if (!metaKeys) return null;
@@ -167,7 +152,6 @@ const CustomFieldsPanel = () => {
         const query = searchQuery.toLowerCase().trim();
         if (!query) return metaKeys;
 
-        // Helper to filter an array of entries based on the search query.
         const filterGroup = (group: MetaKeyEntry[]) =>
             group.filter(
                 (entry) =>
@@ -183,31 +167,87 @@ const CustomFieldsPanel = () => {
         };
     }, [metaKeys, searchQuery]);
 
-    /**
-     * Total number of results.
-     */
+    /** Calculate total visibility count for the "Matched Results" indicator. */
     const totalResults = filteredKeys
         ? filteredKeys.woocommerce.length + filteredKeys.acf.length + filteredKeys.custom.length
         : 0;
 
+    return {
+        metaKeys,
+        isLoading,
+        error,
+        inputValue,
+        setInputValue,
+        searchQuery,
+        filteredKeys,
+        totalResults,
+    };
+};
+
+/**
+ * CustomFieldsPanel Component
+ *
+ * The actual UI rendered inside the Slot. It provides:
+ * 1. A search-and-browse interface for meta keys.
+ * 2. A selection status indicator.
+ * 3. A display format dropdown.
+ *
+ * @param {Object} props Props injected by the Slot via Fill function-child.
+ */
+const CustomFieldsPanel: React.FC<{
+    column: any;                        // The store object for the current column being edited.
+    onUpdate: (updates: any) => void;   // Redux-style action dispatcher from the core plugin.
+}> = ({ column, onUpdate }) => {
+    const {
+        isLoading,
+        error,
+        inputValue,
+        setInputValue,
+        searchQuery,
+        filteredKeys,
+        totalResults,
+    } = useMetaKeys();
+
+    // Sync UI with the column settings in the parent Store
+    const selectedKey = column.settings?.metaKey || '';
+    const selectedFormat = column.settings?.displayFormat || 'auto';
+
     /**
-     * Renders a grouped list of meta key entries with appropriate styling and icons.
-     * Special handling is included for ACF fields to group them by their respective field groups.
-     *
-     * @param {string} groupKey Internal identifier for the group (e.g., 'acf').
-     * @param {MetaKeyEntry[]} entries The list of entries to render.
-     * @param {Function} onSelect Callback when an entry is selected.
-     * @param {string} selectedKey The currently selected key for highlighting.
+     * Persist selection to the global store.
+     * This instantly updates the "Meta Key (Manual Override)" input in the parent ColumnItem.
+     */
+    const handleMetaKeySelect = (key: string) => {
+        onUpdate({
+            settings: {
+                ...column.settings,
+                metaKey: key,
+            },
+        });
+    };
+
+    /**
+     * Persist formatting choice to the global store.
+     */
+    const handleFormatChange = (format: string) => {
+        onUpdate({
+            settings: {
+                ...column.settings,
+                displayFormat: format,
+            },
+        });
+    };
+
+    /**
+     * Renders a specific group of meta keys (WC, ACF, or Custom).
+     * ACF groups are rendered with an additional nesting layer for "Field Groups".
      */
     const renderGroup = (
         groupKey: string,
         entries: MetaKeyEntry[],
-        onSelect: (key: string) => void,
-        selectedKey: string
     ) => {
         if (entries.length === 0) return null;
 
-        // Sub-group ACF entries by their field group.
+        // ACF fields require sub-grouping by their 'group' property for better organization
         if (groupKey === 'acf') {
             const subGroups: Record<string, MetaKeyEntry[]> = {};
             entries.forEach((entry) => {
@@ -217,58 +257,53 @@ const CustomFieldsPanel = () => {
             });
 
             return (
-                /**
-                 * Render a grouped list of ACF meta key entries.
-                 * 
-                 * @param {string} groupKey Internal identifier for the group (e.g., 'acf').
-                 * @param {MetaKeyEntry[]} entries The list of entries to render.
-                 * @param {Function} onSelect Callback when an entry is selected.
-                 * @param {string} selectedKey The currently selected key for highlighting.
-                 */
-                <div key={groupKey} className="mb-3">
-                    <div className="text-xs font-semibold text-purple-700 uppercase tracking-wide mb-1.5 flex items-center gap-1">
-                        <SparklesIcon className="w-4 h-4 text-purple-700 mr-1" />
+                <div key={groupKey} className="mb-4">
+                    <div className="text-xs font-bold text-purple-700 uppercase tracking-widest mb-2 flex items-center gap-1.5 px-1 py-0.5 bg-purple-50 rounded-sm">
+                        <SparklesIcon className="w-4 h-4 text-purple-600" />
                         {GROUP_LABELS[groupKey]}
                     </div>
-                    {Object.entries(subGroups).map(([subGroupName, subEntries]) => (
-                        <div key={subGroupName} className="ml-2 mb-2">
-                            <div className="text-[10px] font-medium text-gray-500 uppercase tracking-wide mb-1">
-                                {subGroupName}
+                    <div className="space-y-4">
+                        {Object.entries(subGroups).map(([subGroupName, subEntries]) => (
+                            <div key={subGroupName} className="ml-1 pl-3 border-l-2 border-purple-100">
+                                <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-purple-200" />
+                                    {subGroupName}
+                                </div>
+                                <div className="space-y-0.5">
+                                    {subEntries.map((entry) => (
+                                        <MetaKeyButton
+                                            key={entry.key}
+                                            entry={entry}
+                                            isSelected={selectedKey === entry.key}
+                                            onClick={() => handleMetaKeySelect(entry.key)}
+                                        />
+                                    ))}
+                                </div>
                             </div>
-                            {subEntries.map((entry) => (
-                                <MetaKeyButton
-                                    key={entry.key}
-                                    entry={entry}
-                                    isSelected={selectedKey === entry.key}
-                                    onClick={() => onSelect(entry.key)}
-                                />
-                            ))}
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             );
         }
 
-        /**
-         * Group icons for different meta key groups.
-         */
-        const groupIcons: Record<string, string> = {
-            woocommerce: '🛒',
-            custom: '⚙️',
+        // Standard icon mapping for common groups
+        const groupIcons: Record<string, any> = {
+            woocommerce: <StoreIcon className="w-4 h-4 text-blue-600" />,
+            custom: <BoltIcon className="w-4 h-4 text-gray-600" />,
+        };
+
+        const groupStyles: Record<string, string> = {
+            woocommerce: 'text-blue-700 bg-blue-50',
+            custom: 'text-gray-700 bg-gray-50',
         };
 
         return (
-            /**
-             * Render a grouped list of meta key entries.
-             * 
-             * @param {string} groupKey Internal identifier for the group (e.g., 'acf').
-             * @param {MetaKeyEntry[]} entries The list of entries to render.
-             * @param {Function} onSelect Callback when an entry is selected.
-             * @param {string} selectedKey The currently selected key for highlighting.
-             */
-            <div key={groupKey} className="mb-3">
-                <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5 flex items-center gap-1">
-                    <span>{groupIcons[groupKey] || <PackageIcon className="w-4 h-4 text-gray-600 mr-1" />}</span>
+            <div key={groupKey} className="mb-4">
+                <div className={cn(
+                    "text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-1.5 px-1 py-0.5 rounded-sm",
+                    groupStyles[groupKey] || 'text-gray-600 bg-gray-100'
+                )}>
+                    <span>{groupIcons[groupKey] || '📦'}</span>
                     {GROUP_LABELS[groupKey]}
                 </div>
                 <div className="space-y-0.5">
@@ -277,7 +312,7 @@ const CustomFieldsPanel = () => {
                             key={entry.key}
                             entry={entry}
                             isSelected={selectedKey === entry.key}
-                            onClick={() => onSelect(entry.key)}
+                            onClick={() => handleMetaKeySelect(entry.key)}
                         />
                     ))}
                 </div>
@@ -285,40 +320,26 @@ const CustomFieldsPanel = () => {
         );
     };
 
-    // Since this Fill renders for ALL cf columns simultaneously (the Slot is inside
-    // each ColumnItem), we render a self-contained panel. Each cf column gets its own
-    // instance of this panel because the Slot is inside the per-column expanded section.
-    //
-    // However, the Fill doesn't receive the column context directly. We need to get
-    // the current column from a parent DOM context or use a different approach.
-    //
-    // Approach: Render a component that manages its own selection state and syncs
-    // with the store. Since we can't know which column triggered this render,
-    // we render a meta-key selector that is "global" — users browse and copy a key.
-    //
-    // Better approach for v1: Render an enhanced picker panel that works alongside
-    // the existing free text input. Users can browse keys here and click to populate.
-
     return (
         <div className="space-y-3 bg-white rounded-lg p-3 border border-gray-200 mt-2">
             <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-blue-700 uppercase tracking-wide">
+                <span className="text-xs font-bold text-blue-700 uppercase tracking-widest">
                     {__('Advanced Meta Selector', 'productbay-pro')}
                 </span>
             </div>
 
-            <p className="text-xs text-gray-500 m-0">
-                {__('Browse all available product meta keys. Click to use a key in the field below.', 'productbay-pro')}
+            <p className="text-xs text-gray-500 m-0 leading-relaxed">
+                {__('Browse all available product meta keys. Click any key to instantly use it.', 'productbay-pro')}
             </p>
 
-            {/* Search Input */}
+            {/* Meta Key Search Input */}
             <div className="relative group">
                 <input
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder={__('Search meta keys…', 'productbay-pro')}
-                    className="w-full px-3 py-2 pr-10 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="w-full px-3 py-2 pr-10 text-sm border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-100 transition-all font-medium"
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center">
                     {inputValue ? (
@@ -335,85 +356,96 @@ const CustomFieldsPanel = () => {
                 </div>
             </div>
 
-            {/* Loading State */}
+            {/* Global Highlight for the currently active key */}
+            {selectedKey && (
+                <div className="flex items-center gap-2 px-2 py-1 px-2.5 py-1.5 bg-blue-50 border border-blue-100 rounded-md">
+                    <span className="text-[10px] font-bold text-blue-700 uppercase tracking-tight">
+                        {__('Active Key:', 'productbay-pro')}
+                    </span>
+                    <code className="text-[11px] font-bold text-blue-700 truncate font-mono">
+                        {selectedKey}
+                    </code>
+                </div>
+            )}
+
+            {/* Skeleton / Pulse Loading State */}
             {isLoading && (
-                <div className="space-y-2 animate-pulse">
+                <div className="space-y-2 animate-pulse pr-1">
                     {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="h-7 bg-gray-200 rounded" />
+                        <div key={i} className="h-8 bg-gray-100 rounded-md" />
                     ))}
                 </div>
             )}
 
-            {/* Results Count Info */}
+            {/* Results Match Metadata */}
             {searchQuery && !isLoading && totalResults > 0 && (
-                <div className="flex items-center justify-between px-1 border-b border-gray-200">
-                    <span className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">
-                        {__('Search Results', 'productbay-pro')}
+                <div className="flex items-center justify-between px-1 border-b border-gray-100 pb-1.5 pt-0.5">
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                        {__('Matched Results', 'productbay-pro')}
                     </span>
-                    <span className="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-full font-bold">
+                    <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold">
                         {totalResults}
                     </span>
                 </div>
             )}
 
-            {/* Error State */}
+            {/* Backend / Network Error Handling */}
             {error && (
-                <div className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-md p-2">
+                <div className="text-xs text-red-600 bg-red-50 border border-red-100 rounded-md p-2.5 font-medium animate-in fade-in">
                     {error}
                 </div>
             )}
 
-            {/* Meta Key List */}
+            {/* Scrollable meta key list with categorized groups */}
             {filteredKeys && !isLoading && (
-                <div className="max-h-60 overflow-y-auto space-y-1 pr-1">
+                <div className="max-h-72 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                     {totalResults === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-8 text-center bg-gray-50/50 rounded-lg border border-dashed border-gray-200">
-                            <div className="text-2xl mb-2">
-                                <SearchIcon className="w-6 h-6 text-gray-400 pointer-events-none" />
+                        <div className="flex flex-col items-center justify-center py-10 text-center bg-gray-50/50 rounded-lg border border-dashed border-gray-200">
+                            <div className="p-3 bg-white rounded-full mb-3">
+                                <SearchIcon className="w-6 h-6 text-gray-300" />
                             </div>
-                            <div className="font-semibold text-gray-600">
+                            <div className="font-bold text-gray-600 text-sm">
                                 {searchQuery
-                                    ? __('Not found any matching keys.', 'productbay-pro')
-                                    : __('No meta keys found.', 'productbay-pro')}
+                                    ? __('Key not found', 'productbay-pro')
+                                    : __('No meta keys available', 'productbay-pro')}
                             </div>
                             {searchQuery && (
-                                <div className="text-xs text-gray-400 mt-1">
-                                    {__('Try a different search term or browse the categories.', 'productbay-pro')}
+                                <div className="text-xs text-gray-400 mt-1 max-w-[200px] leading-relaxed mx-auto">
+                                    {__('Try searching for something else or manually enter a key below.', 'productbay-pro')}
                                 </div>
                             )}
                         </div>
                     ) : (
                         <>
-                            {renderGroup('woocommerce', filteredKeys.woocommerce, handleMetaKeyClick, '')}
-                            {renderGroup('acf', filteredKeys.acf, handleMetaKeyClick, '')}
-                            {renderGroup('custom', filteredKeys.custom, handleMetaKeyClick, '')}
+                            {renderGroup('woocommerce', filteredKeys.woocommerce)}
+                            {renderGroup('acf', filteredKeys.acf)}
+                            {renderGroup('custom', filteredKeys.custom)}
                         </>
                     )}
                 </div>
             )}
 
-            {/* Display Format Selector */}
-            <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">
-                    {__('Display Format', 'productbay-pro')}
-                </label>
-                <div ref={selectRef}>
-                    <Select
-                        className="w-full"
-                        value={selectedFormat}
-                        onChange={(val: string) => {
-                            setSelectedFormat(val);
-                            const event = new CustomEvent('productbay-pro-cf-format', {
-                                bubbles: true,
-                                detail: { format: val },
-                            });
-                            selectRef.current?.dispatchEvent(event);
-                        }}
-                        options={DISPLAY_FORMATS}
-                    />
+            {/* Display Formatting Settings */}
+            <div className="pt-2 border-t border-gray-100 mt-2">
+                <div className="flex items-center justify-between mb-2">
+                    <label className="block text-[11px] font-bold text-gray-700 uppercase tracking-wider">
+                        {__('Formatting Mode', 'productbay-pro')}
+                    </label>
+                    <span className={cn(
+                        "text-[9px] font-bold px-1.5 py-0.5 rounded-sm uppercase tracking-tighter",
+                        selectedFormat === 'auto' ? "bg-amber-100 text-amber-700" : "bg-gray-100 text-gray-500"
+                    )}>
+                        {selectedFormat === 'auto' ? __('Smart Mode', 'productbay-pro') : __('Standard', 'productbay-pro')}
+                    </span>
                 </div>
-                <p className="text-[11px] text-gray-400 mt-1 m-0">
-                    {__('Auto Detect intelligently formats URLs as links, image IDs as images, and dates as formatted dates.', 'productbay-pro')}
+                <Select
+                    className="w-full h-9 text-sm"
+                    value={selectedFormat}
+                    onChange={handleFormatChange}
+                    options={DISPLAY_FORMATS}
+                />
+                <p className="text-[11px] text-gray-400 mt-2 m-0 leading-relaxed italic">
+                    {__('Auto Detect intelligently renders links, images, and dates based on their content.', 'productbay-pro')}
                 </p>
             </div>
         </div>
@@ -421,65 +453,10 @@ const CustomFieldsPanel = () => {
 };
 
 /**
- * Facilitates the "Click to fill" functionality.
+ * MetaKeyButton Component
  *
- * Since this component renders inside a WordPress Slot (Fill), it might not have
- * direct access to the parent component's state or props. This function uses a
- * DOM-based approach to find the most relevant input field (typically the free text input
- * for meta keys in the column settings) and populate it.
- *
- * @param {string} key The meta key to populate into the input.
- */
-function handleMetaKeyClick(key: string) {
-    // Find the closest cf settings container and the meta key input within it.
-    // The Slot renders inside .space-y-3 alongside the free meta key input.
-    const activeSlot = document.querySelector('[data-slot-name="productbay-pro-cf-settings"]')
-        ?.closest('.space-y-3');
-
-    if (!activeSlot) {
-        // Fallback: find any visible meta key input.
-        const inputs = document.querySelectorAll<HTMLInputElement>(
-            'input[placeholder*="meta"], input[placeholder*="_weight"]'
-        );
-        if (inputs.length > 0) {
-            setNativeValue(inputs[inputs.length - 1], key);
-        }
-        return;
-    }
-
-    const input = activeSlot.querySelector<HTMLInputElement>('input[type="text"]');
-    if (input) {
-        setNativeValue(input, key);
-    }
-}
-
-/**
- * Programmatically sets the value of a native HTML input element and triggers
- * the necessary React events ('input' and 'change') so that React's internal state
- * is synchronized with the new DOM value.
- *
- * @param {HTMLInputElement} input The target input element.
- * @param {string} value The new value to set.
- */
-function setNativeValue(input: HTMLInputElement, value: string) {
-    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-        window.HTMLInputElement.prototype,
-        'value'
-    )?.set;
-
-    if (nativeInputValueSetter) {
-        nativeInputValueSetter.call(input, value);
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        input.dispatchEvent(new Event('change', { bubbles: true }));
-    }
-
-    // Focus the input to give visual feedback.
-    input.focus();
-    input.select();
-}
-
-/**
- * Individual meta key button component that displays the label and the raw key.
+ * A specialized interactive button representing a single meta key entry.
+ * It shows the human label prominently and the technical key in a mono-font code badge.
  */
 const MetaKeyButton: React.FC<{
     entry: MetaKeyEntry;
@@ -490,16 +467,24 @@ const MetaKeyButton: React.FC<{
         <button
             onClick={onClick}
             className={cn(
-                'w-full flex items-center gap-2 px-2 py-1.5 text-xs rounded transition-colors text-left',
-                'hover:bg-blue-50 hover:text-blue-700',
+                'w-full flex items-center gap-2 px-2.5 py-1.5 text-xs border border-transparent rounded-lg text-left group/btn relative overflow-hidden',
                 isSelected
-                    ? 'bg-blue-100 text-blue-700 border border-blue-300'
-                    : 'bg-white border border-transparent text-gray-700'
+                    ? 'bg-blue-200 text-blue-700 border-blue-300'
+                    : 'bg-white hover:bg-blue-100 text-gray-700 hover:text-blue-700 hover:border-blue-100'
             )}
             title={`${entry.key} (${entry.type})`}
         >
-            <span className="flex-1 truncate font-medium pl-1">{entry.label}</span>
-            <code className="flex-shrink-0 text-[10px] text-gray-400 bg-gray-100 px-1 py-0.5 rounded font-mono">
+            <span className={cn(
+                "flex-1 truncate font-semibold text-gray-800"
+            )}>
+                {entry.label}
+            </span>
+            <code className={cn(
+                "flex-shrink-0 text-[9px] px-1.5 py-0.5 rounded font-mono font-bold",
+                isSelected
+                    ? "bg-blue-500 text-blue-50 border border-blue-400"
+                    : "bg-gray-100 text-gray-400 border border-gray-200 group-hover/btn:bg-blue-100 group-hover/btn:text-blue-500 group-hover/btn:border-blue-200"
+            )}>
                 {entry.key}
             </code>
         </button>
