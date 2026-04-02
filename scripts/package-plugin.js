@@ -47,6 +47,22 @@ async function stripComposerDevSections(composerPath) {
 	await fs.writeJson(composerPath, composerData, { spaces: '\t' });
 }
 
+/**
+ * Recursively remove files by extension from a directory.
+ */
+async function removeFilesByExtension(dir, ext) {
+	const files = await fs.readdir(dir);
+	for (const file of files) {
+		const fullPath = path.join(dir, file);
+		const stat = await fs.stat(fullPath);
+		if (stat.isDirectory()) {
+			await removeFilesByExtension(fullPath, ext);
+		} else if (file.endsWith(ext)) {
+			await fs.remove(fullPath);
+		}
+	}
+}
+
 (async () => {
 	try {
 		console.log(`🚀 Packaging ${PLUGIN_SLUG} v${VERSION}...`);
@@ -71,7 +87,11 @@ async function stripComposerDevSections(composerPath) {
 			}
 		}
 
-		// 3. Install production Composer dependencies (in the staging folder).
+		// 3. Clean up source maps from the production package.
+		console.log('🧹 Removing source maps from package...');
+		await removeFilesByExtension(PLUGIN_DIR, '.map');
+
+		// 4. Install production Composer dependencies (in the staging folder).
 		// Copy lock file first so composer install is deterministic.
 		console.log('📦 Installing production Composer dependencies...');
 		const lockSrc = path.join(ROOT_DIR, 'composer.lock');
