@@ -162,7 +162,8 @@ class CustomFieldsModule
 		$raw_keys  = \get_transient($cache_key);
 
 		if (false === $raw_keys) {
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
 			$raw_keys = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT DISTINCT pm.meta_key
@@ -174,6 +175,8 @@ class CustomFieldsModule
 					'product'
 				)
 			);
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery.NoCaching
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery
 			\set_transient($cache_key, $raw_keys, 3600);
 		}
 

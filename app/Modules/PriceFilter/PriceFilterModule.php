@@ -119,17 +119,18 @@ class PriceFilterModule {
 				return $args;
 			}
 
+			// phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			if ( ! isset( $args['meta_query'] ) ) {
 				$args['meta_query'] = array();
 			}
 
-			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			$args['meta_query'][] = array(
 				'key'     => '_price',
 				'value'   => array( $min >= 0 ? $min : 0, $max ? $max : 999999999 ),
 				'compare' => 'BETWEEN',
 				'type'    => 'NUMERIC',
 			);
+			// phpcs:enable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		}
 
 		return $args;
