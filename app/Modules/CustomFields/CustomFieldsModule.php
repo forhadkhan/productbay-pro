@@ -157,18 +157,24 @@ class CustomFieldsModule
 	{
 		global $wpdb;
 
-		// 1. Get all unique meta keys from product posts.
-		$raw_keys = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT DISTINCT pm.meta_key
-				 FROM {$wpdb->postmeta} pm
-				 INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-				 WHERE p.post_type = %s
-				 AND p.post_status = 'publish'
-				 ORDER BY pm.meta_key ASC",
-				'product'
-			)
-		);
+		// 1. Get all unique meta keys from product posts (cached for 1 hour).
+		$cache_key = 'productbay_pro_meta_keys';
+		$raw_keys  = \get_transient($cache_key);
+
+		if (false === $raw_keys) {
+			$raw_keys = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT DISTINCT pm.meta_key
+					 FROM {$wpdb->postmeta} pm
+					 INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+					 WHERE p.post_type = %s
+					 AND p.post_status = 'publish'
+					 ORDER BY pm.meta_key ASC",
+					'product'
+				)
+			);
+			\set_transient($cache_key, $raw_keys, HOUR_IN_SECONDS);
+		}
 
 		if (empty($raw_keys)) {
 			return new \WP_REST_Response(

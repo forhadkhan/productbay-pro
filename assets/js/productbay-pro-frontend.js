@@ -204,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		data.append('product_id', productId);
 		data.append('table_id', tableId);
 		data.append('mode', 'popup');
+		data.append('nonce', productbay_pro_ajax.nonce);
 
 		fetch(productbay_pro_ajax.ajax_url, {
 			method: 'POST',
@@ -355,6 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		data.append('product_id', productId);
 		data.append('table_id', tableId);
 		data.append('mode', 'nested');
+		data.append('nonce', productbay_pro_ajax.nonce);
 
 		fetch(productbay_pro_ajax.ajax_url, {
 			method: 'POST',

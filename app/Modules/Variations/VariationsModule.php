@@ -201,9 +201,10 @@ class VariationsModule
 			(string) time()
 		);
 
-		// Pass ajax url
+		// Pass ajax url and nonce
 		\wp_localize_script('productbay-pro-frontend', 'productbay_pro_ajax', [
-			'ajax_url' => admin_url('admin-ajax.php')
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'nonce'    => \wp_create_nonce('productbay_pro_variations_nonce')
 		]);
 	}
 
@@ -212,6 +213,8 @@ class VariationsModule
 	 */
 	public function render_ajax_variations()
 	{
+		\check_ajax_referer('productbay_pro_variations_nonce', 'nonce');
+
 		$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
 		$table_id   = isset($_POST['table_id']) ? intval($_POST['table_id']) : 0;
 		$mode       = isset($_POST['mode']) ? sanitize_key($_POST['mode']) : 'popup';
@@ -516,7 +519,7 @@ class VariationsModule
 				echo wp_kses_post(wp_trim_words($product->get_short_description(), 10));
 				break;
 			default:
-				echo \apply_filters('productbay_cell_output', '', $col, $product);
+				echo \wp_kses_post(\apply_filters('productbay_cell_output', '', $col, $product));
 		}
 	}
 }
