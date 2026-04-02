@@ -56,6 +56,9 @@ class ProPlugin
 
 		// Inject Pro JS into the live preview iframe.
 		\add_filter('productbay_preview_js_urls', array($this, 'inject_preview_js'));
+
+		// Inject Pro CSS into the Gutenberg block editor's iframe.
+		\add_filter('productbay_block_editor_css_paths', array($this, 'inject_block_editor_css'));
 	}
 
 	/**
@@ -90,6 +93,23 @@ class ProPlugin
 		$urls[] = PRODUCTBAY_PRO_URL . 'assets/css/productbay-pro-frontend.css?ver=' . $css_ver;
 		
 		return $urls;
+	}
+
+	/**
+	 * Inject Pro frontend CSS into the Gutenberg block editor iframe.
+	 *
+	 * Hooks into the free plugin's `productbay_block_editor_css_paths` filter
+	 * so Pro UI elements (price slider, variation modals, etc.) render correctly
+	 * in the ServerSideRender preview.
+	 *
+	 * @since 1.0.0
+	 * @param string[] $paths Existing CSS file paths.
+	 * @return string[] Modified paths.
+	 */
+	public function inject_block_editor_css($paths)
+	{
+		$paths[] = PRODUCTBAY_PRO_PATH . 'assets/css/productbay-pro-frontend.css';
+		return $paths;
 	}
 
 	/**
