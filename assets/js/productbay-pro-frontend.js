@@ -124,10 +124,10 @@
 				});
 
 				if (this.$tooltipMin.length) {
-					this.$tooltipMin.text(this.formatPrice(minVal)).css('left', minPercent + '%');
+					this.$tooltipMin.text(this.formatPrice(minVal)).css('left', `calc(${minPercent}% + ${8 - minPercent * 0.16}px)`);
 				}
 				if (this.$tooltipMax.length) {
-					this.$tooltipMax.text(this.formatPrice(maxVal)).css('left', maxPercent + '%');
+					this.$tooltipMax.text(this.formatPrice(maxVal)).css('left', `calc(${maxPercent}% + ${8 - maxPercent * 0.16}px)`);
 				}
 			}
 		}
