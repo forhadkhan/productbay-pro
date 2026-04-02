@@ -1,31 +1,41 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Fill } from '@wordpress/components';
-import { SearchIcon, X } from 'lucide-react';
+import { PackageIcon, SearchIcon, SparklesIcon, X } from 'lucide-react';
 import { Select } from '@/components/ui';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
 
 /**
- * Meta key entry returned from the REST API.
+ * Interface representing a meta key entry returned from the REST API.
+ * Contains information about the meta key, its human-readable label, type, and optional group.
  */
 interface MetaKeyEntry {
+    /** The actual meta key string used in the database (e.g., '_price'). */
     key: string;
+    /** A human-friendly label for the meta key (e.g., 'Regular Price'). */
     label: string;
+    /** The data type of the meta key value (e.g., 'number', 'text'). */
     type: string;
+    /** Optional grouping identifier, primarily used for ACF fields. */
     group?: string;
 }
 
 /**
- * Grouped meta keys response from the API.
+ * Interface representing the grouped meta keys response from the backend API.
+ * Organizes meta keys into logical source categories.
  */
 interface MetaKeysResponse {
+    /** Meta keys registered by WooCommerce. */
     woocommerce: MetaKeyEntry[];
+    /** Meta keys created via Advanced Custom Fields (ACF). */
     acf: MetaKeyEntry[];
+    /** Standard or unknown custom meta keys. */
     custom: MetaKeyEntry[];
 }
 
 /**
- * Display format options for custom field values.
+ * Configuration for available display format options for custom field values.
+ * Used to populate the format selector dropdown.
  */
 const DISPLAY_FORMATS = [
     { value: 'auto', label: __('Auto Detect', 'productbay-pro') },
@@ -37,10 +47,8 @@ const DISPLAY_FORMATS = [
     { value: 'boolean', label: __('Yes / No Badge', 'productbay-pro') },
 ];
 
-// TYPE_ICONS removed for cleaner layout
-
 /**
- * Group labels for display.
+ * Human-readable group labels mapped to their internal identifiers.
  */
 const GROUP_LABELS: Record<string, string> = {
     woocommerce: __('WooCommerce', 'productbay-pro'),
@@ -49,10 +57,12 @@ const GROUP_LABELS: Record<string, string> = {
 };
 
 /**
- * CustomFieldsSlot Component
+ * CustomFieldsSlot Component.
  *
- * Fills the `productbay-pro-cf-settings` slot in ColumnItem.tsx with an
- * advanced meta-key selector featuring search, grouping, and format selection.
+ * This component acts as a bridge to the `productbay-pro-cf-settings` slot.
+ * It is rendered within each custom field column configuration in the ProductBay table editor.
+ *
+ * @returns {JSX.Element | null} The Fill component or null if the table store is unavailable.
  */
 const CustomFieldsSlot = () => {
     const useTableStore = (window as any).productbay?.useTableStore;
@@ -69,8 +79,10 @@ const CustomFieldsSlot = () => {
 };
 
 /**
- * The actual panel component rendered inside the Fill.
- * Separated to keep hooks at the top level of a component.
+ * The core logic and UI of the Custom Fields selection panel.
+ * Contains search state, data fetching logic, and the UI for browsing meta keys.
+ *
+ * @returns {JSX.Element} The rendered panel.
  */
 const CustomFieldsPanel = () => {
     const useTableStore = (window as any).productbay?.useTableStore;
@@ -84,16 +96,17 @@ const CustomFieldsPanel = () => {
     // Since the Slot renders inside ColumnItem for each cf column,
     // we need to identify which one. We use a simple approach: find the
     // nearest cf column by checking DOM context or use all cf columns.
-    const [metaKeys, setMetaKeys] = useState<MetaKeysResponse | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [inputValue, setInputValue] = useState('');
-    const [searchQuery, setSearchQuery] = useState('');
-    const [error, setError] = useState<string | null>(null);
-    const [selectedFormat, setSelectedFormat] = useState('auto');
-    const selectRef = useRef<HTMLDivElement>(null);
+    const [metaKeys, setMetaKeys] = useState<MetaKeysResponse | null>(null); // Fetched meta keys data
+    const [isLoading, setIsLoading] = useState(false);                      // Loading state for API request
+    const [inputValue, setInputValue] = useState('');                       // Intermediate search input value
+    const [searchQuery, setSearchQuery] = useState('');                     // Debounced search query
+    const [error, setError] = useState<string | null>(null);                // Fetching error message
+    const [selectedFormat, setSelectedFormat] = useState('auto');           // Currently selected display format
+    const selectRef = useRef<HTMLDivElement>(null);                         // Ref used for event dispatching
 
     /**
-     * Lazy search: Debounce input changes.
+     * Lazy search implementation.
+     * Debounces the input value changes to prevent excessive filtering during typing.
      */
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -103,7 +116,8 @@ const CustomFieldsPanel = () => {
     }, [inputValue]);
 
     /**
-     * Fetch meta keys from the Pro REST endpoint.
+     * Fetch meta keys from the Pro REST endpoint on component mount.
+     * Uses the site-provided API URL and security nonce.
      */
     useEffect(() => {
         const fetchMetaKeys = async () => {
@@ -111,6 +125,7 @@ const CustomFieldsPanel = () => {
             setError(null);
 
             try {
+                // Get global settings provided by the PHP backend.
                 const settings = (window as any).productBaySettings || {};
                 const apiUrl = settings.apiUrl;
                 const endpoint = apiUrl ? `${apiUrl}pro/meta-keys` : '/wp-json/productbay/v1/pro/meta-keys';
@@ -120,7 +135,7 @@ const CustomFieldsPanel = () => {
                     endpoint,
                     {
                         headers: {
-                            'X-WP-Nonce': nonce,
+                            'X-WP-Nonce': nonce, // Required for authenticated REST requests in WP
                         },
                     }
                 );
@@ -143,7 +158,8 @@ const CustomFieldsPanel = () => {
     }, []);
 
     /**
-     * Filter meta keys by search query.
+     * Memoized computation of filtered meta keys based on the current search query.
+     * Matches against keys, labels, and group names.
      */
     const filteredKeys = useMemo(() => {
         if (!metaKeys) return null;
@@ -151,6 +167,7 @@ const CustomFieldsPanel = () => {
         const query = searchQuery.toLowerCase().trim();
         if (!query) return metaKeys;
 
+        // Helper to filter an array of entries based on the search query.
         const filterGroup = (group: MetaKeyEntry[]) =>
             group.filter(
                 (entry) =>
@@ -174,7 +191,13 @@ const CustomFieldsPanel = () => {
         : 0;
 
     /**
-     * Render a grouped list of meta key entries.
+     * Renders a grouped list of meta key entries with appropriate styling and icons.
+     * Special handling is included for ACF fields to group them by their respective field groups.
+     *
+     * @param {string} groupKey Internal identifier for the group (e.g., 'acf').
+     * @param {MetaKeyEntry[]} entries The list of entries to render.
+     * @param {Function} onSelect Callback when an entry is selected.
+     * @param {string} selectedKey The currently selected key for highlighting.
      */
     const renderGroup = (
         groupKey: string,
@@ -194,9 +217,17 @@ const CustomFieldsPanel = () => {
             });
 
             return (
+                /**
+                 * Render a grouped list of ACF meta key entries.
+                 * 
+                 * @param {string} groupKey Internal identifier for the group (e.g., 'acf').
+                 * @param {MetaKeyEntry[]} entries The list of entries to render.
+                 * @param {Function} onSelect Callback when an entry is selected.
+                 * @param {string} selectedKey The currently selected key for highlighting.
+                 */
                 <div key={groupKey} className="mb-3">
                     <div className="text-xs font-semibold text-purple-700 uppercase tracking-wide mb-1.5 flex items-center gap-1">
-                        <span>🔮</span>
+                        <SparklesIcon className="w-4 h-4 text-purple-700 mr-1" />
                         {GROUP_LABELS[groupKey]}
                     </div>
                     {Object.entries(subGroups).map(([subGroupName, subEntries]) => (
@@ -218,15 +249,26 @@ const CustomFieldsPanel = () => {
             );
         }
 
+        /**
+         * Group icons for different meta key groups.
+         */
         const groupIcons: Record<string, string> = {
             woocommerce: '🛒',
             custom: '⚙️',
         };
 
         return (
+            /**
+             * Render a grouped list of meta key entries.
+             * 
+             * @param {string} groupKey Internal identifier for the group (e.g., 'acf').
+             * @param {MetaKeyEntry[]} entries The list of entries to render.
+             * @param {Function} onSelect Callback when an entry is selected.
+             * @param {string} selectedKey The currently selected key for highlighting.
+             */
             <div key={groupKey} className="mb-3">
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5 flex items-center gap-1">
-                    <span>{groupIcons[groupKey] || '📦'}</span>
+                    <span>{groupIcons[groupKey] || <PackageIcon className="w-4 h-4 text-gray-600 mr-1" />}</span>
                     {GROUP_LABELS[groupKey]}
                 </div>
                 <div className="space-y-0.5">
@@ -262,9 +304,6 @@ const CustomFieldsPanel = () => {
             <div className="flex items-center gap-2">
                 <span className="text-xs font-semibold text-blue-700 uppercase tracking-wide">
                     {__('Advanced Meta Selector', 'productbay-pro')}
-                </span>
-                <span className="text-[10px] bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-medium">
-                    PRO
                 </span>
             </div>
 
@@ -357,9 +396,6 @@ const CustomFieldsPanel = () => {
             <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1">
                     {__('Display Format', 'productbay-pro')}
-                    <span className="ml-1 text-[10px] bg-blue-100 text-blue-600 px-1 py-0.5 rounded font-medium">
-                        PRO
-                    </span>
                 </label>
                 <div ref={selectRef}>
                     <Select
@@ -385,10 +421,14 @@ const CustomFieldsPanel = () => {
 };
 
 /**
- * handleMetaKeyClick — Populate the meta key input above this panel.
+ * Facilitates the "Click to fill" functionality.
  *
- * Since the Fill doesn't get column props directly, we use a DOM approach:
- * find the sibling input[placeholder*="meta"] and set its value + trigger onChange.
+ * Since this component renders inside a WordPress Slot (Fill), it might not have
+ * direct access to the parent component's state or props. This function uses a
+ * DOM-based approach to find the most relevant input field (typically the free text input
+ * for meta keys in the column settings) and populate it.
+ *
+ * @param {string} key The meta key to populate into the input.
  */
 function handleMetaKeyClick(key: string) {
     // Find the closest cf settings container and the meta key input within it.
@@ -414,7 +454,12 @@ function handleMetaKeyClick(key: string) {
 }
 
 /**
- * Set a React-controlled input's value by triggering proper React events.
+ * Programmatically sets the value of a native HTML input element and triggers
+ * the necessary React events ('input' and 'change') so that React's internal state
+ * is synchronized with the new DOM value.
+ *
+ * @param {HTMLInputElement} input The target input element.
+ * @param {string} value The new value to set.
  */
 function setNativeValue(input: HTMLInputElement, value: string) {
     const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
@@ -434,7 +479,7 @@ function setNativeValue(input: HTMLInputElement, value: string) {
 }
 
 /**
- * Individual meta key button component.
+ * Individual meta key button component that displays the label and the raw key.
  */
 const MetaKeyButton: React.FC<{
     entry: MetaKeyEntry;
