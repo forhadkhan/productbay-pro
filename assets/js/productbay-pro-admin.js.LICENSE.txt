@@ -23,6 +23,14 @@
  */
 
 /**
+ * @license lucide-react
+ * version: 1.7.0
+ * Author: Eric Fennis
+ * License: ISC
+ * URL: https://lucide.dev
+ */
+
+/**
  * @license tailwind-merge
  * version: 3.5.0
  * Author: Dany Castillo
