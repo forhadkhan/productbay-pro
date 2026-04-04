@@ -10,7 +10,12 @@ declare global {
 		productbay: {
 			useTableStore: any; // Type as needed later
 			useExtensionStore: any; // Type as needed later
+			useSettingsStore: any;
+			useImportExportStore: any;
+			apiFetch: any;
 			ui: {
+				ProBadge: any;
+				ProFeatureGate: any;
 				Alert: any;
 				Button: any;
 				CardRadioGroup: any;
