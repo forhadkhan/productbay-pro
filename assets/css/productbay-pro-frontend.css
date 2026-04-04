@@ -716,3 +716,47 @@ table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
     color: #64748b;
     font-size: 14px;
 }
+
+/* ==========================================================================
+   ProductBay Pro - Lazy Loading (Load More & Infinite Scroll)
+   ========================================================================== */
+
+.productbay-wrapper .productbay-load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 20px auto;
+}
+
+.productbay-wrapper .productbay-load-more-btn.loading .productbay-spinner {
+    display: inline-block !important;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: productbay-pro-spin 0.6s linear infinite;
+}
+
+.productbay-wrapper .productbay-infinite-sentinel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.productbay-wrapper .productbay-infinite-sentinel .productbay-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: productbay-pro-spin 0.6s linear infinite;
+}
+
+@keyframes productbay-pro-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
