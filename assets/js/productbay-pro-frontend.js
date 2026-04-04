@@ -168,6 +168,73 @@
 		});
 	});
 
+	/**
+	 * ProductBay Pro - Lazy Loading (Load More & Infinite Scroll)
+	 */
+	class ProductBayProLazyLoading {
+		constructor(wrapper) {
+			this.$wrapper = window.jQuery(wrapper);
+			this.observer = null;
+			this.init();
+		}
+
+		init() {
+			this.bindEvents();
+			this.initInfiniteScroll();
+		}
+
+		bindEvents() {
+			// 1. Load More Button Click
+			this.$wrapper.on('click', '.productbay-load-more-btn', (e) => {
+				e.preventDefault();
+				this.$wrapper.trigger('productbay_next_page');
+			});
+
+			// 2. Re-init Infinite Scroll after any AJAX fetch (as pagination container is replaced)
+			this.$wrapper.on('productbay_after_fetch', () => {
+				this.initInfiniteScroll();
+			});
+		}
+
+		initInfiniteScroll() {
+			const $pagination = this.$wrapper.find('.productbay-pagination');
+			const mode = $pagination.data('mode');
+
+			if (mode !== 'infinite') return;
+
+			const sentinel = this.$wrapper.find('.productbay-infinite-sentinel')[0];
+			if (!sentinel) return;
+
+			if (this.observer) {
+				this.observer.disconnect();
+			}
+
+			this.observer = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting) {
+					// Check if already loading. The free plugin adds .loading to search or button.
+					const isLoading = this.$wrapper.hasClass('productbay-loading') || 
+									this.$wrapper.find('.productbay-load-more-btn').hasClass('loading') ||
+									this.$wrapper.find('.productbay-search').hasClass('loading');
+					
+					if (!isLoading) {
+						this.$wrapper.trigger('productbay_next_page');
+					}
+				}
+			}, {
+				rootMargin: '200px'
+			});
+
+			this.observer.observe(sentinel);
+		}
+	}
+
+	// Initialize Lazy Loading
+	window.jQuery(document).ready(function ($) {
+		$('.productbay-wrapper').each(function () {
+			new ProductBayProLazyLoading(this);
+		});
+	});
+
 })(jQuery);
 
 /**
