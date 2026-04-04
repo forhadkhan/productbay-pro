@@ -137,7 +137,7 @@ class ProPlugin
 		\wp_enqueue_style(
 			'productbay-pro-admin',
 			PRODUCTBAY_PRO_URL . 'assets/css/productbay-pro-admin.css',
-			array('productbay-admin'),
+			array('productbay-admin-css'),
 			(string) time()
 		);
 	}
@@ -162,6 +162,9 @@ class ProPlugin
 
 		$custom_fields_module = new \WpabProductBayPro\Modules\CustomFields\CustomFieldsModule();
 		$custom_fields_module->init();
+
+		$import_export_module = new \WpabProductBayPro\Modules\ImportExport\ImportExportModule();
+		$import_export_module->init();
 	}
 
 	/**
