@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace WpabProductBayPro\Modules\CustomFields;
 
+use WpabProductBayPro\Config\Config;
+
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
 	exit;
@@ -133,8 +135,8 @@ class CustomFieldsModule
 	public function register_routes()
 	{
 		\register_rest_route(
-			'productbay/v1',
-			'/pro/meta-keys',
+			Config::REST_NAMESPACE,
+			Config::REST_PREFIX . '/meta-keys',
 			array(
 				'methods'             => 'GET',
 				'callback'            => array($this, 'get_meta_keys'),

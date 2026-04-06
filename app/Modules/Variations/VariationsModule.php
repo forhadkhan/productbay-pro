@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace WpabProductBayPro\Modules\Variations;
 
+use WpabProductBayPro\Config\Config;
+
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
 	exit;
@@ -56,8 +58,8 @@ class VariationsModule
 		\add_action('productbay_enqueue_frontend_assets', [$this, 'enqueue_frontend_assets']);
 		
 		// AJAX endpoints
-		\add_action('wp_ajax_productbay_pro_get_variation_html', [$this, 'render_ajax_variations']);
-		\add_action('wp_ajax_nopriv_productbay_pro_get_variation_html', [$this, 'render_ajax_variations']);
+		\add_action('wp_ajax_' . Config::AJAX_VARIATIONS, [$this, 'render_ajax_variations']);
+		\add_action('wp_ajax_nopriv_' . Config::AJAX_VARIATIONS, [$this, 'render_ajax_variations']);
 	}
 
 	/**
@@ -189,14 +191,14 @@ class VariationsModule
 	{
 		\wp_enqueue_script(
 			'productbay-pro-frontend',
-			defined('PRODUCTBAY_PRO_URL') ? PRODUCTBAY_PRO_URL . 'assets/js/productbay-pro-frontend.js' : plugin_dir_url(dirname(__DIR__, 2)) . 'assets/js/productbay-pro-frontend.js',
+			Config::frontend_js_url(),
 			['productbay-frontend', 'jquery'],
 			(string) time(),
 			true
 		);
 		\wp_enqueue_style(
 			'productbay-pro-frontend',
-			defined('PRODUCTBAY_PRO_URL') ? PRODUCTBAY_PRO_URL . 'assets/css/productbay-pro-frontend.css' : plugin_dir_url(dirname(__DIR__, 2)) . 'assets/css/productbay-pro-frontend.css',
+			Config::frontend_css_url(),
 			['productbay-frontend'],
 			(string) time()
 		);
@@ -204,7 +206,7 @@ class VariationsModule
 		// Pass ajax url and nonce
 		\wp_localize_script('productbay-pro-frontend', 'productbay_pro_ajax', [
 			'ajax_url' => admin_url('admin-ajax.php'),
-			'nonce'    => \wp_create_nonce('productbay_pro_variations_nonce')
+			'nonce'    => \wp_create_nonce(Config::NONCE_VARIATIONS)
 		]);
 	}
 
@@ -213,7 +215,7 @@ class VariationsModule
 	 */
 	public function render_ajax_variations()
 	{
-		\check_ajax_referer('productbay_pro_variations_nonce', 'nonce');
+		\check_ajax_referer(Config::NONCE_VARIATIONS, 'nonce');
 
 		$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
 		$table_id   = isset($_POST['table_id']) ? intval($_POST['table_id']) : 0;

@@ -16,6 +16,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 use WpabProductBay\Data\TableRepository;
+use WpabProductBayPro\Config\Config;
 
 /**
  * Class ImportExportModule
@@ -54,8 +55,8 @@ class ImportExportModule
 	public function register_routes()
 	{
 		\register_rest_route(
-			'productbay/v1',
-			'/pro/export',
+			Config::REST_NAMESPACE,
+			Config::REST_PREFIX . '/export',
 			array(
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => array($this, 'handle_export'),
@@ -64,8 +65,8 @@ class ImportExportModule
 		);
 
 		\register_rest_route(
-			'productbay/v1',
-			'/pro/import',
+			Config::REST_NAMESPACE,
+			Config::REST_PREFIX . '/import',
 			array(
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => array($this, 'handle_import'),

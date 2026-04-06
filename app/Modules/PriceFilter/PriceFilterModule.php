@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace WpabProductBayPro\Modules\PriceFilter;
 
+use WpabProductBayPro\Config\Config;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -77,14 +79,14 @@ class PriceFilterModule {
 
 		\wp_enqueue_style(
 			'productbay-pro-frontend',
-			PRODUCTBAY_PRO_URL . 'assets/css/productbay-pro-frontend.css',
+			Config::frontend_css_url(),
 			array( 'productbay-frontend' ),
 			$version
 		);
 
 		\wp_enqueue_script(
 			'productbay-pro-frontend',
-			PRODUCTBAY_PRO_URL . 'assets/js/productbay-pro-frontend.js',
+			Config::frontend_js_url(),
 			array( 'jquery', 'productbay-frontend' ),
 			$version,
 			true
