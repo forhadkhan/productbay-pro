@@ -4,6 +4,7 @@ import { BoltIcon, PackageIcon, SearchIcon, SparklesIcon, StoreIcon, X } from 'l
 import { Select } from '@/components/ui';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
+import { API_ENDPOINTS, REST_NAMESPACE } from '@/utils/constants';
 
 /**
  * MetaKeyEntry Interface
@@ -120,7 +121,9 @@ const useMetaKeys = () => {
                 // Settings are localized via PHP in Includes/Pro/Assets.php
                 const settings = (window as any).productBaySettings || {};
                 const apiUrl = settings.apiUrl;
-                const endpoint = apiUrl ? `${apiUrl}pro/meta-keys` : '/wp-json/productbay/v1/pro/meta-keys';
+                const endpoint = apiUrl 
+                    ? `${apiUrl}${REST_NAMESPACE}${API_ENDPOINTS.META_KEYS}`
+                    : `/wp-json/${REST_NAMESPACE}${API_ENDPOINTS.META_KEYS}`;
                 const nonce = settings.nonce || (window as any).wpApiSettings?.nonce || '';
 
                 const response = await fetch(endpoint, {

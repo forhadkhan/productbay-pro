@@ -34,11 +34,31 @@ declare global {
 				Tabs: any;
 				Toast: any;
 				Toaster: any;
-				Toggle: any;
 				Tooltip: any;
 			};
 		};
+
+		productBaySettings: {
+			apiUrl?: string;
+			nonce?: string;
+			pluginUrl?: string;
+			version?: string;
+			isFirstTime?: boolean;
+			/** Injected by productbay-pro when active. */
+			proActive?: boolean;
+			/** Injected by productbay-pro — semver string. */
+			proVersion?: string;
+			/** Injected by productbay-pro — license data. */
+			license?: {
+				status: 'active' | 'expired' | 'invalid' | 'inactive';
+				isValid: boolean;
+				maskedKey: string;
+				expiresAt: string;
+			};
+		};
 	}
+	
+	const productBaySettings: Window['productBaySettings'];
 }
 
 export {};

@@ -1,6 +1,8 @@
 import domReady from '@wordpress/dom-ready';
-import PriceFilterFill from './slots/PriceFilterSlot';
+import LicenseTab from './slots/LicenseTab';
+import LicenseBanner from './slots/LicenseBanner';
 import VariationsSlot from './slots/VariationsSlot';
+import PriceFilterFill from './slots/PriceFilterSlot';
 import CustomFieldsSlot from './slots/CustomFieldsSlot';
 import ImportExportSlot from './slots/ImportExportSlot';
 
@@ -12,5 +14,7 @@ domReady(() => {
         store.getState().addFill(VariationsSlot);
         store.getState().addFill(CustomFieldsSlot);
         store.getState().addFill(ImportExportSlot);
+        store.getState().addFill(LicenseBanner);
+        store.getState().addFill(LicenseTab);
     }
 });

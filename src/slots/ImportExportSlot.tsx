@@ -12,6 +12,7 @@ import {
 	InfoIcon
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { API_ENDPOINTS } from '@/utils/constants';
 
 /**
  * ImportExportSlot Component
@@ -91,7 +92,7 @@ const ImportExportSlot = () => {
 					const data = JSON.parse(content);
 
 					// Trigger backend import
-					const result = await apiFetch('pro/import', {
+					const result = await apiFetch(API_ENDPOINTS.IMPORT, {
 						method: 'POST',
 						body: JSON.stringify({
 							data,
@@ -131,7 +132,7 @@ const ImportExportSlot = () => {
 
 		setExportLoading(true);
 		try {
-			const result = await apiFetch('pro/export', {
+			const result = await apiFetch(API_ENDPOINTS.EXPORT, {
 				method: 'POST',
 				body: JSON.stringify({
 					table_ids: exportTableIds,
