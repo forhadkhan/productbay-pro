@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       ProductBay Pro
- * Plugin URI:        https://wpanchorbay.com/products/productbay-pro
+ * Plugin URI:        https://wpanchorbay.com/plugins/productbay
  * Description:       Premium add-on for ProductBay — unlock advanced features for your WooCommerce product tables.
  * Version:           1.0.0
  * Requires at least: 6.0
@@ -27,19 +27,20 @@
 // Namespace - ProductBay Pro.
 namespace WpabProductBayPro;
 
-/**
- * Prevent Direct File Access.
- */
+// Prevent Direct File Access.
 if (!defined('ABSPATH')) {
 	exit;
 }
 
-/**
- * Global Constants.
- */
-define('PRODUCTBAY_PRO_VERSION', '1.0.0');
-define('PRODUCTBAY_PRO_PLUGIN_NAME', 'productbay-pro');
-define('PRODUCTBAY_PRO_TEXT_DOMAIN', 'productbay-pro');
+// Autoloader (must be loaded before using any classes).
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
+
+// Global Constants.
+define('PRODUCTBAY_PRO_VERSION', \WpabProductBayPro\Config\Config::VERSION);
+define('PRODUCTBAY_PRO_PLUGIN_NAME', \WpabProductBayPro\Config\Config::PLUGIN_NAME);
+define('PRODUCTBAY_PRO_TEXT_DOMAIN', \WpabProductBayPro\Config\Config::TEXT_DOMAIN);
 define('PRODUCTBAY_PRO_URL', \plugin_dir_url(__FILE__));
 define('PRODUCTBAY_PRO_PATH', \plugin_dir_path(__FILE__));
 define('PRODUCTBAY_PRO_PLUGIN_BASENAME', \plugin_basename(__FILE__));
@@ -47,11 +48,24 @@ define('PRODUCTBAY_PRO_PLUGIN_BASENAME', \plugin_basename(__FILE__));
 /**
  * Minimum required free plugin version.
  */
-define('PRODUCTBAY_PRO_MIN_FREE_VERSION', '1.1.1');
+define('PRODUCTBAY_PRO_MIN_FREE_VERSION', \WpabProductBayPro\Config\Config::MIN_FREE_VERSION);
 
-// Autoloader (must be loaded before using any classes).
-if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-	require_once __DIR__ . '/vendor/autoload.php';
+// Initialize Plugin Update Checker.
+if (class_exists('\YahnisElsts\PluginUpdateChecker\v5\PucFactory')) {
+	$productbay_pro_key = \get_option(\WpabProductBayPro\Config\Config::OPT_LICENSE_KEY, '');
+	if ($productbay_pro_key) {
+		$update_checker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+			\WpabProductBayPro\Config\Config::LICENSE_SERVER_URL . '/update-check/' . \WpabProductBayPro\Config\Config::LICENSE_SERVER_SLUG . '/' . $productbay_pro_key,
+			__FILE__,
+			\WpabProductBayPro\Config\Config::PLUGIN_NAME
+		);
+		$update_checker->addQueryArgFilter(
+			function ($query_args) {
+				$query_args['host'] = \home_url();
+				return $query_args;
+			}
+		);
+	}
 }
 
 /**
