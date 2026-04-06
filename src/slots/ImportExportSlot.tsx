@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
-import { 
-	DownloadIcon, 
-	UploadIcon, 
-	FileJsonIcon, 
-	CheckCircle2Icon, 
+import {
+	DownloadIcon,
+	UploadIcon,
+	FileJsonIcon,
+	CheckCircle2Icon,
 	AlertTriangleIcon,
 	XIcon,
 	Loader2Icon,
 	FileTextIcon,
-	InfoIcon
+	InfoIcon,
+	CheckIcon
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { API_ENDPOINTS } from '@/utils/constants';
@@ -27,8 +28,8 @@ const ImportExportSlot = () => {
 	const pb = (window as any).productbay;
 	if (!pb || !pb.useImportExportStore) return null;
 
-	const { 
-		importModalOpen, 
+	const {
+		importModalOpen,
 		closeImportModal,
 		exportModalOpen,
 		closeExportModal,
@@ -108,7 +109,7 @@ const ImportExportSlot = () => {
 
 					// Refresh tables list if we are on the tables page
 					if (window.location.hash.includes('/tables')) {
-						window.location.reload(); 
+						window.location.reload();
 					}
 				} catch (err: any) {
 					setImportStatus('error');
@@ -188,51 +189,49 @@ const ImportExportSlot = () => {
 							</div>
 							<h3 className="text-xl font-bold text-gray-900">{__('Import Complete!', 'productbay-pro')}</h3>
 							<p className="text-gray-600">{importMsg}</p>
-							<Button onClick={closeImportModal} className="mt-4">
+							<Button onClick={closeImportModal} className="mt-4 cursor-pointer">
 								{__('Close', 'productbay-pro')}
 							</Button>
 						</div>
 					) : (
 						<>
 							{/* File Dropzone / Selector */}
-							<div 
+							<div
 								onClick={() => fileInputRef.current?.click()}
 								className={cn(
 									"border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all bg-gray-50 hover:bg-blue-50 border-gray-200 hover:border-blue-400 group",
 									importFile && "border-blue-500 bg-blue-50/30"
 								)}
 							>
-								<input 
-									type="file" 
-									ref={fileInputRef} 
-									className="hidden" 
+								<input
+									type="file"
+									ref={fileInputRef}
+									className="hidden"
 									accept=".json"
 									onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFileChange(e)}
 								/>
-								
+
 								{importFile ? (
 									<div className="flex flex-col items-center">
-										<div className="bg-blue-500 text-white p-3 rounded-lg mb-3 shadow-lg">
+										<div className="bg-blue-500 text-white p-3 rounded-lg mb-3 flex items-center justify-center">
 											<FileJsonIcon className="size-8" />
 										</div>
 										<span className="font-bold text-blue-900">{importFile.name}</span>
 										<span className="text-xs text-blue-600 mt-1">{(importFile.size / 1024).toFixed(2)} KB</span>
-										<button 
+										<button
 											type="button"
 											onClick={(e: React.MouseEvent) => {
 												e.stopPropagation();
 												setImportFile(null);
 											}}
-											className="mt-4 text-xs text-red-500 hover:underline flex items-center gap-1"
+											className="mt-4 text-xs text-red-500 cursor-pointer rounded-full px-2 py-1 hover:underline flex items-center gap-1"
 										>
 											<XIcon className="size-3" /> {__('Remove file', 'productbay-pro')}
 										</button>
 									</div>
 								) : (
 									<div className="flex flex-col items-center">
-										<div className="bg-white border border-gray-200 p-3 rounded-lg mb-4 shadow-sm group-hover:scale-110 transition-transform">
-											<UploadIcon className="size-8 text-gray-400 group-hover:text-blue-500" />
-										</div>
+										<UploadIcon className="size-8 text-gray-400 group-hover:text-blue-500 mb-4" />
 										<span className="text-gray-900 font-bold text-lg mb-1">{__('Drop JSON file here', 'productbay-pro')}</span>
 										<span className="text-gray-500 text-sm">{__('or click to browse from your computer', 'productbay-pro')}</span>
 									</div>
@@ -241,12 +240,12 @@ const ImportExportSlot = () => {
 
 							{/* Import Options */}
 							<div className="space-y-4 pt-4 border-t border-gray-100">
-								<h4 className="text-sm font-bold text-gray-900 uppercase tracking-widest">{__('Import Options', 'productbay-pro')}</h4>
-								
-								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+								<h4 className="text-sm font-bold text-gray-900 uppercase mb-2">{__('Import Options', 'productbay-pro')}</h4>
+
+								<div className="grid grid-cols-1 gap-4">
 									<div className="space-y-1.5">
 										<label className="text-xs font-bold text-gray-700">{__('Conflict Resolution', 'productbay-pro')}</label>
-										<Select 
+										<Select
 											value={importOptions.overlapMode}
 											onChange={(val: string) => setImportOptions(prev => ({ ...prev, overlapMode: val }))}
 											options={[
@@ -259,9 +258,9 @@ const ImportExportSlot = () => {
 									<div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
 										<div className="flex flex-col">
 											<span className="text-xs font-bold text-gray-900">{__('Rename Imported', 'productbay-pro')}</span>
-											<span className="text-[10px] text-gray-500">{__('Add "(Imported)" to titles', 'productbay-pro')}</span>
+											<span className="text-xs text-gray-500">{__('Add "(Imported)" to titles', 'productbay-pro')}</span>
 										</div>
-										<Toggle 
+										<Toggle
 											checked={importOptions.addImportedTitle}
 											onChange={(e: React.ChangeEvent<HTMLInputElement>) => setImportOptions(prev => ({ ...prev, addImportedTitle: e.target.checked }))}
 										/>
@@ -277,13 +276,13 @@ const ImportExportSlot = () => {
 
 							{/* Actions */}
 							<div className="flex justify-end gap-3 pt-6">
-								<Button variant="ghost" onClick={closeImportModal} disabled={importStatus === 'loading'}>
+								<Button variant="ghost" className="cursor-pointer" onClick={closeImportModal} disabled={importStatus === 'loading'}>
 									{__('Cancel', 'productbay-pro')}
 								</Button>
-								<Button 
-									onClick={handleRunImport} 
+								<Button
+									onClick={handleRunImport}
 									disabled={!importFile || importStatus === 'loading'}
-									className="px-8 min-w-[140px]"
+									className="px-8 min-w-[140px] cursor-pointer"
 								>
 									{importStatus === 'loading' ? (
 										<><Loader2Icon className="size-4 mr-2 animate-spin" /> {__('Importing...', 'productbay-pro')}</>
@@ -305,92 +304,95 @@ const ImportExportSlot = () => {
 				className="max-w-2xl"
 			>
 				<div className="space-y-6">
-					<div className="flex items-center justify-between">
-						<div>
-							<h4 className="text-sm font-bold text-gray-900 uppercase tracking-widest">{__('Select Items to Export', 'productbay-pro')}</h4>
-							<p className="text-xs text-gray-500 mt-1">{__('Choose which tables and configurations you want to include in the package.', 'productbay-pro')}</p>
-						</div>
-						<Button 
-							variant="outline" 
-							size="xs"
-							onClick={() => {
-								const allIds = availableTables.map((t: any) => t.id).filter(Boolean);
-								const isAllSelected = exportTableIds.length === allIds.length;
-								setExportSelection(isAllSelected ? [] : allIds);
-							}}
-						>
-							{exportTableIds.length === availableTables.length ? __('Deselect All', 'productbay-pro') : __('Select All', 'productbay-pro')}
-						</Button>
-					</div>
-
 					{/* Global Settings Export Toggle */}
-					<div className="bg-orange-50 border border-orange-100 rounded-xl p-4 flex items-center justify-between group hover:bg-orange-100/50 transition-colors">
+					<div className="bg-productbay-brand/10 border border-productbay-brand/25 rounded-xl p-4 flex items-center justify-between group hover:bg-orange-100/50 transition-colors">
 						<div className="flex items-center gap-3">
-							<div className="bg-orange-500 text-white p-2 rounded-lg shadow-sm">
+							<div className="bg-productbay-brand text-white p-2 rounded-lg flex justify-center items-center">
 								<FileTextIcon className="size-5" />
 							</div>
 							<div>
 								<span className="block font-bold text-orange-900 text-sm">{__('Plugin Global Settings', 'productbay-pro')}</span>
-								<span className="block text-[11px] text-orange-700/70">{__('Includes general, API, and appearance defaults', 'productbay-pro')}</span>
+								<span className="block text-xs text-orange-800">{__('Includes general, API, and appearance defaults', 'productbay-pro')}</span>
 							</div>
 						</div>
-						<Toggle 
+						<Toggle
 							checked={includeSettings}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIncludeSettings(e.target.checked)}
 						/>
 					</div>
 
-					{/* Tables List */}
-					<div className="space-y-2 max-h-[350px] overflow-y-auto px-1 custom-scrollbar">
-						{availableTables.length === 0 ? (
-							<div className="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200">
-								<p className="text-gray-400 text-sm">{__('No tables found to export.', 'productbay-pro')}</p>
+					<div className="border border-gray-300 rounded-lg">
+						<div className="flex items-center justify-between border-b border-gray-300 px-4 py-2">
+							<div>
+								<h4 className="text-sm font-bold text-gray-900">{__('Select Items to Export', 'productbay-pro')}</h4>
+								<p className="text-xs text-gray-500 mt-1">{__('Choose which tables and configurations you want to include in the package.', 'productbay-pro')}</p>
 							</div>
-						) : (
-							availableTables.map((table: any) => (
-								<div 
-									key={table.id}
-									onClick={() => toggleTableSelection(table.id)}
-									className={cn(
-										"flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all",
-										exportTableIds.includes(table.id) 
-											? "bg-blue-50 border-blue-200" 
-											: "bg-white border-gray-100 hover:border-gray-200"
-									)}
-								>
-									<div className="flex items-center gap-3">
-										<div className={cn(
-											"w-5 h-5 rounded border flex items-center justify-center transition-colors",
-											exportTableIds.includes(table.id) ? "bg-blue-600 border-blue-600" : "bg-white border-gray-300"
-										)}>
-											{exportTableIds.includes(table.id) && <CheckCircle2Icon className="size-3.5 text-white" />}
-										</div>
-										<div>
-											<span className="block font-bold text-gray-900 text-sm">{table.title}</span>
-											<span className="block text-[10px] text-gray-500 uppercase tracking-tighter">
-												ID: {table.id} • {table.columns?.length || 0} {__('Columns', 'productbay-pro')}
-											</span>
-										</div>
-									</div>
-									{table.status === 'publish' ? (
-										<span className="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full uppercase">
-											{__('Published', 'productbay-pro')}
-										</span>
-									) : (
-										<span className="text-[10px] font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full uppercase">
-											{__('Private', 'productbay-pro')}
-										</span>
-									)}
+							<Button
+								variant="outline"
+								size="xs"
+								className="cursor-pointer hover:bg-blue-600 hover:text-white"
+								onClick={() => {
+									const allIds = availableTables.map((t: any) => t.id).filter(Boolean);
+									const isAllSelected = exportTableIds.length === allIds.length;
+									setExportSelection(isAllSelected ? [] : allIds);
+								}}
+							>
+								{exportTableIds.length === availableTables.length ? __('Deselect All', 'productbay-pro') : __('Select All', 'productbay-pro')}
+							</Button>
+						</div>
+
+						{/* Tables List */}
+						<div className="max-h-[350px] overflow-y-auto custom-scrollbar">
+							{availableTables.length === 0 ? (
+								<div className="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+									<p className="text-gray-400 text-sm">{__('No tables found to export.', 'productbay-pro')}</p>
 								</div>
-							))
-						)}
+							) : (
+								availableTables.map((table: any) => (
+									<div
+										key={table.id}
+										onClick={() => toggleTableSelection(table.id)}
+										className={cn(
+											"flex items-center justify-between p-3 cursor-pointer transition-all",
+											exportTableIds.includes(table.id)
+												? "bg-blue-50 hover:bg-productbay-brand/10"
+												: "hover:bg-blue-100"
+										)}
+									>
+										<div className="flex items-center gap-3">
+											<div className={cn(
+												"w-5 h-5 rounded border flex items-center justify-center transition-colors",
+												exportTableIds.includes(table.id) ? "bg-blue-500 border-blue-500" : "bg-white border-gray-300"
+											)}>
+												{exportTableIds.includes(table.id) && <CheckIcon className="size-3.5 text-white" />}
+											</div>
+											<div>
+												<span className="block font-bold text-gray-900 text-sm">{table.title}</span>
+												<span className="block text-xs text-gray-500 uppercase tracking-tighter">
+													ID: {table.id} • {table.columns?.length || 0} {__('Columns', 'productbay-pro')}
+												</span>
+											</div>
+										</div>
+										{table.status === 'publish' ? (
+											<span className="text-xs font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full uppercase">
+												{__('Published', 'productbay-pro')}
+											</span>
+										) : (
+											<span className="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full uppercase">
+												{__('Private', 'productbay-pro')}
+											</span>
+										)}
+									</div>
+								))
+							)}
+						</div>
 					</div>
 
 					{/* Summary and Warning */}
 					<div className="bg-blue-50/50 border border-blue-100 rounded-lg p-3 flex items-start gap-3">
 						<InfoIcon className="size-4 text-blue-500 mt-0.5 shrink-0" />
 						<p className="text-[11px] text-blue-700 leading-relaxed">
-							{__('Exporting generates a .json file containing the selected data. You can import this file into any other WooCommerce site with ProductBay installed.', 'productbay-pro')}
+							{__('Exporting creates a .json file of selected data, which can be imported into any WooCommerce site running ProductBay.', 'productbay-pro')}
 						</p>
 					</div>
 
@@ -400,13 +402,13 @@ const ImportExportSlot = () => {
 							{exportTableIds.length} {__('Tables Selected', 'productbay-pro')}
 						</div>
 						<div className="flex gap-3">
-							<Button variant="ghost" onClick={closeExportModal} disabled={exportLoading}>
+							<Button variant="ghost" className="cursor-pointer" onClick={closeExportModal} disabled={exportLoading}>
 								{__('Cancel', 'productbay-pro')}
 							</Button>
-							<Button 
-								onClick={handleRunExport} 
+							<Button
+								onClick={handleRunExport}
 								disabled={exportLoading || (exportTableIds.length === 0 && !includeSettings)}
-								className="min-w-[160px]"
+								className="min-w-[160px] cursor-pointer"
 							>
 								{exportLoading ? (
 									<><Loader2Icon className="size-4 mr-2 animate-spin" /> {__('Preparing...', 'productbay-pro')}</>
