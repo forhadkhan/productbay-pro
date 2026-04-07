@@ -49,6 +49,7 @@ const ImportExportSlot = () => {
 	const [importFile, setImportFile] = useState<File | null>(null);
 	const [importStatus, setImportStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 	const [importMsg, setImportMsg] = useState('');
+	const [isDragging, setIsDragging] = useState(false);
 	const [importOptions, setImportOptions] = useState({
 		overlapMode: 'create', // 'skip', 'overwrite', 'create'
 		addImportedTitle: false,
@@ -64,6 +65,36 @@ const ImportExportSlot = () => {
 	 */
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
+		if (file) {
+			if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+				setImportStatus('error');
+				setImportMsg(__('Please select a valid JSON file.', 'productbay-pro'));
+				return;
+			}
+			setImportFile(file);
+			setImportStatus('idle');
+			setImportMsg('');
+		}
+	};
+
+	const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(true);
+	};
+
+	const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(false);
+	};
+
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(false);
+
+		const file = e.dataTransfer.files?.[0];
 		if (file) {
 			if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
 				setImportStatus('error');
@@ -198,9 +229,13 @@ const ImportExportSlot = () => {
 							{/* File Dropzone / Selector */}
 							<div
 								onClick={() => fileInputRef.current?.click()}
+								onDragOver={handleDragOver}
+								onDragLeave={handleDragLeave}
+								onDrop={handleDrop}
 								className={cn(
 									"border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all bg-gray-50 hover:bg-blue-50 border-gray-200 hover:border-blue-400 group",
-									importFile && "border-blue-500 bg-blue-50/30"
+									importFile && "border-blue-500 bg-blue-50/30",
+									isDragging && "border-blue-500 bg-blue-50"
 								)}
 							>
 								<input
