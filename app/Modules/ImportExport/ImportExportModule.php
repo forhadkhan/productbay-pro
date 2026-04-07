@@ -182,6 +182,9 @@ class ImportExportModule
 					$imported_count++;
 				}
 
+				// Sync specific products using SKU/Title matching.
+				$table_data = $this->sync_specific_products($table_data);
+
 				// Perform the creation/update.
 				$this->table_repository->save_table($table_data);
 			}
@@ -227,5 +230,87 @@ class ImportExportModule
 			}
 		}
 		return null;
+	}
+	/**
+	 * Synchronize specific product IDs during import.
+	 *
+	 * Uses product metadata (SKU/Title) to find matching local product IDs.
+	 *
+	 * @param array $data The table data array.
+	 * @return array The updated table data.
+	 * @since 1.2.0
+	 */
+	public function sync_specific_products($data)
+	{
+		$source = isset($data['source']) ? $data['source'] : array();
+
+		if (!isset($source['type']) || 'specific' !== $source['type']) {
+			return $data;
+		}
+
+		$query_args = isset($source['queryArgs']) ? $source['queryArgs'] : array();
+		$product_objects = isset($query_args['productObjects']) ? $query_args['productObjects'] : array();
+
+		if (empty($product_objects)) {
+			return $data;
+		}
+
+		$new_post_ids       = array();
+		$new_product_objects = array();
+
+		foreach ($product_objects as $old_id => $obj) {
+			$found_id = 0;
+			$sku      = isset($obj['sku']) ? $obj['sku'] : '';
+			$name     = isset($obj['name']) ? $obj['name'] : '';
+
+			// 1. Check if the current ID is actually valid and points to the same product (SKU check).
+			if ($old_id > 0) {
+				$product = function_exists('wc_get_product') ? \wc_get_product($old_id) : null;
+				if ($product) {
+					if (!empty($sku) && $product->get_sku() === $sku) {
+						$found_id = $old_id;
+					}
+					elseif (empty($sku) && !empty($name) && $product->get_name() === $name) {
+						$found_id = $old_id;
+					}
+				}
+			}
+
+			// 2. Try SKU (Most reliable for cross-site migrations).
+			if (!$found_id && !empty($sku) && function_exists('wc_get_product_id_by_sku')) {
+				$found_id = \wc_get_product_id_by_sku($sku);
+			}
+
+			// 3. Try to lookup by Title/Name via standard WordPress query.
+			if (!$found_id && !empty($name)) {
+				$posts = get_posts(
+					array(
+						'post_type'      => 'product',
+						'title'          => $name,
+						'posts_per_page' => 1,
+						'fields'         => 'ids',
+					)
+				);
+				if (!empty($posts)) {
+					$found_id = $posts[0];
+				}
+			}
+
+			// Found local product
+			if ($found_id) {
+				$found_id = (int) $found_id;
+				$new_post_ids[] = $found_id;
+
+				$obj['id'] = $found_id;
+				$new_product_objects[$found_id] = $obj;
+			}
+		}
+
+		$query_args['postIds']        = array_values(array_unique($new_post_ids));
+		$query_args['productObjects'] = $new_product_objects;
+		
+		$data['source']['queryArgs']  = $query_args;
+
+		return $data;
 	}
 }
