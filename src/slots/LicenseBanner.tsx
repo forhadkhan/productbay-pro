@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { PRO_ROUTES } from '@/utils/constants';
 import { Fill } from '@wordpress/components';
+import { PRO_ROUTES } from '@/utils/constants';
 import { ShieldAlertIcon, KeyIcon } from 'lucide-react';
 
 const { Button } = (window as any).productbay?.ui || {};
@@ -57,13 +57,13 @@ const LicenseBanner = () => {
 	return (
 		<Fill name="productbay-pro-banner">
 			<div className={`w-full px-6 py-3 flex items-center justify-between shadow-sm ${bannerConfig.bgClass}`}>
-				<div className="flex items-center gap-3">
+				<div className="flex items-center gap-3 text-base">
 					{bannerConfig.icon}
 					<div>
 						<strong className="font-semibold block sm:inline mr-2">
 							{bannerConfig.title}:
 						</strong>
-						<span className="text-sm">{bannerConfig.message}</span>
+						<span className="">{bannerConfig.message}</span>
 					</div>
 				</div>
 				<div>
@@ -72,7 +72,7 @@ const LicenseBanner = () => {
 							variant={bannerConfig.buttonVariant}
 							size="sm"
 							onClick={handleGoToSettings}
-							className="whitespace-nowrap"
+							className="whitespace-nowrap cursor-pointer"
 						>
 							{bannerConfig.buttonText}
 						</Button>

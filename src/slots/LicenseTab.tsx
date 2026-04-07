@@ -1,8 +1,8 @@
-import { __ } from '@wordpress/i18n';
+import { ShieldCheckIcon, ShieldAlertIcon, RefreshCwIcon, ExternalLinkIcon, Trash2Icon, KeyIcon } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { PRO_ROUTES, API_ENDPOINTS } from '@/utils/constants';
 import { Fill } from '@wordpress/components';
-import React, { useState, useEffect, useCallback } from 'react';
-import { ShieldCheckIcon, ShieldAlertIcon, RefreshCwIcon, ExternalLinkIcon, Trash2Icon, KeyIcon } from 'lucide-react';
+import { __ } from '@wordpress/i18n';
 
 const { Button, Input, ConfirmButton } = (window as any).productbay?.ui || {};
 const { SectionHeading } = (window as any).productbay?.components || {};
@@ -144,7 +144,7 @@ const LicenseTab = () => {
 					description={__('Manage your license key to receive automatic updates and premium support.', 'productbay-pro')}
 				/>
 
-				<div className="bg-white rounded-lg p-6 max-w-3xl">
+				<div className="bg-white rounded-lg p-6">
 
 					{/* Loading State */}
 					{loading ? (
@@ -233,7 +233,7 @@ const LicenseTab = () => {
 							) : (
 								/* Inactive/Invalid State */
 								<div className="space-y-4">
-									<p className="text-sm text-gray-600">
+									<p className="text-sm text-gray-600 mb-2">
 										{__('Enter your license key below to activate ProductBay Pro and enable automatic updates.', 'productbay-pro')}
 									</p>
 
@@ -268,12 +268,12 @@ const LicenseTab = () => {
 										<p className="text-sm text-gray-500">
 											{__('Don\'t have a license? ', 'productbay-pro')}
 											<a
-												href={PRO_ROUTES.PURCHASE}
+												href={PRO_ROUTES.LEARN_MORE}
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-blue-600 hover:underline inline-flex items-center"
+												className="text-blue-600 hover:underline underline-offset-4 inline-flex items-center"
 											>
-												{__('Purchase ProductBay Pro', 'productbay-pro')}
+												{__('Get ProductBay Pro', 'productbay-pro')}
 												<ExternalLinkIcon className="w-3 h-3 ml-1" />
 											</a>
 										</p>
