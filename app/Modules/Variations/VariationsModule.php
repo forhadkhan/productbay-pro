@@ -56,7 +56,10 @@ class VariationsModule
 
 		// Enqueue frontend scripts (if not already handled globally)
 		\add_action('productbay_enqueue_frontend_assets', [$this, 'enqueue_frontend_assets']);
-		
+
+		// Synchronize variation styling with main table
+		\add_filter('productbay_table_styles', [$this, 'append_variation_styles'], 10, 2);
+
 		// AJAX endpoints
 		\add_action('wp_ajax_' . Config::AJAX_VARIATIONS, [$this, 'render_ajax_variations']);
 		\add_action('wp_ajax_nopriv_' . Config::AJAX_VARIATIONS, [$this, 'render_ajax_variations']);
@@ -104,24 +107,27 @@ class VariationsModule
 		}
 
 		$settings = $this->current_table['settings'] ?? [];
-		$mode     = $settings['features']['variationsMode'] ?? 'inline';
+		$mode = $settings['features']['variationsMode'] ?? 'inline';
 
 		if ($mode === 'inline') {
 			return $html;
 		}
 
 		$table_id = $this->current_table['id'] ?? 0;
-		$text     = $mode === 'popup' ? __('Select Products', 'productbay-pro') : __('View Products', 'productbay-pro');
-		$class    = $mode === 'popup' ? 'productbay-pro-btn-popup' : 'productbay-pro-btn-nested';
+		$text = $mode === 'popup' ? __('Select Products', 'productbay-pro') : __('View Products', 'productbay-pro');
+		$class = $mode === 'popup' ? 'productbay-pro-btn-popup' : 'productbay-pro-btn-nested';
 
 		ob_start();
 		?>
 		<div class="productbay-btn-cell">
-			<button class="productbay-button <?php echo esc_attr($class); ?>" data-table-id="<?php echo esc_attr((string)$table_id); ?>" data-product-id="<?php echo esc_attr((string)$product->get_id()); ?>">
+			<button class="productbay-button <?php echo esc_attr($class); ?>"
+				data-table-id="<?php echo esc_attr((string) $table_id); ?>"
+				data-product-id="<?php echo esc_attr((string) $product->get_id()); ?>">
 				<?php echo esc_html($text); ?>
 			</button>
 			<?php if ($mode === 'popup'): ?>
-				<div class="productbay-pro-selection-msg" style="display:none;font-size: 13px;color: #15803d;margin-top: 8px;"></div>
+				<div class="productbay-pro-selection-msg" style="display:none;font-size: 13px;color: #15803d;margin-top: 8px;">
+				</div>
 			<?php endif; ?>
 		</div>
 		<?php
@@ -136,10 +142,10 @@ class VariationsModule
 	public function render_popup_modal($table)
 	{
 		$settings = $table['settings'] ?? [];
-		
+
 		// If explicit setting is missing, standard behavior is inline for free.
 		// If Pro is active but setting is empty, assume inline by default.
-		$mode     = $settings['features']['variationsMode'] ?? 'inline';
+		$mode = $settings['features']['variationsMode'] ?? 'inline';
 
 		if ($mode !== 'popup') {
 			return;
@@ -164,7 +170,7 @@ class VariationsModule
 	public function render_nested_rows($product, $table)
 	{
 		$settings = $table['settings'] ?? [];
-		$mode     = $settings['features']['variationsMode'] ?? 'inline';
+		$mode = $settings['features']['variationsMode'] ?? 'inline';
 
 		if ($mode !== 'nested') {
 			return;
@@ -206,7 +212,7 @@ class VariationsModule
 		// Pass ajax url and nonce
 		\wp_localize_script('productbay-pro-frontend', 'productbay_pro_ajax', [
 			'ajax_url' => admin_url('admin-ajax.php'),
-			'nonce'    => \wp_create_nonce(Config::NONCE_VARIATIONS)
+			'nonce' => \wp_create_nonce(Config::NONCE_VARIATIONS)
 		]);
 	}
 
@@ -218,8 +224,8 @@ class VariationsModule
 		\check_ajax_referer(Config::NONCE_VARIATIONS, 'nonce');
 
 		$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
-		$table_id   = isset($_POST['table_id']) ? intval($_POST['table_id']) : 0;
-		$mode       = isset($_POST['mode']) ? sanitize_key($_POST['mode']) : 'popup';
+		$table_id = isset($_POST['table_id']) ? intval($_POST['table_id']) : 0;
+		$mode = isset($_POST['mode']) ? sanitize_key($_POST['mode']) : 'popup';
 
 		if (!$product_id) {
 			wp_send_json_error('Invalid product ID');
@@ -266,7 +272,7 @@ class VariationsModule
 			// If it's just a simple product (grouped child), add it as-is
 			if (!$child->is_type('variation')) {
 				$exploded[] = [
-					'product'    => $child,
+					'product' => $child,
 					'attributes' => [],
 				];
 				continue;
@@ -280,6 +286,7 @@ class VariationsModule
 				}
 			}
 			if (empty($attributes)) {
+				/** @var \WC_Product_Variation $child */
 				$attributes = $child->get_variation_attributes();
 			}
 
@@ -294,7 +301,7 @@ class VariationsModule
 			if (empty($any_keys)) {
 				// No "Any", just add the exact variation
 				$exploded[] = [
-					'product'    => $child,
+					'product' => $child,
 					'attributes' => $attributes,
 				];
 			} else {
@@ -319,7 +326,7 @@ class VariationsModule
 
 				foreach ($combinations as $combo) {
 					$exploded[] = [
-						'product'    => $child,
+						'product' => $child,
 						'attributes' => $combo,
 					];
 				}
@@ -349,7 +356,7 @@ class VariationsModule
 				$parts[] = ucfirst(urldecode($val));
 			}
 		}
-		
+
 		return $name . ' - ' . implode(', ', $parts);
 	}
 
@@ -363,7 +370,7 @@ class VariationsModule
 		echo '</div>';
 
 		echo '<div class="productbay-pro-popup-table-wrap">';
-		echo '<table class="productbay-pro-popup-table">';
+		echo '<table class="productbay-table productbay-pro-popup-table">';
 		echo '<thead><tr>';
 		echo '<th>' . esc_html__('Product', 'productbay-pro') . '</th>';
 		echo '<th>' . esc_html__('Price', 'productbay-pro') . '</th>';
@@ -373,34 +380,34 @@ class VariationsModule
 		echo '<tbody>';
 
 		$exploded_variations = $this->get_exploded_variations($children_ids, $parent_product);
-		
+
 		foreach ($exploded_variations as $var_data) {
 			$child = $var_data['product'];
 			$attributes = $var_data['attributes'];
 
-			echo '<tr data-product-type="' . esc_attr($child->get_type()) . '" data-product-id="' . esc_attr((string)$child->get_id()) . '" data-parent-id="' . esc_attr((string)$parent_product->get_id()) . '" data-attributes="' . esc_attr((string)wp_json_encode($attributes)) . '">';
-			
+			echo '<tr data-product-type="' . esc_attr($child->get_type()) . '" data-product-id="' . esc_attr((string) $child->get_id()) . '" data-parent-id="' . esc_attr((string) $parent_product->get_id()) . '" data-attributes="' . esc_attr((string) wp_json_encode($attributes)) . '">';
+
 			// Name
 			echo '<td class="productbay-pro-popup-col-name">';
 			if ($child->is_type('variation')) {
-				echo esc_html($this->build_variation_name($parent_product, $attributes));
+				echo '<span class="productbay-product-title">' . esc_html($this->build_variation_name($parent_product, $attributes)) . '</span>';
 			} else {
-				echo esc_html($child->get_name());
+				echo '<span class="productbay-product-title">' . esc_html($child->get_name()) . '</span>';
 			}
 			echo '</td>';
 
 			// Price
 			echo '<td class="productbay-pro-popup-col-price">';
-			echo wp_kses_post($child->get_price_html());
+			echo '<span class="productbay-price">' . wp_kses_post($child->get_price_html()) . '</span>';
 			echo '</td>';
 
 			// Quantity
 			echo '<td class="productbay-pro-popup-col-qty">';
 			$stock_qty = $child->get_stock_quantity();
 			$max = ($child->managing_stock() && !$child->backorders_allowed() && $stock_qty !== null) ? $stock_qty : '';
-			
+
 			echo '<div class="productbay-qty-wrap">';
-			echo '<input type="number" class="productbay-qty productbay-pro-popup-qty-input" value="1" min="1" max="' . esc_attr((string)$max) . '" step="1" />';
+			echo '<input type="number" class="productbay-qty productbay-pro-popup-qty-input" value="1" min="1" max="' . esc_attr((string) $max) . '" step="1" />';
 			echo '<div class="productbay-qty-btns">';
 			echo '<button type="button" class="productbay-qty-plus" aria-label="' . esc_attr__('Increase', 'productbay-pro') . '">
 					<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L5 1L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -415,7 +422,7 @@ class VariationsModule
 			// Action
 			echo '<td class="productbay-pro-popup-col-action">';
 			echo '<div style="display: flex; gap: 8px; align-items: center; justify-content: flex-end;">';
-			echo '<button class="productbay-button productbay-button-sm productbay-pro-popup-add-btn">' . esc_html__('Add', 'productbay-pro') . '</button>';
+			echo '<button class="productbay-button productbay-button-sm productbay-pro-popup-add-btn">' . esc_html__('Add to Cart', 'productbay-pro') . '</button>';
 			echo '<label class="productbay-checkbox" title="' . esc_attr__('Select for bulk add', 'productbay-pro') . '">';
 			echo '<input type="checkbox" class="productbay-select-product" value="' . esc_attr((string) $child->get_id()) . '" data-price="' . esc_attr((string) $child->get_price()) . '" />';
 			echo '<span class="productbay-checkbox-mark"></span>';
@@ -429,8 +436,44 @@ class VariationsModule
 		echo '</tbody></table>';
 		echo '</div>';
 
-        // Add to Cart message area
-        echo '<div class="productbay-pro-popup-message"></div>';
+		// Add to Cart message area
+		echo '<div class="productbay-pro-popup-message"></div>';
+	}
+
+	/**
+	 * Append CSS for the variation popup and nested rows using the same configuration as the main table.
+	 *
+	 * @param string $css   Generated CSS for the main table.
+	 * @param array  $table Table configuration.
+	 * @return string Modified CSS.
+	 * @since 1.0.0
+	 */
+	public function append_variation_styles($css, $table)
+	{
+		$style = $table['style'] ?? [];
+		$columns = $table['columns'] ?? [];
+		$settings = $table['settings'] ?? [];
+
+		if (!class_exists('\WpabProductBay\Frontend\TableRenderer')) {
+			return $css;
+		}
+
+		$renderer = new \WpabProductBay\Frontend\TableRenderer(new \WpabProductBay\Data\TableRepository());
+
+		// Generate styles for the variation popup modal
+		$modal_css = $renderer->generate_styles('.productbay-pro-variations-modal', $style, $columns, $settings);
+
+		// Generate styles for nested rows (they are rows inside a table, but might have nested tables)
+		// We target the nested container as a scope
+		$nested_css = $renderer->generate_styles('.productbay-pro-nested-row-container', $style, $columns, $settings);
+
+		/**
+		 * Note: TableRenderer::generate_styles outputs styles like:
+		 * {$selector} .productbay-table { ... }
+		 * {$selector} .productbay-button { ... }
+		 */
+
+		return $css . $modal_css . $nested_css;
 	}
 
 	/**
@@ -441,12 +484,13 @@ class VariationsModule
 		// Need to get table columns
 		$repository = new \WpabProductBay\Data\TableRepository();
 		$table = $repository->get_table($table_id);
-		if (!$table) return;
+		if (!$table)
+			return;
 
 		$columns = $table['columns'] ?? [];
-        $settings = $table['settings'] ?? [];
-        $bulk_select = $settings['features']['bulkSelect']['enabled'] ?? true;
-        $bulk_pos = $settings['features']['bulkSelect']['position'] ?? 'last';
+		$settings = $table['settings'] ?? [];
+		$bulk_select = $settings['features']['bulkSelect']['enabled'] ?? true;
+		$bulk_pos = $settings['features']['bulkSelect']['position'] ?? 'last';
 
 		$exploded_variations = $this->get_exploded_variations($children_ids, $parent_product);
 
@@ -454,27 +498,43 @@ class VariationsModule
 			$child = $var_data['product'];
 			$attributes = $var_data['attributes'];
 
-			echo '<tr class="productbay-pro-nested-row-item" data-product-type="simple" data-product-id="' . esc_attr((string)$child->get_id()) . '" data-parent-id="' . esc_attr((string)$parent_product->get_id()) . '" data-attributes="' . esc_attr((string)wp_json_encode($attributes)) . '">';
+			echo '<tr class="productbay-pro-nested-row-item" data-product-type="simple" data-product-id="' . esc_attr((string) $child->get_id()) . '" data-parent-id="' . esc_attr((string) $parent_product->get_id()) . '" data-attributes="' . esc_attr((string) wp_json_encode($attributes)) . '">';
 
-            // Bulk Select First
-            if ($bulk_select && $bulk_pos === 'first') {
-                echo '<td class="productbay-col-select"><input type="checkbox" class="productbay-select-product" value="' . esc_attr((string)$child->get_id()) . '" data-price="' . esc_attr((string)$child->get_price()) . '" /></td>';
-            }
+			// Bulk Select First
+			if ($bulk_select && $bulk_pos === 'first') {
+				echo '<td class="productbay-col-select"><input type="checkbox" class="productbay-select-product" value="' . esc_attr((string) $child->get_id()) . '" data-price="' . esc_attr((string) $child->get_price()) . '" /></td>';
+			}
 
 			foreach ($columns as $col) {
-				// Mirrors TableRenderer hide logic
-				if (!empty($col['advanced']['hideOnMobile']) || !empty($col['advanced']['hideOnTablet']) || !empty($col['advanced']['hideOnDesktop'])) {
-					// Add responsive classes - simplified
+				if ($this->should_hide_column($col)) {
+					continue;
 				}
-				echo '<td class="productbay-col-' . esc_attr($col['type']) . '">';
+
+				$td_classes = [ 'productbay-col-' . (string) $col['id'] ];
+				$visibility = $col['advanced']['visibility'] ?? 'default';
+				$visibility_class_map = [
+					'desktop'     => 'productbay-desktop-only',
+					'tablet'      => 'productbay-tablet-only',
+					'mobile'      => 'productbay-mobile-only',
+					'not-mobile'  => 'productbay-hide-mobile',
+					'not-desktop' => 'productbay-hide-desktop',
+					'not-tablet'  => 'productbay-hide-tablet',
+					'min-tablet'  => 'productbay-min-tablet',
+				];
+
+				if (isset($visibility_class_map[$visibility])) {
+					$td_classes[] = $visibility_class_map[$visibility];
+				}
+
+				echo '<td class="' . esc_attr(implode(' ', $td_classes)) . '">';
 				$this->render_nested_cell($col, $child);
 				echo '</td>';
 			}
 
-            // Bulk Select Last
-            if ($bulk_select && $bulk_pos === 'last') {
-                echo '<td class="productbay-col-select"><input type="checkbox" class="productbay-select-product" value="' . esc_attr((string)$child->get_id()) . '" data-price="' . esc_attr((string)$child->get_price()) . '" /></td>';
-            }
+			// Bulk Select Last
+			if ($bulk_select && $bulk_pos === 'last') {
+				echo '<td class="productbay-col-select"><input type="checkbox" class="productbay-select-product" value="' . esc_attr((string) $child->get_id()) . '" data-price="' . esc_attr((string) $child->get_price()) . '" /></td>';
+			}
 
 			echo '</tr>';
 		}
@@ -490,10 +550,10 @@ class VariationsModule
 				echo wp_kses_post($product->get_image('thumbnail'));
 				break;
 			case 'name':
-				echo '↳ <a href="' . esc_url($product->get_permalink()) . '">' . esc_html($product->get_name()) . '</a>';
+				echo '↳ <a href="' . esc_url($product->get_permalink()) . '" class="productbay-product-title">' . esc_html($product->get_name()) . '</a>';
 				break;
 			case 'price':
-				echo wp_kses_post($product->get_price_html());
+				echo '<span class="productbay-price">' . wp_kses_post($product->get_price_html()) . '</span>';
 				break;
 			case 'sku':
 				echo esc_html($product->get_sku());
@@ -505,23 +565,38 @@ class VariationsModule
 				// Output simple Add to Cart with qty
 				$stock_qty = $product->get_stock_quantity();
 				$max = ($product->managing_stock() && !$product->backorders_allowed() && $stock_qty !== null) ? $stock_qty : '';
-				
+
 				echo '<div class="productbay-btn-cell">';
 				echo '<div class="productbay-qty-wrap">';
-				echo '<input type="number" class="productbay-qty" value="1" min="1" max="' . esc_attr((string)$max) . '" step="1" />';
+				echo '<input type="number" class="productbay-qty" value="1" min="1" max="' . esc_attr((string) $max) . '" step="1" />';
 				echo '<div class="productbay-qty-btns">';
 				echo '<button type="button" class="productbay-qty-btn productbay-qty-plus">&#9650;</button>';
 				echo '<button type="button" class="productbay-qty-btn productbay-qty-minus">&#9660;</button>';
 				echo '</div></div>';
-				echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string)$product->get_id()) . '">';
+				echo '<button class="productbay-button productbay-btn-addtocart" data-product-id="' . esc_attr((string) $product->get_id()) . '">';
 				echo esc_html($product->add_to_cart_text());
 				echo '</button></div>';
 				break;
 			case 'summary':
 				echo wp_kses_post(wp_trim_words($product->get_short_description(), 10));
 				break;
-			default:
-				echo \wp_kses_post(\apply_filters('productbay_cell_output', '', $col, $product));
 		}
+	}
+
+	/**
+	 * Check whether a column should be hidden from output.
+	 *
+	 * @param array $col Column configuration.
+	 * @return bool True if the column visibility is set to 'none'.
+	 * @since 1.0.0
+	 */
+	private function should_hide_column($col)
+	{
+		// Manual visibility override.
+		if (($col['advanced']['visibility'] ?? 'default') === 'none') {
+			return true;
+		}
+
+		return false;
 	}
 }
