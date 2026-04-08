@@ -378,11 +378,25 @@ table.productbay-pro-popup-table .productbay-pro-popup-qty-input::-webkit-inner-
    ACTION COLUMN — Add Button + Checkbox
    ============================================================ */
 
-table.productbay-pro-popup-table td.productbay-pro-popup-col-action>div {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: flex-end;
+table.productbay-pro-popup-table td.productbay-pro-popup-col-action {
+    text-align: right;
+}
+
+/* Select All and per-row select column */
+table.productbay-pro-popup-table .productbay-pro-popup-col-select-all,
+table.productbay-pro-popup-table .productbay-pro-popup-col-select {
+    width: 36px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+table.productbay-pro-popup-table .productbay-pro-popup-col-select-all input[type="checkbox"],
+table.productbay-pro-popup-table .productbay-pro-popup-col-select input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin: 0;
+    accent-color: #3b82f6;
 }
 
 /* Add button */
@@ -465,7 +479,7 @@ table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
 
 
 /* ============================================================
-   NESTED ROW ITEMS (main table)
+   NESTED ROW ITEMS (main table) — Left-border visual grouping
    ============================================================ */
 
 .productbay-table tr.productbay-pro-nested-row-item {
@@ -473,33 +487,152 @@ table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
     transition: background var(--pb-transition);
 }
 
+.productbay-table tr.productbay-pro-nested-row-item td:first-child {
+    border-left: 3px solid var(--pb-color-accent);
+}
+
 .productbay-table tr.productbay-pro-nested-row-item:hover {
     background-color: var(--pb-color-accent-subtle);
 }
 
-.productbay-table tr.productbay-pro-nested-row-item td.productbay-col-name {
-    padding-left: 36px;
-    position: relative;
+
+/* ============================================================
+   SEPARATE ROW ITEMS (main table) — Independent child rows
+   ============================================================ */
+
+.productbay-table tr.productbay-pro-separate-row-item {
+    transition: background var(--pb-transition);
 }
 
-.productbay-table tr.productbay-pro-nested-row-item td.productbay-col-name::before {
-    content: '';
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    width: 14px;
-    height: 1px;
-    background: var(--pb-color-text-hint);
+.productbay-table tr.productbay-pro-separate-row-item td:first-child {
+    border-left: 3px solid var(--pb-color-border);
 }
 
-.productbay-table tr.productbay-pro-nested-row-item td.productbay-col-name::after {
-    content: '';
-    position: absolute;
-    left: 14px;
-    top: 0;
-    height: 50%;
-    width: 1px;
-    background: var(--pb-color-text-hint);
+.productbay-table tr.productbay-pro-separate-row-item:hover {
+    background-color: var(--pb-color-accent-subtle);
+}
+
+
+/* ============================================================
+   PARENT ROW (nested/separate modes) — Left-border visual hierarchy
+   ============================================================ */
+
+.productbay-table tr:has(.productbay-pro-btn-nested) td:first-child,
+.productbay-table tr:has(.productbay-pro-parent-label) td:first-child {
+    border-left: 4px solid var(--pb-color-border-dark, #94a3b8);
+}
+
+
+/* ============================================================
+   NESTED ROW CONTAINER (collapsible wrapper)
+   ============================================================ */
+
+.productbay-pro-nested-row-container .productbay-pro-nested-row-content {
+    padding: 0;
+}
+
+.productbay-pro-nested-row-container .productbay-pro-nested-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.productbay-pro-nested-row-container .productbay-pro-nested-loading {
+    padding: 16px;
+    text-align: center;
+    color: var(--pb-color-text-muted);
+    font-size: 0.875rem;
+}
+
+
+/* ============================================================
+   PARENT LABEL (for separate rows mode)
+   ============================================================ */
+
+.productbay-pro-parent-label {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--pb-color-text-muted);
+    font-style: italic;
+}
+
+
+/* ============================================================
+   PRODUCT SUBTITLE ("X options available")
+   ============================================================ */
+
+.productbay-product-subtitle {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--pb-color-text-muted, #64748b);
+    margin-top: 2px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+
+/* ============================================================
+   GROUPED PRODUCT INLINE SELECT
+   ============================================================ */
+
+.productbay-grouped-inline-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.productbay-grouped-child-select {
+    max-width: 180px;
+    min-width: 120px;
+    padding: 7px 10px;
+    border: 1px solid var(--pb-color-border, #cbd5e1);
+    border-radius: var(--pb-radius-md, 6px);
+    font-size: 0.85rem;
+    color: var(--pb-color-text-primary, #0f172a);
+    background: var(--pb-color-bg, #fff);
+    cursor: pointer;
+    transition: border-color var(--pb-transition, 150ms ease),
+        box-shadow var(--pb-transition, 150ms ease);
+}
+
+.productbay-grouped-child-select:focus {
+    border-color: var(--pb-color-accent, #434343);
+    box-shadow: 0 0 0 3px var(--pb-color-accent-light, #e0f2fe);
+    outline: none;
+}
+
+.productbay-grouped-inline-price {
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Disabled state for grouped inline controls */
+.productbay-grouped-inline-wrap .productbay-qty:disabled,
+.productbay-grouped-inline-wrap .productbay-grouped-add-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.productbay-grouped-inline-wrap .productbay-qty-plus:disabled,
+.productbay-grouped-inline-wrap .productbay-qty-minus:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.productbay-grouped-inline-wrap .productbay-select-product:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.productbay-grouped-inline-wrap .productbay-select-product {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #3b82f6;
 }
 
 
@@ -509,7 +642,7 @@ table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
 
 .productbay-pro-btn-popup,
 .productbay-pro-btn-nested {
-    width: 100%;
+    width: max-content;
     margin-top: 4px;
     background: var(--pb-color-bg);
     color: var(--pb-color-text-secondary);
