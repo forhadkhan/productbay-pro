@@ -602,6 +602,7 @@ const ImportExportSlot = () => {
   const [importFile, setImportFile] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [importStatus, setImportStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('idle');
   const [importMsg, setImportMsg] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [isDragging, setIsDragging] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [importOptions, setImportOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     overlapMode: 'create',
     // 'skip', 'overwrite', 'create'
@@ -618,6 +619,32 @@ const ImportExportSlot = () => {
    */
   const handleFileChange = e => {
     const file = e.target.files?.[0];
+    if (file) {
+      if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+        setImportStatus('error');
+        setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please select a valid JSON file.', 'productbay-pro'));
+        return;
+      }
+      setImportFile(file);
+      setImportStatus('idle');
+      setImportMsg('');
+    }
+  };
+  const handleDragOver = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+  const handleDragLeave = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+  const handleDrop = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
     if (file) {
       if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
         setImportStatus('error');
@@ -749,7 +776,10 @@ const ImportExportSlot = () => {
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
             onClick: () => fileInputRef.current?.click(),
-            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_11__.cn)("border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all bg-gray-50 hover:bg-blue-50 border-gray-200 hover:border-blue-400 group", importFile && "border-blue-500 bg-blue-50/30"),
+            onDragOver: handleDragOver,
+            onDragLeave: handleDragLeave,
+            onDrop: handleDrop,
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_11__.cn)("border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all bg-gray-50 hover:bg-blue-50 border-gray-200 hover:border-blue-400 group", importFile && "border-blue-500 bg-blue-50/30", isDragging && "border-blue-500 bg-blue-50"),
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", {
               type: "file",
               ref: fileInputRef,
