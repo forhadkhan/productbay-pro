@@ -141,11 +141,6 @@
 		}
 
 		triggerFilter() {
-			// Re-use logic from the main table instance
-			const wrapperId = this.$wrapper.attr('id');
-			// We need to find the instance. The free plugin doesn't store instances globally yet.
-			// But we can trigger a refresh by calling the internal fetch logic if we can access it.
-			// For now, let's trigger a custom event that the main script can listen for.
 			this.$wrapper.trigger('productbay_filter_trigger', {
 				price_min: this.$rangeMin.length ? this.$rangeMin.val() : this.$inputMin.val(),
 				price_max: this.$rangeMax.length ? this.$rangeMax.val() : this.$inputMax.val()
@@ -239,11 +234,26 @@
 
 /**
  * ProductBay Pro - Variations Frontend Interactivity
+ *
+ * Handles popup modal, nested row toggle, separate rows, grouped inline select,
+ * quantity +/- delegation, and bulk selection sync with parent table.
  */
-// productbay-pro-frontend.js
 document.addEventListener('DOMContentLoaded', () => {
 
-	// 1. Popup Trigger
+	// ─── Helper: Find parent table's ProductBayTable instance ──────────────────
+	function getTableInstance(wrapper) {
+		// The free plugin stores instances on the wrapper element via jQuery .data()
+		if (window.jQuery && wrapper) {
+			const $wrapper = window.jQuery(wrapper);
+			// Try to access via the class instance stored by the free plugin
+			// The free plugin initializes: new ProductBayTable(wrapper)
+			// We can access it via the restoreModalSelections event or selectedProducts map
+			return $wrapper;
+		}
+		return null;
+	}
+
+	// ─── 1. Popup Trigger ─────────────────────────────────────────────────────────
 	document.body.addEventListener('click', (e) => {
 		const target = e.target.closest('.productbay-pro-btn-popup');
 		if (!target) return;
@@ -257,11 +267,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		const modal = wrapper.parentNode.querySelector('.productbay-pro-variations-modal') || document.querySelector('.productbay-pro-variations-modal');
 		if (!modal) return;
 
+		// Move modal into the wrapper so base plugin event delegation (for bulk select) catches the events
+		if (modal.parentNode !== wrapper) {
+			wrapper.appendChild(modal);
+		}
+
 		const content = modal.querySelector('.productbay-pro-variations-inner');
 		content.innerHTML = `<p style="padding: 20px; text-align: center;">Loading variations...</p>`;
 
-		// Store the button that triggered it so we can update its message later if needed
+		// Store the originating wrapper and trigger product ID for later sync
 		modal.setAttribute('data-trigger-btn', productId);
+		modal.setAttribute('data-wrapper-id', wrapper.id || '');
 
 		modal.showModal();
 
@@ -290,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 	});
 
-	// 2. Add to Cart inside Popup
+	// ─── 2. Add to Cart inside Popup ──────────────────────────────────────────────
 	document.body.addEventListener('click', (e) => {
 		const btn = e.target.closest('.productbay-pro-popup-add-btn');
 		if (!btn) return;
@@ -319,7 +335,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		btn.innerHTML = 'Adding...';
 		btn.disabled = true;
 
-		// We use jQuery here to match the free plugin's approach and variable availability
 		const $ = window.jQuery;
 		if (!$) {
 			console.error('jQuery not loaded');
@@ -388,35 +403,48 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
-	// 3. Nested Rows Trigger
+	// ─── 3. Popup Quantity +/- Buttons (Delegated on document.body) ────────────
+	// The base plugin's qty handlers are scoped to $wrapper, so popup buttons
+	// (which live inside <dialog> outside the wrapper) need their own handlers.
 	document.body.addEventListener('click', (e) => {
-		const target = e.target.closest('.productbay-pro-btn-nested');
-		if (!target) return;
-		e.preventDefault();
-
-		const productId = target.getAttribute('data-product-id');
-		const tableId = target.getAttribute('data-table-id');
-		const row = target.closest('tr');
-
-		// Check if we already loaded it
-		const nextRow = row.nextElementSibling;
-		if (nextRow && nextRow.classList.contains('productbay-pro-nested-row-item') && nextRow.getAttribute('data-parent-id') === productId) {
-			// Toggle visibility
-			let isHidden = nextRow.style.display === 'none';
-
-			// Select all sibling rows that belong to this parent and toggle them
-			let sibling = nextRow;
-			while (sibling && sibling.classList.contains('productbay-pro-nested-row-item') && sibling.getAttribute('data-parent-id') === productId) {
-				sibling.style.display = isHidden ? 'table-row' : 'none';
-				sibling = sibling.nextElementSibling;
+		const plusBtn = e.target.closest('.productbay-pro-variations-modal .productbay-qty-plus');
+		if (plusBtn) {
+			e.preventDefault();
+			const wrap = plusBtn.closest('.productbay-qty-wrap');
+			if (!wrap) return;
+			const input = wrap.querySelector('.productbay-qty');
+			if (!input) return;
+			const max = parseInt(input.getAttribute('max'), 10) || Infinity;
+			let val = parseInt(input.value, 10) || 0;
+			if (val < max) {
+				input.value = val + 1;
+				input.dispatchEvent(new Event('input', { bubbles: true }));
 			}
 			return;
 		}
 
-		// First load
+		const minusBtn = e.target.closest('.productbay-pro-variations-modal .productbay-qty-minus');
+		if (minusBtn) {
+			e.preventDefault();
+			const wrap = minusBtn.closest('.productbay-qty-wrap');
+			if (!wrap) return;
+			const input = wrap.querySelector('.productbay-qty');
+			if (!input) return;
+			const min = parseInt(input.getAttribute('min'), 10) || 1;
+			let val = parseInt(input.value, 10) || min;
+			if (val > min) {
+				input.value = val - 1;
+				input.dispatchEvent(new Event('input', { bubbles: true }));
+			}
+			return;
+		}
+	});
+
+	// ─── 4. Nested Rows Trigger ───────────────────────────────────────────────────
+	// Helper: load AJAX content into a nested container OR inject rows
+	function loadNestedContent(target, productId, tableId, row, originalText) {
 		target.disabled = true;
-		const originalText = target.innerHTML;
-		target.innerHTML = 'Loading...';
+		target.textContent = 'Loading...';
 
 		const data = new URLSearchParams();
 		data.append('action', 'productbay_pro_get_variation_html');
@@ -432,32 +460,237 @@ document.addEventListener('DOMContentLoaded', () => {
 			.then(res => res.json())
 			.then(response => {
 				if (response.success) {
-					// We need to inject the rows directly after `row`
-					// Convert HTML string to nodes
-					const template = document.createElement('template');
-					template.innerHTML = response.data.html;
+					const nextRow = row.nextElementSibling;
 
-					// Tag the new rows with data-parent-id so we can toggle them later
-					const newRows = template.content.querySelectorAll('tr');
-					newRows.forEach(nr => nr.setAttribute('data-parent-id', productId));
-
-					// Insert after the current row
-					row.after(template.content);
-					target.innerHTML = 'Hide Products';
+					// If a nested container <tr> exists, populate its inner content
+					if (nextRow && nextRow.classList.contains('productbay-pro-nested-row-container') && nextRow.getAttribute('data-parent-id') === productId) {
+						const contentCell = nextRow.querySelector('.productbay-pro-nested-row-content');
+						if (contentCell) {
+							contentCell.innerHTML = '<table class="productbay-table productbay-pro-nested-table"><tbody>' + response.data.html + '</tbody></table>';
+						}
+						nextRow.style.display = 'table-row';
+						nextRow.setAttribute('data-loaded', '1');
+					} else {
+						// No container — inject rows directly after the current row
+						const template = document.createElement('template');
+						template.innerHTML = response.data.html;
+						const newRows = template.content.querySelectorAll('tr');
+						newRows.forEach(nr => nr.setAttribute('data-parent-id', productId));
+						row.after(template.content);
+					}
+					target.textContent = 'Hide Products';
 				} else {
 					console.error(response.data);
-					target.innerHTML = 'Error';
+					target.textContent = 'Error';
 				}
 			})
 			.finally(() => {
 				target.disabled = false;
-				if (target.innerHTML === 'Loading...') {
-					target.innerHTML = originalText;
+				if (target.textContent === 'Loading...') {
+					target.textContent = originalText;
 				}
 			});
+	}
+
+	document.body.addEventListener('click', (e) => {
+		const target = e.target.closest('.productbay-pro-btn-nested');
+		if (!target) return;
+		e.preventDefault();
+
+		const productId = target.getAttribute('data-product-id');
+		const tableId = target.getAttribute('data-table-id');
+		const row = target.closest('tr');
+
+		// Store original text for toggle (data-original-text pattern)
+		if (!target.hasAttribute('data-original-text')) {
+			target.setAttribute('data-original-text', target.textContent.trim());
+		}
+		const originalText = target.getAttribute('data-original-text');
+
+		const nextRow = row.nextElementSibling;
+
+		// Case 1: Pre-rendered nested container exists
+		if (nextRow && nextRow.classList.contains('productbay-pro-nested-row-container') && nextRow.getAttribute('data-parent-id') === productId) {
+			const isHidden = nextRow.style.display === 'none';
+
+			if (isHidden) {
+				// If content was never loaded via AJAX, load it now
+				if (!nextRow.getAttribute('data-loaded') && nextRow.getAttribute('data-default-expanded') !== '1') {
+					loadNestedContent(target, productId, tableId, row, originalText);
+					return;
+				}
+				nextRow.style.display = 'table-row';
+				target.textContent = 'Hide Products';
+			} else {
+				nextRow.style.display = 'none';
+				target.textContent = originalText;
+			}
+			return;
+		}
+
+		// Case 2: Previously injected individual nested rows
+		if (nextRow && nextRow.classList.contains('productbay-pro-nested-row-item') && nextRow.getAttribute('data-parent-id') === productId) {
+			let isHidden = nextRow.style.display === 'none';
+			let sibling = nextRow;
+			while (sibling && sibling.classList.contains('productbay-pro-nested-row-item') && sibling.getAttribute('data-parent-id') === productId) {
+				sibling.style.display = isHidden ? 'table-row' : 'none';
+				sibling = sibling.nextElementSibling;
+			}
+			target.textContent = isHidden ? 'Hide Products' : originalText;
+			return;
+		}
+
+		// Case 3: First-time load via AJAX
+		loadNestedContent(target, productId, tableId, row, originalText);
 	});
 
-	// Handle Modal Close
+	// ─── 5. Default-Expanded Nested Rows Initialization ───────────────────────────
+	// For nested containers that are pre-rendered with data-default-expanded="1",
+	// set the trigger button text to "Hide Products" on page load.
+	document.querySelectorAll('.productbay-pro-nested-row-container[data-default-expanded="1"]').forEach((container) => {
+		const parentId = container.getAttribute('data-parent-id');
+		if (!parentId) return;
+
+		// Find the trigger button in the preceding row
+		const parentRow = container.previousElementSibling;
+		if (parentRow) {
+			const btn = parentRow.querySelector('.productbay-pro-btn-nested[data-product-id="' + parentId + '"]');
+			if (btn) {
+				if (!btn.hasAttribute('data-original-text')) {
+					btn.setAttribute('data-original-text', btn.textContent.trim());
+				}
+				btn.textContent = 'Hide Products';
+			}
+		}
+	});
+
+	// ─── 6. Grouped Product Inline Select Handler ─────────────────────────────────
+	// When a child product is selected: enable qty/cart/checkbox.
+	// 'Select All' option => enable checkbox with all child IDs.
+	document.body.addEventListener('change', (e) => {
+		if (!e.target.classList.contains('productbay-grouped-child-select')) return;
+
+		const select = e.target;
+		const wrap = select.closest('.productbay-grouped-inline-wrap');
+		if (!wrap) return;
+
+		const qtyInput = wrap.querySelector('.productbay-qty');
+		const addBtn = wrap.querySelector('.productbay-grouped-add-btn');
+		const priceSpan = wrap.querySelector('.productbay-grouped-inline-price');
+		const row = select.closest('tr');
+		const rowCheckbox = row ? row.querySelector('.productbay-col-select .productbay-select-product') : null;
+
+		if (!selectedId) {
+			// No selection — disable controls
+			if (qtyInput) qtyInput.disabled = true;
+			if (addBtn) { addBtn.disabled = true; addBtn.setAttribute('data-product-id', ''); }
+			if (priceSpan) priceSpan.innerHTML = '';
+			if (rowCheckbox) { rowCheckbox.disabled = true; rowCheckbox.checked = false; rowCheckbox.dispatchEvent(new Event('change', { bubbles: true })); }
+			wrap.querySelectorAll('.productbay-qty-plus, .productbay-qty-minus').forEach(b => b.disabled = true);
+			return;
+		}
+
+		if (selectedId === '__all__') {
+			// Select All — enable qty/cart with all child IDs
+			const allIds = childrenData.map(c => String(c.id));
+			if (addBtn) { addBtn.disabled = false; addBtn.setAttribute('data-product-id', allIds.join(',')); }
+			if (qtyInput) qtyInput.disabled = false;
+			wrap.querySelectorAll('.productbay-qty-plus, .productbay-qty-minus').forEach(b => b.disabled = false);
+			if (priceSpan) priceSpan.innerHTML = '';
+			if (rowCheckbox) {
+				rowCheckbox.disabled = false;
+				rowCheckbox.value = allIds.join(',');
+				rowCheckbox.setAttribute('data-price', '');
+				rowCheckbox.setAttribute('data-multi', '1');
+				rowCheckbox.checked = true;
+				// Trigger change to update bulk selection
+				rowCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+			}
+			return;
+		}
+
+		// Single child selected — enable all controls
+		const child = childrenData.find(c => String(c.id) === selectedId);
+		if (child) {
+			if (priceSpan) priceSpan.innerHTML = child.price_html;
+			if (addBtn) { addBtn.disabled = false; addBtn.setAttribute('data-product-id', String(child.id)); }
+			if (qtyInput) qtyInput.disabled = false;
+			wrap.querySelectorAll('.productbay-qty-plus, .productbay-qty-minus').forEach(b => b.disabled = false);
+			if (rowCheckbox) {
+				rowCheckbox.disabled = false;
+				rowCheckbox.value = String(child.id);
+				rowCheckbox.setAttribute('data-price', String(child.price));
+				rowCheckbox.removeAttribute('data-multi');
+				rowCheckbox.checked = true;
+				rowCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+			}
+		}
+	});
+
+	// ─── 6b. Grouped Product Add To Cart ──────────────────────────────────────────
+	document.body.addEventListener('click', (e) => {
+		const btn = e.target.closest('.productbay-grouped-add-btn');
+		if (!btn || btn.disabled) return;
+		e.preventDefault();
+
+		const wrap = btn.closest('.productbay-grouped-inline-wrap');
+		const qtyInput = wrap.querySelector('.productbay-qty');
+		const quantity = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+
+		const idsStr = btn.getAttribute('data-product-id');
+		if (!idsStr) return;
+
+		const ids = idsStr.split(',');
+		const items = ids.map(id => ({
+			product_id: parseInt(id, 10),
+			quantity: quantity,
+			variation_id: 0,
+			attributes: {}
+		}));
+
+		if (!btn.hasAttribute('data-original-text')) {
+			btn.setAttribute('data-original-text', btn.innerHTML);
+		}
+		const originalText = btn.getAttribute('data-original-text');
+
+		btn.innerHTML = 'Adding...';
+		btn.disabled = true;
+
+		const $ = window.jQuery;
+		if (!$) return;
+
+		$.ajax({
+			url: window.productbay_frontend.ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'productbay_bulk_add_to_cart',
+				nonce: window.productbay_frontend.nonce,
+				items: items
+			},
+			success: (response) => {
+				if (response.success) {
+					btn.innerHTML = 'Added ✓';
+					$(document.body).trigger('wc_fragment_refresh');
+				} else {
+					btn.innerHTML = 'Error';
+					alert(response.data?.errors?.join('\\n') || 'Error adding to cart');
+				}
+			},
+			error: () => {
+				btn.innerHTML = 'Error';
+			},
+			complete: () => {
+				setTimeout(() => {
+					if (btn.innerHTML === 'Added ✓' || btn.innerHTML === 'Error') {
+						btn.innerHTML = originalText;
+						btn.disabled = false;
+					}
+				}, 2000);
+			}
+		});
+	});
+
+	// ─── 7. Handle Modal Close ────────────────────────────────────────────────────
 	document.body.addEventListener('click', (e) => {
 		const closeBtn = e.target.closest('.productbay-pro-variations-close');
 		const backdrop = e.target.closest('.productbay-pro-variations-backdrop');
@@ -469,5 +702,23 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 	});
+
+	// ─── 8. Popup "Select All" Checkbox ──────────────────────────────────────────
+	// In the popup table header, a "select all" checkbox toggles all variation checkboxes.
+	document.body.addEventListener('change', (e) => {
+		if (!e.target.classList.contains('productbay-pro-popup-select-all')) return;
+
+		const modal = e.target.closest('.productbay-pro-variations-modal');
+		if (!modal) return;
+
+		const isChecked = e.target.checked;
+		const checkboxes = modal.querySelectorAll('.productbay-pro-popup-table .productbay-select-product');
+
+		checkboxes.forEach(cb => {
+			cb.checked = isChecked;
+		});
+	});
+
+
 
 });
