@@ -715,7 +715,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		const checkboxes = modal.querySelectorAll('.productbay-pro-popup-table .productbay-select-product');
 
 		checkboxes.forEach(cb => {
-			cb.checked = isChecked;
+			if (cb.checked !== isChecked) {
+				cb.checked = isChecked;
+				cb.dispatchEvent(new Event('change', { bubbles: true }));
+			}
 		});
 	});
 
