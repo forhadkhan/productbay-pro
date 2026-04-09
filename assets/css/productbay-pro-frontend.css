@@ -46,38 +46,50 @@
    ============================================================ */
 
 dialog.productbay-pro-variations-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    background: transparent;
     padding: 0;
+    margin: 0;
     border: none;
-    border-radius: var(--pb-radius-xl);
-    box-shadow: var(--pb-shadow-lg);
-    width: min(92vw, 100%);
-    max-width: 800px;
-    background: var(--pb-color-bg);
-    overflow: hidden;
-    /* Entrance animation */
-    animation: pb-modal-in var(--pb-transition-md) both;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
 }
 
+dialog.productbay-pro-variations-modal[open] {
+    display: flex;
+}
+
+dialog.productbay-pro-variations-modal::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    animation: pb-backdrop-in var(--pb-transition-md) both;
+}
+
+.productbay-pro-variations-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    animation: pb-backdrop-in var(--pb-transition-md) both;
+}
+
+/* --- Entrance Animations --- */
 @keyframes pb-modal-in {
     from {
         opacity: 0;
-        transform: translateY(16px) scale(0.98);
+        transform: translateY(20px) scale(0.96);
     }
 
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
-}
-
-dialog.productbay-pro-variations-modal::backdrop,
-.productbay-pro-variations-backdrop {
-    background: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    inset: 0;
-    z-index: 9998;
-    width: 100%;
-    animation: pb-backdrop-in var(--pb-transition-md) both;
 }
 
 @keyframes pb-backdrop-in {
@@ -97,11 +109,16 @@ dialog.productbay-pro-variations-modal::backdrop,
 
 .productbay-pro-variations-content {
     position: relative;
-    z-index: 9999;
+    z-index: 2;
     display: flex;
     flex-direction: column;
-    max-height: min(82vh, 680px);
+    width: min(92vw, 800px);
+    max-height: min(90vh, 850px);
     background: var(--pb-color-bg);
+    border-radius: var(--pb-radius-xl);
+    box-shadow: var(--pb-shadow-lg);
+    overflow: hidden;
+    animation: pb-modal-in var(--pb-transition-md) both;
 }
 
 .productbay-pro-variations-inner {
@@ -187,7 +204,7 @@ dialog.productbay-pro-variations-modal::backdrop,
 .productbay-pro-popup-table-wrap {
     flex: 1;
     min-height: 100px;
-    max-height: 980px;
+    max-height: 480px;
     overflow-y: auto;
     border: 1px solid var(--pb-color-border);
     border-radius: var(--pb-radius-lg);
