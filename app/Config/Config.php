@@ -38,7 +38,7 @@ final class Config
 	/**
 	 * Minimum required free plugin version.
 	 */
-	public const MIN_FREE_VERSION = '1.1.1';
+	public const MIN_FREE_VERSION = '1.2.0';
 
 	/**
 	 * License server.
