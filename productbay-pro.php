@@ -51,15 +51,16 @@ define('PRODUCTBAY_PRO_PLUGIN_BASENAME', \plugin_basename(__FILE__));
 define('PRODUCTBAY_PRO_MIN_FREE_VERSION', \WpabProductBayPro\Config\Config::MIN_FREE_VERSION);
 
 // Initialize Plugin Update Checker.
+// phpcs:disable
 if (class_exists('\YahnisElsts\PluginUpdateChecker\v5\PucFactory')) {
 	$productbay_pro_key = \get_option(\WpabProductBayPro\Config\Config::OPT_LICENSE_KEY, '');
 	if ($productbay_pro_key) {
-		$update_checker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+		$productbay_pro_update_checker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
 			\WpabProductBayPro\Config\Config::LICENSE_SERVER_URL . '/update-check/' . \WpabProductBayPro\Config\Config::LICENSE_SERVER_SLUG . '/' . $productbay_pro_key,
 			__FILE__,
 			\WpabProductBayPro\Config\Config::PLUGIN_NAME
 		);
-		$update_checker->addQueryArgFilter(
+		$productbay_pro_update_checker->addQueryArgFilter(
 			function ($query_args) {
 				$query_args['host'] = \home_url();
 				return $query_args;
@@ -67,6 +68,7 @@ if (class_exists('\YahnisElsts\PluginUpdateChecker\v5\PucFactory')) {
 		);
 	}
 }
+// phpcs:enable
 
 /**
  * Check if the free plugin is active and meets version requirements.

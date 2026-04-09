@@ -12,6 +12,11 @@ declare(strict_types=1);
 
 namespace WpabProductBayPro\Modules\ImportExport;
 
+// Prevent direct file access.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -208,7 +213,8 @@ class ImportExportModule
 			'imported_count' => $imported_count + $updated_count,
 			'skipped_count'  => $skipped_count,
 			'message'        => \sprintf(
-				__('Import summary: %d tables imported/updated, %d skipped.', 'productbay-pro'),
+				/* translators: 1: Number of imported/updated tables, 2: Number of skipped tables. */
+				__('Import summary: %1$d tables imported/updated, %2$d skipped.', 'productbay-pro'),
 				$imported_count + $updated_count,
 				$skipped_count
 			),
