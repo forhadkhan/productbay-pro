@@ -207,10 +207,10 @@
 			this.observer = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting) {
 					// Check if already loading. The free plugin adds .loading to search or button.
-					const isLoading = this.$wrapper.hasClass('productbay-loading') || 
-									this.$wrapper.find('.productbay-load-more-btn').hasClass('loading') ||
-									this.$wrapper.find('.productbay-search').hasClass('loading');
-					
+					const isLoading = this.$wrapper.hasClass('productbay-loading') ||
+						this.$wrapper.find('.productbay-load-more-btn').hasClass('loading') ||
+						this.$wrapper.find('.productbay-search').hasClass('loading');
+
 					if (!isLoading) {
 						this.$wrapper.trigger('productbay_next_page');
 					}
@@ -401,43 +401,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				}, 2000);
 			}
 		});
-	});
-
-	// ─── 3. Popup Quantity +/- Buttons (Delegated on document.body) ────────────
-	// The base plugin's qty handlers are scoped to $wrapper, so popup buttons
-	// (which live inside <dialog> outside the wrapper) need their own handlers.
-	document.body.addEventListener('click', (e) => {
-		const plusBtn = e.target.closest('.productbay-pro-variations-modal .productbay-qty-plus');
-		if (plusBtn) {
-			e.preventDefault();
-			const wrap = plusBtn.closest('.productbay-qty-wrap');
-			if (!wrap) return;
-			const input = wrap.querySelector('.productbay-qty');
-			if (!input) return;
-			const max = parseInt(input.getAttribute('max'), 10) || Infinity;
-			let val = parseInt(input.value, 10) || 0;
-			if (val < max) {
-				input.value = val + 1;
-				input.dispatchEvent(new Event('input', { bubbles: true }));
-			}
-			return;
-		}
-
-		const minusBtn = e.target.closest('.productbay-pro-variations-modal .productbay-qty-minus');
-		if (minusBtn) {
-			e.preventDefault();
-			const wrap = minusBtn.closest('.productbay-qty-wrap');
-			if (!wrap) return;
-			const input = wrap.querySelector('.productbay-qty');
-			if (!input) return;
-			const min = parseInt(input.getAttribute('min'), 10) || 1;
-			let val = parseInt(input.value, 10) || min;
-			if (val > min) {
-				input.value = val - 1;
-				input.dispatchEvent(new Event('input', { bubbles: true }));
-			}
-			return;
-		}
 	});
 
 	// ─── 4. Nested Rows Trigger ───────────────────────────────────────────────────
