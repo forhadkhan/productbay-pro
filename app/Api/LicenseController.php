@@ -20,6 +20,7 @@ if (!defined('ABSPATH')) {
 
 use WpabProductBayPro\Config\Config;
 use WpabProductBayPro\License\LicenseClient;
+use WpabProductBay\Data\ActivityLog;
 
 /**
  * Class LicenseController
@@ -119,6 +120,13 @@ class LicenseController
 		$key    = $request->get_param('license_key');
 		$result = $this->client->activate($key);
 
+		if ($result['success']) {
+			ActivityLog::success(
+				'License activated',
+				sprintf('Pro license key "%s" successfully activated on this site.', $this->client->get_masked_key())
+			);
+		}
+
 		return new \WP_REST_Response(
 			$result,
 			$result['success'] ? 200 : 400
@@ -138,6 +146,11 @@ class LicenseController
 	public function remove(): \WP_REST_Response
 	{
 		$this->client->remove();
+
+		ActivityLog::info(
+			'License removed',
+			'Pro license data has been cleared from this site.'
+		);
 
 		return new \WP_REST_Response(array(
 			'success' => true,

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace WpabProductBayPro\License;
 
 use WpabProductBayPro\Config\Config;
+use WpabProductBay\Data\ActivityLog;
 
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
@@ -83,14 +84,24 @@ class LicenseClient
 		$response = \wp_remote_post(self::SERVER_URL . '/activate', array(
 			'timeout' => self::TIMEOUT,
 			'headers' => array('Content-Type' => 'application/json'),
-			'body'    => \wp_json_encode(array(
+			'body' => \wp_json_encode(array(
 				'license_key' => $key,
-				'slug'        => self::SLUG,
-				'domain'      => $this->get_domain(),
+				'slug' => self::SLUG,
+				'domain' => $this->get_domain(),
 			)),
 		));
 
 		if (\is_wp_error($response)) {
+			ActivityLog::error(
+				'License activation failed (Network)',
+				sprintf('Communication error with license server: %s', $response->get_error_message()),
+				json_encode(array(
+					'error_code' => $response->get_error_code(),
+					'message' => $response->get_error_message(),
+					'data' => $response->get_error_data(),
+				), JSON_PRETTY_PRINT)
+			);
+
 			return array(
 				'success' => false,
 				'message' => $response->get_error_message(),
@@ -117,9 +128,20 @@ class LicenseClient
 			);
 		}
 
+		$msg = $body['message'] ?? \__('Activation failed. Please check your license key.', 'productbay-pro');
+
+		ActivityLog::error(
+			'License activation failed',
+			sprintf('Attempted to activate key. Server response: %s', $msg),
+			json_encode(array(
+				'http_code' => $code,
+				'response' => $body ?: \wp_remote_retrieve_body($response),
+			), JSON_PRETTY_PRINT)
+		);
+
 		return array(
 			'success' => false,
-			'message' => $body['message'] ?? \__('Activation failed. Please check your license key.', 'productbay-pro'),
+			'message' => $msg,
 		);
 	}
 
@@ -143,8 +165,8 @@ class LicenseClient
 		$url = \add_query_arg(
 			array(
 				'license_key' => $key,
-				'slug'        => self::SLUG,
-				'domain'      => $this->get_domain(),
+				'slug' => self::SLUG,
+				'domain' => $this->get_domain(),
 			),
 			self::SERVER_URL . '/check'
 		);
@@ -152,6 +174,14 @@ class LicenseClient
 		$response = \wp_remote_get($url, array('timeout' => self::TIMEOUT));
 
 		if (\is_wp_error($response)) {
+			ActivityLog::error(
+				'License validation error (Network)',
+				sprintf('Could not reach license server for validation: %s', $response->get_error_message()),
+				json_encode(array(
+					'error_code' => $response->get_error_code(),
+					'message' => $response->get_error_message(),
+				), JSON_PRETTY_PRINT)
+			);
 			// Server unreachable — apply grace period.
 			return $this->handle_grace_period();
 		}
@@ -159,6 +189,12 @@ class LicenseClient
 		$body = json_decode(\wp_remote_retrieve_body($response), true);
 
 		if (!is_array($body)) {
+			ActivityLog::error(
+				'License validation error (Invalid Response)',
+				'Received unparsable response from license server.',
+				\wp_remote_retrieve_body($response)
+			);
+
 			// Cannot parse response cleanly, likely server error page. Apply grace period.
 			return $this->handle_grace_period();
 		}
@@ -168,16 +204,25 @@ class LicenseClient
 			$this->cache_status('active');
 
 			return array(
-				'valid'      => true,
-				'status'     => 'active',
+				'valid' => true,
+				'status' => 'active',
 				'expires_at' => $body['expires_at'] ?? '',
 			);
 		}
 
 		// License invalid, expired, or revoked.
 		$status = $body['license'] ?? 'invalid';
+		$old_status = $this->get_status();
+
 		$this->update_status($status);
 		$this->cache_status($status);
+
+		if ($old_status === 'active' && $status !== 'active') {
+			ActivityLog::warning(
+				'License status changed',
+				sprintf('Pro license status changed from "active" to "%s". Premium features may be restricted.', $status)
+			);
+		}
 
 		return array('valid' => false, 'status' => $status);
 	}
@@ -344,7 +389,7 @@ class LicenseClient
 
 		// Fallback to legacy options
 		$legacy_key = \get_option(Config::OPT_LICENSE_KEY, '');
-		
+
 		if ($legacy_key) {
 			$data = array(
 				'key' => $legacy_key,
@@ -352,15 +397,15 @@ class LicenseClient
 				'expires' => \get_option(Config::OPT_LICENSE_EXPIRES, ''),
 			);
 			\update_option(Config::OPT_LICENSE, $data);
-			
+
 			// Clean up legacy options
 			\delete_option(Config::OPT_LICENSE_KEY);
 			\delete_option(Config::OPT_LICENSE_STATUS);
 			\delete_option(Config::OPT_LICENSE_EXPIRES);
-			
+
 			return $data;
 		}
-		
+
 		return array(
 			'key' => '',
 			'status' => 'inactive',

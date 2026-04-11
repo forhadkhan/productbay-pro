@@ -21,6 +21,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 use WpabProductBay\Data\TableRepository;
+use WpabProductBay\Data\ActivityLog;
 use WpabProductBayPro\Config\Config;
 
 /**
@@ -127,6 +128,11 @@ class ImportExportModule
 			$export_data['settings'] = \get_option('productbay_settings', array());
 		}
 
+		ActivityLog::info(
+			'Data exported',
+			sprintf('A configuration export was generated including %d table(s)%s.', count($table_ids), $include_settings ? ' and global settings' : '')
+		);
+
 		return new WP_REST_Response(array(
 			'success' => true,
 			'data'    => $export_data,
@@ -208,16 +214,23 @@ class ImportExportModule
 			}
 		}
 
+		$msg = \sprintf(
+			/* translators: 1: Number of imported/updated tables, 2: Number of skipped tables. */
+			__('Import summary: %1$d tables imported/updated, %2$d skipped.', 'productbay-pro'),
+			$imported_count + $updated_count,
+			$skipped_count
+		);
+
+		ActivityLog::success(
+			'Data imported',
+			$msg . ($data['settings'] ? ' Global settings were also updated.' : '')
+		);
+
 		return new WP_REST_Response(array(
 			'success'        => true,
 			'imported_count' => $imported_count + $updated_count,
 			'skipped_count'  => $skipped_count,
-			'message'        => \sprintf(
-				/* translators: 1: Number of imported/updated tables, 2: Number of skipped tables. */
-				__('Import summary: %1$d tables imported/updated, %2$d skipped.', 'productbay-pro'),
-				$imported_count + $updated_count,
-				$skipped_count
-			),
+			'message'        => $msg,
 		), 200);
 	}
 
