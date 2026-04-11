@@ -55,6 +55,9 @@ final class Config
 	/**
 	 * Option keys for WordPress database.
 	 */
+	public const OPT_LICENSE = 'productbay_pro_license';
+
+	// Legacy keys kept for migration
 	public const OPT_LICENSE_KEY = 'productbay_pro_license_key';
 	public const OPT_LICENSE_STATUS = 'productbay_pro_license_status';
 	public const OPT_LICENSE_EXPIRES = 'productbay_pro_license_expires';
