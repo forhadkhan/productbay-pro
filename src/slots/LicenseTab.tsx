@@ -114,20 +114,15 @@ const LicenseTab = () => {
 			const res: any = await apiFetch(API_ENDPOINTS.LICENSE, { method: 'DELETE' });
 			setSuccessMsg(res.message || __('License removed.', 'productbay-pro'));
 
-			// Refresh state
-			await fetchStatus();
-
 			if (window.productBaySettings && window.productBaySettings.license) {
 				window.productBaySettings.license.status = 'inactive';
 			}
 
-			setTimeout(() => {
-				window.location.reload();
-			}, 1500);
+			document.body.style.pointerEvents = 'none';
+			window.location.reload();
 
 		} catch (err: any) {
 			setError(parseErrorMessage(err.message || __('Failed to remove license.', 'productbay-pro')));
-		} finally {
 			setActionLoading(false);
 		}
 	};
@@ -195,10 +190,16 @@ const LicenseTab = () => {
 											<div className={`text-sm font-medium ${license.status === 'active' ? 'text-green-600' : 'text-amber-600'}`}>
 												{license.status === 'active' ? __('Valid', 'productbay-pro') : __('Expired', 'productbay-pro')}
 											</div>
-											{license.expiresAt && (
+											{license.expiresAt ? (
 												<p className="text-xs text-gray-500 mt-1">
-													{license.status === 'active' ? __('Expires:', 'productbay-pro') : __('Expired on:', 'productbay-pro')} {new Date(license.expiresAt).toLocaleDateString()}
+													{license.status === 'active' ? __('Valid till:', 'productbay-pro') : __('Expired on:', 'productbay-pro')} {new Date(license.expiresAt).toLocaleDateString()}
 												</p>
+											) : (
+												license.status === 'active' && (
+													<p className="text-xs text-gray-500 mt-1">
+														{__('Valid till: Lifetime', 'productbay-pro')}
+													</p>
+												)
 											)}
 										</div>
 									</div>
@@ -253,6 +254,7 @@ const LicenseTab = () => {
 												variant="default"
 												onClick={handleActivate}
 												disabled={actionLoading || !inputKey.trim()}
+												className="cursor-pointer"
 											>
 												{actionLoading ? (
 													<RefreshCwIcon className="w-4 h-4 mr-2 animate-spin" />
