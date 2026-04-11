@@ -35,9 +35,8 @@ class LicenseClient
 	/**
 	 * wp_options keys for persisted license data.
 	 */
-	const OPT_KEY     = Config::OPT_LICENSE_KEY;
-	const OPT_STATUS  = Config::OPT_LICENSE_STATUS;
-	const OPT_EXPIRES = Config::OPT_LICENSE_EXPIRES;
+	const OPT_LICENSE = Config::OPT_LICENSE;
+
 
 	/**
 	 * Transient key for cached validation result.
@@ -102,9 +101,11 @@ class LicenseClient
 		$body = json_decode(\wp_remote_retrieve_body($response), true);
 
 		if ($code === 200 && !empty($body['success'])) {
-			\update_option(self::OPT_KEY, \sanitize_text_field($key));
-			\update_option(self::OPT_STATUS, 'active');
-			\update_option(self::OPT_EXPIRES, \sanitize_text_field($body['expires_at'] ?? ''));
+			$this->save_license_data(
+				\sanitize_text_field($key),
+				'active',
+				\sanitize_text_field($body['expires_at'] ?? '')
+			);
 			$this->cache_status('active');
 
 			// Clear PUC cache so it picks up the new key immediately.
@@ -157,9 +158,13 @@ class LicenseClient
 
 		$body = json_decode(\wp_remote_retrieve_body($response), true);
 
+		if (!is_array($body)) {
+			// Cannot parse response cleanly, likely server error page. Apply grace period.
+			return $this->handle_grace_period();
+		}
+
 		if (!empty($body['success']) && ($body['license'] ?? '') === 'valid') {
-			\update_option(self::OPT_STATUS, 'active');
-			\update_option(self::OPT_EXPIRES, \sanitize_text_field($body['expires_at'] ?? ''));
+			$this->update_status('active', \sanitize_text_field($body['expires_at'] ?? ''));
 			$this->cache_status('active');
 
 			return array(
@@ -171,7 +176,7 @@ class LicenseClient
 
 		// License invalid, expired, or revoked.
 		$status = $body['license'] ?? 'invalid';
-		\update_option(self::OPT_STATUS, $status);
+		$this->update_status($status);
 		$this->cache_status($status);
 
 		return array('valid' => false, 'status' => $status);
@@ -207,7 +212,8 @@ class LicenseClient
 	 */
 	public function get_key(): string
 	{
-		return (string) \get_option(self::OPT_KEY, '');
+		$data = $this->get_license_data();
+		return $data['key'];
 	}
 
 	/**
@@ -219,7 +225,8 @@ class LicenseClient
 	 */
 	public function get_status(): string
 	{
-		return (string) \get_option(self::OPT_STATUS, 'inactive');
+		$data = $this->get_license_data();
+		return $data['status'];
 	}
 
 	/**
@@ -231,7 +238,8 @@ class LicenseClient
 	 */
 	public function get_expires(): string
 	{
-		return (string) \get_option(self::OPT_EXPIRES, '');
+		$data = $this->get_license_data();
+		return $data['expires'];
 	}
 
 	/**
@@ -267,9 +275,11 @@ class LicenseClient
 	 */
 	public function remove(): void
 	{
-		\delete_option(self::OPT_KEY);
-		\delete_option(self::OPT_STATUS);
-		\delete_option(self::OPT_EXPIRES);
+		\delete_option(Config::OPT_LICENSE);
+		\delete_option(Config::OPT_LICENSE_KEY);
+		\delete_option(Config::OPT_LICENSE_STATUS);
+		\delete_option(Config::OPT_LICENSE_EXPIRES);
+
 		\delete_transient(self::TRANSIENT_KEY);
 		\delete_site_transient('update_plugins');
 	}
@@ -312,7 +322,7 @@ class LicenseClient
 	 */
 	private function handle_grace_period(): array
 	{
-		$last_status = \get_option(self::OPT_STATUS, 'inactive');
+		$last_status = $this->get_status();
 
 		if ('active' === $last_status) {
 			\set_transient(self::TRANSIENT_KEY, 'active', self::GRACE_TTL);
@@ -320,5 +330,76 @@ class LicenseClient
 		}
 
 		return array('valid' => false, 'status' => $last_status);
+	}
+
+	/**
+	 * Get unified license data.
+	 */
+	private function get_license_data(): array
+	{
+		$data = \get_option(Config::OPT_LICENSE);
+		if (is_array($data)) {
+			return $data;
+		}
+
+		// Fallback to legacy options
+		$legacy_key = \get_option(Config::OPT_LICENSE_KEY, '');
+		
+		if ($legacy_key) {
+			$data = array(
+				'key' => $legacy_key,
+				'status' => \get_option(Config::OPT_LICENSE_STATUS, 'inactive'),
+				'expires' => \get_option(Config::OPT_LICENSE_EXPIRES, ''),
+			);
+			\update_option(Config::OPT_LICENSE, $data);
+			
+			// Clean up legacy options
+			\delete_option(Config::OPT_LICENSE_KEY);
+			\delete_option(Config::OPT_LICENSE_STATUS);
+			\delete_option(Config::OPT_LICENSE_EXPIRES);
+			
+			return $data;
+		}
+		
+		return array(
+			'key' => '',
+			'status' => 'inactive',
+			'expires' => '',
+		);
+	}
+
+	/**
+	 * Save unified license data.
+	 */
+	private function save_license_data(string $key, string $status, string $expires): void
+	{
+		$data = array(
+			'key' => $key,
+			'status' => $status,
+			'expires' => $expires,
+		);
+		\update_option(Config::OPT_LICENSE, $data);
+	}
+
+	/**
+	 * Update status/expires only.
+	 */
+	private function update_status(string $status, string $expires = ''): void
+	{
+		$data = $this->get_license_data();
+		$data['status'] = $status;
+		if ($expires !== '') {
+			$data['expires'] = $expires;
+		}
+		\update_option(Config::OPT_LICENSE, $data);
+	}
+
+	/**
+	 * Cron validation callback.
+	 */
+	public static function cron_validate(): void
+	{
+		$client = new self();
+		$client->validate();
 	}
 }
