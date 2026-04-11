@@ -99,10 +99,10 @@ class LicenseController
 	public function get_status(): \WP_REST_Response
 	{
 		return new \WP_REST_Response(array(
-			'key'        => $this->client->get_masked_key(),
+			'maskedKey'  => $this->client->get_masked_key(),
 			'status'     => $this->client->get_status(),
-			'is_valid'   => $this->client->is_valid(),
-			'expires_at' => $this->client->get_expires(),
+			'isValid'    => $this->client->is_valid(),
+			'expiresAt'  => $this->client->get_expires(),
 		));
 	}
 
