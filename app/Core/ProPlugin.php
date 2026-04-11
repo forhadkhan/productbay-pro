@@ -46,6 +46,10 @@ class ProPlugin
 		// Hook into the free plugin's loaded action.
 		\add_action('productbay_loaded', array($this, 'on_free_loaded'));
 
+		// Setup cron job hook for license
+		\add_action('admin_init', array($this, 'schedule_cron_job'));
+		\add_action('productbay_pro_daily_license_check', array(LicenseClient::class, 'cron_validate'));
+
 		// Extend admin script data to signal pro is active.
 		\add_filter('productbay_admin_script_data', array($this, 'extend_admin_data'));
 
@@ -80,6 +84,18 @@ class ProPlugin
 	{
 		$controller = new LicenseController();
 		$controller->register();
+	}
+
+	/**
+	 * Schedule the daily license verification cron job.
+	 *
+	 * @since 1.0.0
+	 */
+	public function schedule_cron_job()
+	{
+		if (!\wp_next_scheduled('productbay_pro_daily_license_check')) {
+			\wp_schedule_event(time(), 'daily', 'productbay_pro_daily_license_check');
+		}
 	}
 
 	/**
