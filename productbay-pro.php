@@ -53,7 +53,8 @@ define('PRODUCTBAY_PRO_MIN_FREE_VERSION', \WpabProductBayPro\Config\Config::MIN_
 // Initialize Plugin Update Checker.
 // phpcs:disable
 if (class_exists('\YahnisElsts\PluginUpdateChecker\v5\PucFactory')) {
-	$productbay_pro_key = \get_option(\WpabProductBayPro\Config\Config::OPT_LICENSE_KEY, '');
+	$client = new \WpabProductBayPro\License\LicenseClient();
+	$productbay_pro_key = $client->get_key();
 	if ($productbay_pro_key) {
 		$productbay_pro_update_checker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
 			\WpabProductBayPro\Config\Config::LICENSE_SERVER_URL . '/update-check/' . \WpabProductBayPro\Config\Config::LICENSE_SERVER_SLUG . '/' . $productbay_pro_key,
