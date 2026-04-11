@@ -10,4 +10,6354 @@
  *
  * For license information please see [base].LICENSE.txt
  */
-(()=>{"use strict";var e={n:t=>{var r=t&&t.__esModule?()=>t.default:()=>t;return e.d(r,{a:r}),r},d:(t,r)=>{for(var o in r)e.o(r,o)&&!e.o(t,o)&&Object.defineProperty(t,o,{enumerable:!0,get:r[o]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t)};const t=window.wp.domReady;var r=e.n(t);const o=window.React,a=(...e)=>e.filter((e,t,r)=>Boolean(e)&&""!==e.trim()&&r.indexOf(e)===t).join(" ").trim(),s=e=>{const t=(e=>e.replace(/^([A-Z])|[\s-_]+(\w)/g,(e,t,r)=>r?r.toUpperCase():t.toLowerCase()))(e);return t.charAt(0).toUpperCase()+t.slice(1)};var l={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"};const n=e=>{for(const t in e)if(t.startsWith("aria-")||"role"===t||"title"===t)return!0;return!1},i=(0,o.createContext)({}),c=(0,o.forwardRef)(({color:e,size:t,strokeWidth:r,absoluteStrokeWidth:s,className:c="",children:d,iconNode:p,...u},m)=>{const{size:b=24,strokeWidth:h=2,absoluteStrokeWidth:x=!1,color:g="currentColor",className:y=""}=(0,o.useContext)(i)??{},f=s??x?24*Number(r??h)/Number(t??b):r??h;return(0,o.createElement)("svg",{ref:m,...l,width:t??b??l.width,height:t??b??l.height,stroke:e??g,strokeWidth:f,className:a("lucide",y,c),...!d&&!n(u)&&{"aria-hidden":"true"},...u},[...p.map(([e,t])=>(0,o.createElement)(e,t)),...Array.isArray(d)?d:[d]])}),d=(e,t)=>{const r=(0,o.forwardRef)(({className:r,...l},n)=>{return(0,o.createElement)(c,{ref:n,iconNode:t,className:a(`lucide-${i=s(e),i.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase()}`,`lucide-${e}`,r),...l});var i});return r.displayName=s(e),r},p=d("refresh-cw",[["path",{d:"M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8",key:"v9h5vc"}],["path",{d:"M21 3v5h-5",key:"1q7to0"}],["path",{d:"M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16",key:"3uifl3"}],["path",{d:"M8 16H3v5",key:"1cv678"}]]),u=d("shield-check",[["path",{d:"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",key:"oel41y"}],["path",{d:"m9 12 2 2 4-4",key:"dzmm74"}]]),m=d("shield-alert",[["path",{d:"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",key:"oel41y"}],["path",{d:"M12 8v4",key:"1got3b"}],["path",{d:"M12 16h.01",key:"1drbdi"}]]),b=d("trash-2",[["path",{d:"M10 11v6",key:"nco0om"}],["path",{d:"M14 11v6",key:"outv1u"}],["path",{d:"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6",key:"miytrc"}],["path",{d:"M3 6h18",key:"d0wm0j"}],["path",{d:"M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",key:"e791ji"}]]),h=d("external-link",[["path",{d:"M15 3h6v6",key:"1q9fwt"}],["path",{d:"M10 14 21 3",key:"gplh6r"}],["path",{d:"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6",key:"a6xqqp"}]]),x=d("key",[["path",{d:"m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4",key:"g0fldk"}],["path",{d:"m21 2-9.6 9.6",key:"1j0ho8"}],["circle",{cx:"7.5",cy:"15.5",r:"5.5",key:"yqb3hr"}]]),g="pro/license",y="pro/meta-keys",f="productbay/v1",v="https://wpanchorbay.com/my-account",w="https://wpanchorbay.com/plugins/productbay/",k="#/settings?tab=license",j=window.wp.components,_=window.wp.i18n,N=window.ReactJSXRuntime,{Button:C,Input:S,ConfirmButton:z}=window.productbay?.ui||{},{SectionHeading:M}=window.productbay?.components||{},P=window.productbay?.apiFetch,F=e=>{try{const t=JSON.parse(e);if(t&&"object"==typeof t&&t.message)return t.message}catch(e){}return e},I=()=>{const[e,t]=(0,o.useState)(null),[r,a]=(0,o.useState)(!0),[s,l]=(0,o.useState)(!1),[n,i]=(0,o.useState)(""),[c,d]=(0,o.useState)(null),[y,f]=(0,o.useState)(null),k=(0,o.useCallback)(async()=>{a(!0),d(null);try{const e=await P(g,{method:"GET"});t(e)}catch(e){d(F(e.message||(0,_.__)("Failed to load license status.","productbay-pro")))}finally{a(!1)}},[]);return(0,o.useEffect)(()=>{P?k():(a(!1),d((0,_.__)("API client not available. Please ensure ProductBay free is up to date.","productbay-pro")))},[k]),M?(0,N.jsx)(j.Fill,{name:"productbay-pro-settings-license",children:(0,N.jsxs)("section",{className:"space-y-6 p-6",children:[(0,N.jsx)(M,{title:(0,_.__)("ProductBay Pro License","productbay-pro"),description:(0,_.__)("Manage your license key to receive automatic updates and premium support.","productbay-pro")}),(0,N.jsx)("div",{className:"bg-white rounded-lg p-6",children:r?(0,N.jsxs)("div",{className:"flex items-center space-x-3 text-gray-500",children:[(0,N.jsx)(p,{className:"w-5 h-5 animate-spin"}),(0,N.jsx)("span",{children:(0,_.__)("Checking license status...","productbay-pro")})]}):(0,N.jsxs)("div",{className:"space-y-6",children:[c&&(0,N.jsx)("div",{className:"bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md text-sm",children:c}),y&&(0,N.jsx)("div",{className:"bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md text-sm",children:y}),!e||"active"!==e.status&&"expired"!==e.status?(0,N.jsxs)("div",{className:"space-y-4",children:[(0,N.jsx)("p",{className:"text-sm text-gray-600 mb-2",children:(0,_.__)("Enter your license key below to activate ProductBay Pro and enable automatic updates.","productbay-pro")}),(0,N.jsxs)("div",{className:"flex gap-3 max-w-md",children:[S&&(0,N.jsx)(S,{type:"password",placeholder:"WPAB-XXXX-XXXX-XXXX-XXXX",value:n,onChange:e=>i(e.target.value),className:"flex-1",disabled:s}),C&&(0,N.jsxs)(C,{variant:"default",onClick:async()=>{if(n.trim()){l(!0),d(null),f(null);try{const e=await P(g,{method:"POST",body:JSON.stringify({license_key:n.trim()})});f(e.message||(0,_.__)("License activated successfully.","productbay-pro")),i(""),await k(),window.productBaySettings&&window.productBaySettings.license&&(window.productBaySettings.license.status="active"),setTimeout(()=>{window.location.reload()},1500)}catch(e){d(F(e.message||(0,_.__)("Activation failed.","productbay-pro")))}finally{l(!1)}}else d((0,_.__)("Please enter a license key.","productbay-pro"))},disabled:s||!n.trim(),children:[s?(0,N.jsx)(p,{className:"w-4 h-4 mr-2 animate-spin"}):(0,N.jsx)(x,{className:"w-4 h-4 mr-2"}),(0,_.__)("Activate","productbay-pro")]})]}),(0,N.jsx)("div",{className:"pt-4 border-t border-gray-100 mt-6",children:(0,N.jsxs)("p",{className:"text-sm text-gray-500",children:[(0,_.__)("Don't have a license? ","productbay-pro"),(0,N.jsxs)("a",{href:w,target:"_blank",rel:"noopener noreferrer",className:"text-blue-600 hover:underline underline-offset-4 inline-flex items-center",children:[(0,_.__)("Get ProductBay Pro","productbay-pro"),(0,N.jsx)(h,{className:"w-3 h-3 ml-1"})]})]})})]}):(0,N.jsxs)("div",{className:"space-y-4",children:[(0,N.jsxs)("div",{className:"flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200",children:[(0,N.jsxs)("div",{className:"flex items-center gap-3",children:["active"===e.status?(0,N.jsx)("div",{className:"w-12 h-12 bg-[#f05c2a]/10 flex items-center justify-center rounded-full shrink-0",children:(0,N.jsx)(u,{className:"w-6 h-6 text-[#f05c2a]"})}):(0,N.jsx)("div",{className:"w-12 h-12 bg-amber-100 flex items-center justify-center rounded-full shrink-0",children:(0,N.jsx)(m,{className:"w-6 h-6 text-amber-600"})}),(0,N.jsxs)("div",{children:[(0,N.jsx)("h3",{className:"font-medium text-gray-900",children:"active"===e.status?(0,_.__)("License Active","productbay-pro"):(0,_.__)("License Expired","productbay-pro")}),(0,N.jsx)("p",{className:"text-sm text-gray-500 font-mono mt-1",children:e.maskedKey})]})]}),(0,N.jsxs)("div",{className:"text-right",children:[(0,N.jsx)("div",{className:"text-sm font-medium "+("active"===e.status?"text-green-600":"text-amber-600"),children:"active"===e.status?(0,_.__)("Valid","productbay-pro"):(0,_.__)("Expired","productbay-pro")}),e.expiresAt&&(0,N.jsxs)("p",{className:"text-xs text-gray-500 mt-1",children:["active"===e.status?(0,_.__)("Expires:","productbay-pro"):(0,_.__)("Expired on:","productbay-pro")," ",new Date(e.expiresAt).toLocaleDateString()]})]})]}),(0,N.jsxs)("div",{className:"flex gap-3 pt-2 justify-end",children:[z&&(0,N.jsx)(z,{confirmMessage:(0,_.__)("Are you sure you want to remove this license? You will no longer receive updates.","productbay-pro"),onConfirm:async()=>{l(!0),d(null),f(null);try{const e=await P(g,{method:"DELETE"});f(e.message||(0,_.__)("License removed.","productbay-pro")),await k(),window.productBaySettings&&window.productBaySettings.license&&(window.productBaySettings.license.status="inactive"),setTimeout(()=>{window.location.reload()},1500)}catch(e){d(F(e.message||(0,_.__)("Failed to remove license.","productbay-pro")))}finally{l(!1)}},variant:"outline",className:"text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700",disabled:s,icon:(0,N.jsx)(b,{className:"w-4 h-4 mr-2"}),children:(0,_.__)("Remove License","productbay-pro")}),"expired"===e.status&&(0,N.jsxs)("a",{href:v,target:"_blank",rel:"noopener noreferrer",className:"inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",children:[(0,_.__)("Renew License","productbay-pro"),(0,N.jsx)(h,{className:"w-4 h-4 ml-2"})]})]})]})]})})]})}):null},{Button:T}=window.productbay?.ui||{},E=()=>{const e=window.productBaySettings?.license,t=e?.status||"inactive";if("active"===t)return null;let r={bgClass:"bg-amber-50 border-b border-amber-200 text-amber-800",icon:(0,N.jsx)(m,{className:"w-5 h-5 text-amber-600"}),title:(0,_.__)("License Required","productbay-pro"),message:(0,_.__)("Activate your ProductBay Pro license to receive automatic updates and premium support.","productbay-pro"),buttonText:(0,_.__)("Activate License","productbay-pro"),buttonVariant:"default"};return"expired"===t?r={bgClass:"bg-amber-50 border-b border-amber-200 text-amber-800",icon:(0,N.jsx)(m,{className:"w-5 h-5 text-amber-600"}),title:(0,_.__)("License Expired","productbay-pro"),message:(0,_.__)("Your ProductBay Pro license has expired. Renew to continue receiving updates.","productbay-pro"),buttonText:(0,_.__)("Renew License","productbay-pro"),buttonVariant:"default"}:"invalid"===t&&(r={bgClass:"bg-red-50 border-b border-red-200 text-red-800",icon:(0,N.jsx)(x,{className:"w-5 h-5 text-red-600"}),title:(0,_.__)("License Invalid","productbay-pro"),message:(0,_.__)("Your ProductBay Pro license key is invalid or has been revoked.","productbay-pro"),buttonText:(0,_.__)("Check License","productbay-pro"),buttonVariant:"destructive"}),(0,N.jsx)(j.Fill,{name:"productbay-pro-banner",children:(0,N.jsxs)("div",{className:`w-full px-6 py-3 flex items-center justify-between shadow-sm ${r.bgClass}`,children:[(0,N.jsxs)("div",{className:"flex items-center gap-3 text-base",children:[r.icon,(0,N.jsxs)("div",{children:[(0,N.jsxs)("strong",{className:"font-semibold block sm:inline mr-2",children:[r.title,":"]}),(0,N.jsx)("span",{className:"",children:r.message})]})]}),(0,N.jsx)("div",{children:T&&(0,N.jsx)(T,{variant:r.buttonVariant,size:"sm",onClick:()=>{window.location.hash=k},className:"whitespace-nowrap cursor-pointer",children:r.buttonText})})]})})},{Alert:O,Button:A,CardRadioGroup:L,ColorPicker:B,Confetti:R,ConfirmButton:G,DropdownMenu:D,EditableText:V,Input:$,Modal:W,ProductBayIcon:X,ProductBayLogo:H,Select:q,Skeleton:J,Stepper:K,Tabs:U,Toast:Y,Toaster:Q,Toggle:Z,Tooltip:ee}=window.productbay?.ui||{},{SectionHeading:te,SettingsOption:re}=window.productbay?.components||{},oe=({title:e,description:t,children:r})=>(0,N.jsxs)("section",{className:"space-y-6 pt-8 border-t border-gray-100 mt-8",children:[(0,N.jsx)(te,{title:e,description:t}),(0,N.jsx)("div",{className:"space-y-2",children:r})]}),ae=[{label:(0,_.__)("Inline Dropdown","productbay-pro"),value:"inline"},{label:(0,_.__)("Popup Modal","productbay-pro"),value:"popup"},{label:(0,_.__)("Nested Rows","productbay-pro"),value:"nested"},{label:(0,_.__)("Separate Rows","productbay-pro"),value:"separate"}],se=[{label:(0,_.__)("Inline Dropdown","productbay-pro"),value:"inline"},{label:(0,_.__)("Popup Modal","productbay-pro"),value:"popup"},{label:(0,_.__)("Nested Rows","productbay-pro"),value:"nested"},{label:(0,_.__)("Separate Rows","productbay-pro"),value:"separate"}],le=()=>{const e=window.productbay?.useTableStore;if(!e)return null;const{settings:t,setFeatures:r}=e(),o=t?.features||{},a=o.variableProductMode||o.variationsMode||"inline",s=o.groupedProductMode||("inline"!==o.variationsMode?o.variationsMode:"popup")||"popup",l=o.nestedDefaultExpanded??!1,n=o.showChildCount??!0,i="nested"===a||"nested"===s;return(0,N.jsx)(j.Fill,{name:"productbay-pro-options",children:(0,N.jsxs)(oe,{title:(0,_.__)("Variable & Grouped Products (Pro)","productbay-pro"),description:(0,_.__)("Configure how complex products are displayed in the table","productbay-pro"),children:[(0,N.jsx)(re,{title:(0,_.__)("Variable Products","productbay-pro"),description:(0,_.__)("Products with attribute-based variations (e.g., size, color)","productbay-pro"),children:(0,N.jsx)(q,{value:a,onChange:e=>r({variableProductMode:e,variationsMode:e}),options:ae,className:"w-60"})}),(0,N.jsx)(re,{title:(0,_.__)("Grouped Products","productbay-pro"),description:(0,_.__)("Products containing multiple child simple products","productbay-pro"),children:(0,N.jsx)(q,{value:s,onChange:e=>r({groupedProductMode:e}),options:se,className:"w-60"})}),i&&(0,N.jsx)(re,{title:(0,_.__)("Expand Nested Rows","productbay-pro"),description:(0,_.__)("Show nested rows expanded by default instead of collapsed","productbay-pro"),children:(0,N.jsx)(Z,{checked:l,onChange:e=>r({nestedDefaultExpanded:e.target.checked})})}),(0,N.jsx)(re,{title:(0,_.__)("Show Options Count","productbay-pro"),description:(0,_.__)('Display "X options available" subtitle below product name',"productbay-pro"),children:(0,N.jsx)(Z,{checked:n,onChange:e=>r({showChildCount:e.target.checked})})})]})})};function ne(e){var t,r,o="";if("string"==typeof e||"number"==typeof e)o+=e;else if("object"==typeof e)if(Array.isArray(e)){var a=e.length;for(t=0;t<a;t++)e[t]&&(r=ne(e[t]))&&(o&&(o+=" "),o+=r)}else for(r in e)e[r]&&(o&&(o+=" "),o+=r);return o}const ie=(e=new Map,t=null,r)=>({nextPart:e,validators:t,classGroupId:r}),ce="-",de=[],pe=e=>{const t=be(e),{conflictingClassGroups:r,conflictingClassGroupModifiers:o}=e;return{getClassGroupId:e=>{if(e.startsWith("[")&&e.endsWith("]"))return me(e);const r=e.split(ce),o=""===r[0]&&r.length>1?1:0;return ue(r,o,t)},getConflictingClassGroupIds:(e,t)=>{if(t){const t=o[e],a=r[e];return t?a?((e,t)=>{const r=new Array(e.length+t.length);for(let t=0;t<e.length;t++)r[t]=e[t];for(let o=0;o<t.length;o++)r[e.length+o]=t[o];return r})(a,t):t:a||de}return r[e]||de}}},ue=(e,t,r)=>{if(0===e.length-t)return r.classGroupId;const o=e[t],a=r.nextPart.get(o);if(a){const r=ue(e,t+1,a);if(r)return r}const s=r.validators;if(null===s)return;const l=0===t?e.join(ce):e.slice(t).join(ce),n=s.length;for(let e=0;e<n;e++){const t=s[e];if(t.validator(l))return t.classGroupId}},me=e=>-1===e.slice(1,-1).indexOf(":")?void 0:(()=>{const t=e.slice(1,-1),r=t.indexOf(":"),o=t.slice(0,r);return o?"arbitrary.."+o:void 0})(),be=e=>{const{theme:t,classGroups:r}=e;return he(r,t)},he=(e,t)=>{const r=ie();for(const o in e){const a=e[o];xe(a,r,o,t)}return r},xe=(e,t,r,o)=>{const a=e.length;for(let s=0;s<a;s++){const a=e[s];ge(a,t,r,o)}},ge=(e,t,r,o)=>{"string"!=typeof e?"function"!=typeof e?ve(e,t,r,o):fe(e,t,r,o):ye(e,t,r)},ye=(e,t,r)=>{(""===e?t:we(t,e)).classGroupId=r},fe=(e,t,r,o)=>{ke(e)?xe(e(o),t,r,o):(null===t.validators&&(t.validators=[]),t.validators.push(((e,t)=>({classGroupId:e,validator:t}))(r,e)))},ve=(e,t,r,o)=>{const a=Object.entries(e),s=a.length;for(let e=0;e<s;e++){const[s,l]=a[e];xe(l,we(t,s),r,o)}},we=(e,t)=>{let r=e;const o=t.split(ce),a=o.length;for(let e=0;e<a;e++){const t=o[e];let a=r.nextPart.get(t);a||(a=ie(),r.nextPart.set(t,a)),r=a}return r},ke=e=>"isThemeGetter"in e&&!0===e.isThemeGetter,je=e=>{if(e<1)return{get:()=>{},set:()=>{}};let t=0,r=Object.create(null),o=Object.create(null);const a=(a,s)=>{r[a]=s,t++,t>e&&(t=0,o=r,r=Object.create(null))};return{get(e){let t=r[e];return void 0!==t?t:void 0!==(t=o[e])?(a(e,t),t):void 0},set(e,t){e in r?r[e]=t:a(e,t)}}},_e=[],Ne=(e,t,r,o,a)=>({modifiers:e,hasImportantModifier:t,baseClassName:r,maybePostfixModifierPosition:o,isExternal:a}),Ce=e=>{const{prefix:t,experimentalParseClassName:r}=e;let o=e=>{const t=[];let r,o=0,a=0,s=0;const l=e.length;for(let n=0;n<l;n++){const l=e[n];if(0===o&&0===a){if(":"===l){t.push(e.slice(s,n)),s=n+1;continue}if("/"===l){r=n;continue}}"["===l?o++:"]"===l?o--:"("===l?a++:")"===l&&a--}const n=0===t.length?e:e.slice(s);let i=n,c=!1;return n.endsWith("!")?(i=n.slice(0,-1),c=!0):n.startsWith("!")&&(i=n.slice(1),c=!0),Ne(t,c,i,r&&r>s?r-s:void 0)};if(t){const e=t+":",r=o;o=t=>t.startsWith(e)?r(t.slice(e.length)):Ne(_e,!1,t,void 0,!0)}if(r){const e=o;o=t=>r({className:t,parseClassName:e})}return o},Se=e=>{const t=new Map;return e.orderSensitiveModifiers.forEach((e,r)=>{t.set(e,1e6+r)}),e=>{const r=[];let o=[];for(let a=0;a<e.length;a++){const s=e[a],l="["===s[0],n=t.has(s);l||n?(o.length>0&&(o.sort(),r.push(...o),o=[]),r.push(s)):o.push(s)}return o.length>0&&(o.sort(),r.push(...o)),r}},ze=/\s+/,Me=e=>{if("string"==typeof e)return e;let t,r="";for(let o=0;o<e.length;o++)e[o]&&(t=Me(e[o]))&&(r&&(r+=" "),r+=t);return r},Pe=[],Fe=e=>{const t=t=>t[e]||Pe;return t.isThemeGetter=!0,t},Ie=/^\[(?:(\w[\w-]*):)?(.+)\]$/i,Te=/^\((?:(\w[\w-]*):)?(.+)\)$/i,Ee=/^\d+(?:\.\d+)?\/\d+(?:\.\d+)?$/,Oe=/^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/,Ae=/\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/,Le=/^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/,Be=/^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/,Re=/^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/,Ge=e=>Ee.test(e),De=e=>!!e&&!Number.isNaN(Number(e)),Ve=e=>!!e&&Number.isInteger(Number(e)),$e=e=>e.endsWith("%")&&De(e.slice(0,-1)),We=e=>Oe.test(e),Xe=()=>!0,He=e=>Ae.test(e)&&!Le.test(e),qe=()=>!1,Je=e=>Be.test(e),Ke=e=>Re.test(e),Ue=e=>!Qe(e)&&!lt(e),Ye=e=>bt(e,yt,qe),Qe=e=>Ie.test(e),Ze=e=>bt(e,ft,He),et=e=>bt(e,vt,De),tt=e=>bt(e,kt,Xe),rt=e=>bt(e,wt,qe),ot=e=>bt(e,xt,qe),at=e=>bt(e,gt,Ke),st=e=>bt(e,jt,Je),lt=e=>Te.test(e),nt=e=>ht(e,ft),it=e=>ht(e,wt),ct=e=>ht(e,xt),dt=e=>ht(e,yt),pt=e=>ht(e,gt),ut=e=>ht(e,jt,!0),mt=e=>ht(e,kt,!0),bt=(e,t,r)=>{const o=Ie.exec(e);return!!o&&(o[1]?t(o[1]):r(o[2]))},ht=(e,t,r=!1)=>{const o=Te.exec(e);return!!o&&(o[1]?t(o[1]):r)},xt=e=>"position"===e||"percentage"===e,gt=e=>"image"===e||"url"===e,yt=e=>"length"===e||"size"===e||"bg-size"===e,ft=e=>"length"===e,vt=e=>"number"===e,wt=e=>"family-name"===e,kt=e=>"number"===e||"weight"===e,jt=e=>"shadow"===e,_t=((e,...t)=>{let r,o,a,s;const l=e=>{const t=o(e);if(t)return t;const s=((e,t)=>{const{parseClassName:r,getClassGroupId:o,getConflictingClassGroupIds:a,sortModifiers:s}=t,l=[],n=e.trim().split(ze);let i="";for(let e=n.length-1;e>=0;e-=1){const t=n[e],{isExternal:c,modifiers:d,hasImportantModifier:p,baseClassName:u,maybePostfixModifierPosition:m}=r(t);if(c){i=t+(i.length>0?" "+i:i);continue}let b=!!m,h=o(b?u.substring(0,m):u);if(!h){if(!b){i=t+(i.length>0?" "+i:i);continue}if(h=o(u),!h){i=t+(i.length>0?" "+i:i);continue}b=!1}const x=0===d.length?"":1===d.length?d[0]:s(d).join(":"),g=p?x+"!":x,y=g+h;if(l.indexOf(y)>-1)continue;l.push(y);const f=a(h,b);for(let e=0;e<f.length;++e){const t=f[e];l.push(g+t)}i=t+(i.length>0?" "+i:i)}return i})(e,r);return a(e,s),s};return s=n=>{const i=t.reduce((e,t)=>t(e),e());return r=(e=>({cache:je(e.cacheSize),parseClassName:Ce(e),sortModifiers:Se(e),...pe(e)}))(i),o=r.cache.get,a=r.cache.set,s=l,l(n)},(...e)=>s(((...e)=>{let t,r,o=0,a="";for(;o<e.length;)(t=e[o++])&&(r=Me(t))&&(a&&(a+=" "),a+=r);return a})(...e))})((Symbol.toStringTag,()=>{const e=Fe("color"),t=Fe("font"),r=Fe("text"),o=Fe("font-weight"),a=Fe("tracking"),s=Fe("leading"),l=Fe("breakpoint"),n=Fe("container"),i=Fe("spacing"),c=Fe("radius"),d=Fe("shadow"),p=Fe("inset-shadow"),u=Fe("text-shadow"),m=Fe("drop-shadow"),b=Fe("blur"),h=Fe("perspective"),x=Fe("aspect"),g=Fe("ease"),y=Fe("animate"),f=()=>["center","top","bottom","left","right","top-left","left-top","top-right","right-top","bottom-right","right-bottom","bottom-left","left-bottom",lt,Qe],v=()=>[lt,Qe,i],w=()=>[Ge,"full","auto",...v()],k=()=>[Ve,"none","subgrid",lt,Qe],j=()=>["auto",{span:["full",Ve,lt,Qe]},Ve,lt,Qe],_=()=>[Ve,"auto",lt,Qe],N=()=>["auto","min","max","fr",lt,Qe],C=()=>["auto",...v()],S=()=>[Ge,"auto","full","dvw","dvh","lvw","lvh","svw","svh","min","max","fit",...v()],z=()=>[Ge,"screen","full","dvw","lvw","svw","min","max","fit",...v()],M=()=>[Ge,"screen","full","lh","dvh","lvh","svh","min","max","fit",...v()],P=()=>[e,lt,Qe],F=()=>["center","top","bottom","left","right","top-left","left-top","top-right","right-top","bottom-right","right-bottom","bottom-left","left-bottom",ct,ot,{position:[lt,Qe]}],I=()=>["auto","cover","contain",dt,Ye,{size:[lt,Qe]}],T=()=>[$e,nt,Ze],E=()=>["","none","full",c,lt,Qe],O=()=>["",De,nt,Ze],A=()=>[De,$e,ct,ot],L=()=>["","none",b,lt,Qe],B=()=>["none",De,lt,Qe],R=()=>["none",De,lt,Qe],G=()=>[De,lt,Qe],D=()=>[Ge,"full",...v()];return{cacheSize:500,theme:{animate:["spin","ping","pulse","bounce"],aspect:["video"],blur:[We],breakpoint:[We],color:[Xe],container:[We],"drop-shadow":[We],ease:["in","out","in-out"],font:[Ue],"font-weight":["thin","extralight","light","normal","medium","semibold","bold","extrabold","black"],"inset-shadow":[We],leading:["none","tight","snug","normal","relaxed","loose"],perspective:["dramatic","near","normal","midrange","distant","none"],radius:[We],shadow:[We],spacing:["px",De],text:[We],"text-shadow":[We],tracking:["tighter","tight","normal","wide","wider","widest"]},classGroups:{aspect:[{aspect:["auto","square",Ge,Qe,lt,x]}],container:["container"],columns:[{columns:[De,Qe,lt,n]}],"break-after":[{"break-after":["auto","avoid","all","avoid-page","page","left","right","column"]}],"break-before":[{"break-before":["auto","avoid","all","avoid-page","page","left","right","column"]}],"break-inside":[{"break-inside":["auto","avoid","avoid-page","avoid-column"]}],"box-decoration":[{"box-decoration":["slice","clone"]}],box:[{box:["border","content"]}],display:["block","inline-block","inline","flex","inline-flex","table","inline-table","table-caption","table-cell","table-column","table-column-group","table-footer-group","table-header-group","table-row-group","table-row","flow-root","grid","inline-grid","contents","list-item","hidden"],sr:["sr-only","not-sr-only"],float:[{float:["right","left","none","start","end"]}],clear:[{clear:["left","right","both","none","start","end"]}],isolation:["isolate","isolation-auto"],"object-fit":[{object:["contain","cover","fill","none","scale-down"]}],"object-position":[{object:f()}],overflow:[{overflow:["auto","hidden","clip","visible","scroll"]}],"overflow-x":[{"overflow-x":["auto","hidden","clip","visible","scroll"]}],"overflow-y":[{"overflow-y":["auto","hidden","clip","visible","scroll"]}],overscroll:[{overscroll:["auto","contain","none"]}],"overscroll-x":[{"overscroll-x":["auto","contain","none"]}],"overscroll-y":[{"overscroll-y":["auto","contain","none"]}],position:["static","fixed","absolute","relative","sticky"],inset:[{inset:w()}],"inset-x":[{"inset-x":w()}],"inset-y":[{"inset-y":w()}],start:[{"inset-s":w(),start:w()}],end:[{"inset-e":w(),end:w()}],"inset-bs":[{"inset-bs":w()}],"inset-be":[{"inset-be":w()}],top:[{top:w()}],right:[{right:w()}],bottom:[{bottom:w()}],left:[{left:w()}],visibility:["visible","invisible","collapse"],z:[{z:[Ve,"auto",lt,Qe]}],basis:[{basis:[Ge,"full","auto",n,...v()]}],"flex-direction":[{flex:["row","row-reverse","col","col-reverse"]}],"flex-wrap":[{flex:["nowrap","wrap","wrap-reverse"]}],flex:[{flex:[De,Ge,"auto","initial","none",Qe]}],grow:[{grow:["",De,lt,Qe]}],shrink:[{shrink:["",De,lt,Qe]}],order:[{order:[Ve,"first","last","none",lt,Qe]}],"grid-cols":[{"grid-cols":k()}],"col-start-end":[{col:j()}],"col-start":[{"col-start":_()}],"col-end":[{"col-end":_()}],"grid-rows":[{"grid-rows":k()}],"row-start-end":[{row:j()}],"row-start":[{"row-start":_()}],"row-end":[{"row-end":_()}],"grid-flow":[{"grid-flow":["row","col","dense","row-dense","col-dense"]}],"auto-cols":[{"auto-cols":N()}],"auto-rows":[{"auto-rows":N()}],gap:[{gap:v()}],"gap-x":[{"gap-x":v()}],"gap-y":[{"gap-y":v()}],"justify-content":[{justify:["start","end","center","between","around","evenly","stretch","baseline","center-safe","end-safe","normal"]}],"justify-items":[{"justify-items":["start","end","center","stretch","center-safe","end-safe","normal"]}],"justify-self":[{"justify-self":["auto","start","end","center","stretch","center-safe","end-safe"]}],"align-content":[{content:["normal","start","end","center","between","around","evenly","stretch","baseline","center-safe","end-safe"]}],"align-items":[{items:["start","end","center","stretch","center-safe","end-safe",{baseline:["","last"]}]}],"align-self":[{self:["auto","start","end","center","stretch","center-safe","end-safe",{baseline:["","last"]}]}],"place-content":[{"place-content":["start","end","center","between","around","evenly","stretch","baseline","center-safe","end-safe"]}],"place-items":[{"place-items":["start","end","center","stretch","center-safe","end-safe","baseline"]}],"place-self":[{"place-self":["auto","start","end","center","stretch","center-safe","end-safe"]}],p:[{p:v()}],px:[{px:v()}],py:[{py:v()}],ps:[{ps:v()}],pe:[{pe:v()}],pbs:[{pbs:v()}],pbe:[{pbe:v()}],pt:[{pt:v()}],pr:[{pr:v()}],pb:[{pb:v()}],pl:[{pl:v()}],m:[{m:C()}],mx:[{mx:C()}],my:[{my:C()}],ms:[{ms:C()}],me:[{me:C()}],mbs:[{mbs:C()}],mbe:[{mbe:C()}],mt:[{mt:C()}],mr:[{mr:C()}],mb:[{mb:C()}],ml:[{ml:C()}],"space-x":[{"space-x":v()}],"space-x-reverse":["space-x-reverse"],"space-y":[{"space-y":v()}],"space-y-reverse":["space-y-reverse"],size:[{size:S()}],"inline-size":[{inline:["auto",...z()]}],"min-inline-size":[{"min-inline":["auto",...z()]}],"max-inline-size":[{"max-inline":["none",...z()]}],"block-size":[{block:["auto",...M()]}],"min-block-size":[{"min-block":["auto",...M()]}],"max-block-size":[{"max-block":["none",...M()]}],w:[{w:[n,"screen",...S()]}],"min-w":[{"min-w":[n,"screen","none",...S()]}],"max-w":[{"max-w":[n,"screen","none","prose",{screen:[l]},...S()]}],h:[{h:["screen","lh",...S()]}],"min-h":[{"min-h":["screen","lh","none",...S()]}],"max-h":[{"max-h":["screen","lh",...S()]}],"font-size":[{text:["base",r,nt,Ze]}],"font-smoothing":["antialiased","subpixel-antialiased"],"font-style":["italic","not-italic"],"font-weight":[{font:[o,mt,tt]}],"font-stretch":[{"font-stretch":["ultra-condensed","extra-condensed","condensed","semi-condensed","normal","semi-expanded","expanded","extra-expanded","ultra-expanded",$e,Qe]}],"font-family":[{font:[it,rt,t]}],"font-features":[{"font-features":[Qe]}],"fvn-normal":["normal-nums"],"fvn-ordinal":["ordinal"],"fvn-slashed-zero":["slashed-zero"],"fvn-figure":["lining-nums","oldstyle-nums"],"fvn-spacing":["proportional-nums","tabular-nums"],"fvn-fraction":["diagonal-fractions","stacked-fractions"],tracking:[{tracking:[a,lt,Qe]}],"line-clamp":[{"line-clamp":[De,"none",lt,et]}],leading:[{leading:[s,...v()]}],"list-image":[{"list-image":["none",lt,Qe]}],"list-style-position":[{list:["inside","outside"]}],"list-style-type":[{list:["disc","decimal","none",lt,Qe]}],"text-alignment":[{text:["left","center","right","justify","start","end"]}],"placeholder-color":[{placeholder:P()}],"text-color":[{text:P()}],"text-decoration":["underline","overline","line-through","no-underline"],"text-decoration-style":[{decoration:["solid","dashed","dotted","double","wavy"]}],"text-decoration-thickness":[{decoration:[De,"from-font","auto",lt,Ze]}],"text-decoration-color":[{decoration:P()}],"underline-offset":[{"underline-offset":[De,"auto",lt,Qe]}],"text-transform":["uppercase","lowercase","capitalize","normal-case"],"text-overflow":["truncate","text-ellipsis","text-clip"],"text-wrap":[{text:["wrap","nowrap","balance","pretty"]}],indent:[{indent:v()}],"vertical-align":[{align:["baseline","top","middle","bottom","text-top","text-bottom","sub","super",lt,Qe]}],whitespace:[{whitespace:["normal","nowrap","pre","pre-line","pre-wrap","break-spaces"]}],break:[{break:["normal","words","all","keep"]}],wrap:[{wrap:["break-word","anywhere","normal"]}],hyphens:[{hyphens:["none","manual","auto"]}],content:[{content:["none",lt,Qe]}],"bg-attachment":[{bg:["fixed","local","scroll"]}],"bg-clip":[{"bg-clip":["border","padding","content","text"]}],"bg-origin":[{"bg-origin":["border","padding","content"]}],"bg-position":[{bg:F()}],"bg-repeat":[{bg:["no-repeat",{repeat:["","x","y","space","round"]}]}],"bg-size":[{bg:I()}],"bg-image":[{bg:["none",{linear:[{to:["t","tr","r","br","b","bl","l","tl"]},Ve,lt,Qe],radial:["",lt,Qe],conic:[Ve,lt,Qe]},pt,at]}],"bg-color":[{bg:P()}],"gradient-from-pos":[{from:T()}],"gradient-via-pos":[{via:T()}],"gradient-to-pos":[{to:T()}],"gradient-from":[{from:P()}],"gradient-via":[{via:P()}],"gradient-to":[{to:P()}],rounded:[{rounded:E()}],"rounded-s":[{"rounded-s":E()}],"rounded-e":[{"rounded-e":E()}],"rounded-t":[{"rounded-t":E()}],"rounded-r":[{"rounded-r":E()}],"rounded-b":[{"rounded-b":E()}],"rounded-l":[{"rounded-l":E()}],"rounded-ss":[{"rounded-ss":E()}],"rounded-se":[{"rounded-se":E()}],"rounded-ee":[{"rounded-ee":E()}],"rounded-es":[{"rounded-es":E()}],"rounded-tl":[{"rounded-tl":E()}],"rounded-tr":[{"rounded-tr":E()}],"rounded-br":[{"rounded-br":E()}],"rounded-bl":[{"rounded-bl":E()}],"border-w":[{border:O()}],"border-w-x":[{"border-x":O()}],"border-w-y":[{"border-y":O()}],"border-w-s":[{"border-s":O()}],"border-w-e":[{"border-e":O()}],"border-w-bs":[{"border-bs":O()}],"border-w-be":[{"border-be":O()}],"border-w-t":[{"border-t":O()}],"border-w-r":[{"border-r":O()}],"border-w-b":[{"border-b":O()}],"border-w-l":[{"border-l":O()}],"divide-x":[{"divide-x":O()}],"divide-x-reverse":["divide-x-reverse"],"divide-y":[{"divide-y":O()}],"divide-y-reverse":["divide-y-reverse"],"border-style":[{border:["solid","dashed","dotted","double","hidden","none"]}],"divide-style":[{divide:["solid","dashed","dotted","double","hidden","none"]}],"border-color":[{border:P()}],"border-color-x":[{"border-x":P()}],"border-color-y":[{"border-y":P()}],"border-color-s":[{"border-s":P()}],"border-color-e":[{"border-e":P()}],"border-color-bs":[{"border-bs":P()}],"border-color-be":[{"border-be":P()}],"border-color-t":[{"border-t":P()}],"border-color-r":[{"border-r":P()}],"border-color-b":[{"border-b":P()}],"border-color-l":[{"border-l":P()}],"divide-color":[{divide:P()}],"outline-style":[{outline:["solid","dashed","dotted","double","none","hidden"]}],"outline-offset":[{"outline-offset":[De,lt,Qe]}],"outline-w":[{outline:["",De,nt,Ze]}],"outline-color":[{outline:P()}],shadow:[{shadow:["","none",d,ut,st]}],"shadow-color":[{shadow:P()}],"inset-shadow":[{"inset-shadow":["none",p,ut,st]}],"inset-shadow-color":[{"inset-shadow":P()}],"ring-w":[{ring:O()}],"ring-w-inset":["ring-inset"],"ring-color":[{ring:P()}],"ring-offset-w":[{"ring-offset":[De,Ze]}],"ring-offset-color":[{"ring-offset":P()}],"inset-ring-w":[{"inset-ring":O()}],"inset-ring-color":[{"inset-ring":P()}],"text-shadow":[{"text-shadow":["none",u,ut,st]}],"text-shadow-color":[{"text-shadow":P()}],opacity:[{opacity:[De,lt,Qe]}],"mix-blend":[{"mix-blend":["normal","multiply","screen","overlay","darken","lighten","color-dodge","color-burn","hard-light","soft-light","difference","exclusion","hue","saturation","color","luminosity","plus-darker","plus-lighter"]}],"bg-blend":[{"bg-blend":["normal","multiply","screen","overlay","darken","lighten","color-dodge","color-burn","hard-light","soft-light","difference","exclusion","hue","saturation","color","luminosity"]}],"mask-clip":[{"mask-clip":["border","padding","content","fill","stroke","view"]},"mask-no-clip"],"mask-composite":[{mask:["add","subtract","intersect","exclude"]}],"mask-image-linear-pos":[{"mask-linear":[De]}],"mask-image-linear-from-pos":[{"mask-linear-from":A()}],"mask-image-linear-to-pos":[{"mask-linear-to":A()}],"mask-image-linear-from-color":[{"mask-linear-from":P()}],"mask-image-linear-to-color":[{"mask-linear-to":P()}],"mask-image-t-from-pos":[{"mask-t-from":A()}],"mask-image-t-to-pos":[{"mask-t-to":A()}],"mask-image-t-from-color":[{"mask-t-from":P()}],"mask-image-t-to-color":[{"mask-t-to":P()}],"mask-image-r-from-pos":[{"mask-r-from":A()}],"mask-image-r-to-pos":[{"mask-r-to":A()}],"mask-image-r-from-color":[{"mask-r-from":P()}],"mask-image-r-to-color":[{"mask-r-to":P()}],"mask-image-b-from-pos":[{"mask-b-from":A()}],"mask-image-b-to-pos":[{"mask-b-to":A()}],"mask-image-b-from-color":[{"mask-b-from":P()}],"mask-image-b-to-color":[{"mask-b-to":P()}],"mask-image-l-from-pos":[{"mask-l-from":A()}],"mask-image-l-to-pos":[{"mask-l-to":A()}],"mask-image-l-from-color":[{"mask-l-from":P()}],"mask-image-l-to-color":[{"mask-l-to":P()}],"mask-image-x-from-pos":[{"mask-x-from":A()}],"mask-image-x-to-pos":[{"mask-x-to":A()}],"mask-image-x-from-color":[{"mask-x-from":P()}],"mask-image-x-to-color":[{"mask-x-to":P()}],"mask-image-y-from-pos":[{"mask-y-from":A()}],"mask-image-y-to-pos":[{"mask-y-to":A()}],"mask-image-y-from-color":[{"mask-y-from":P()}],"mask-image-y-to-color":[{"mask-y-to":P()}],"mask-image-radial":[{"mask-radial":[lt,Qe]}],"mask-image-radial-from-pos":[{"mask-radial-from":A()}],"mask-image-radial-to-pos":[{"mask-radial-to":A()}],"mask-image-radial-from-color":[{"mask-radial-from":P()}],"mask-image-radial-to-color":[{"mask-radial-to":P()}],"mask-image-radial-shape":[{"mask-radial":["circle","ellipse"]}],"mask-image-radial-size":[{"mask-radial":[{closest:["side","corner"],farthest:["side","corner"]}]}],"mask-image-radial-pos":[{"mask-radial-at":["center","top","bottom","left","right","top-left","left-top","top-right","right-top","bottom-right","right-bottom","bottom-left","left-bottom"]}],"mask-image-conic-pos":[{"mask-conic":[De]}],"mask-image-conic-from-pos":[{"mask-conic-from":A()}],"mask-image-conic-to-pos":[{"mask-conic-to":A()}],"mask-image-conic-from-color":[{"mask-conic-from":P()}],"mask-image-conic-to-color":[{"mask-conic-to":P()}],"mask-mode":[{mask:["alpha","luminance","match"]}],"mask-origin":[{"mask-origin":["border","padding","content","fill","stroke","view"]}],"mask-position":[{mask:F()}],"mask-repeat":[{mask:["no-repeat",{repeat:["","x","y","space","round"]}]}],"mask-size":[{mask:I()}],"mask-type":[{"mask-type":["alpha","luminance"]}],"mask-image":[{mask:["none",lt,Qe]}],filter:[{filter:["","none",lt,Qe]}],blur:[{blur:L()}],brightness:[{brightness:[De,lt,Qe]}],contrast:[{contrast:[De,lt,Qe]}],"drop-shadow":[{"drop-shadow":["","none",m,ut,st]}],"drop-shadow-color":[{"drop-shadow":P()}],grayscale:[{grayscale:["",De,lt,Qe]}],"hue-rotate":[{"hue-rotate":[De,lt,Qe]}],invert:[{invert:["",De,lt,Qe]}],saturate:[{saturate:[De,lt,Qe]}],sepia:[{sepia:["",De,lt,Qe]}],"backdrop-filter":[{"backdrop-filter":["","none",lt,Qe]}],"backdrop-blur":[{"backdrop-blur":L()}],"backdrop-brightness":[{"backdrop-brightness":[De,lt,Qe]}],"backdrop-contrast":[{"backdrop-contrast":[De,lt,Qe]}],"backdrop-grayscale":[{"backdrop-grayscale":["",De,lt,Qe]}],"backdrop-hue-rotate":[{"backdrop-hue-rotate":[De,lt,Qe]}],"backdrop-invert":[{"backdrop-invert":["",De,lt,Qe]}],"backdrop-opacity":[{"backdrop-opacity":[De,lt,Qe]}],"backdrop-saturate":[{"backdrop-saturate":[De,lt,Qe]}],"backdrop-sepia":[{"backdrop-sepia":["",De,lt,Qe]}],"border-collapse":[{border:["collapse","separate"]}],"border-spacing":[{"border-spacing":v()}],"border-spacing-x":[{"border-spacing-x":v()}],"border-spacing-y":[{"border-spacing-y":v()}],"table-layout":[{table:["auto","fixed"]}],caption:[{caption:["top","bottom"]}],transition:[{transition:["","all","colors","opacity","shadow","transform","none",lt,Qe]}],"transition-behavior":[{transition:["normal","discrete"]}],duration:[{duration:[De,"initial",lt,Qe]}],ease:[{ease:["linear","initial",g,lt,Qe]}],delay:[{delay:[De,lt,Qe]}],animate:[{animate:["none",y,lt,Qe]}],backface:[{backface:["hidden","visible"]}],perspective:[{perspective:[h,lt,Qe]}],"perspective-origin":[{"perspective-origin":f()}],rotate:[{rotate:B()}],"rotate-x":[{"rotate-x":B()}],"rotate-y":[{"rotate-y":B()}],"rotate-z":[{"rotate-z":B()}],scale:[{scale:R()}],"scale-x":[{"scale-x":R()}],"scale-y":[{"scale-y":R()}],"scale-z":[{"scale-z":R()}],"scale-3d":["scale-3d"],skew:[{skew:G()}],"skew-x":[{"skew-x":G()}],"skew-y":[{"skew-y":G()}],transform:[{transform:[lt,Qe,"","none","gpu","cpu"]}],"transform-origin":[{origin:f()}],"transform-style":[{transform:["3d","flat"]}],translate:[{translate:D()}],"translate-x":[{"translate-x":D()}],"translate-y":[{"translate-y":D()}],"translate-z":[{"translate-z":D()}],"translate-none":["translate-none"],accent:[{accent:P()}],appearance:[{appearance:["none","auto"]}],"caret-color":[{caret:P()}],"color-scheme":[{scheme:["normal","dark","light","light-dark","only-dark","only-light"]}],cursor:[{cursor:["auto","default","pointer","wait","text","move","help","not-allowed","none","context-menu","progress","cell","crosshair","vertical-text","alias","copy","no-drop","grab","grabbing","all-scroll","col-resize","row-resize","n-resize","e-resize","s-resize","w-resize","ne-resize","nw-resize","se-resize","sw-resize","ew-resize","ns-resize","nesw-resize","nwse-resize","zoom-in","zoom-out",lt,Qe]}],"field-sizing":[{"field-sizing":["fixed","content"]}],"pointer-events":[{"pointer-events":["auto","none"]}],resize:[{resize:["none","","y","x"]}],"scroll-behavior":[{scroll:["auto","smooth"]}],"scroll-m":[{"scroll-m":v()}],"scroll-mx":[{"scroll-mx":v()}],"scroll-my":[{"scroll-my":v()}],"scroll-ms":[{"scroll-ms":v()}],"scroll-me":[{"scroll-me":v()}],"scroll-mbs":[{"scroll-mbs":v()}],"scroll-mbe":[{"scroll-mbe":v()}],"scroll-mt":[{"scroll-mt":v()}],"scroll-mr":[{"scroll-mr":v()}],"scroll-mb":[{"scroll-mb":v()}],"scroll-ml":[{"scroll-ml":v()}],"scroll-p":[{"scroll-p":v()}],"scroll-px":[{"scroll-px":v()}],"scroll-py":[{"scroll-py":v()}],"scroll-ps":[{"scroll-ps":v()}],"scroll-pe":[{"scroll-pe":v()}],"scroll-pbs":[{"scroll-pbs":v()}],"scroll-pbe":[{"scroll-pbe":v()}],"scroll-pt":[{"scroll-pt":v()}],"scroll-pr":[{"scroll-pr":v()}],"scroll-pb":[{"scroll-pb":v()}],"scroll-pl":[{"scroll-pl":v()}],"snap-align":[{snap:["start","end","center","align-none"]}],"snap-stop":[{snap:["normal","always"]}],"snap-type":[{snap:["none","x","y","both"]}],"snap-strictness":[{snap:["mandatory","proximity"]}],touch:[{touch:["auto","none","manipulation"]}],"touch-x":[{"touch-pan":["x","left","right"]}],"touch-y":[{"touch-pan":["y","up","down"]}],"touch-pz":["touch-pinch-zoom"],select:[{select:["none","text","all","auto"]}],"will-change":[{"will-change":["auto","scroll","contents","transform",lt,Qe]}],fill:[{fill:["none",...P()]}],"stroke-w":[{stroke:[De,nt,Ze,et]}],stroke:[{stroke:["none",...P()]}],"forced-color-adjust":[{"forced-color-adjust":["auto","none"]}]},conflictingClassGroups:{overflow:["overflow-x","overflow-y"],overscroll:["overscroll-x","overscroll-y"],inset:["inset-x","inset-y","inset-bs","inset-be","start","end","top","right","bottom","left"],"inset-x":["right","left"],"inset-y":["top","bottom"],flex:["basis","grow","shrink"],gap:["gap-x","gap-y"],p:["px","py","ps","pe","pbs","pbe","pt","pr","pb","pl"],px:["pr","pl"],py:["pt","pb"],m:["mx","my","ms","me","mbs","mbe","mt","mr","mb","ml"],mx:["mr","ml"],my:["mt","mb"],size:["w","h"],"font-size":["leading"],"fvn-normal":["fvn-ordinal","fvn-slashed-zero","fvn-figure","fvn-spacing","fvn-fraction"],"fvn-ordinal":["fvn-normal"],"fvn-slashed-zero":["fvn-normal"],"fvn-figure":["fvn-normal"],"fvn-spacing":["fvn-normal"],"fvn-fraction":["fvn-normal"],"line-clamp":["display","overflow"],rounded:["rounded-s","rounded-e","rounded-t","rounded-r","rounded-b","rounded-l","rounded-ss","rounded-se","rounded-ee","rounded-es","rounded-tl","rounded-tr","rounded-br","rounded-bl"],"rounded-s":["rounded-ss","rounded-es"],"rounded-e":["rounded-se","rounded-ee"],"rounded-t":["rounded-tl","rounded-tr"],"rounded-r":["rounded-tr","rounded-br"],"rounded-b":["rounded-br","rounded-bl"],"rounded-l":["rounded-tl","rounded-bl"],"border-spacing":["border-spacing-x","border-spacing-y"],"border-w":["border-w-x","border-w-y","border-w-s","border-w-e","border-w-bs","border-w-be","border-w-t","border-w-r","border-w-b","border-w-l"],"border-w-x":["border-w-r","border-w-l"],"border-w-y":["border-w-t","border-w-b"],"border-color":["border-color-x","border-color-y","border-color-s","border-color-e","border-color-bs","border-color-be","border-color-t","border-color-r","border-color-b","border-color-l"],"border-color-x":["border-color-r","border-color-l"],"border-color-y":["border-color-t","border-color-b"],translate:["translate-x","translate-y","translate-none"],"translate-none":["translate","translate-x","translate-y","translate-z"],"scroll-m":["scroll-mx","scroll-my","scroll-ms","scroll-me","scroll-mbs","scroll-mbe","scroll-mt","scroll-mr","scroll-mb","scroll-ml"],"scroll-mx":["scroll-mr","scroll-ml"],"scroll-my":["scroll-mt","scroll-mb"],"scroll-p":["scroll-px","scroll-py","scroll-ps","scroll-pe","scroll-pbs","scroll-pbe","scroll-pt","scroll-pr","scroll-pb","scroll-pl"],"scroll-px":["scroll-pr","scroll-pl"],"scroll-py":["scroll-pt","scroll-pb"],touch:["touch-x","touch-y","touch-pz"],"touch-x":["touch"],"touch-y":["touch"],"touch-pz":["touch"]},conflictingClassGroupModifiers:{"font-size":["leading"]},orderSensitiveModifiers:["*","**","after","backdrop","before","details-content","file","first-letter","first-line","marker","placeholder","selection"]}}));function Nt(...e){return _t(function(){for(var e,t,r=0,o="",a=arguments.length;r<a;r++)(e=arguments[r])&&(t=ne(e))&&(o&&(o+=" "),o+=t);return o}(e))}const{SectionHeading:Ct,SettingsOption:St}=window.productbay?.components||{},zt=({title:e,description:t,children:r})=>(0,N.jsxs)("section",{className:"space-y-6 pt-8 border-t border-gray-100 mt-8",children:[(0,N.jsx)(Ct,{title:e,description:t}),(0,N.jsx)("div",{className:"space-y-2",children:r})]}),Mt=()=>{const e=window.productbay?.useTableStore;if(!e)return null;const{settings:t,setFeatures:r}=e(),o=t?.features?.priceFilter||{enabled:!1,mode:"both",step:1};return(0,N.jsx)(j.Fill,{name:"productbay-pro-options",children:(0,N.jsxs)(zt,{title:(0,_.__)("Price Range Filter (Pro)","productbay-pro"),description:(0,_.__)("Configure frontend price filtering options","productbay-pro"),children:[(0,N.jsx)(St,{title:(0,_.__)("Enable Price Filter","productbay-pro"),description:(0,_.__)("Show a price range slider/input in the table toolbar","productbay-pro"),children:(0,N.jsx)(Z,{checked:!!o.enabled,onChange:e=>r({priceFilter:{...o,enabled:e.target.checked}})})}),(0,N.jsxs)("div",{className:Nt("transition-all duration-300 space-y-2",o.enabled?"opacity-100":"opacity-40 pointer-events-none grayscale"),children:[(0,N.jsx)(St,{title:(0,_.__)("Filter Mode","productbay-pro"),description:(0,_.__)("Choose between range slider, numeric inputs, or both","productbay-pro"),children:(0,N.jsx)(q,{value:o.mode||"both",onChange:e=>r({priceFilter:{...o,mode:e}}),options:[{label:(0,_.__)("Slider Only","productbay-pro"),value:"slider"},{label:(0,_.__)("Inputs Only","productbay-pro"),value:"input"},{label:(0,_.__)("Both (Slider + Inputs)","productbay-pro"),value:"both"}],className:"w-60"})}),(0,N.jsx)(St,{title:(0,_.__)("Filter Step","productbay-pro"),description:(0,_.__)("Increment value for slider and inputs","productbay-pro"),children:(0,N.jsx)("input",{type:"number",min:"0.01",step:"0.01",value:o.step||1,onChange:e=>r({priceFilter:{...o,step:parseFloat(e.target.value)||1}}),className:"w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"})}),(0,N.jsx)(St,{title:(0,_.__)("Custom Minimum Price","productbay-pro"),description:(0,_.__)("Leave empty to auto-detect from products","productbay-pro"),children:(0,N.jsx)("input",{type:"number",min:"0",placeholder:"Auto",value:o.customMin??"",onChange:e=>r({priceFilter:{...o,customMin:""===e.target.value?null:parseFloat(e.target.value)}}),className:"w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"})}),(0,N.jsx)(St,{title:(0,_.__)("Custom Maximum Price","productbay-pro"),description:(0,_.__)("Leave empty to auto-detect from products","productbay-pro"),children:(0,N.jsx)("input",{type:"number",min:"0",placeholder:"Auto",value:o.customMax??"",onChange:e=>r({priceFilter:{...o,customMax:""===e.target.value?null:parseFloat(e.target.value)}}),className:"w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"})})]})]})})},Pt=d("sparkles",[["path",{d:"M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z",key:"1s2grr"}],["path",{d:"M20 2v4",key:"1rf3ol"}],["path",{d:"M22 4h-4",key:"gwowj6"}],["circle",{cx:"4",cy:"20",r:"2",key:"6kqj1y"}]]),Ft=d("store",[["path",{d:"M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5",key:"slp6dd"}],["path",{d:"M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244",key:"o0xfot"}],["path",{d:"M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05",key:"wn3emo"}]]),It=d("bolt",[["path",{d:"M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z",key:"yt0hxn"}],["circle",{cx:"12",cy:"12",r:"4",key:"4exip2"}]]),Tt=d("x",[["path",{d:"M18 6 6 18",key:"1bl5f8"}],["path",{d:"m6 6 12 12",key:"d8bk6v"}]]),Et=d("search",[["path",{d:"m21 21-4.34-4.34",key:"14j7rj"}],["circle",{cx:"11",cy:"11",r:"8",key:"4ej97u"}]]),Ot=[{value:"auto",label:(0,_.__)("Auto Detect","productbay-pro")},{value:"text",label:(0,_.__)("Plain Text","productbay-pro")},{value:"number",label:(0,_.__)("Number","productbay-pro")},{value:"date",label:(0,_.__)("Date","productbay-pro")},{value:"image",label:(0,_.__)("Image","productbay-pro")},{value:"link",label:(0,_.__)("Link / URL","productbay-pro")},{value:"boolean",label:(0,_.__)("Yes / No Badge","productbay-pro")}],At={woocommerce:(0,_.__)("WooCommerce","productbay-pro"),acf:(0,_.__)("Advanced Custom Fields","productbay-pro"),custom:(0,_.__)("Custom Meta","productbay-pro")},Lt=({column:e,onUpdate:t})=>{const{isLoading:r,error:a,inputValue:s,setInputValue:l,searchQuery:n,filteredKeys:i,totalResults:c}=(()=>{const[e,t]=(0,o.useState)(null),[r,a]=(0,o.useState)(!1),[s,l]=(0,o.useState)(""),[n,i]=(0,o.useState)(""),[c,d]=(0,o.useState)(null);(0,o.useEffect)(()=>{const e=setTimeout(()=>{i(s)},300);return()=>clearTimeout(e)},[s]),(0,o.useEffect)(()=>{(async()=>{a(!0),d(null);try{const e=window.productBaySettings||{},r=e.apiUrl,o=r?`${r}${f}${y}`:`/wp-json/${f}${y}`,a=e.nonce||window.wpApiSettings?.nonce||"",s=await fetch(o,{headers:{"X-WP-Nonce":a}});if(!s.ok)throw new Error(`HTTP ${s.status}`);const l=await s.json();t(l)}catch(e){d((0,_.__)("Failed to load meta keys.","productbay-pro")),console.error("ProductBay Pro: Failed to fetch meta keys:",e)}finally{a(!1)}})()},[]);const p=(0,o.useMemo)(()=>{if(!e)return null;const t=n.toLowerCase().trim();if(!t)return e;const r=e=>e.filter(e=>e.key.toLowerCase().includes(t)||e.label.toLowerCase().includes(t)||e.group&&e.group.toLowerCase().includes(t));return{woocommerce:r(e.woocommerce),acf:r(e.acf),custom:r(e.custom)}},[e,n]),u=p?p.woocommerce.length+p.acf.length+p.custom.length:0;return{metaKeys:e,isLoading:r,error:c,inputValue:s,setInputValue:l,searchQuery:n,filteredKeys:p,totalResults:u}})(),d=e.settings?.metaKey||"",p=e.settings?.displayFormat||"auto",u=r=>{t({settings:{...e.settings,metaKey:r}})},m=(e,t)=>{if(0===t.length)return null;if("acf"===e){const r={};return t.forEach(e=>{const t=e.group||(0,_.__)("Ungrouped","productbay-pro");r[t]||(r[t]=[]),r[t].push(e)}),(0,N.jsxs)("div",{className:"mb-4",children:[(0,N.jsxs)("div",{className:"text-xs font-bold text-purple-700 uppercase tracking-widest mb-2 flex items-center gap-1.5 px-1 py-0.5 bg-purple-50 rounded-sm",children:[(0,N.jsx)(Pt,{className:"w-4 h-4 text-purple-600"}),At[e]]}),(0,N.jsx)("div",{className:"space-y-4",children:Object.entries(r).map(([e,t])=>(0,N.jsxs)("div",{className:"ml-1 pl-3 border-l-2 border-purple-100",children:[(0,N.jsxs)("div",{className:"text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 flex items-center gap-1",children:[(0,N.jsx)("span",{className:"w-1.5 h-1.5 rounded-full bg-purple-200"}),e]}),(0,N.jsx)("div",{className:"space-y-0.5",children:t.map(e=>(0,N.jsx)(Bt,{entry:e,isSelected:d===e.key,onClick:()=>u(e.key)},e.key))})]},e))})]},e)}const r={woocommerce:(0,N.jsx)(Ft,{className:"w-4 h-4 text-blue-600"}),custom:(0,N.jsx)(It,{className:"w-4 h-4 text-gray-600"})};return(0,N.jsxs)("div",{className:"mb-4",children:[(0,N.jsxs)("div",{className:Nt("text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-1.5 px-1 py-0.5 rounded-sm",{woocommerce:"text-blue-700 bg-blue-50",custom:"text-gray-700 bg-gray-50"}[e]||"text-gray-600 bg-gray-100"),children:[(0,N.jsx)("span",{children:r[e]||"📦"}),At[e]]}),(0,N.jsx)("div",{className:"space-y-0.5",children:t.map(e=>(0,N.jsx)(Bt,{entry:e,isSelected:d===e.key,onClick:()=>u(e.key)},e.key))})]},e)};return(0,N.jsxs)("div",{className:"space-y-3 bg-white rounded-lg p-3 border border-gray-200 mt-2",children:[(0,N.jsx)("div",{className:"flex items-center gap-2",children:(0,N.jsx)("span",{className:"text-xs font-bold text-blue-700 uppercase tracking-widest",children:(0,_.__)("Advanced Meta Selector","productbay-pro")})}),(0,N.jsx)("p",{className:"text-xs text-gray-500 m-0 leading-relaxed",children:(0,_.__)("Browse all available product meta keys. Click any key to instantly use it.","productbay-pro")}),(0,N.jsxs)("div",{className:"relative group",children:[(0,N.jsx)("input",{type:"text",value:s,onChange:e=>l(e.target.value),placeholder:(0,_.__)("Search meta keys…","productbay-pro"),className:"w-full px-3 py-2 pr-10 text-sm border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-100 transition-all font-medium"}),(0,N.jsx)("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 flex items-center",children:s?(0,N.jsx)("button",{onClick:()=>l(""),className:"cursor-pointer p-0.5 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-md text-gray-400 hover:text-gray-600 transition-colors",title:(0,_.__)("Clear search","productbay-pro"),children:(0,N.jsx)(Tt,{className:"w-3.5 h-3.5"})}):(0,N.jsx)(Et,{className:"w-4 h-4 text-gray-400 pointer-events-none"})})]}),d&&(0,N.jsxs)("div",{className:"flex items-center gap-2 px-2 py-1 px-2.5 py-1.5 bg-blue-50 border border-blue-100 rounded-md",children:[(0,N.jsx)("span",{className:"text-[10px] font-bold text-blue-700 uppercase tracking-tight",children:(0,_.__)("Active Key:","productbay-pro")}),(0,N.jsx)("code",{className:"text-[11px] font-bold text-blue-700 truncate font-mono",children:d})]}),r&&(0,N.jsx)("div",{className:"space-y-2 animate-pulse pr-1",children:[1,2,3,4].map(e=>(0,N.jsx)("div",{className:"h-8 bg-gray-100 rounded-md"},e))}),n&&!r&&c>0&&(0,N.jsxs)("div",{className:"flex items-center justify-between px-1 border-b border-gray-100 pb-1.5 pt-0.5",children:[(0,N.jsx)("span",{className:"text-[10px] text-gray-400 font-bold uppercase tracking-widest",children:(0,_.__)("Matched Results","productbay-pro")}),(0,N.jsx)("span",{className:"text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold",children:c})]}),a&&(0,N.jsx)("div",{className:"text-xs text-red-600 bg-red-50 border border-red-100 rounded-md p-2.5 font-medium animate-in fade-in",children:a}),i&&!r&&(0,N.jsx)("div",{className:"max-h-72 overflow-y-auto space-y-1 pr-1 custom-scrollbar",children:0===c?(0,N.jsxs)("div",{className:"flex flex-col items-center justify-center py-10 text-center bg-gray-50/50 rounded-lg border border-dashed border-gray-200",children:[(0,N.jsx)("div",{className:"p-3 bg-white rounded-full mb-3",children:(0,N.jsx)(Et,{className:"w-6 h-6 text-gray-300"})}),(0,N.jsx)("div",{className:"font-bold text-gray-600 text-sm",children:n?(0,_.__)("Key not found","productbay-pro"):(0,_.__)("No meta keys available","productbay-pro")}),n&&(0,N.jsx)("div",{className:"text-xs text-gray-400 mt-1 max-w-[200px] leading-relaxed mx-auto",children:(0,_.__)("Try searching for something else or manually enter a key below.","productbay-pro")})]}):(0,N.jsxs)(N.Fragment,{children:[m("woocommerce",i.woocommerce),m("acf",i.acf),m("custom",i.custom)]})}),(0,N.jsxs)("div",{className:"pt-2 border-t border-gray-100 mt-2",children:[(0,N.jsxs)("div",{className:"flex items-center justify-between mb-2",children:[(0,N.jsx)("label",{className:"block text-[11px] font-bold text-gray-700 uppercase tracking-wider",children:(0,_.__)("Formatting Mode","productbay-pro")}),(0,N.jsx)("span",{className:Nt("text-[9px] font-bold px-1.5 py-0.5 rounded-sm uppercase tracking-tighter","auto"===p?"bg-amber-100 text-amber-700":"bg-gray-100 text-gray-500"),children:"auto"===p?(0,_.__)("Smart Mode","productbay-pro"):(0,_.__)("Standard","productbay-pro")})]}),(0,N.jsx)(q,{className:"w-full h-9 text-sm",value:p,onChange:r=>{t({settings:{...e.settings,displayFormat:r}})},options:Ot}),(0,N.jsx)("p",{className:"text-[11px] text-gray-400 mt-2 m-0 leading-relaxed italic",children:(0,_.__)("Auto Detect intelligently renders links, images, and dates based on their content.","productbay-pro")})]})]})},Bt=({entry:e,isSelected:t,onClick:r})=>(0,N.jsxs)("button",{onClick:r,className:Nt("w-full flex items-center gap-2 px-2.5 py-1.5 text-xs border border-transparent rounded-lg text-left group/btn relative overflow-hidden",t?"bg-blue-200 text-blue-700 border-blue-300":"bg-white hover:bg-blue-100 text-gray-700 hover:text-blue-700 hover:border-blue-100"),title:`${e.key} (${e.type})`,children:[(0,N.jsx)("span",{className:Nt("flex-1 truncate font-semibold text-gray-800"),children:e.label}),(0,N.jsx)("code",{className:Nt("flex-shrink-0 text-[9px] px-1.5 py-0.5 rounded font-mono font-bold",t?"bg-blue-500 text-blue-50 border border-blue-400":"bg-gray-100 text-gray-400 border border-gray-200 group-hover/btn:bg-blue-100 group-hover/btn:text-blue-500 group-hover/btn:border-blue-200"),children:e.key})]}),Rt=()=>(0,N.jsx)(j.Fill,{name:"productbay-pro-cf-settings",children:e=>(0,N.jsx)(Lt,{...e})}),Gt=d("circle-check",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"m9 12 2 2 4-4",key:"dzmm74"}]]),Dt=d("file-braces",[["path",{d:"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",key:"1oefj6"}],["path",{d:"M14 2v5a1 1 0 0 0 1 1h5",key:"wfsgrz"}],["path",{d:"M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1",key:"1oajmo"}],["path",{d:"M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1",key:"mpwhp6"}]]),Vt=d("upload",[["path",{d:"M12 3v12",key:"1x0j5s"}],["path",{d:"m17 8-5-5-5 5",key:"7q97r8"}],["path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4",key:"ih7n3h"}]]),$t=d("loader-circle",[["path",{d:"M21 12a9 9 0 1 1-6.219-8.56",key:"13zald"}]]),Wt=d("file-text",[["path",{d:"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",key:"1oefj6"}],["path",{d:"M14 2v5a1 1 0 0 0 1 1h5",key:"wfsgrz"}],["path",{d:"M10 9H8",key:"b1mrlr"}],["path",{d:"M16 13H8",key:"t4e002"}],["path",{d:"M16 17H8",key:"z1uh3a"}]]),Xt=d("check",[["path",{d:"M20 6 9 17l-5-5",key:"1gmf2c"}]]),Ht=d("info",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"M12 16v-4",key:"1dtifu"}],["path",{d:"M12 8h.01",key:"e9boi3"}]]),qt=d("download",[["path",{d:"M12 15V3",key:"m9g1x1"}],["path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4",key:"ih7n3h"}],["path",{d:"m7 10 5 5 5-5",key:"brsn70"}]]),Jt=()=>{const e=window.productbay;if(!e||!e.useImportExportStore)return null;const{importModalOpen:t,closeImportModal:r,exportModalOpen:a,closeExportModal:s,availableTables:l,exportTableIds:n,toggleTableSelection:i,setExportSelection:c}=e.useImportExportStore(),{settings:d,updateSettings:p}=e.useSettingsStore(),u=e.apiFetch,{Modal:m,Button:b,Toggle:h,Select:x,Alert:g,Tooltip:y}=e.ui,[f,v]=(0,o.useState)(null),[w,k]=(0,o.useState)("idle"),[j,C]=(0,o.useState)(""),[S,z]=(0,o.useState)(!1),[M,P]=(0,o.useState)({overlapMode:"create",addImportedTitle:!1}),F=(0,o.useRef)(null),[I,T]=(0,o.useState)(!1),[E,O]=(0,o.useState)(!0);return(0,o.useEffect)(()=>{t||(v(null),k("idle"),C(""))},[t]),(0,N.jsxs)(N.Fragment,{children:[(0,N.jsx)(m,{isOpen:t,onClose:r,title:(0,_.__)("Import Tables & Settings","productbay-pro"),className:"max-w-xl",children:(0,N.jsx)("div",{className:"space-y-6",children:"success"===w?(0,N.jsxs)("div",{className:"text-center py-8 space-y-4",children:[(0,N.jsx)("div",{className:"bg-green-100 text-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto",children:(0,N.jsx)(Gt,{className:"size-10"})}),(0,N.jsx)("h3",{className:"text-xl font-bold text-gray-900",children:(0,_.__)("Import Complete!","productbay-pro")}),(0,N.jsx)("p",{className:"text-gray-600",children:j}),(0,N.jsx)(b,{onClick:r,className:"mt-4 cursor-pointer",children:(0,_.__)("Close","productbay-pro")})]}):(0,N.jsxs)(N.Fragment,{children:[(0,N.jsxs)("div",{onClick:()=>F.current?.click(),onDragOver:e=>{e.preventDefault(),e.stopPropagation(),z(!0)},onDragLeave:e=>{e.preventDefault(),e.stopPropagation(),z(!1)},onDrop:e=>{e.preventDefault(),e.stopPropagation(),z(!1);const t=e.dataTransfer.files?.[0];if(t){if("application/json"!==t.type&&!t.name.endsWith(".json"))return k("error"),void C((0,_.__)("Please select a valid JSON file.","productbay-pro"));v(t),k("idle"),C("")}},className:Nt("border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all bg-gray-50 hover:bg-blue-50 border-gray-200 hover:border-blue-400 group",f&&"border-blue-500 bg-blue-50/30",S&&"border-blue-500 bg-blue-50"),children:[(0,N.jsx)("input",{type:"file",ref:F,className:"hidden",accept:".json",onChange:e=>(e=>{const t=e.target.files?.[0];if(t){if("application/json"!==t.type&&!t.name.endsWith(".json"))return k("error"),void C((0,_.__)("Please select a valid JSON file.","productbay-pro"));v(t),k("idle"),C("")}})(e)}),f?(0,N.jsxs)("div",{className:"flex flex-col items-center",children:[(0,N.jsx)("div",{className:"bg-blue-500 text-white p-3 rounded-lg mb-3 flex items-center justify-center",children:(0,N.jsx)(Dt,{className:"size-8"})}),(0,N.jsx)("span",{className:"font-bold text-blue-900",children:f.name}),(0,N.jsxs)("span",{className:"text-xs text-blue-600 mt-1",children:[(f.size/1024).toFixed(2)," KB"]}),(0,N.jsxs)("button",{type:"button",onClick:e=>{e.stopPropagation(),v(null)},className:"mt-4 text-xs text-red-500 cursor-pointer rounded-full px-2 py-1 hover:underline flex items-center gap-1",children:[(0,N.jsx)(Tt,{className:"size-3"})," ",(0,_.__)("Remove file","productbay-pro")]})]}):(0,N.jsxs)("div",{className:"flex flex-col items-center",children:[(0,N.jsx)(Vt,{className:"size-8 text-gray-400 group-hover:text-blue-500 mb-4"}),(0,N.jsx)("span",{className:"text-gray-900 font-bold text-lg mb-1",children:(0,_.__)("Drop JSON file here","productbay-pro")}),(0,N.jsx)("span",{className:"text-gray-500 text-sm",children:(0,_.__)("or click to browse from your computer","productbay-pro")})]})]}),(0,N.jsxs)("div",{className:"space-y-4 pt-4 border-t border-gray-100",children:[(0,N.jsx)("h4",{className:"text-sm font-bold text-gray-900 uppercase mb-2",children:(0,_.__)("Import Options","productbay-pro")}),(0,N.jsxs)("div",{className:"grid grid-cols-1 gap-4",children:[(0,N.jsxs)("div",{className:"space-y-1.5",children:[(0,N.jsx)("label",{className:"text-xs font-bold text-gray-700",children:(0,_.__)("Conflict Resolution","productbay-pro")}),(0,N.jsx)(x,{value:M.overlapMode,onChange:e=>P(t=>({...t,overlapMode:e})),options:[{label:(0,_.__)("Create New (Keep both)","productbay-pro"),value:"create"},{label:(0,_.__)("Overwrite Existing","productbay-pro"),value:"overwrite"},{label:(0,_.__)("Skip Duplicates","productbay-pro"),value:"skip"}]})]}),(0,N.jsxs)("div",{className:"flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200",children:[(0,N.jsxs)("div",{className:"flex flex-col",children:[(0,N.jsx)("span",{className:"text-xs font-bold text-gray-900",children:(0,_.__)("Rename Imported","productbay-pro")}),(0,N.jsx)("span",{className:"text-xs text-gray-500",children:(0,_.__)('Add "(Imported)" to titles',"productbay-pro")})]}),(0,N.jsx)(h,{checked:M.addImportedTitle,onChange:e=>P(t=>({...t,addImportedTitle:e.target.checked}))})]})]})]}),"error"===w&&(0,N.jsx)(g,{variant:"destructive",className:"mt-4",children:j}),(0,N.jsxs)("div",{className:"flex justify-end gap-3 pt-6",children:[(0,N.jsx)(b,{variant:"ghost",className:"cursor-pointer",onClick:r,disabled:"loading"===w,children:(0,_.__)("Cancel","productbay-pro")}),(0,N.jsx)(b,{onClick:async()=>{if(f){k("loading"),C((0,_.__)("Processing import file...","productbay-pro"));try{const e=new FileReader;e.onload=async e=>{try{const t=e.target?.result,r=JSON.parse(t),o=await u("pro/import",{method:"POST",body:JSON.stringify({data:r,options:M})});k("success"),C((0,_.sprintf)((0,_.__)("Successfully imported %d tables and settings.","productbay-pro"),o.imported_count||0)),window.location.hash.includes("/tables")&&window.location.reload()}catch(e){k("error"),C(e.message||(0,_.__)("Invalid import data format.","productbay-pro"))}},e.readAsText(f)}catch(e){k("error"),C((0,_.__)("Failed to read the import file.","productbay-pro"))}}},disabled:!f||"loading"===w,className:"px-8 min-w-[140px] cursor-pointer",children:"loading"===w?(0,N.jsxs)(N.Fragment,{children:[(0,N.jsx)($t,{className:"size-4 mr-2 animate-spin"})," ",(0,_.__)("Importing...","productbay-pro")]}):(0,_.__)("Start Import","productbay-pro")})]})]})})}),(0,N.jsx)(m,{isOpen:a,onClose:s,title:(0,_.__)("Export Tables & Settings","productbay-pro"),className:"max-w-2xl",children:(0,N.jsxs)("div",{className:"space-y-6",children:[(0,N.jsxs)("div",{className:"bg-productbay-brand/10 border border-productbay-brand/25 rounded-xl p-4 flex items-center justify-between group hover:bg-orange-100/50 transition-colors",children:[(0,N.jsxs)("div",{className:"flex items-center gap-3",children:[(0,N.jsx)("div",{className:"bg-productbay-brand text-white p-2 rounded-lg flex justify-center items-center",children:(0,N.jsx)(Wt,{className:"size-5"})}),(0,N.jsxs)("div",{children:[(0,N.jsx)("span",{className:"block font-bold text-orange-900 text-sm",children:(0,_.__)("Plugin Global Settings","productbay-pro")}),(0,N.jsx)("span",{className:"block text-xs text-orange-800",children:(0,_.__)("Includes general, API, and appearance defaults","productbay-pro")})]})]}),(0,N.jsx)(h,{checked:E,onChange:e=>O(e.target.checked)})]}),(0,N.jsxs)("div",{className:"border border-gray-300 rounded-lg",children:[(0,N.jsxs)("div",{className:"flex items-center justify-between border-b border-gray-300 px-4 py-2",children:[(0,N.jsxs)("div",{children:[(0,N.jsx)("h4",{className:"text-sm font-bold text-gray-900",children:(0,_.__)("Select Items to Export","productbay-pro")}),(0,N.jsx)("p",{className:"text-xs text-gray-500 mt-1",children:(0,_.__)("Choose which tables and configurations you want to include in the package.","productbay-pro")})]}),(0,N.jsx)(b,{variant:"outline",size:"xs",className:"cursor-pointer hover:bg-blue-600 hover:text-white",onClick:()=>{const e=l.map(e=>e.id).filter(Boolean),t=n.length===e.length;c(t?[]:e)},children:n.length===l.length?(0,_.__)("Deselect All","productbay-pro"):(0,_.__)("Select All","productbay-pro")})]}),(0,N.jsx)("div",{className:"max-h-[350px] overflow-y-auto custom-scrollbar",children:0===l.length?(0,N.jsx)("div",{className:"text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200",children:(0,N.jsx)("p",{className:"text-gray-400 text-sm",children:(0,_.__)("No tables found to export.","productbay-pro")})}):l.map(e=>(0,N.jsxs)("div",{onClick:()=>i(e.id),className:Nt("flex items-center justify-between p-3 cursor-pointer transition-all",n.includes(e.id)?"bg-blue-50 hover:bg-productbay-brand/10":"hover:bg-blue-100"),children:[(0,N.jsxs)("div",{className:"flex items-center gap-3",children:[(0,N.jsx)("div",{className:Nt("w-5 h-5 rounded border flex items-center justify-center transition-colors",n.includes(e.id)?"bg-blue-500 border-blue-500":"bg-white border-gray-300"),children:n.includes(e.id)&&(0,N.jsx)(Xt,{className:"size-3.5 text-white"})}),(0,N.jsxs)("div",{children:[(0,N.jsx)("span",{className:"block font-bold text-gray-900 text-sm",children:e.title}),(0,N.jsxs)("span",{className:"block text-xs text-gray-500 uppercase tracking-tighter",children:["ID: ",e.id," • ",e.columns?.length||0," ",(0,_.__)("Columns","productbay-pro")]})]})]}),"publish"===e.status?(0,N.jsx)("span",{className:"text-xs font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full uppercase",children:(0,_.__)("Published","productbay-pro")}):(0,N.jsx)("span",{className:"text-xs font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full uppercase",children:(0,_.__)("Private","productbay-pro")})]},e.id))})]}),(0,N.jsxs)("div",{className:"bg-blue-50/50 border border-blue-100 rounded-lg p-3 flex items-start gap-3",children:[(0,N.jsx)(Ht,{className:"size-4 text-blue-500 mt-0.5 shrink-0"}),(0,N.jsx)("p",{className:"text-[11px] text-blue-700 leading-relaxed",children:(0,_.__)("Exporting creates a .json file of selected data, which can be imported into any WooCommerce site running ProductBay.","productbay-pro")})]}),(0,N.jsxs)("div",{className:"flex items-center justify-between pt-4 border-t border-gray-100",children:[(0,N.jsxs)("div",{className:"text-sm font-bold text-gray-700",children:[n.length," ",(0,_.__)("Tables Selected","productbay-pro")]}),(0,N.jsxs)("div",{className:"flex gap-3",children:[(0,N.jsx)(b,{variant:"ghost",className:"cursor-pointer",onClick:s,disabled:I,children:(0,_.__)("Cancel","productbay-pro")}),(0,N.jsx)(b,{onClick:async()=>{if(0!==n.length||E){T(!0);try{const e=await u("pro/export",{method:"POST",body:JSON.stringify({table_ids:n,include_settings:E})}),t=new Blob([JSON.stringify(e.data,null,2)],{type:"application/json"}),r=URL.createObjectURL(t),o=document.createElement("a");o.href=r,o.download=`productbay-export-${(new Date).toISOString().split("T")[0]}.json`,document.body.appendChild(o),o.click(),document.body.removeChild(o),URL.revokeObjectURL(r),s()}catch(e){console.error("Export failed",e)}finally{T(!1)}}},disabled:I||0===n.length&&!E,className:"min-w-[160px] cursor-pointer",children:I?(0,N.jsxs)(N.Fragment,{children:[(0,N.jsx)($t,{className:"size-4 mr-2 animate-spin"})," ",(0,_.__)("Preparing...","productbay-pro")]}):(0,N.jsxs)(N.Fragment,{children:[(0,N.jsx)(qt,{className:"size-4 mr-2"})," ",(0,_.__)("Generate Export","productbay-pro")]})})]})]})]})})]})};r()(()=>{const e=window.productbay?.useExtensionStore;e&&(e.getState().addFill(Mt),e.getState().addFill(le),e.getState().addFill(Rt),e.getState().addFill(Jt),e.getState().addFill(E),e.getState().addFill(I))})})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/components/ui/index.ts"
+/*!************************************!*\
+  !*** ./src/components/ui/index.ts ***!
+  \************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Alert: () => (/* binding */ Alert),
+/* harmony export */   Button: () => (/* binding */ Button),
+/* harmony export */   CardRadioGroup: () => (/* binding */ CardRadioGroup),
+/* harmony export */   ColorPicker: () => (/* binding */ ColorPicker),
+/* harmony export */   Confetti: () => (/* binding */ Confetti),
+/* harmony export */   ConfirmButton: () => (/* binding */ ConfirmButton),
+/* harmony export */   DropdownMenu: () => (/* binding */ DropdownMenu),
+/* harmony export */   EditableText: () => (/* binding */ EditableText),
+/* harmony export */   Input: () => (/* binding */ Input),
+/* harmony export */   Modal: () => (/* binding */ Modal),
+/* harmony export */   ProductBayIcon: () => (/* binding */ ProductBayIcon),
+/* harmony export */   ProductBayLogo: () => (/* binding */ ProductBayLogo),
+/* harmony export */   Select: () => (/* binding */ Select),
+/* harmony export */   Skeleton: () => (/* binding */ Skeleton),
+/* harmony export */   Stepper: () => (/* binding */ Stepper),
+/* harmony export */   Tabs: () => (/* binding */ Tabs),
+/* harmony export */   Toast: () => (/* binding */ Toast),
+/* harmony export */   Toaster: () => (/* binding */ Toaster),
+/* harmony export */   Toggle: () => (/* binding */ Toggle),
+/* harmony export */   Tooltip: () => (/* binding */ Tooltip)
+/* harmony export */ });
+/**
+ * Proxy Exporter for Global ProductBay UI Components
+ *
+ * This file allows the Pro plugin to import UI components symmetrically
+ * to the Free plugin (e.g., `import { Button } from '@/components/ui'`)
+ * without actually bundling them into the Pro payload.
+ */
+
+const {
+  Alert,
+  Button,
+  CardRadioGroup,
+  ColorPicker,
+  Confetti,
+  ConfirmButton,
+  DropdownMenu,
+  EditableText,
+  Input,
+  Modal,
+  ProductBayIcon,
+  ProductBayLogo,
+  Select,
+  Skeleton,
+  Stepper,
+  Tabs,
+  Toast,
+  Toaster,
+  Toggle,
+  Tooltip
+} = window.productbay?.ui || {};
+
+/***/ },
+
+/***/ "./src/slots/CustomFieldsSlot.tsx"
+/*!****************************************!*\
+  !*** ./src/slots/CustomFieldsSlot.tsx ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/sparkles.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/bolt.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/store.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var _components_ui__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/ui */ "./src/components/ui/index.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/utils/constants */ "./src/utils/constants.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__);
+
+
+
+
+
+
+
+
+/**
+ * MetaKeyEntry Interface
+ *
+ * Defines the structure of an individual meta key object returned by the Pro API.
+ * These represent database keys like '_price', 'product_brand', etc.
+ */
+
+/**
+ * MetaKeysResponse Interface
+ *
+ * The shape of the JSON response from the `productbay/v1/pro/meta-keys` endpoint.
+ * Data is pre-grouped by the backend into common logical sources.
+ */
+
+/**
+ * Available display formats for Custom Field columns.
+ * These options allow users to hint how the raw meta value should be rendered on the frontend.
+ */
+const DISPLAY_FORMATS = [{
+  value: 'auto',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Auto Detect', 'productbay-pro')
+}, {
+  value: 'text',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Plain Text', 'productbay-pro')
+}, {
+  value: 'number',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Number', 'productbay-pro')
+}, {
+  value: 'date',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Date', 'productbay-pro')
+}, {
+  value: 'image',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Image', 'productbay-pro')
+}, {
+  value: 'link',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Link / URL', 'productbay-pro')
+}, {
+  value: 'boolean',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Yes / No Badge', 'productbay-pro')
+}];
+
+/**
+ * Human-readable mapping for meta key group identifiers.
+ */
+const GROUP_LABELS = {
+  woocommerce: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('WooCommerce', 'productbay-pro'),
+  acf: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Advanced Custom Fields', 'productbay-pro'),
+  custom: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Custom Meta', 'productbay-pro')
+};
+
+/**
+ * CustomFieldsSlot Component
+ *
+ * This is the entry point for the Pro-only Custom Field settings.
+ * It uses the WordPress `Fill` component to "inject" itself into the `productbay-pro-cf-settings`
+ * slot defined in the Free plugin's `ColumnItem.tsx`.
+ *
+ * IMPORTANT: It uses the function-as-child pattern to receive `fillProps` from the Slot.
+ * These props include the current `column` object and the `onUpdate` dispatcher.
+ */
+const CustomFieldsSlot = () => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Fill, {
+    name: "productbay-pro-cf-settings",
+    children: fillProps => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(CustomFieldsPanel, {
+      ...fillProps
+    })
+  });
+};
+
+/**
+ * useMetaKeys Hook
+ *
+ * A specialized state management hook for the Advanced Meta Selector.
+ * Handles:
+ * 1. Async fetching of meta keys from the WP REST API.
+ * 2. Search input state and debounced query syncing.
+ * 3. Client-side filtering of results across all groups.
+ *
+ * @returns {Object} State and setters for the meta selector UI.
+ */
+const useMetaKeys = () => {
+  const [metaKeys, setMetaKeys] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [inputValue, setInputValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''); // Raw typing value (fast)
+  const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''); // Debounced value (slow, used for filtering)
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+
+  /**
+   * Debounce the search input to prevent expensive filtering/re-renders
+   * on every single keystroke.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const timer = setTimeout(() => {
+      setSearchQuery(inputValue);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [inputValue]);
+
+  /**
+   * Fetch all available meta keys from the server.
+   * This happens only once when the first CF column is expanded.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const fetchMetaKeys = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        // Settings are localized via PHP in Includes/Pro/Assets.php
+        const settings = window.productBaySettings || {};
+        const apiUrl = settings.apiUrl;
+        const endpoint = apiUrl ? `${apiUrl}${_utils_constants__WEBPACK_IMPORTED_MODULE_10__.REST_NAMESPACE}${_utils_constants__WEBPACK_IMPORTED_MODULE_10__.API_ENDPOINTS.META_KEYS}` : `/wp-json/${_utils_constants__WEBPACK_IMPORTED_MODULE_10__.REST_NAMESPACE}${_utils_constants__WEBPACK_IMPORTED_MODULE_10__.API_ENDPOINTS.META_KEYS}`;
+        const nonce = settings.nonce || window.wpApiSettings?.nonce || '';
+        const response = await fetch(endpoint, {
+          headers: {
+            'X-WP-Nonce': nonce
+          }
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        setMetaKeys(data);
+      } catch (err) {
+        setError((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Failed to load meta keys.', 'productbay-pro'));
+        console.error('ProductBay Pro: Failed to fetch meta keys:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchMetaKeys();
+  }, []);
+
+  /**
+   * Compute the filtered list of meta keys based on the debounced search query.
+   * Searches against key, label, and ACF group names.
+   */
+  const filteredKeys = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!metaKeys) return null;
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return metaKeys;
+    const filterGroup = group => group.filter(entry => entry.key.toLowerCase().includes(query) || entry.label.toLowerCase().includes(query) || entry.group && entry.group.toLowerCase().includes(query));
+    return {
+      woocommerce: filterGroup(metaKeys.woocommerce),
+      acf: filterGroup(metaKeys.acf),
+      custom: filterGroup(metaKeys.custom)
+    };
+  }, [metaKeys, searchQuery]);
+
+  /** Calculate total visibility count for the "Matched Results" indicator. */
+  const totalResults = filteredKeys ? filteredKeys.woocommerce.length + filteredKeys.acf.length + filteredKeys.custom.length : 0;
+  return {
+    metaKeys,
+    isLoading,
+    error,
+    inputValue,
+    setInputValue,
+    searchQuery,
+    filteredKeys,
+    totalResults
+  };
+};
+
+/**
+ * CustomFieldsPanel Component
+ *
+ * The actual UI rendered inside the Slot. It provides:
+ * 1. A search-and-browse interface for meta keys.
+ * 2. A selection status indicator.
+ * 3. A display format dropdown.
+ *
+ * @param {Object} props Props injected by the Slot via Fill function-child.
+ */
+const CustomFieldsPanel = ({
+  column,
+  onUpdate
+}) => {
+  const {
+    isLoading,
+    error,
+    inputValue,
+    setInputValue,
+    searchQuery,
+    filteredKeys,
+    totalResults
+  } = useMetaKeys();
+
+  // Sync UI with the column settings in the parent Store
+  const selectedKey = column.settings?.metaKey || '';
+  const selectedFormat = column.settings?.displayFormat || 'auto';
+
+  /**
+   * Persist selection to the global store.
+   * This instantly updates the "Meta Key (Manual Override)" input in the parent ColumnItem.
+   */
+  const handleMetaKeySelect = key => {
+    onUpdate({
+      settings: {
+        ...column.settings,
+        metaKey: key
+      }
+    });
+  };
+
+  /**
+   * Persist formatting choice to the global store.
+   */
+  const handleFormatChange = format => {
+    onUpdate({
+      settings: {
+        ...column.settings,
+        displayFormat: format
+      }
+    });
+  };
+
+  /**
+   * Renders a specific group of meta keys (WC, ACF, or Custom).
+   * ACF groups are rendered with an additional nesting layer for "Field Groups".
+   */
+  const renderGroup = (groupKey, entries) => {
+    if (entries.length === 0) return null;
+
+    // ACF fields require sub-grouping by their 'group' property for better organization
+    if (groupKey === 'acf') {
+      const subGroups = {};
+      entries.forEach(entry => {
+        const group = entry.group || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Ungrouped', 'productbay-pro');
+        if (!subGroups[group]) subGroups[group] = [];
+        subGroups[group].push(entry);
+      });
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "mb-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "text-xs font-bold text-purple-700 uppercase tracking-widest mb-2 flex items-center gap-1.5 px-1 py-0.5 bg-purple-50 rounded-sm",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "w-4 h-4 text-purple-600"
+          }), GROUP_LABELS[groupKey]]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          className: "space-y-4",
+          children: Object.entries(subGroups).map(([subGroupName, subEntries]) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+            className: "ml-1 pl-3 border-l-2 border-purple-100",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+              className: "text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 flex items-center gap-1",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+                className: "w-1.5 h-1.5 rounded-full bg-purple-200"
+              }), subGroupName]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+              className: "space-y-0.5",
+              children: subEntries.map(entry => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(MetaKeyButton, {
+                entry: entry,
+                isSelected: selectedKey === entry.key,
+                onClick: () => handleMetaKeySelect(entry.key)
+              }, entry.key))
+            })]
+          }, subGroupName))
+        })]
+      }, groupKey);
+    }
+
+    // Standard icon mapping for common groups
+    const groupIcons = {
+      woocommerce: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        className: "w-4 h-4 text-blue-600"
+      }),
+      custom: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        className: "w-4 h-4 text-gray-600"
+      })
+    };
+    const groupStyles = {
+      woocommerce: 'text-blue-700 bg-blue-50',
+      custom: 'text-gray-700 bg-gray-50'
+    };
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "mb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_9__.cn)("text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-1.5 px-1 py-0.5 rounded-sm", groupStyles[groupKey] || 'text-gray-600 bg-gray-100'),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+          children: groupIcons[groupKey] || '📦'
+        }), GROUP_LABELS[groupKey]]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        className: "space-y-0.5",
+        children: entries.map(entry => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(MetaKeyButton, {
+          entry: entry,
+          isSelected: selectedKey === entry.key,
+          onClick: () => handleMetaKeySelect(entry.key)
+        }, entry.key))
+      })]
+    }, groupKey);
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+    className: "space-y-3 bg-white rounded-lg p-3 border border-gray-200 mt-2",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      className: "flex items-center gap-2",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+        className: "text-xs font-bold text-blue-700 uppercase tracking-widest",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Advanced Meta Selector', 'productbay-pro')
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+      className: "text-xs text-gray-500 m-0 leading-relaxed",
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Browse all available product meta keys. Click any key to instantly use it.', 'productbay-pro')
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "relative group",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", {
+        type: "text",
+        value: inputValue,
+        onChange: e => setInputValue(e.target.value),
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Search meta keys…', 'productbay-pro'),
+        className: "w-full px-3 py-2 pr-10 text-sm border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-100 transition-all font-medium"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        className: "absolute right-3 top-1/2 -translate-y-1/2 flex items-center",
+        children: inputValue ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
+          onClick: () => setInputValue(''),
+          className: "cursor-pointer p-0.5 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-md text-gray-400 hover:text-gray-600 transition-colors",
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Clear search', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            className: "w-3.5 h-3.5"
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          className: "w-4 h-4 text-gray-400 pointer-events-none"
+        })
+      })]
+    }), selectedKey && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "flex items-center gap-2 px-2 py-1 px-2.5 py-1.5 bg-blue-50 border border-blue-100 rounded-md",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+        className: "text-[10px] font-bold text-blue-700 uppercase tracking-tight",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Active Key:', 'productbay-pro')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("code", {
+        className: "text-[11px] font-bold text-blue-700 truncate font-mono",
+        children: selectedKey
+      })]
+    }), isLoading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      className: "space-y-2 animate-pulse pr-1",
+      children: [1, 2, 3, 4].map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        className: "h-8 bg-gray-100 rounded-md"
+      }, i))
+    }), searchQuery && !isLoading && totalResults > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "flex items-center justify-between px-1 border-b border-gray-100 pb-1.5 pt-0.5",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+        className: "text-[10px] text-gray-400 font-bold uppercase tracking-widest",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Matched Results', 'productbay-pro')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+        className: "text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold",
+        children: totalResults
+      })]
+    }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      className: "text-xs text-red-600 bg-red-50 border border-red-100 rounded-md p-2.5 font-medium animate-in fade-in",
+      children: error
+    }), filteredKeys && !isLoading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      className: "max-h-72 overflow-y-auto space-y-1 pr-1 custom-scrollbar",
+      children: totalResults === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "flex flex-col items-center justify-center py-10 text-center bg-gray-50/50 rounded-lg border border-dashed border-gray-200",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          className: "p-3 bg-white rounded-full mb-3",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            className: "w-6 h-6 text-gray-300"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          className: "font-bold text-gray-600 text-sm",
+          children: searchQuery ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Key not found', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('No meta keys available', 'productbay-pro')
+        }), searchQuery && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          className: "text-xs text-gray-400 mt-1 max-w-[200px] leading-relaxed mx-auto",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Try searching for something else or manually enter a key below.', 'productbay-pro')
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
+        children: [renderGroup('woocommerce', filteredKeys.woocommerce), renderGroup('acf', filteredKeys.acf), renderGroup('custom', filteredKeys.custom)]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      className: "pt-2 border-t border-gray-100 mt-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "flex items-center justify-between mb-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("label", {
+          className: "block text-[11px] font-bold text-gray-700 uppercase tracking-wider",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Formatting Mode', 'productbay-pro')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_9__.cn)("text-[9px] font-bold px-1.5 py-0.5 rounded-sm uppercase tracking-tighter", selectedFormat === 'auto' ? "bg-amber-100 text-amber-700" : "bg-gray-100 text-gray-500"),
+          children: selectedFormat === 'auto' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Smart Mode', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Standard', 'productbay-pro')
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_7__.Select, {
+        className: "w-full h-9 text-sm",
+        value: selectedFormat,
+        onChange: handleFormatChange,
+        options: DISPLAY_FORMATS
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+        className: "text-[11px] text-gray-400 mt-2 m-0 leading-relaxed italic",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Auto Detect intelligently renders links, images, and dates based on their content.', 'productbay-pro')
+      })]
+    })]
+  });
+};
+
+/**
+ * MetaKeyButton Component
+ *
+ * A specialized interactive button representing a single meta key entry.
+ * It shows the human label prominently and the technical key in a mono-font code badge.
+ */
+const MetaKeyButton = ({
+  entry,
+  isSelected,
+  onClick
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("button", {
+    onClick: onClick,
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_9__.cn)('w-full flex items-center gap-2 px-2.5 py-1.5 text-xs border border-transparent rounded-lg text-left group/btn relative overflow-hidden', isSelected ? 'bg-blue-200 text-blue-700 border-blue-300' : 'bg-white hover:bg-blue-100 text-gray-700 hover:text-blue-700 hover:border-blue-100'),
+    title: `${entry.key} (${entry.type})`,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_9__.cn)("flex-1 truncate font-semibold text-gray-800"),
+      children: entry.label
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("code", {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_9__.cn)("flex-shrink-0 text-[9px] px-1.5 py-0.5 rounded font-mono font-bold", isSelected ? "bg-blue-500 text-blue-50 border border-blue-400" : "bg-gray-100 text-gray-400 border border-gray-200 group-hover/btn:bg-blue-100 group-hover/btn:text-blue-500 group-hover/btn:border-blue-200"),
+      children: entry.key
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CustomFieldsSlot);
+
+/***/ },
+
+/***/ "./src/slots/ImportExportSlot.tsx"
+/*!****************************************!*\
+  !*** ./src/slots/ImportExportSlot.tsx ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/file-braces.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/download.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/file-text.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/info.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/upload.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/utils/constants */ "./src/utils/constants.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__);
+
+
+
+
+
+
+/**
+ * ImportExportSlot Component
+ * 
+ * This component handles the global Modals for both Importing and Exporting
+ * table configurations and plugin settings.
+ * 
+ * It communicates with the Free plugin via the window.productbay bridge.
+ */
+
+const ImportExportSlot = () => {
+  // Access bridge utilities
+  const pb = window.productbay;
+  if (!pb || !pb.useImportExportStore) return null;
+  const {
+    importModalOpen,
+    closeImportModal,
+    exportModalOpen,
+    closeExportModal,
+    availableTables,
+    exportTableIds,
+    toggleTableSelection,
+    setExportSelection
+  } = pb.useImportExportStore();
+  const {
+    settings,
+    updateSettings
+  } = pb.useSettingsStore();
+  const apiFetch = pb.apiFetch;
+
+  // UI Components from bridge
+  const {
+    Modal,
+    Button,
+    Toggle,
+    Select,
+    Alert,
+    Tooltip
+  } = pb.ui;
+
+  // -- Import State --
+  const [importFile, setImportFile] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [importStatus, setImportStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('idle');
+  const [importMsg, setImportMsg] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [isDragging, setIsDragging] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [importOptions, setImportOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    overlapMode: 'create',
+    // 'skip', 'overwrite', 'create'
+    addImportedTitle: false
+  });
+  const fileInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // -- Export State --
+  const [exportLoading, setExportLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [includeSettings, setIncludeSettings] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+
+  /**
+   * Handle File Selection for Import
+   */
+  const handleFileChange = e => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+        setImportStatus('error');
+        setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please select a valid JSON file.', 'productbay-pro'));
+        return;
+      }
+      setImportFile(file);
+      setImportStatus('idle');
+      setImportMsg('');
+    }
+  };
+  const handleDragOver = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+  const handleDragLeave = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+  const handleDrop = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+        setImportStatus('error');
+        setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please select a valid JSON file.', 'productbay-pro'));
+        return;
+      }
+      setImportFile(file);
+      setImportStatus('idle');
+      setImportMsg('');
+    }
+  };
+
+  /**
+   * Run the Import Process
+   */
+  const handleRunImport = async () => {
+    if (!importFile) return;
+    setImportStatus('loading');
+    setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Processing import file...', 'productbay-pro'));
+    try {
+      const reader = new FileReader();
+      reader.onload = async e => {
+        try {
+          const content = e.target?.result;
+          const data = JSON.parse(content);
+
+          // Trigger backend import
+          const result = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_12__.API_ENDPOINTS.IMPORT, {
+            method: 'POST',
+            body: JSON.stringify({
+              data,
+              options: importOptions
+            })
+          });
+          setImportStatus('success');
+          setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Successfully imported %d tables and settings.', 'productbay-pro'), result.imported_count || 0));
+
+          // Refresh tables list if we are on the tables page
+          if (window.location.hash.includes('/tables')) {
+            window.location.reload();
+          }
+        } catch (err) {
+          setImportStatus('error');
+          setImportMsg(err.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Invalid import data format.', 'productbay-pro'));
+        }
+      };
+      reader.readAsText(importFile);
+    } catch (err) {
+      setImportStatus('error');
+      setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Failed to read the import file.', 'productbay-pro'));
+    }
+  };
+
+  /**
+   * Run the Export Process
+   */
+  const handleRunExport = async () => {
+    if (exportTableIds.length === 0 && !includeSettings) {
+      return;
+    }
+    setExportLoading(true);
+    try {
+      const result = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_12__.API_ENDPOINTS.EXPORT, {
+        method: 'POST',
+        body: JSON.stringify({
+          table_ids: exportTableIds,
+          include_settings: includeSettings
+        })
+      });
+
+      // Create a download link for the JSON
+      const blob = new Blob([JSON.stringify(result.data, null, 2)], {
+        type: 'application/json'
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `productbay-export-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      closeExportModal();
+    } catch (err) {
+      console.error('Export failed', err);
+    } finally {
+      setExportLoading(false);
+    }
+  };
+
+  /**
+   * Reset Import state on close
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!importModalOpen) {
+      setImportFile(null);
+      setImportStatus('idle');
+      setImportMsg('');
+    }
+  }, [importModalOpen]);
+
+  // Render Modals
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Modal, {
+      isOpen: importModalOpen,
+      onClose: closeImportModal,
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Import Tables & Settings', 'productbay-pro'),
+      className: "max-w-xl",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "space-y-6",
+        children: importStatus === 'success' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "text-center py-8 space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            className: "bg-green-100 text-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              className: "size-10"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h3", {
+            className: "text-xl font-bold text-gray-900",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Import Complete!', 'productbay-pro')
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+            className: "text-gray-600",
+            children: importMsg
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+            onClick: closeImportModal,
+            className: "mt-4 cursor-pointer",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Close', 'productbay-pro')
+          })]
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            onClick: () => fileInputRef.current?.click(),
+            onDragOver: handleDragOver,
+            onDragLeave: handleDragLeave,
+            onDrop: handleDrop,
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_11__.cn)("border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all bg-gray-50 hover:bg-blue-50 border-gray-200 hover:border-blue-400 group", importFile && "border-blue-500 bg-blue-50/30", isDragging && "border-blue-500 bg-blue-50"),
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", {
+              type: "file",
+              ref: fileInputRef,
+              className: "hidden",
+              accept: ".json",
+              onChange: e => handleFileChange(e)
+            }), importFile ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              className: "flex flex-col items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+                className: "bg-blue-500 text-white p-3 rounded-lg mb-3 flex items-center justify-center",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  className: "size-8"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "font-bold text-blue-900",
+                children: importFile.name
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
+                className: "text-xs text-blue-600 mt-1",
+                children: [(importFile.size / 1024).toFixed(2), " KB"]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("button", {
+                type: "button",
+                onClick: e => {
+                  e.stopPropagation();
+                  setImportFile(null);
+                },
+                className: "mt-4 text-xs text-red-500 cursor-pointer rounded-full px-2 py-1 hover:underline flex items-center gap-1",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  className: "size-3"
+                }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Remove file', 'productbay-pro')]
+              })]
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              className: "flex flex-col items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                className: "size-8 text-gray-400 group-hover:text-blue-500 mb-4"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "text-gray-900 font-bold text-lg mb-1",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Drop JSON file here', 'productbay-pro')
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "text-gray-500 text-sm",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('or click to browse from your computer', 'productbay-pro')
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "space-y-4 pt-4 border-t border-gray-100",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
+              className: "text-sm font-bold text-gray-900 uppercase mb-2",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Import Options', 'productbay-pro')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              className: "grid grid-cols-1 gap-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                className: "space-y-1.5",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("label", {
+                  className: "text-xs font-bold text-gray-700",
+                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Conflict Resolution', 'productbay-pro')
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Select, {
+                  value: importOptions.overlapMode,
+                  onChange: val => setImportOptions(prev => ({
+                    ...prev,
+                    overlapMode: val
+                  })),
+                  options: [{
+                    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Create New (Keep both)', 'productbay-pro'),
+                    value: 'create'
+                  }, {
+                    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Overwrite Existing', 'productbay-pro'),
+                    value: 'overwrite'
+                  }, {
+                    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Skip Duplicates', 'productbay-pro'),
+                    value: 'skip'
+                  }]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                className: "flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                  className: "flex flex-col",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                    className: "text-xs font-bold text-gray-900",
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Rename Imported', 'productbay-pro')
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                    className: "text-xs text-gray-500",
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Add "(Imported)" to titles', 'productbay-pro')
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Toggle, {
+                  checked: importOptions.addImportedTitle,
+                  onChange: e => setImportOptions(prev => ({
+                    ...prev,
+                    addImportedTitle: e.target.checked
+                  }))
+                })]
+              })]
+            })]
+          }), importStatus === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Alert, {
+            variant: "destructive",
+            className: "mt-4",
+            children: importMsg
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "flex justify-end gap-3 pt-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              variant: "ghost",
+              className: "cursor-pointer",
+              onClick: closeImportModal,
+              disabled: importStatus === 'loading',
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Cancel', 'productbay-pro')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              onClick: handleRunImport,
+              disabled: !importFile || importStatus === 'loading',
+              className: "px-8 min-w-[140px] cursor-pointer",
+              children: importStatus === 'loading' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                  className: "size-4 mr-2 animate-spin"
+                }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Importing...', 'productbay-pro')]
+              }) : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Start Import', 'productbay-pro')
+            })]
+          })]
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Modal, {
+      isOpen: exportModalOpen,
+      onClose: closeExportModal,
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Export Tables & Settings', 'productbay-pro'),
+      className: "max-w-2xl",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: "space-y-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "bg-productbay-brand/10 border border-productbay-brand/25 rounded-xl p-4 flex items-center justify-between group hover:bg-orange-100/50 transition-colors",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "flex items-center gap-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "bg-productbay-brand text-white p-2 rounded-lg flex justify-center items-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                className: "size-5"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "block font-bold text-orange-900 text-sm",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Plugin Global Settings', 'productbay-pro')
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "block text-xs text-orange-800",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Includes general, API, and appearance defaults', 'productbay-pro')
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Toggle, {
+            checked: includeSettings,
+            onChange: e => setIncludeSettings(e.target.checked)
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "border border-gray-300 rounded-lg",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "flex items-center justify-between border-b border-gray-300 px-4 py-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
+                className: "text-sm font-bold text-gray-900",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select Items to Export', 'productbay-pro')
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                className: "text-xs text-gray-500 mt-1",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose which tables and configurations you want to include in the package.', 'productbay-pro')
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              variant: "outline",
+              size: "xs",
+              className: "cursor-pointer hover:bg-blue-600 hover:text-white",
+              onClick: () => {
+                const allIds = availableTables.map(t => t.id).filter(Boolean);
+                const isAllSelected = exportTableIds.length === allIds.length;
+                setExportSelection(isAllSelected ? [] : allIds);
+              },
+              children: exportTableIds.length === availableTables.length ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Deselect All', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select All', 'productbay-pro')
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            className: "max-h-[350px] overflow-y-auto custom-scrollbar",
+            children: availableTables.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                className: "text-gray-400 text-sm",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No tables found to export.', 'productbay-pro')
+              })
+            }) : availableTables.map(table => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              onClick: () => toggleTableSelection(table.id),
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_11__.cn)("flex items-center justify-between p-3 cursor-pointer transition-all", exportTableIds.includes(table.id) ? "bg-blue-50 hover:bg-productbay-brand/10" : "hover:bg-blue-100"),
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                className: "flex items-center gap-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+                  className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_11__.cn)("w-5 h-5 rounded border flex items-center justify-center transition-colors", exportTableIds.includes(table.id) ? "bg-blue-500 border-blue-500" : "bg-white border-gray-300"),
+                  children: exportTableIds.includes(table.id) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                    className: "size-3.5 text-white"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                    className: "block font-bold text-gray-900 text-sm",
+                    children: table.title
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
+                    className: "block text-xs text-gray-500 uppercase tracking-tighter",
+                    children: ["ID: ", table.id, " \u2022 ", table.columns?.length || 0, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Columns', 'productbay-pro')]
+                  })]
+                })]
+              }), table.status === 'publish' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "text-xs font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full uppercase",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Published', 'productbay-pro')
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "text-xs font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full uppercase",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Private', 'productbay-pro')
+              })]
+            }, table.id))
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "bg-blue-50/50 border border-blue-100 rounded-lg p-3 flex items-start gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            className: "size-4 text-blue-500 mt-0.5 shrink-0"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+            className: "text-[11px] text-blue-700 leading-relaxed",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Exporting creates a .json file of selected data, which can be imported into any WooCommerce site running ProductBay.', 'productbay-pro')
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex items-center justify-between pt-4 border-t border-gray-100",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "text-sm font-bold text-gray-700",
+            children: [exportTableIds.length, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Tables Selected', 'productbay-pro')]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "flex gap-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              variant: "ghost",
+              className: "cursor-pointer",
+              onClick: closeExportModal,
+              disabled: exportLoading,
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Cancel', 'productbay-pro')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              onClick: handleRunExport,
+              disabled: exportLoading || exportTableIds.length === 0 && !includeSettings,
+              className: "min-w-[160px] cursor-pointer",
+              children: exportLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                  className: "size-4 mr-2 animate-spin"
+                }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Preparing...', 'productbay-pro')]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  className: "size-4 mr-2"
+                }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Generate Export', 'productbay-pro')]
+              })
+            })]
+          })]
+        })]
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ImportExportSlot);
+
+/***/ },
+
+/***/ "./src/slots/LicenseBanner.tsx"
+/*!*************************************!*\
+  !*** ./src/slots/LicenseBanner.tsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/utils/constants */ "./src/utils/constants.ts");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/key.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/shield-alert.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+const {
+  Button
+} = window.productbay?.ui || {};
+
+/**
+ * LicenseBanner component
+ * 
+ * Injects a persistent banner into the free plugin's AdminLayout if the Pro
+ * license is missing, expired, or invalid. Disappears completely when active.
+ */
+const LicenseBanner = () => {
+  const license = window.productBaySettings?.license;
+  const status = license?.status || 'inactive';
+
+  // If license is active, banner disappears completely
+  if (status === 'active') {
+    return null;
+  }
+  const handleGoToSettings = () => {
+    // Navigate to the license tab
+    window.location.hash = _utils_constants__WEBPACK_IMPORTED_MODULE_2__.PRO_ROUTES.LICENSE_TAB;
+  };
+  let bannerConfig = {
+    bgClass: 'bg-amber-50 border-b border-amber-200 text-amber-800',
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      className: "w-5 h-5 text-amber-600"
+    }),
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('License Required', 'productbay-pro'),
+    message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Activate your ProductBay Pro license to receive automatic updates and premium support.', 'productbay-pro'),
+    buttonText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Activate License', 'productbay-pro'),
+    buttonVariant: 'default'
+  };
+  if (status === 'expired') {
+    bannerConfig = {
+      bgClass: 'bg-amber-50 border-b border-amber-200 text-amber-800',
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        className: "w-5 h-5 text-amber-600"
+      }),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('License Expired', 'productbay-pro'),
+      message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Your ProductBay Pro license has expired. Renew to continue receiving updates.', 'productbay-pro'),
+      buttonText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Renew License', 'productbay-pro'),
+      buttonVariant: 'default'
+    };
+  } else if (status === 'invalid') {
+    bannerConfig = {
+      bgClass: 'bg-red-50 border-b border-red-200 text-red-800',
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        className: "w-5 h-5 text-red-600"
+      }),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('License Invalid', 'productbay-pro'),
+      message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Your ProductBay Pro license key is invalid or has been revoked.', 'productbay-pro'),
+      buttonText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Check License', 'productbay-pro'),
+      buttonVariant: 'destructive'
+    };
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Fill, {
+    name: "productbay-pro-banner",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: `w-full px-6 py-3 flex items-center justify-between shadow-sm ${bannerConfig.bgClass}`,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "flex items-center gap-3 text-base",
+        children: [bannerConfig.icon, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+            className: "font-semibold block sm:inline mr-2",
+            children: [bannerConfig.title, ":"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            className: "",
+            children: bannerConfig.message
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        children: Button && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Button, {
+          variant: bannerConfig.buttonVariant,
+          size: "sm",
+          onClick: handleGoToSettings,
+          className: "whitespace-nowrap cursor-pointer",
+          children: bannerConfig.buttonText
+        })
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LicenseBanner);
+
+/***/ },
+
+/***/ "./src/slots/LicenseTab.tsx"
+/*!**********************************!*\
+  !*** ./src/slots/LicenseTab.tsx ***!
+  \**********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/external-link.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/key.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/shield-alert.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/shield-check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/utils/constants */ "./src/utils/constants.ts");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__);
+
+
+
+
+
+
+const {
+  Button,
+  Input,
+  ConfirmButton
+} = window.productbay?.ui || {};
+const {
+  SectionHeading
+} = window.productbay?.components || {};
+const apiFetch = window.productbay?.apiFetch;
+
+// Types
+
+/**
+ * Parses a string to check if it's a JSON error message.
+ * If true, returns the 'message' property from the JSON.
+ * Otherwise returns the raw string.
+ */
+const parseErrorMessage = error => {
+  try {
+    const parsed = JSON.parse(error);
+    if (parsed && typeof parsed === 'object' && parsed.message) {
+      return parsed.message;
+    }
+  } catch (e) {
+    // Not JSON, return as is
+  }
+  return error;
+};
+const LicenseTab = () => {
+  const [license, setLicense] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(null);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(true);
+  const [actionLoading, setActionLoading] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(false);
+  const [inputKey, setInputKey] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)('');
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(null);
+  const [successMsg, setSuccessMsg] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(null);
+
+  // Fetch current status on mount
+  const fetchStatus = (0,react__WEBPACK_IMPORTED_MODULE_6__.useCallback)(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_7__.API_ENDPOINTS.LICENSE, {
+        method: 'GET'
+      });
+      setLicense(data);
+    } catch (err) {
+      setError(parseErrorMessage(err.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Failed to load license status.', 'productbay-pro')));
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
+    if (apiFetch) {
+      fetchStatus();
+    } else {
+      setLoading(false);
+      setError((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('API client not available. Please ensure ProductBay free is up to date.', 'productbay-pro'));
+    }
+  }, [fetchStatus]);
+
+  // Handle activation
+  const handleActivate = async () => {
+    if (!inputKey.trim()) {
+      setError((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Please enter a license key.', 'productbay-pro'));
+      return;
+    }
+    setActionLoading(true);
+    setError(null);
+    setSuccessMsg(null);
+    try {
+      const res = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_7__.API_ENDPOINTS.LICENSE, {
+        method: 'POST',
+        body: JSON.stringify({
+          license_key: inputKey.trim()
+        })
+      });
+      setSuccessMsg(res.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('License activated successfully.', 'productbay-pro'));
+      setInputKey('');
+
+      // Refresh state
+      await fetchStatus();
+
+      // Also update the global object so banner hides immediately
+      if (window.productBaySettings && window.productBaySettings.license) {
+        window.productBaySettings.license.status = 'active';
+      }
+
+      // Reload page after a delay to ensure everything is synchronized 
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    } catch (err) {
+      setError(parseErrorMessage(err.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Activation failed.', 'productbay-pro')));
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  // Handle removal
+  const handleRemove = async () => {
+    setActionLoading(true);
+    setError(null);
+    setSuccessMsg(null);
+    try {
+      const res = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_7__.API_ENDPOINTS.LICENSE, {
+        method: 'DELETE'
+      });
+      setSuccessMsg(res.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('License removed.', 'productbay-pro'));
+      if (window.productBaySettings && window.productBaySettings.license) {
+        window.productBaySettings.license.status = 'inactive';
+      }
+      document.body.style.pointerEvents = 'none';
+      window.location.reload();
+    } catch (err) {
+      setError(parseErrorMessage(err.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Failed to remove license.', 'productbay-pro')));
+      setActionLoading(false);
+    }
+  };
+  if (!SectionHeading) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.Fill, {
+    name: "productbay-pro-settings-license",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("section", {
+      className: "space-y-6 p-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(SectionHeading, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('ProductBay Pro License', 'productbay-pro'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Manage your license key to receive automatic updates and premium support.', 'productbay-pro')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        className: "bg-white rounded-lg p-6",
+        children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "flex items-center space-x-3 text-gray-500",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "w-5 h-5 animate-spin"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Checking license status...', 'productbay-pro')
+          })]
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "space-y-6",
+          children: [error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md text-sm",
+            children: error
+          }), successMsg && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md text-sm",
+            children: successMsg
+          }), license && (license.status === 'active' || license.status === 'expired') ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "space-y-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                className: "flex items-center gap-3",
+                children: [license.status === 'active' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "w-12 h-12 bg-[#f05c2a]/10 flex items-center justify-center rounded-full shrink-0",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                    className: "w-6 h-6 text-[#f05c2a]"
+                  })
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "w-12 h-12 bg-amber-100 flex items-center justify-center rounded-full shrink-0",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                    className: "w-6 h-6 text-amber-600"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h3", {
+                    className: "font-medium text-gray-900",
+                    children: license.status === 'active' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('License Active', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('License Expired', 'productbay-pro')
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+                    className: "text-sm text-gray-500 font-mono mt-1",
+                    children: license.maskedKey
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                className: "text-right",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: `text-sm font-medium ${license.status === 'active' ? 'text-green-600' : 'text-amber-600'}`,
+                  children: license.status === 'active' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Valid', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Expired', 'productbay-pro')
+                }), license.expiresAt ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("p", {
+                  className: "text-xs text-gray-500 mt-1",
+                  children: [license.status === 'active' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Valid till:', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Expired on:', 'productbay-pro'), " ", new Date(license.expiresAt).toLocaleDateString()]
+                }) : license.status === 'active' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+                  className: "text-xs text-gray-500 mt-1",
+                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Valid till: Lifetime', 'productbay-pro')
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "flex gap-3 pt-2 justify-end",
+              children: [ConfirmButton && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ConfirmButton, {
+                confirmMessage: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Are you sure you want to remove this license? You will no longer receive updates.', 'productbay-pro'),
+                onConfirm: handleRemove,
+                variant: "outline",
+                className: "text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700",
+                disabled: actionLoading,
+                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                  className: "w-4 h-4 mr-2"
+                }),
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Remove License', 'productbay-pro')
+              }), license.status === 'expired' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
+                href: _utils_constants__WEBPACK_IMPORTED_MODULE_7__.PRO_ROUTES.ACCOUNT,
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+                children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Renew License', 'productbay-pro'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_0__["default"], {
+                  className: "w-4 h-4 ml-2"
+                })]
+              })]
+            })]
+          }) :
+          /*#__PURE__*/
+          /* Inactive/Invalid State */
+          (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "space-y-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+              className: "text-sm text-gray-600 mb-2",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Enter your license key below to activate ProductBay Pro and enable automatic updates.', 'productbay-pro')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "flex gap-3 max-w-md",
+              children: [Input && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Input, {
+                type: "password",
+                placeholder: "WPAB-XXXX-XXXX-XXXX-XXXX",
+                value: inputKey,
+                onChange: e => setInputKey(e.target.value),
+                className: "flex-1",
+                disabled: actionLoading
+              }), Button && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(Button, {
+                variant: "default",
+                onClick: handleActivate,
+                disabled: actionLoading || !inputKey.trim(),
+                className: "cursor-pointer",
+                children: [actionLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  className: "w-4 h-4 mr-2 animate-spin"
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                  className: "w-4 h-4 mr-2"
+                }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Activate', 'productbay-pro')]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+              className: "pt-4 border-t border-gray-100 mt-6",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("p", {
+                className: "text-sm text-gray-500",
+                children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Don\'t have a license? ', 'productbay-pro'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
+                  href: _utils_constants__WEBPACK_IMPORTED_MODULE_7__.PRO_ROUTES.LEARN_MORE,
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "text-blue-600 hover:underline underline-offset-4 inline-flex items-center",
+                  children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Get ProductBay Pro', 'productbay-pro'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_0__["default"], {
+                    className: "w-3 h-3 ml-1"
+                  })]
+                })]
+              })
+            })]
+          })]
+        })
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LicenseTab);
+
+/***/ },
+
+/***/ "./src/slots/PriceFilterSlot.tsx"
+/*!***************************************!*\
+  !*** ./src/slots/PriceFilterSlot.tsx ***!
+  \***************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/ui */ "./src/components/ui/index.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+const {
+  SectionHeading,
+  SettingsOption
+} = window.productbay?.components || {};
+
+/**
+ * SettingsSection Component (Internal Helper shadowed from Free)
+ */
+
+const SettingsSection = ({
+  title,
+  description,
+  children
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("section", {
+  className: "space-y-6 pt-8 border-t border-gray-100 mt-8",
+  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SectionHeading, {
+    title: title,
+    description: description
+  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    className: "space-y-2",
+    children: children
+  })]
+});
+
+/**
+ * PriceFilterFill component
+ * 
+ * This component renders the Price Filter settings into the 'productbay-pro-options' slot.
+ */
+const PriceFilterFill = () => {
+  // Access the global store hook exposed by the Free plugin
+  const useTableStore = window.productbay?.useTableStore;
+  if (!useTableStore) {
+    return null;
+  }
+  const {
+    settings,
+    setFeatures
+  } = useTableStore();
+
+  // Default config if not present
+  const config = settings?.features?.priceFilter || {
+    enabled: false,
+    mode: 'both',
+    step: 1
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Fill, {
+    name: "productbay-pro-options",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Price Range Filter (Pro)', 'productbay-pro'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Configure frontend price filtering options', 'productbay-pro'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enable Price Filter', 'productbay-pro'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show a price range slider/input in the table toolbar', 'productbay-pro'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_4__.Toggle, {
+          checked: !!config.enabled,
+          onChange: e => setFeatures({
+            priceFilter: {
+              ...config,
+              enabled: e.target.checked
+            }
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_1__.cn)("transition-all duration-300 space-y-2", config.enabled ? "opacity-100" : "opacity-40 pointer-events-none grayscale"),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Filter Mode', 'productbay-pro'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose between range slider, numeric inputs, or both', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_4__.Select, {
+            value: config.mode || 'both',
+            onChange: value => setFeatures({
+              priceFilter: {
+                ...config,
+                mode: value
+              }
+            }),
+            options: [{
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slider Only', 'productbay-pro'),
+              value: 'slider'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Inputs Only', 'productbay-pro'),
+              value: 'input'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Both (Slider + Inputs)', 'productbay-pro'),
+              value: 'both'
+            }],
+            className: "w-60"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Filter Step', 'productbay-pro'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Increment value for slider and inputs', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+            type: "number",
+            min: "0.01",
+            step: "0.01",
+            value: config.step || 1,
+            onChange: e => setFeatures({
+              priceFilter: {
+                ...config,
+                step: parseFloat(e.target.value) || 1
+              }
+            }),
+            className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Minimum Price', 'productbay-pro'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Leave empty to auto-detect from products', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+            type: "number",
+            min: "0",
+            placeholder: "Auto",
+            value: config.customMin ?? '',
+            onChange: e => setFeatures({
+              priceFilter: {
+                ...config,
+                customMin: e.target.value === '' ? null : parseFloat(e.target.value)
+              }
+            }),
+            className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(SettingsOption, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Maximum Price', 'productbay-pro'),
+          description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Leave empty to auto-detect from products', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+            type: "number",
+            min: "0",
+            placeholder: "Auto",
+            value: config.customMax ?? '',
+            onChange: e => setFeatures({
+              priceFilter: {
+                ...config,
+                customMax: e.target.value === '' ? null : parseFloat(e.target.value)
+              }
+            }),
+            className: "w-24 h-9 px-3 py-2 text-center border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+          })
+        })]
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PriceFilterFill);
+
+/***/ },
+
+/***/ "./src/slots/VariationsSlot.tsx"
+/*!**************************************!*\
+  !*** ./src/slots/VariationsSlot.tsx ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ui */ "./src/components/ui/index.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+const {
+  SectionHeading,
+  SettingsOption
+} = window.productbay?.components || {};
+
+/**
+ * SettingsSection Component (Internal Helper shadowed from Free)
+ */
+
+const SettingsSection = ({
+  title,
+  description,
+  children
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
+  className: "space-y-6 pt-8 border-t border-gray-100 mt-8",
+  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SectionHeading, {
+    title: title,
+    description: description
+  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    className: "space-y-2",
+    children: children
+  })]
+});
+
+/**
+ * Display mode options for variable products.
+ * Variable products support inline (attribute dropdowns), popup, nested, and separate modes.
+ */
+const variableModeOptions = [{
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Inline Dropdown', 'productbay-pro'),
+  value: 'inline'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Popup Modal', 'productbay-pro'),
+  value: 'popup'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Nested Rows', 'productbay-pro'),
+  value: 'nested'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate Rows', 'productbay-pro'),
+  value: 'separate'
+}];
+
+/**
+ * Display mode options for grouped products.
+ * Grouped products support inline (child product dropdown), popup, nested, and separate modes.
+ */
+const groupedModeOptions = [{
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Inline Dropdown', 'productbay-pro'),
+  value: 'inline'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Popup Modal', 'productbay-pro'),
+  value: 'popup'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Nested Rows', 'productbay-pro'),
+  value: 'nested'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate Rows', 'productbay-pro'),
+  value: 'separate'
+}];
+
+/**
+ * VariationsSlot component
+ *
+ * Renders the Variable & Grouped Products configuration into the 'productbay-pro-options' slot.
+ * Provides separate display mode selectors for variable and grouped products, plus controls
+ * for nested row behavior and product subtitle display.
+ *
+ * Settings are persisted via the tableStore and applied in the PHP VariationsModule
+ * using the productbay_cell_output and productbay_after_row hooks.
+ */
+const VariationsSlot = () => {
+  // Access the global store hook exposed by the Free plugin
+  const useTableStore = window.productbay?.useTableStore;
+  if (!useTableStore) {
+    return null;
+  }
+  const {
+    settings,
+    setFeatures
+  } = useTableStore();
+  const features = settings?.features || {};
+
+  // Read new per-type settings with fallback to legacy variationsMode
+  const variableMode = features.variableProductMode || features.variationsMode || 'inline';
+  const groupedMode = features.groupedProductMode || (features.variationsMode !== 'inline' ? features.variationsMode : 'popup') || 'popup';
+  const nestedExpanded = features.nestedDefaultExpanded ?? false;
+  const showChildCount = features.showChildCount ?? true;
+
+  // Check if either mode uses nested to show the expand toggle
+  const hasNestedMode = variableMode === 'nested' || groupedMode === 'nested';
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Fill, {
+    name: "productbay-pro-options",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(SettingsSection, {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Variable & Grouped Products (Pro)', 'productbay-pro'),
+      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Configure how complex products are displayed in the table', 'productbay-pro'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Variable Products', 'productbay-pro'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Products with attribute-based variations (e.g., size, color)', 'productbay-pro'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_3__.Select, {
+          value: variableMode,
+          onChange: value => setFeatures({
+            variableProductMode: value,
+            // Sync legacy key for backward compatibility
+            variationsMode: value
+          }),
+          options: variableModeOptions,
+          className: "w-60"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Grouped Products', 'productbay-pro'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Products containing multiple child simple products', 'productbay-pro'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_3__.Select, {
+          value: groupedMode,
+          onChange: value => setFeatures({
+            groupedProductMode: value
+          }),
+          options: groupedModeOptions,
+          className: "w-60"
+        })
+      }), hasNestedMode && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Expand Nested Rows', 'productbay-pro'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show nested rows expanded by default instead of collapsed', 'productbay-pro'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          checked: nestedExpanded,
+          onChange: e => setFeatures({
+            nestedDefaultExpanded: e.target.checked
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SettingsOption, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Options Count', 'productbay-pro'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display "X options available" subtitle below product name', 'productbay-pro'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
+          checked: showChildCount,
+          onChange: e => setFeatures({
+            showChildCount: e.target.checked
+          })
+        })
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VariationsSlot);
+
+/***/ },
+
+/***/ "./src/utils/cn.ts"
+/*!*************************!*\
+  !*** ./src/utils/cn.ts ***!
+  \*************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cn: () => (/* binding */ cn)
+/* harmony export */ });
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var tailwind_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tailwind-merge */ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs");
+
+
+function cn(...inputs) {
+  return (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_1__.twMerge)((0,clsx__WEBPACK_IMPORTED_MODULE_0__.clsx)(inputs));
+}
+
+/***/ },
+
+/***/ "./src/utils/constants.ts"
+/*!********************************!*\
+  !*** ./src/utils/constants.ts ***!
+  \********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   API_ENDPOINTS: () => (/* binding */ API_ENDPOINTS),
+/* harmony export */   EXTERNAL_URLS: () => (/* binding */ EXTERNAL_URLS),
+/* harmony export */   LICENSE_TAB_HASH: () => (/* binding */ LICENSE_TAB_HASH),
+/* harmony export */   PRO_CONFIG: () => (/* binding */ PRO_CONFIG),
+/* harmony export */   PRO_ROUTES: () => (/* binding */ PRO_ROUTES),
+/* harmony export */   REST_NAMESPACE: () => (/* binding */ REST_NAMESPACE)
+/* harmony export */ });
+/**
+ * Central constants for ProductBay Pro.
+ *
+ * Contains all configuration values, API endpoints, and external URLs.
+ * Update values here instead of scattered files.
+ */
+
+const PRO_CONFIG = {
+  VERSION: '1.0.0',
+  SLUG: 'productbay-pro'
+};
+const API_ENDPOINTS = {
+  LICENSE: 'pro/license',
+  EXPORT: 'pro/export',
+  IMPORT: 'pro/import',
+  META_KEYS: 'pro/meta-keys'
+};
+const REST_NAMESPACE = 'productbay/v1';
+const EXTERNAL_URLS = {
+  ACCOUNT: 'https://wpanchorbay.com/my-account',
+  PURCHASE: 'https://wpanchorbay.com/product/productbay/',
+  LEARN_MORE: 'https://wpanchorbay.com/plugins/productbay/',
+  DOCS: 'https://wpanchorbay.com/docs/productbay/',
+  SUPPORT: 'https://wpanchorbay.com/support/',
+  LICENSE_SERVER: 'https://wpanchorbay.com/wp-json/license-server/v1'
+};
+const LICENSE_TAB_HASH = '#/settings?tab=license';
+const PRO_ROUTES = {
+  ACCOUNT: EXTERNAL_URLS.ACCOUNT,
+  PURCHASE: EXTERNAL_URLS.PURCHASE,
+  LEARN_MORE: EXTERNAL_URLS.LEARN_MORE,
+  DOCS: EXTERNAL_URLS.DOCS,
+  SUPPORT: EXTERNAL_URLS.SUPPORT,
+  LICENSE_TAB: LICENSE_TAB_HASH
+};
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/Icon.js"
+/*!****************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/Icon.js ***!
+  \****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Icon)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./defaultAttributes.js */ "./node_modules/lucide-react/dist/esm/defaultAttributes.js");
+/* harmony import */ var _shared_src_utils_hasA11yProp_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/src/utils/hasA11yProp.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/hasA11yProp.js");
+/* harmony import */ var _shared_src_utils_mergeClasses_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared/src/utils/mergeClasses.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js");
+/* harmony import */ var _context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./context.js */ "./node_modules/lucide-react/dist/esm/context.js");
+
+"use client";
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+
+
+const Icon = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
+  ({ color, size, strokeWidth, absoluteStrokeWidth, className = "", children, iconNode, ...rest }, ref) => {
+    const {
+      size: contextSize = 24,
+      strokeWidth: contextStrokeWidth = 2,
+      absoluteStrokeWidth: contextAbsoluteStrokeWidth = false,
+      color: contextColor = "currentColor",
+      className: contextClass = ""
+    } = (0,_context_js__WEBPACK_IMPORTED_MODULE_4__.useLucideContext)() ?? {};
+    const calculatedStrokeWidth = absoluteStrokeWidth ?? contextAbsoluteStrokeWidth ? Number(strokeWidth ?? contextStrokeWidth) * 24 / Number(size ?? contextSize) : strokeWidth ?? contextStrokeWidth;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(
+      "svg",
+      {
+        ref,
+        ..._defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+        width: size ?? contextSize ?? _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__["default"].width,
+        height: size ?? contextSize ?? _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__["default"].height,
+        stroke: color ?? contextColor,
+        strokeWidth: calculatedStrokeWidth,
+        className: (0,_shared_src_utils_mergeClasses_js__WEBPACK_IMPORTED_MODULE_3__.mergeClasses)("lucide", contextClass, className),
+        ...!children && !(0,_shared_src_utils_hasA11yProp_js__WEBPACK_IMPORTED_MODULE_2__.hasA11yProp)(rest) && { "aria-hidden": "true" },
+        ...rest
+      },
+      [
+        ...iconNode.map(([tag, attrs]) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(tag, attrs)),
+        ...Array.isArray(children) ? children : [children]
+      ]
+    );
+  }
+);
+
+
+//# sourceMappingURL=Icon.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/context.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/context.js ***!
+  \*******************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LucideProvider: () => (/* binding */ LucideProvider),
+/* harmony export */   useLucideContext: () => (/* binding */ useLucideContext)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+"use client";
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const LucideContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+function LucideProvider({
+  children,
+  size,
+  color,
+  strokeWidth,
+  absoluteStrokeWidth,
+  className
+}) {
+  const value = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(
+    () => ({
+      size,
+      color,
+      strokeWidth,
+      absoluteStrokeWidth,
+      className
+    }),
+    [size, color, strokeWidth, absoluteStrokeWidth, className]
+  );
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(LucideContext.Provider, { value }, children);
+}
+const useLucideContext = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(LucideContext);
+
+
+//# sourceMappingURL=context.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/createLucideIcon.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/createLucideIcon.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ createLucideIcon)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_src_utils_mergeClasses_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shared/src/utils/mergeClasses.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js");
+/* harmony import */ var _shared_src_utils_toKebabCase_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/src/utils/toKebabCase.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js");
+/* harmony import */ var _shared_src_utils_toPascalCase_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared/src/utils/toPascalCase.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js");
+/* harmony import */ var _Icon_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Icon.js */ "./node_modules/lucide-react/dist/esm/Icon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+
+
+const createLucideIcon = (iconName, iconNode) => {
+  const Component = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
+    ({ className, ...props }, ref) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Icon_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      ref,
+      iconNode,
+      className: (0,_shared_src_utils_mergeClasses_js__WEBPACK_IMPORTED_MODULE_1__.mergeClasses)(
+        `lucide-${(0,_shared_src_utils_toKebabCase_js__WEBPACK_IMPORTED_MODULE_2__.toKebabCase)((0,_shared_src_utils_toPascalCase_js__WEBPACK_IMPORTED_MODULE_3__.toPascalCase)(iconName))}`,
+        `lucide-${iconName}`,
+        className
+      ),
+      ...props
+    })
+  );
+  Component.displayName = (0,_shared_src_utils_toPascalCase_js__WEBPACK_IMPORTED_MODULE_3__.toPascalCase)(iconName);
+  return Component;
+};
+
+
+//# sourceMappingURL=createLucideIcon.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/defaultAttributes.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/defaultAttributes.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ defaultAttributes)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+
+//# sourceMappingURL=defaultAttributes.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/bolt.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/bolt.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Bolt)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z",
+      key: "yt0hxn"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }]
+];
+const Bolt = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("bolt", __iconNode);
+
+
+//# sourceMappingURL=bolt.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/check.js"
+/*!***********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/check.js ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Check)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("check", __iconNode);
+
+
+//# sourceMappingURL=check.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-check.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-check.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ CircleCheck)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+const CircleCheck = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle-check", __iconNode);
+
+
+//# sourceMappingURL=circle-check.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/download.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/download.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Download)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 15V3", key: "m9g1x1" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
+  ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
+];
+const Download = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("download", __iconNode);
+
+
+//# sourceMappingURL=download.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/external-link.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/external-link.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ExternalLink)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
+  ["path", { d: "M10 14 21 3", key: "gplh6r" }],
+  ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
+];
+const ExternalLink = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("external-link", __iconNode);
+
+
+//# sourceMappingURL=external-link.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/file-braces.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/file-braces.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ FileBraces)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
+      key: "1oefj6"
+    }
+  ],
+  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
+  [
+    "path",
+    { d: "M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1", key: "1oajmo" }
+  ],
+  [
+    "path",
+    { d: "M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1", key: "mpwhp6" }
+  ]
+];
+const FileBraces = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("file-braces", __iconNode);
+
+
+//# sourceMappingURL=file-braces.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/file-text.js"
+/*!***************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/file-text.js ***!
+  \***************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ FileText)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
+      key: "1oefj6"
+    }
+  ],
+  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
+  ["path", { d: "M10 9H8", key: "b1mrlr" }],
+  ["path", { d: "M16 13H8", key: "t4e002" }],
+  ["path", { d: "M16 17H8", key: "z1uh3a" }]
+];
+const FileText = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("file-text", __iconNode);
+
+
+//# sourceMappingURL=file-text.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/info.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/info.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Info)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 16v-4", key: "1dtifu" }],
+  ["path", { d: "M12 8h.01", key: "e9boi3" }]
+];
+const Info = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("info", __iconNode);
+
+
+//# sourceMappingURL=info.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/key.js"
+/*!*********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/key.js ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Key)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4", key: "g0fldk" }],
+  ["path", { d: "m21 2-9.6 9.6", key: "1j0ho8" }],
+  ["circle", { cx: "7.5", cy: "15.5", r: "5.5", key: "yqb3hr" }]
+];
+const Key = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("key", __iconNode);
+
+
+//# sourceMappingURL=key.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/loader-circle.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ LoaderCircle)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("loader-circle", __iconNode);
+
+
+//# sourceMappingURL=loader-circle.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/refresh-cw.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ RefreshCw)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
+  ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
+  ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
+  ["path", { d: "M8 16H3v5", key: "1cv678" }]
+];
+const RefreshCw = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("refresh-cw", __iconNode);
+
+
+//# sourceMappingURL=refresh-cw.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/search.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/search.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Search)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
+];
+const Search = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("search", __iconNode);
+
+
+//# sourceMappingURL=search.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/shield-alert.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/shield-alert.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ShieldAlert)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "M12 8v4", key: "1got3b" }],
+  ["path", { d: "M12 16h.01", key: "1drbdi" }]
+];
+const ShieldAlert = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("shield-alert", __iconNode);
+
+
+//# sourceMappingURL=shield-alert.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/shield-check.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/shield-check.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ShieldCheck)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+const ShieldCheck = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("shield-check", __iconNode);
+
+
+//# sourceMappingURL=shield-check.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/sparkles.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/sparkles.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Sparkles)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z",
+      key: "1s2grr"
+    }
+  ],
+  ["path", { d: "M20 2v4", key: "1rf3ol" }],
+  ["path", { d: "M22 4h-4", key: "gwowj6" }],
+  ["circle", { cx: "4", cy: "20", r: "2", key: "6kqj1y" }]
+];
+const Sparkles = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("sparkles", __iconNode);
+
+
+//# sourceMappingURL=sparkles.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/store.js"
+/*!***********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/store.js ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Store)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5", key: "slp6dd" }],
+  [
+    "path",
+    {
+      d: "M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244",
+      key: "o0xfot"
+    }
+  ],
+  ["path", { d: "M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05", key: "wn3emo" }]
+];
+const Store = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("store", __iconNode);
+
+
+//# sourceMappingURL=store.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/trash-2.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/trash-2.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Trash2)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M10 11v6", key: "nco0om" }],
+  ["path", { d: "M14 11v6", key: "outv1u" }],
+  ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
+  ["path", { d: "M3 6h18", key: "d0wm0j" }],
+  ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
+];
+const Trash2 = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("trash-2", __iconNode);
+
+
+//# sourceMappingURL=trash-2.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/upload.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/upload.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Upload)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 3v12", key: "1x0j5s" }],
+  ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
+];
+const Upload = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("upload", __iconNode);
+
+
+//# sourceMappingURL=upload.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/x.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/x.js ***!
+  \*******************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ X)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
+];
+const X = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("x", __iconNode);
+
+
+//# sourceMappingURL=x.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/hasA11yProp.js"
+/*!****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/hasA11yProp.js ***!
+  \****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasA11yProp: () => (/* binding */ hasA11yProp)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const hasA11yProp = (props) => {
+  for (const prop in props) {
+    if (prop.startsWith("aria-") || prop === "role" || prop === "title") {
+      return true;
+    }
+  }
+  return false;
+};
+
+
+//# sourceMappingURL=hasA11yProp.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js"
+/*!*****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js ***!
+  \*****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mergeClasses: () => (/* binding */ mergeClasses)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const mergeClasses = (...classes) => classes.filter((className, index, array) => {
+  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
+}).join(" ").trim();
+
+
+//# sourceMappingURL=mergeClasses.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/toCamelCase.js"
+/*!****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/toCamelCase.js ***!
+  \****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toCamelCase: () => (/* binding */ toCamelCase)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const toCamelCase = (string) => string.replace(
+  /^([A-Z])|[\s-_]+(\w)/g,
+  (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase()
+);
+
+
+//# sourceMappingURL=toCamelCase.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js"
+/*!****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js ***!
+  \****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toKebabCase: () => (/* binding */ toKebabCase)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+
+
+//# sourceMappingURL=toKebabCase.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js"
+/*!*****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js ***!
+  \*****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toPascalCase: () => (/* binding */ toPascalCase)
+/* harmony export */ });
+/* harmony import */ var _toCamelCase_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toCamelCase.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/toCamelCase.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const toPascalCase = (string) => {
+  const camelCase = (0,_toCamelCase_js__WEBPACK_IMPORTED_MODULE_0__.toCamelCase)(string);
+  return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+};
+
+
+//# sourceMappingURL=toPascalCase.js.map
+
+
+/***/ },
+
+/***/ "react"
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+(module) {
+
+module.exports = window["React"];
+
+/***/ },
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/dom-ready"
+/*!**********************************!*\
+  !*** external ["wp","domReady"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["domReady"];
+
+/***/ },
+
+/***/ "@wordpress/i18n"
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ },
+
+/***/ "./node_modules/clsx/dist/clsx.mjs"
+/*!*****************************************!*\
+  !*** ./node_modules/clsx/dist/clsx.mjs ***!
+  \*****************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   clsx: () => (/* binding */ clsx),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var o=e.length;for(t=0;t<o;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f)}else for(f in e)e[f]&&(n&&(n+=" "),n+=f);return n}function clsx(){for(var e,t,f=0,n="",o=arguments.length;f<o;f++)(e=arguments[f])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (clsx);
+
+/***/ },
+
+/***/ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs"
+/*!*********************************************************!*\
+  !*** ./node_modules/tailwind-merge/dist/bundle-mjs.mjs ***!
+  \*********************************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createTailwindMerge: () => (/* binding */ createTailwindMerge),
+/* harmony export */   extendTailwindMerge: () => (/* binding */ extendTailwindMerge),
+/* harmony export */   fromTheme: () => (/* binding */ fromTheme),
+/* harmony export */   getDefaultConfig: () => (/* binding */ getDefaultConfig),
+/* harmony export */   mergeConfigs: () => (/* binding */ mergeConfigs),
+/* harmony export */   twJoin: () => (/* binding */ twJoin),
+/* harmony export */   twMerge: () => (/* binding */ twMerge),
+/* harmony export */   validators: () => (/* binding */ validators)
+/* harmony export */ });
+/**
+ * Concatenates two arrays faster than the array spread operator.
+ */
+const concatArrays = (array1, array2) => {
+  // Pre-allocate for better V8 optimization
+  const combinedArray = new Array(array1.length + array2.length);
+  for (let i = 0; i < array1.length; i++) {
+    combinedArray[i] = array1[i];
+  }
+  for (let i = 0; i < array2.length; i++) {
+    combinedArray[array1.length + i] = array2[i];
+  }
+  return combinedArray;
+};
+
+// Factory function ensures consistent object shapes
+const createClassValidatorObject = (classGroupId, validator) => ({
+  classGroupId,
+  validator
+});
+// Factory ensures consistent ClassPartObject shape
+const createClassPartObject = (nextPart = new Map(), validators = null, classGroupId) => ({
+  nextPart,
+  validators,
+  classGroupId
+});
+const CLASS_PART_SEPARATOR = '-';
+const EMPTY_CONFLICTS = [];
+// I use two dots here because one dot is used as prefix for class groups in plugins
+const ARBITRARY_PROPERTY_PREFIX = 'arbitrary..';
+const createClassGroupUtils = config => {
+  const classMap = createClassMap(config);
+  const {
+    conflictingClassGroups,
+    conflictingClassGroupModifiers
+  } = config;
+  const getClassGroupId = className => {
+    if (className.startsWith('[') && className.endsWith(']')) {
+      return getGroupIdForArbitraryProperty(className);
+    }
+    const classParts = className.split(CLASS_PART_SEPARATOR);
+    // Classes like `-inset-1` produce an empty string as first classPart. We assume that classes for negative values are used correctly and skip it.
+    const startIndex = classParts[0] === '' && classParts.length > 1 ? 1 : 0;
+    return getGroupRecursive(classParts, startIndex, classMap);
+  };
+  const getConflictingClassGroupIds = (classGroupId, hasPostfixModifier) => {
+    if (hasPostfixModifier) {
+      const modifierConflicts = conflictingClassGroupModifiers[classGroupId];
+      const baseConflicts = conflictingClassGroups[classGroupId];
+      if (modifierConflicts) {
+        if (baseConflicts) {
+          // Merge base conflicts with modifier conflicts
+          return concatArrays(baseConflicts, modifierConflicts);
+        }
+        // Only modifier conflicts
+        return modifierConflicts;
+      }
+      // Fall back to without postfix if no modifier conflicts
+      return baseConflicts || EMPTY_CONFLICTS;
+    }
+    return conflictingClassGroups[classGroupId] || EMPTY_CONFLICTS;
+  };
+  return {
+    getClassGroupId,
+    getConflictingClassGroupIds
+  };
+};
+const getGroupRecursive = (classParts, startIndex, classPartObject) => {
+  const classPathsLength = classParts.length - startIndex;
+  if (classPathsLength === 0) {
+    return classPartObject.classGroupId;
+  }
+  const currentClassPart = classParts[startIndex];
+  const nextClassPartObject = classPartObject.nextPart.get(currentClassPart);
+  if (nextClassPartObject) {
+    const result = getGroupRecursive(classParts, startIndex + 1, nextClassPartObject);
+    if (result) return result;
+  }
+  const validators = classPartObject.validators;
+  if (validators === null) {
+    return undefined;
+  }
+  // Build classRest string efficiently by joining from startIndex onwards
+  const classRest = startIndex === 0 ? classParts.join(CLASS_PART_SEPARATOR) : classParts.slice(startIndex).join(CLASS_PART_SEPARATOR);
+  const validatorsLength = validators.length;
+  for (let i = 0; i < validatorsLength; i++) {
+    const validatorObj = validators[i];
+    if (validatorObj.validator(classRest)) {
+      return validatorObj.classGroupId;
+    }
+  }
+  return undefined;
+};
+/**
+ * Get the class group ID for an arbitrary property.
+ *
+ * @param className - The class name to get the group ID for. Is expected to be string starting with `[` and ending with `]`.
+ */
+const getGroupIdForArbitraryProperty = className => className.slice(1, -1).indexOf(':') === -1 ? undefined : (() => {
+  const content = className.slice(1, -1);
+  const colonIndex = content.indexOf(':');
+  const property = content.slice(0, colonIndex);
+  return property ? ARBITRARY_PROPERTY_PREFIX + property : undefined;
+})();
+/**
+ * Exported for testing only
+ */
+const createClassMap = config => {
+  const {
+    theme,
+    classGroups
+  } = config;
+  return processClassGroups(classGroups, theme);
+};
+// Split into separate functions to maintain monomorphic call sites
+const processClassGroups = (classGroups, theme) => {
+  const classMap = createClassPartObject();
+  for (const classGroupId in classGroups) {
+    const group = classGroups[classGroupId];
+    processClassesRecursively(group, classMap, classGroupId, theme);
+  }
+  return classMap;
+};
+const processClassesRecursively = (classGroup, classPartObject, classGroupId, theme) => {
+  const len = classGroup.length;
+  for (let i = 0; i < len; i++) {
+    const classDefinition = classGroup[i];
+    processClassDefinition(classDefinition, classPartObject, classGroupId, theme);
+  }
+};
+// Split into separate functions for each type to maintain monomorphic call sites
+const processClassDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  if (typeof classDefinition === 'string') {
+    processStringDefinition(classDefinition, classPartObject, classGroupId);
+    return;
+  }
+  if (typeof classDefinition === 'function') {
+    processFunctionDefinition(classDefinition, classPartObject, classGroupId, theme);
+    return;
+  }
+  processObjectDefinition(classDefinition, classPartObject, classGroupId, theme);
+};
+const processStringDefinition = (classDefinition, classPartObject, classGroupId) => {
+  const classPartObjectToEdit = classDefinition === '' ? classPartObject : getPart(classPartObject, classDefinition);
+  classPartObjectToEdit.classGroupId = classGroupId;
+};
+const processFunctionDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  if (isThemeGetter(classDefinition)) {
+    processClassesRecursively(classDefinition(theme), classPartObject, classGroupId, theme);
+    return;
+  }
+  if (classPartObject.validators === null) {
+    classPartObject.validators = [];
+  }
+  classPartObject.validators.push(createClassValidatorObject(classGroupId, classDefinition));
+};
+const processObjectDefinition = (classDefinition, classPartObject, classGroupId, theme) => {
+  const entries = Object.entries(classDefinition);
+  const len = entries.length;
+  for (let i = 0; i < len; i++) {
+    const [key, value] = entries[i];
+    processClassesRecursively(value, getPart(classPartObject, key), classGroupId, theme);
+  }
+};
+const getPart = (classPartObject, path) => {
+  let current = classPartObject;
+  const parts = path.split(CLASS_PART_SEPARATOR);
+  const len = parts.length;
+  for (let i = 0; i < len; i++) {
+    const part = parts[i];
+    let next = current.nextPart.get(part);
+    if (!next) {
+      next = createClassPartObject();
+      current.nextPart.set(part, next);
+    }
+    current = next;
+  }
+  return current;
+};
+// Type guard maintains monomorphic check
+const isThemeGetter = func => 'isThemeGetter' in func && func.isThemeGetter === true;
+
+// LRU cache implementation using plain objects for simplicity
+const createLruCache = maxCacheSize => {
+  if (maxCacheSize < 1) {
+    return {
+      get: () => undefined,
+      set: () => {}
+    };
+  }
+  let cacheSize = 0;
+  let cache = Object.create(null);
+  let previousCache = Object.create(null);
+  const update = (key, value) => {
+    cache[key] = value;
+    cacheSize++;
+    if (cacheSize > maxCacheSize) {
+      cacheSize = 0;
+      previousCache = cache;
+      cache = Object.create(null);
+    }
+  };
+  return {
+    get(key) {
+      let value = cache[key];
+      if (value !== undefined) {
+        return value;
+      }
+      if ((value = previousCache[key]) !== undefined) {
+        update(key, value);
+        return value;
+      }
+    },
+    set(key, value) {
+      if (key in cache) {
+        cache[key] = value;
+      } else {
+        update(key, value);
+      }
+    }
+  };
+};
+const IMPORTANT_MODIFIER = '!';
+const MODIFIER_SEPARATOR = ':';
+const EMPTY_MODIFIERS = [];
+// Pre-allocated result object shape for consistency
+const createResultObject = (modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition, isExternal) => ({
+  modifiers,
+  hasImportantModifier,
+  baseClassName,
+  maybePostfixModifierPosition,
+  isExternal
+});
+const createParseClassName = config => {
+  const {
+    prefix,
+    experimentalParseClassName
+  } = config;
+  /**
+   * Parse class name into parts.
+   *
+   * Inspired by `splitAtTopLevelOnly` used in Tailwind CSS
+   * @see https://github.com/tailwindlabs/tailwindcss/blob/v3.2.2/src/util/splitAtTopLevelOnly.js
+   */
+  let parseClassName = className => {
+    // Use simple array with push for better performance
+    const modifiers = [];
+    let bracketDepth = 0;
+    let parenDepth = 0;
+    let modifierStart = 0;
+    let postfixModifierPosition;
+    const len = className.length;
+    for (let index = 0; index < len; index++) {
+      const currentCharacter = className[index];
+      if (bracketDepth === 0 && parenDepth === 0) {
+        if (currentCharacter === MODIFIER_SEPARATOR) {
+          modifiers.push(className.slice(modifierStart, index));
+          modifierStart = index + 1;
+          continue;
+        }
+        if (currentCharacter === '/') {
+          postfixModifierPosition = index;
+          continue;
+        }
+      }
+      if (currentCharacter === '[') bracketDepth++;else if (currentCharacter === ']') bracketDepth--;else if (currentCharacter === '(') parenDepth++;else if (currentCharacter === ')') parenDepth--;
+    }
+    const baseClassNameWithImportantModifier = modifiers.length === 0 ? className : className.slice(modifierStart);
+    // Inline important modifier check
+    let baseClassName = baseClassNameWithImportantModifier;
+    let hasImportantModifier = false;
+    if (baseClassNameWithImportantModifier.endsWith(IMPORTANT_MODIFIER)) {
+      baseClassName = baseClassNameWithImportantModifier.slice(0, -1);
+      hasImportantModifier = true;
+    } else if (
+    /**
+     * In Tailwind CSS v3 the important modifier was at the start of the base class name. This is still supported for legacy reasons.
+     * @see https://github.com/dcastil/tailwind-merge/issues/513#issuecomment-2614029864
+     */
+    baseClassNameWithImportantModifier.startsWith(IMPORTANT_MODIFIER)) {
+      baseClassName = baseClassNameWithImportantModifier.slice(1);
+      hasImportantModifier = true;
+    }
+    const maybePostfixModifierPosition = postfixModifierPosition && postfixModifierPosition > modifierStart ? postfixModifierPosition - modifierStart : undefined;
+    return createResultObject(modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition);
+  };
+  if (prefix) {
+    const fullPrefix = prefix + MODIFIER_SEPARATOR;
+    const parseClassNameOriginal = parseClassName;
+    parseClassName = className => className.startsWith(fullPrefix) ? parseClassNameOriginal(className.slice(fullPrefix.length)) : createResultObject(EMPTY_MODIFIERS, false, className, undefined, true);
+  }
+  if (experimentalParseClassName) {
+    const parseClassNameOriginal = parseClassName;
+    parseClassName = className => experimentalParseClassName({
+      className,
+      parseClassName: parseClassNameOriginal
+    });
+  }
+  return parseClassName;
+};
+
+/**
+ * Sorts modifiers according to following schema:
+ * - Predefined modifiers are sorted alphabetically
+ * - When an arbitrary variant appears, it must be preserved which modifiers are before and after it
+ */
+const createSortModifiers = config => {
+  // Pre-compute weights for all known modifiers for O(1) comparison
+  const modifierWeights = new Map();
+  // Assign weights to sensitive modifiers (highest priority, but preserve order)
+  config.orderSensitiveModifiers.forEach((mod, index) => {
+    modifierWeights.set(mod, 1000000 + index); // High weights for sensitive mods
+  });
+  return modifiers => {
+    const result = [];
+    let currentSegment = [];
+    // Process modifiers in one pass
+    for (let i = 0; i < modifiers.length; i++) {
+      const modifier = modifiers[i];
+      // Check if modifier is sensitive (starts with '[' or in orderSensitiveModifiers)
+      const isArbitrary = modifier[0] === '[';
+      const isOrderSensitive = modifierWeights.has(modifier);
+      if (isArbitrary || isOrderSensitive) {
+        // Sort and flush current segment alphabetically
+        if (currentSegment.length > 0) {
+          currentSegment.sort();
+          result.push(...currentSegment);
+          currentSegment = [];
+        }
+        result.push(modifier);
+      } else {
+        // Regular modifier - add to current segment for batch sorting
+        currentSegment.push(modifier);
+      }
+    }
+    // Sort and add any remaining segment items
+    if (currentSegment.length > 0) {
+      currentSegment.sort();
+      result.push(...currentSegment);
+    }
+    return result;
+  };
+};
+const createConfigUtils = config => ({
+  cache: createLruCache(config.cacheSize),
+  parseClassName: createParseClassName(config),
+  sortModifiers: createSortModifiers(config),
+  ...createClassGroupUtils(config)
+});
+const SPLIT_CLASSES_REGEX = /\s+/;
+const mergeClassList = (classList, configUtils) => {
+  const {
+    parseClassName,
+    getClassGroupId,
+    getConflictingClassGroupIds,
+    sortModifiers
+  } = configUtils;
+  /**
+   * Set of classGroupIds in following format:
+   * `{importantModifier}{variantModifiers}{classGroupId}`
+   * @example 'float'
+   * @example 'hover:focus:bg-color'
+   * @example 'md:!pr'
+   */
+  const classGroupsInConflict = [];
+  const classNames = classList.trim().split(SPLIT_CLASSES_REGEX);
+  let result = '';
+  for (let index = classNames.length - 1; index >= 0; index -= 1) {
+    const originalClassName = classNames[index];
+    const {
+      isExternal,
+      modifiers,
+      hasImportantModifier,
+      baseClassName,
+      maybePostfixModifierPosition
+    } = parseClassName(originalClassName);
+    if (isExternal) {
+      result = originalClassName + (result.length > 0 ? ' ' + result : result);
+      continue;
+    }
+    let hasPostfixModifier = !!maybePostfixModifierPosition;
+    let classGroupId = getClassGroupId(hasPostfixModifier ? baseClassName.substring(0, maybePostfixModifierPosition) : baseClassName);
+    if (!classGroupId) {
+      if (!hasPostfixModifier) {
+        // Not a Tailwind class
+        result = originalClassName + (result.length > 0 ? ' ' + result : result);
+        continue;
+      }
+      classGroupId = getClassGroupId(baseClassName);
+      if (!classGroupId) {
+        // Not a Tailwind class
+        result = originalClassName + (result.length > 0 ? ' ' + result : result);
+        continue;
+      }
+      hasPostfixModifier = false;
+    }
+    // Fast path: skip sorting for empty or single modifier
+    const variantModifier = modifiers.length === 0 ? '' : modifiers.length === 1 ? modifiers[0] : sortModifiers(modifiers).join(':');
+    const modifierId = hasImportantModifier ? variantModifier + IMPORTANT_MODIFIER : variantModifier;
+    const classId = modifierId + classGroupId;
+    if (classGroupsInConflict.indexOf(classId) > -1) {
+      // Tailwind class omitted due to conflict
+      continue;
+    }
+    classGroupsInConflict.push(classId);
+    const conflictGroups = getConflictingClassGroupIds(classGroupId, hasPostfixModifier);
+    for (let i = 0; i < conflictGroups.length; ++i) {
+      const group = conflictGroups[i];
+      classGroupsInConflict.push(modifierId + group);
+    }
+    // Tailwind class not in conflict
+    result = originalClassName + (result.length > 0 ? ' ' + result : result);
+  }
+  return result;
+};
+
+/**
+ * The code in this file is copied from https://github.com/lukeed/clsx and modified to suit the needs of tailwind-merge better.
+ *
+ * Specifically:
+ * - Runtime code from https://github.com/lukeed/clsx/blob/v1.2.1/src/index.js
+ * - TypeScript types from https://github.com/lukeed/clsx/blob/v1.2.1/clsx.d.ts
+ *
+ * Original code has MIT license: Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
+ */
+const twJoin = (...classLists) => {
+  let index = 0;
+  let argument;
+  let resolvedValue;
+  let string = '';
+  while (index < classLists.length) {
+    if (argument = classLists[index++]) {
+      if (resolvedValue = toValue(argument)) {
+        string && (string += ' ');
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+};
+const toValue = mix => {
+  // Fast path for strings
+  if (typeof mix === 'string') {
+    return mix;
+  }
+  let resolvedValue;
+  let string = '';
+  for (let k = 0; k < mix.length; k++) {
+    if (mix[k]) {
+      if (resolvedValue = toValue(mix[k])) {
+        string && (string += ' ');
+        string += resolvedValue;
+      }
+    }
+  }
+  return string;
+};
+const createTailwindMerge = (createConfigFirst, ...createConfigRest) => {
+  let configUtils;
+  let cacheGet;
+  let cacheSet;
+  let functionToCall;
+  const initTailwindMerge = classList => {
+    const config = createConfigRest.reduce((previousConfig, createConfigCurrent) => createConfigCurrent(previousConfig), createConfigFirst());
+    configUtils = createConfigUtils(config);
+    cacheGet = configUtils.cache.get;
+    cacheSet = configUtils.cache.set;
+    functionToCall = tailwindMerge;
+    return tailwindMerge(classList);
+  };
+  const tailwindMerge = classList => {
+    const cachedResult = cacheGet(classList);
+    if (cachedResult) {
+      return cachedResult;
+    }
+    const result = mergeClassList(classList, configUtils);
+    cacheSet(classList, result);
+    return result;
+  };
+  functionToCall = initTailwindMerge;
+  return (...args) => functionToCall(twJoin(...args));
+};
+const fallbackThemeArr = [];
+const fromTheme = key => {
+  const themeGetter = theme => theme[key] || fallbackThemeArr;
+  themeGetter.isThemeGetter = true;
+  return themeGetter;
+};
+const arbitraryValueRegex = /^\[(?:(\w[\w-]*):)?(.+)\]$/i;
+const arbitraryVariableRegex = /^\((?:(\w[\w-]*):)?(.+)\)$/i;
+const fractionRegex = /^\d+(?:\.\d+)?\/\d+(?:\.\d+)?$/;
+const tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
+const lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
+const colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/;
+// Shadow always begins with x and y offset separated by underscore optionally prepended by inset
+const shadowRegex = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
+const imageRegex = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
+const isFraction = value => fractionRegex.test(value);
+const isNumber = value => !!value && !Number.isNaN(Number(value));
+const isInteger = value => !!value && Number.isInteger(Number(value));
+const isPercent = value => value.endsWith('%') && isNumber(value.slice(0, -1));
+const isTshirtSize = value => tshirtUnitRegex.test(value);
+const isAny = () => true;
+const isLengthOnly = value =>
+// `colorFunctionRegex` check is necessary because color functions can have percentages in them which which would be incorrectly classified as lengths.
+// For example, `hsl(0 0% 0%)` would be classified as a length without this check.
+// I could also use lookbehind assertion in `lengthUnitRegex` but that isn't supported widely enough.
+lengthUnitRegex.test(value) && !colorFunctionRegex.test(value);
+const isNever = () => false;
+const isShadow = value => shadowRegex.test(value);
+const isImage = value => imageRegex.test(value);
+const isAnyNonArbitrary = value => !isArbitraryValue(value) && !isArbitraryVariable(value);
+const isArbitrarySize = value => getIsArbitraryValue(value, isLabelSize, isNever);
+const isArbitraryValue = value => arbitraryValueRegex.test(value);
+const isArbitraryLength = value => getIsArbitraryValue(value, isLabelLength, isLengthOnly);
+const isArbitraryNumber = value => getIsArbitraryValue(value, isLabelNumber, isNumber);
+const isArbitraryWeight = value => getIsArbitraryValue(value, isLabelWeight, isAny);
+const isArbitraryFamilyName = value => getIsArbitraryValue(value, isLabelFamilyName, isNever);
+const isArbitraryPosition = value => getIsArbitraryValue(value, isLabelPosition, isNever);
+const isArbitraryImage = value => getIsArbitraryValue(value, isLabelImage, isImage);
+const isArbitraryShadow = value => getIsArbitraryValue(value, isLabelShadow, isShadow);
+const isArbitraryVariable = value => arbitraryVariableRegex.test(value);
+const isArbitraryVariableLength = value => getIsArbitraryVariable(value, isLabelLength);
+const isArbitraryVariableFamilyName = value => getIsArbitraryVariable(value, isLabelFamilyName);
+const isArbitraryVariablePosition = value => getIsArbitraryVariable(value, isLabelPosition);
+const isArbitraryVariableSize = value => getIsArbitraryVariable(value, isLabelSize);
+const isArbitraryVariableImage = value => getIsArbitraryVariable(value, isLabelImage);
+const isArbitraryVariableShadow = value => getIsArbitraryVariable(value, isLabelShadow, true);
+const isArbitraryVariableWeight = value => getIsArbitraryVariable(value, isLabelWeight, true);
+// Helpers
+const getIsArbitraryValue = (value, testLabel, testValue) => {
+  const result = arbitraryValueRegex.exec(value);
+  if (result) {
+    if (result[1]) {
+      return testLabel(result[1]);
+    }
+    return testValue(result[2]);
+  }
+  return false;
+};
+const getIsArbitraryVariable = (value, testLabel, shouldMatchNoLabel = false) => {
+  const result = arbitraryVariableRegex.exec(value);
+  if (result) {
+    if (result[1]) {
+      return testLabel(result[1]);
+    }
+    return shouldMatchNoLabel;
+  }
+  return false;
+};
+// Labels
+const isLabelPosition = label => label === 'position' || label === 'percentage';
+const isLabelImage = label => label === 'image' || label === 'url';
+const isLabelSize = label => label === 'length' || label === 'size' || label === 'bg-size';
+const isLabelLength = label => label === 'length';
+const isLabelNumber = label => label === 'number';
+const isLabelFamilyName = label => label === 'family-name';
+const isLabelWeight = label => label === 'number' || label === 'weight';
+const isLabelShadow = label => label === 'shadow';
+const validators = /*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  isAny,
+  isAnyNonArbitrary,
+  isArbitraryFamilyName,
+  isArbitraryImage,
+  isArbitraryLength,
+  isArbitraryNumber,
+  isArbitraryPosition,
+  isArbitraryShadow,
+  isArbitrarySize,
+  isArbitraryValue,
+  isArbitraryVariable,
+  isArbitraryVariableFamilyName,
+  isArbitraryVariableImage,
+  isArbitraryVariableLength,
+  isArbitraryVariablePosition,
+  isArbitraryVariableShadow,
+  isArbitraryVariableSize,
+  isArbitraryVariableWeight,
+  isArbitraryWeight,
+  isFraction,
+  isInteger,
+  isNumber,
+  isPercent,
+  isTshirtSize
+}, Symbol.toStringTag, {
+  value: 'Module'
+});
+const getDefaultConfig = () => {
+  /**
+   * Theme getters for theme variable namespaces
+   * @see https://tailwindcss.com/docs/theme#theme-variable-namespaces
+   */
+  /***/
+  const themeColor = fromTheme('color');
+  const themeFont = fromTheme('font');
+  const themeText = fromTheme('text');
+  const themeFontWeight = fromTheme('font-weight');
+  const themeTracking = fromTheme('tracking');
+  const themeLeading = fromTheme('leading');
+  const themeBreakpoint = fromTheme('breakpoint');
+  const themeContainer = fromTheme('container');
+  const themeSpacing = fromTheme('spacing');
+  const themeRadius = fromTheme('radius');
+  const themeShadow = fromTheme('shadow');
+  const themeInsetShadow = fromTheme('inset-shadow');
+  const themeTextShadow = fromTheme('text-shadow');
+  const themeDropShadow = fromTheme('drop-shadow');
+  const themeBlur = fromTheme('blur');
+  const themePerspective = fromTheme('perspective');
+  const themeAspect = fromTheme('aspect');
+  const themeEase = fromTheme('ease');
+  const themeAnimate = fromTheme('animate');
+  /**
+   * Helpers to avoid repeating the same scales
+   *
+   * We use functions that create a new array every time they're called instead of static arrays.
+   * This ensures that users who modify any scale by mutating the array (e.g. with `array.push(element)`) don't accidentally mutate arrays in other parts of the config.
+   */
+  /***/
+  const scaleBreak = () => ['auto', 'avoid', 'all', 'avoid-page', 'page', 'left', 'right', 'column'];
+  const scalePosition = () => ['center', 'top', 'bottom', 'left', 'right', 'top-left',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'left-top', 'top-right',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'right-top', 'bottom-right',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'right-bottom', 'bottom-left',
+  // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+  'left-bottom'];
+  const scalePositionWithArbitrary = () => [...scalePosition(), isArbitraryVariable, isArbitraryValue];
+  const scaleOverflow = () => ['auto', 'hidden', 'clip', 'visible', 'scroll'];
+  const scaleOverscroll = () => ['auto', 'contain', 'none'];
+  const scaleUnambiguousSpacing = () => [isArbitraryVariable, isArbitraryValue, themeSpacing];
+  const scaleInset = () => [isFraction, 'full', 'auto', ...scaleUnambiguousSpacing()];
+  const scaleGridTemplateColsRows = () => [isInteger, 'none', 'subgrid', isArbitraryVariable, isArbitraryValue];
+  const scaleGridColRowStartAndEnd = () => ['auto', {
+    span: ['full', isInteger, isArbitraryVariable, isArbitraryValue]
+  }, isInteger, isArbitraryVariable, isArbitraryValue];
+  const scaleGridColRowStartOrEnd = () => [isInteger, 'auto', isArbitraryVariable, isArbitraryValue];
+  const scaleGridAutoColsRows = () => ['auto', 'min', 'max', 'fr', isArbitraryVariable, isArbitraryValue];
+  const scaleAlignPrimaryAxis = () => ['start', 'end', 'center', 'between', 'around', 'evenly', 'stretch', 'baseline', 'center-safe', 'end-safe'];
+  const scaleAlignSecondaryAxis = () => ['start', 'end', 'center', 'stretch', 'center-safe', 'end-safe'];
+  const scaleMargin = () => ['auto', ...scaleUnambiguousSpacing()];
+  const scaleSizing = () => [isFraction, 'auto', 'full', 'dvw', 'dvh', 'lvw', 'lvh', 'svw', 'svh', 'min', 'max', 'fit', ...scaleUnambiguousSpacing()];
+  const scaleSizingInline = () => [isFraction, 'screen', 'full', 'dvw', 'lvw', 'svw', 'min', 'max', 'fit', ...scaleUnambiguousSpacing()];
+  const scaleSizingBlock = () => [isFraction, 'screen', 'full', 'lh', 'dvh', 'lvh', 'svh', 'min', 'max', 'fit', ...scaleUnambiguousSpacing()];
+  const scaleColor = () => [themeColor, isArbitraryVariable, isArbitraryValue];
+  const scaleBgPosition = () => [...scalePosition(), isArbitraryVariablePosition, isArbitraryPosition, {
+    position: [isArbitraryVariable, isArbitraryValue]
+  }];
+  const scaleBgRepeat = () => ['no-repeat', {
+    repeat: ['', 'x', 'y', 'space', 'round']
+  }];
+  const scaleBgSize = () => ['auto', 'cover', 'contain', isArbitraryVariableSize, isArbitrarySize, {
+    size: [isArbitraryVariable, isArbitraryValue]
+  }];
+  const scaleGradientStopPosition = () => [isPercent, isArbitraryVariableLength, isArbitraryLength];
+  const scaleRadius = () => [
+  // Deprecated since Tailwind CSS v4.0.0
+  '', 'none', 'full', themeRadius, isArbitraryVariable, isArbitraryValue];
+  const scaleBorderWidth = () => ['', isNumber, isArbitraryVariableLength, isArbitraryLength];
+  const scaleLineStyle = () => ['solid', 'dashed', 'dotted', 'double'];
+  const scaleBlendMode = () => ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+  const scaleMaskImagePosition = () => [isNumber, isPercent, isArbitraryVariablePosition, isArbitraryPosition];
+  const scaleBlur = () => [
+  // Deprecated since Tailwind CSS v4.0.0
+  '', 'none', themeBlur, isArbitraryVariable, isArbitraryValue];
+  const scaleRotate = () => ['none', isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleScale = () => ['none', isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleSkew = () => [isNumber, isArbitraryVariable, isArbitraryValue];
+  const scaleTranslate = () => [isFraction, 'full', ...scaleUnambiguousSpacing()];
+  return {
+    cacheSize: 500,
+    theme: {
+      animate: ['spin', 'ping', 'pulse', 'bounce'],
+      aspect: ['video'],
+      blur: [isTshirtSize],
+      breakpoint: [isTshirtSize],
+      color: [isAny],
+      container: [isTshirtSize],
+      'drop-shadow': [isTshirtSize],
+      ease: ['in', 'out', 'in-out'],
+      font: [isAnyNonArbitrary],
+      'font-weight': ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
+      'inset-shadow': [isTshirtSize],
+      leading: ['none', 'tight', 'snug', 'normal', 'relaxed', 'loose'],
+      perspective: ['dramatic', 'near', 'normal', 'midrange', 'distant', 'none'],
+      radius: [isTshirtSize],
+      shadow: [isTshirtSize],
+      spacing: ['px', isNumber],
+      text: [isTshirtSize],
+      'text-shadow': [isTshirtSize],
+      tracking: ['tighter', 'tight', 'normal', 'wide', 'wider', 'widest']
+    },
+    classGroups: {
+      // --------------
+      // --- Layout ---
+      // --------------
+      /**
+       * Aspect Ratio
+       * @see https://tailwindcss.com/docs/aspect-ratio
+       */
+      aspect: [{
+        aspect: ['auto', 'square', isFraction, isArbitraryValue, isArbitraryVariable, themeAspect]
+      }],
+      /**
+       * Container
+       * @see https://tailwindcss.com/docs/container
+       * @deprecated since Tailwind CSS v4.0.0
+       */
+      container: ['container'],
+      /**
+       * Columns
+       * @see https://tailwindcss.com/docs/columns
+       */
+      columns: [{
+        columns: [isNumber, isArbitraryValue, isArbitraryVariable, themeContainer]
+      }],
+      /**
+       * Break After
+       * @see https://tailwindcss.com/docs/break-after
+       */
+      'break-after': [{
+        'break-after': scaleBreak()
+      }],
+      /**
+       * Break Before
+       * @see https://tailwindcss.com/docs/break-before
+       */
+      'break-before': [{
+        'break-before': scaleBreak()
+      }],
+      /**
+       * Break Inside
+       * @see https://tailwindcss.com/docs/break-inside
+       */
+      'break-inside': [{
+        'break-inside': ['auto', 'avoid', 'avoid-page', 'avoid-column']
+      }],
+      /**
+       * Box Decoration Break
+       * @see https://tailwindcss.com/docs/box-decoration-break
+       */
+      'box-decoration': [{
+        'box-decoration': ['slice', 'clone']
+      }],
+      /**
+       * Box Sizing
+       * @see https://tailwindcss.com/docs/box-sizing
+       */
+      box: [{
+        box: ['border', 'content']
+      }],
+      /**
+       * Display
+       * @see https://tailwindcss.com/docs/display
+       */
+      display: ['block', 'inline-block', 'inline', 'flex', 'inline-flex', 'table', 'inline-table', 'table-caption', 'table-cell', 'table-column', 'table-column-group', 'table-footer-group', 'table-header-group', 'table-row-group', 'table-row', 'flow-root', 'grid', 'inline-grid', 'contents', 'list-item', 'hidden'],
+      /**
+       * Screen Reader Only
+       * @see https://tailwindcss.com/docs/display#screen-reader-only
+       */
+      sr: ['sr-only', 'not-sr-only'],
+      /**
+       * Floats
+       * @see https://tailwindcss.com/docs/float
+       */
+      float: [{
+        float: ['right', 'left', 'none', 'start', 'end']
+      }],
+      /**
+       * Clear
+       * @see https://tailwindcss.com/docs/clear
+       */
+      clear: [{
+        clear: ['left', 'right', 'both', 'none', 'start', 'end']
+      }],
+      /**
+       * Isolation
+       * @see https://tailwindcss.com/docs/isolation
+       */
+      isolation: ['isolate', 'isolation-auto'],
+      /**
+       * Object Fit
+       * @see https://tailwindcss.com/docs/object-fit
+       */
+      'object-fit': [{
+        object: ['contain', 'cover', 'fill', 'none', 'scale-down']
+      }],
+      /**
+       * Object Position
+       * @see https://tailwindcss.com/docs/object-position
+       */
+      'object-position': [{
+        object: scalePositionWithArbitrary()
+      }],
+      /**
+       * Overflow
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      overflow: [{
+        overflow: scaleOverflow()
+      }],
+      /**
+       * Overflow X
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      'overflow-x': [{
+        'overflow-x': scaleOverflow()
+      }],
+      /**
+       * Overflow Y
+       * @see https://tailwindcss.com/docs/overflow
+       */
+      'overflow-y': [{
+        'overflow-y': scaleOverflow()
+      }],
+      /**
+       * Overscroll Behavior
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      overscroll: [{
+        overscroll: scaleOverscroll()
+      }],
+      /**
+       * Overscroll Behavior X
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      'overscroll-x': [{
+        'overscroll-x': scaleOverscroll()
+      }],
+      /**
+       * Overscroll Behavior Y
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */
+      'overscroll-y': [{
+        'overscroll-y': scaleOverscroll()
+      }],
+      /**
+       * Position
+       * @see https://tailwindcss.com/docs/position
+       */
+      position: ['static', 'fixed', 'absolute', 'relative', 'sticky'],
+      /**
+       * Inset
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      inset: [{
+        inset: scaleInset()
+      }],
+      /**
+       * Inset Inline
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-x': [{
+        'inset-x': scaleInset()
+      }],
+      /**
+       * Inset Block
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-y': [{
+        'inset-y': scaleInset()
+      }],
+      /**
+       * Inset Inline Start
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       * @todo class group will be renamed to `inset-s` in next major release
+       */
+      start: [{
+        'inset-s': scaleInset(),
+        /**
+         * @deprecated since Tailwind CSS v4.2.0 in favor of `inset-s-*` utilities.
+         * @see https://github.com/tailwindlabs/tailwindcss/pull/19613
+         */
+        start: scaleInset()
+      }],
+      /**
+       * Inset Inline End
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       * @todo class group will be renamed to `inset-e` in next major release
+       */
+      end: [{
+        'inset-e': scaleInset(),
+        /**
+         * @deprecated since Tailwind CSS v4.2.0 in favor of `inset-e-*` utilities.
+         * @see https://github.com/tailwindlabs/tailwindcss/pull/19613
+         */
+        end: scaleInset()
+      }],
+      /**
+       * Inset Block Start
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-bs': [{
+        'inset-bs': scaleInset()
+      }],
+      /**
+       * Inset Block End
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      'inset-be': [{
+        'inset-be': scaleInset()
+      }],
+      /**
+       * Top
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      top: [{
+        top: scaleInset()
+      }],
+      /**
+       * Right
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      right: [{
+        right: scaleInset()
+      }],
+      /**
+       * Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      bottom: [{
+        bottom: scaleInset()
+      }],
+      /**
+       * Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */
+      left: [{
+        left: scaleInset()
+      }],
+      /**
+       * Visibility
+       * @see https://tailwindcss.com/docs/visibility
+       */
+      visibility: ['visible', 'invisible', 'collapse'],
+      /**
+       * Z-Index
+       * @see https://tailwindcss.com/docs/z-index
+       */
+      z: [{
+        z: [isInteger, 'auto', isArbitraryVariable, isArbitraryValue]
+      }],
+      // ------------------------
+      // --- Flexbox and Grid ---
+      // ------------------------
+      /**
+       * Flex Basis
+       * @see https://tailwindcss.com/docs/flex-basis
+       */
+      basis: [{
+        basis: [isFraction, 'full', 'auto', themeContainer, ...scaleUnambiguousSpacing()]
+      }],
+      /**
+       * Flex Direction
+       * @see https://tailwindcss.com/docs/flex-direction
+       */
+      'flex-direction': [{
+        flex: ['row', 'row-reverse', 'col', 'col-reverse']
+      }],
+      /**
+       * Flex Wrap
+       * @see https://tailwindcss.com/docs/flex-wrap
+       */
+      'flex-wrap': [{
+        flex: ['nowrap', 'wrap', 'wrap-reverse']
+      }],
+      /**
+       * Flex
+       * @see https://tailwindcss.com/docs/flex
+       */
+      flex: [{
+        flex: [isNumber, isFraction, 'auto', 'initial', 'none', isArbitraryValue]
+      }],
+      /**
+       * Flex Grow
+       * @see https://tailwindcss.com/docs/flex-grow
+       */
+      grow: [{
+        grow: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Flex Shrink
+       * @see https://tailwindcss.com/docs/flex-shrink
+       */
+      shrink: [{
+        shrink: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Order
+       * @see https://tailwindcss.com/docs/order
+       */
+      order: [{
+        order: [isInteger, 'first', 'last', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Grid Template Columns
+       * @see https://tailwindcss.com/docs/grid-template-columns
+       */
+      'grid-cols': [{
+        'grid-cols': scaleGridTemplateColsRows()
+      }],
+      /**
+       * Grid Column Start / End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-start-end': [{
+        col: scaleGridColRowStartAndEnd()
+      }],
+      /**
+       * Grid Column Start
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-start': [{
+        'col-start': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Column End
+       * @see https://tailwindcss.com/docs/grid-column
+       */
+      'col-end': [{
+        'col-end': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Template Rows
+       * @see https://tailwindcss.com/docs/grid-template-rows
+       */
+      'grid-rows': [{
+        'grid-rows': scaleGridTemplateColsRows()
+      }],
+      /**
+       * Grid Row Start / End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-start-end': [{
+        row: scaleGridColRowStartAndEnd()
+      }],
+      /**
+       * Grid Row Start
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-start': [{
+        'row-start': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Row End
+       * @see https://tailwindcss.com/docs/grid-row
+       */
+      'row-end': [{
+        'row-end': scaleGridColRowStartOrEnd()
+      }],
+      /**
+       * Grid Auto Flow
+       * @see https://tailwindcss.com/docs/grid-auto-flow
+       */
+      'grid-flow': [{
+        'grid-flow': ['row', 'col', 'dense', 'row-dense', 'col-dense']
+      }],
+      /**
+       * Grid Auto Columns
+       * @see https://tailwindcss.com/docs/grid-auto-columns
+       */
+      'auto-cols': [{
+        'auto-cols': scaleGridAutoColsRows()
+      }],
+      /**
+       * Grid Auto Rows
+       * @see https://tailwindcss.com/docs/grid-auto-rows
+       */
+      'auto-rows': [{
+        'auto-rows': scaleGridAutoColsRows()
+      }],
+      /**
+       * Gap
+       * @see https://tailwindcss.com/docs/gap
+       */
+      gap: [{
+        gap: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Gap X
+       * @see https://tailwindcss.com/docs/gap
+       */
+      'gap-x': [{
+        'gap-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Gap Y
+       * @see https://tailwindcss.com/docs/gap
+       */
+      'gap-y': [{
+        'gap-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Justify Content
+       * @see https://tailwindcss.com/docs/justify-content
+       */
+      'justify-content': [{
+        justify: [...scaleAlignPrimaryAxis(), 'normal']
+      }],
+      /**
+       * Justify Items
+       * @see https://tailwindcss.com/docs/justify-items
+       */
+      'justify-items': [{
+        'justify-items': [...scaleAlignSecondaryAxis(), 'normal']
+      }],
+      /**
+       * Justify Self
+       * @see https://tailwindcss.com/docs/justify-self
+       */
+      'justify-self': [{
+        'justify-self': ['auto', ...scaleAlignSecondaryAxis()]
+      }],
+      /**
+       * Align Content
+       * @see https://tailwindcss.com/docs/align-content
+       */
+      'align-content': [{
+        content: ['normal', ...scaleAlignPrimaryAxis()]
+      }],
+      /**
+       * Align Items
+       * @see https://tailwindcss.com/docs/align-items
+       */
+      'align-items': [{
+        items: [...scaleAlignSecondaryAxis(), {
+          baseline: ['', 'last']
+        }]
+      }],
+      /**
+       * Align Self
+       * @see https://tailwindcss.com/docs/align-self
+       */
+      'align-self': [{
+        self: ['auto', ...scaleAlignSecondaryAxis(), {
+          baseline: ['', 'last']
+        }]
+      }],
+      /**
+       * Place Content
+       * @see https://tailwindcss.com/docs/place-content
+       */
+      'place-content': [{
+        'place-content': scaleAlignPrimaryAxis()
+      }],
+      /**
+       * Place Items
+       * @see https://tailwindcss.com/docs/place-items
+       */
+      'place-items': [{
+        'place-items': [...scaleAlignSecondaryAxis(), 'baseline']
+      }],
+      /**
+       * Place Self
+       * @see https://tailwindcss.com/docs/place-self
+       */
+      'place-self': [{
+        'place-self': ['auto', ...scaleAlignSecondaryAxis()]
+      }],
+      // Spacing
+      /**
+       * Padding
+       * @see https://tailwindcss.com/docs/padding
+       */
+      p: [{
+        p: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Inline
+       * @see https://tailwindcss.com/docs/padding
+       */
+      px: [{
+        px: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Block
+       * @see https://tailwindcss.com/docs/padding
+       */
+      py: [{
+        py: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Inline Start
+       * @see https://tailwindcss.com/docs/padding
+       */
+      ps: [{
+        ps: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Inline End
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pe: [{
+        pe: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Block Start
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pbs: [{
+        pbs: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Block End
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pbe: [{
+        pbe: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Top
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pt: [{
+        pt: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Right
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pr: [{
+        pr: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Bottom
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pb: [{
+        pb: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Padding Left
+       * @see https://tailwindcss.com/docs/padding
+       */
+      pl: [{
+        pl: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Margin
+       * @see https://tailwindcss.com/docs/margin
+       */
+      m: [{
+        m: scaleMargin()
+      }],
+      /**
+       * Margin Inline
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mx: [{
+        mx: scaleMargin()
+      }],
+      /**
+       * Margin Block
+       * @see https://tailwindcss.com/docs/margin
+       */
+      my: [{
+        my: scaleMargin()
+      }],
+      /**
+       * Margin Inline Start
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ms: [{
+        ms: scaleMargin()
+      }],
+      /**
+       * Margin Inline End
+       * @see https://tailwindcss.com/docs/margin
+       */
+      me: [{
+        me: scaleMargin()
+      }],
+      /**
+       * Margin Block Start
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mbs: [{
+        mbs: scaleMargin()
+      }],
+      /**
+       * Margin Block End
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mbe: [{
+        mbe: scaleMargin()
+      }],
+      /**
+       * Margin Top
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mt: [{
+        mt: scaleMargin()
+      }],
+      /**
+       * Margin Right
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mr: [{
+        mr: scaleMargin()
+      }],
+      /**
+       * Margin Bottom
+       * @see https://tailwindcss.com/docs/margin
+       */
+      mb: [{
+        mb: scaleMargin()
+      }],
+      /**
+       * Margin Left
+       * @see https://tailwindcss.com/docs/margin
+       */
+      ml: [{
+        ml: scaleMargin()
+      }],
+      /**
+       * Space Between X
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-x': [{
+        'space-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Space Between X Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-x-reverse': ['space-x-reverse'],
+      /**
+       * Space Between Y
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-y': [{
+        'space-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Space Between Y Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */
+      'space-y-reverse': ['space-y-reverse'],
+      // --------------
+      // --- Sizing ---
+      // --------------
+      /**
+       * Size
+       * @see https://tailwindcss.com/docs/width#setting-both-width-and-height
+       */
+      size: [{
+        size: scaleSizing()
+      }],
+      /**
+       * Inline Size
+       * @see https://tailwindcss.com/docs/width
+       */
+      'inline-size': [{
+        inline: ['auto', ...scaleSizingInline()]
+      }],
+      /**
+       * Min-Inline Size
+       * @see https://tailwindcss.com/docs/min-width
+       */
+      'min-inline-size': [{
+        'min-inline': ['auto', ...scaleSizingInline()]
+      }],
+      /**
+       * Max-Inline Size
+       * @see https://tailwindcss.com/docs/max-width
+       */
+      'max-inline-size': [{
+        'max-inline': ['none', ...scaleSizingInline()]
+      }],
+      /**
+       * Block Size
+       * @see https://tailwindcss.com/docs/height
+       */
+      'block-size': [{
+        block: ['auto', ...scaleSizingBlock()]
+      }],
+      /**
+       * Min-Block Size
+       * @see https://tailwindcss.com/docs/min-height
+       */
+      'min-block-size': [{
+        'min-block': ['auto', ...scaleSizingBlock()]
+      }],
+      /**
+       * Max-Block Size
+       * @see https://tailwindcss.com/docs/max-height
+       */
+      'max-block-size': [{
+        'max-block': ['none', ...scaleSizingBlock()]
+      }],
+      /**
+       * Width
+       * @see https://tailwindcss.com/docs/width
+       */
+      w: [{
+        w: [themeContainer, 'screen', ...scaleSizing()]
+      }],
+      /**
+       * Min-Width
+       * @see https://tailwindcss.com/docs/min-width
+       */
+      'min-w': [{
+        'min-w': [themeContainer, 'screen', /** Deprecated. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        'none', ...scaleSizing()]
+      }],
+      /**
+       * Max-Width
+       * @see https://tailwindcss.com/docs/max-width
+       */
+      'max-w': [{
+        'max-w': [themeContainer, 'screen', 'none', /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        'prose', /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        {
+          screen: [themeBreakpoint]
+        }, ...scaleSizing()]
+      }],
+      /**
+       * Height
+       * @see https://tailwindcss.com/docs/height
+       */
+      h: [{
+        h: ['screen', 'lh', ...scaleSizing()]
+      }],
+      /**
+       * Min-Height
+       * @see https://tailwindcss.com/docs/min-height
+       */
+      'min-h': [{
+        'min-h': ['screen', 'lh', 'none', ...scaleSizing()]
+      }],
+      /**
+       * Max-Height
+       * @see https://tailwindcss.com/docs/max-height
+       */
+      'max-h': [{
+        'max-h': ['screen', 'lh', ...scaleSizing()]
+      }],
+      // ------------------
+      // --- Typography ---
+      // ------------------
+      /**
+       * Font Size
+       * @see https://tailwindcss.com/docs/font-size
+       */
+      'font-size': [{
+        text: ['base', themeText, isArbitraryVariableLength, isArbitraryLength]
+      }],
+      /**
+       * Font Smoothing
+       * @see https://tailwindcss.com/docs/font-smoothing
+       */
+      'font-smoothing': ['antialiased', 'subpixel-antialiased'],
+      /**
+       * Font Style
+       * @see https://tailwindcss.com/docs/font-style
+       */
+      'font-style': ['italic', 'not-italic'],
+      /**
+       * Font Weight
+       * @see https://tailwindcss.com/docs/font-weight
+       */
+      'font-weight': [{
+        font: [themeFontWeight, isArbitraryVariableWeight, isArbitraryWeight]
+      }],
+      /**
+       * Font Stretch
+       * @see https://tailwindcss.com/docs/font-stretch
+       */
+      'font-stretch': [{
+        'font-stretch': ['ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal', 'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded', isPercent, isArbitraryValue]
+      }],
+      /**
+       * Font Family
+       * @see https://tailwindcss.com/docs/font-family
+       */
+      'font-family': [{
+        font: [isArbitraryVariableFamilyName, isArbitraryFamilyName, themeFont]
+      }],
+      /**
+       * Font Feature Settings
+       * @see https://tailwindcss.com/docs/font-feature-settings
+       */
+      'font-features': [{
+        'font-features': [isArbitraryValue]
+      }],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-normal': ['normal-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-ordinal': ['ordinal'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-slashed-zero': ['slashed-zero'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-figure': ['lining-nums', 'oldstyle-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-spacing': ['proportional-nums', 'tabular-nums'],
+      /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */
+      'fvn-fraction': ['diagonal-fractions', 'stacked-fractions'],
+      /**
+       * Letter Spacing
+       * @see https://tailwindcss.com/docs/letter-spacing
+       */
+      tracking: [{
+        tracking: [themeTracking, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Line Clamp
+       * @see https://tailwindcss.com/docs/line-clamp
+       */
+      'line-clamp': [{
+        'line-clamp': [isNumber, 'none', isArbitraryVariable, isArbitraryNumber]
+      }],
+      /**
+       * Line Height
+       * @see https://tailwindcss.com/docs/line-height
+       */
+      leading: [{
+        leading: [/** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
+        themeLeading, ...scaleUnambiguousSpacing()]
+      }],
+      /**
+       * List Style Image
+       * @see https://tailwindcss.com/docs/list-style-image
+       */
+      'list-image': [{
+        'list-image': ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * List Style Position
+       * @see https://tailwindcss.com/docs/list-style-position
+       */
+      'list-style-position': [{
+        list: ['inside', 'outside']
+      }],
+      /**
+       * List Style Type
+       * @see https://tailwindcss.com/docs/list-style-type
+       */
+      'list-style-type': [{
+        list: ['disc', 'decimal', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Text Alignment
+       * @see https://tailwindcss.com/docs/text-align
+       */
+      'text-alignment': [{
+        text: ['left', 'center', 'right', 'justify', 'start', 'end']
+      }],
+      /**
+       * Placeholder Color
+       * @deprecated since Tailwind CSS v3.0.0
+       * @see https://v3.tailwindcss.com/docs/placeholder-color
+       */
+      'placeholder-color': [{
+        placeholder: scaleColor()
+      }],
+      /**
+       * Text Color
+       * @see https://tailwindcss.com/docs/text-color
+       */
+      'text-color': [{
+        text: scaleColor()
+      }],
+      /**
+       * Text Decoration
+       * @see https://tailwindcss.com/docs/text-decoration
+       */
+      'text-decoration': ['underline', 'overline', 'line-through', 'no-underline'],
+      /**
+       * Text Decoration Style
+       * @see https://tailwindcss.com/docs/text-decoration-style
+       */
+      'text-decoration-style': [{
+        decoration: [...scaleLineStyle(), 'wavy']
+      }],
+      /**
+       * Text Decoration Thickness
+       * @see https://tailwindcss.com/docs/text-decoration-thickness
+       */
+      'text-decoration-thickness': [{
+        decoration: [isNumber, 'from-font', 'auto', isArbitraryVariable, isArbitraryLength]
+      }],
+      /**
+       * Text Decoration Color
+       * @see https://tailwindcss.com/docs/text-decoration-color
+       */
+      'text-decoration-color': [{
+        decoration: scaleColor()
+      }],
+      /**
+       * Text Underline Offset
+       * @see https://tailwindcss.com/docs/text-underline-offset
+       */
+      'underline-offset': [{
+        'underline-offset': [isNumber, 'auto', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Text Transform
+       * @see https://tailwindcss.com/docs/text-transform
+       */
+      'text-transform': ['uppercase', 'lowercase', 'capitalize', 'normal-case'],
+      /**
+       * Text Overflow
+       * @see https://tailwindcss.com/docs/text-overflow
+       */
+      'text-overflow': ['truncate', 'text-ellipsis', 'text-clip'],
+      /**
+       * Text Wrap
+       * @see https://tailwindcss.com/docs/text-wrap
+       */
+      'text-wrap': [{
+        text: ['wrap', 'nowrap', 'balance', 'pretty']
+      }],
+      /**
+       * Text Indent
+       * @see https://tailwindcss.com/docs/text-indent
+       */
+      indent: [{
+        indent: scaleUnambiguousSpacing()
+      }],
+      /**
+       * Vertical Alignment
+       * @see https://tailwindcss.com/docs/vertical-align
+       */
+      'vertical-align': [{
+        align: ['baseline', 'top', 'middle', 'bottom', 'text-top', 'text-bottom', 'sub', 'super', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Whitespace
+       * @see https://tailwindcss.com/docs/whitespace
+       */
+      whitespace: [{
+        whitespace: ['normal', 'nowrap', 'pre', 'pre-line', 'pre-wrap', 'break-spaces']
+      }],
+      /**
+       * Word Break
+       * @see https://tailwindcss.com/docs/word-break
+       */
+      break: [{
+        break: ['normal', 'words', 'all', 'keep']
+      }],
+      /**
+       * Overflow Wrap
+       * @see https://tailwindcss.com/docs/overflow-wrap
+       */
+      wrap: [{
+        wrap: ['break-word', 'anywhere', 'normal']
+      }],
+      /**
+       * Hyphens
+       * @see https://tailwindcss.com/docs/hyphens
+       */
+      hyphens: [{
+        hyphens: ['none', 'manual', 'auto']
+      }],
+      /**
+       * Content
+       * @see https://tailwindcss.com/docs/content
+       */
+      content: [{
+        content: ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      // -------------------
+      // --- Backgrounds ---
+      // -------------------
+      /**
+       * Background Attachment
+       * @see https://tailwindcss.com/docs/background-attachment
+       */
+      'bg-attachment': [{
+        bg: ['fixed', 'local', 'scroll']
+      }],
+      /**
+       * Background Clip
+       * @see https://tailwindcss.com/docs/background-clip
+       */
+      'bg-clip': [{
+        'bg-clip': ['border', 'padding', 'content', 'text']
+      }],
+      /**
+       * Background Origin
+       * @see https://tailwindcss.com/docs/background-origin
+       */
+      'bg-origin': [{
+        'bg-origin': ['border', 'padding', 'content']
+      }],
+      /**
+       * Background Position
+       * @see https://tailwindcss.com/docs/background-position
+       */
+      'bg-position': [{
+        bg: scaleBgPosition()
+      }],
+      /**
+       * Background Repeat
+       * @see https://tailwindcss.com/docs/background-repeat
+       */
+      'bg-repeat': [{
+        bg: scaleBgRepeat()
+      }],
+      /**
+       * Background Size
+       * @see https://tailwindcss.com/docs/background-size
+       */
+      'bg-size': [{
+        bg: scaleBgSize()
+      }],
+      /**
+       * Background Image
+       * @see https://tailwindcss.com/docs/background-image
+       */
+      'bg-image': [{
+        bg: ['none', {
+          linear: [{
+            to: ['t', 'tr', 'r', 'br', 'b', 'bl', 'l', 'tl']
+          }, isInteger, isArbitraryVariable, isArbitraryValue],
+          radial: ['', isArbitraryVariable, isArbitraryValue],
+          conic: [isInteger, isArbitraryVariable, isArbitraryValue]
+        }, isArbitraryVariableImage, isArbitraryImage]
+      }],
+      /**
+       * Background Color
+       * @see https://tailwindcss.com/docs/background-color
+       */
+      'bg-color': [{
+        bg: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops From Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-from-pos': [{
+        from: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops Via Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-via-pos': [{
+        via: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops To Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-to-pos': [{
+        to: scaleGradientStopPosition()
+      }],
+      /**
+       * Gradient Color Stops From
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-from': [{
+        from: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops Via
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-via': [{
+        via: scaleColor()
+      }],
+      /**
+       * Gradient Color Stops To
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */
+      'gradient-to': [{
+        to: scaleColor()
+      }],
+      // ---------------
+      // --- Borders ---
+      // ---------------
+      /**
+       * Border Radius
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      rounded: [{
+        rounded: scaleRadius()
+      }],
+      /**
+       * Border Radius Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-s': [{
+        'rounded-s': scaleRadius()
+      }],
+      /**
+       * Border Radius End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-e': [{
+        'rounded-e': scaleRadius()
+      }],
+      /**
+       * Border Radius Top
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-t': [{
+        'rounded-t': scaleRadius()
+      }],
+      /**
+       * Border Radius Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-r': [{
+        'rounded-r': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-b': [{
+        'rounded-b': scaleRadius()
+      }],
+      /**
+       * Border Radius Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-l': [{
+        'rounded-l': scaleRadius()
+      }],
+      /**
+       * Border Radius Start Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-ss': [{
+        'rounded-ss': scaleRadius()
+      }],
+      /**
+       * Border Radius Start End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-se': [{
+        'rounded-se': scaleRadius()
+      }],
+      /**
+       * Border Radius End End
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-ee': [{
+        'rounded-ee': scaleRadius()
+      }],
+      /**
+       * Border Radius End Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-es': [{
+        'rounded-es': scaleRadius()
+      }],
+      /**
+       * Border Radius Top Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-tl': [{
+        'rounded-tl': scaleRadius()
+      }],
+      /**
+       * Border Radius Top Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-tr': [{
+        'rounded-tr': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-br': [{
+        'rounded-br': scaleRadius()
+      }],
+      /**
+       * Border Radius Bottom Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */
+      'rounded-bl': [{
+        'rounded-bl': scaleRadius()
+      }],
+      /**
+       * Border Width
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w': [{
+        border: scaleBorderWidth()
+      }],
+      /**
+       * Border Width Inline
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-x': [{
+        'border-x': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Block
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-y': [{
+        'border-y': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Inline Start
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-s': [{
+        'border-s': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Inline End
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-e': [{
+        'border-e': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Block Start
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-bs': [{
+        'border-bs': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Block End
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-be': [{
+        'border-be': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Top
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-t': [{
+        'border-t': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Right
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-r': [{
+        'border-r': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Bottom
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-b': [{
+        'border-b': scaleBorderWidth()
+      }],
+      /**
+       * Border Width Left
+       * @see https://tailwindcss.com/docs/border-width
+       */
+      'border-w-l': [{
+        'border-l': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width X
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-x': [{
+        'divide-x': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width X Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-x-reverse': ['divide-x-reverse'],
+      /**
+       * Divide Width Y
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-y': [{
+        'divide-y': scaleBorderWidth()
+      }],
+      /**
+       * Divide Width Y Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */
+      'divide-y-reverse': ['divide-y-reverse'],
+      /**
+       * Border Style
+       * @see https://tailwindcss.com/docs/border-style
+       */
+      'border-style': [{
+        border: [...scaleLineStyle(), 'hidden', 'none']
+      }],
+      /**
+       * Divide Style
+       * @see https://tailwindcss.com/docs/border-style#setting-the-divider-style
+       */
+      'divide-style': [{
+        divide: [...scaleLineStyle(), 'hidden', 'none']
+      }],
+      /**
+       * Border Color
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color': [{
+        border: scaleColor()
+      }],
+      /**
+       * Border Color Inline
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-x': [{
+        'border-x': scaleColor()
+      }],
+      /**
+       * Border Color Block
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-y': [{
+        'border-y': scaleColor()
+      }],
+      /**
+       * Border Color Inline Start
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-s': [{
+        'border-s': scaleColor()
+      }],
+      /**
+       * Border Color Inline End
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-e': [{
+        'border-e': scaleColor()
+      }],
+      /**
+       * Border Color Block Start
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-bs': [{
+        'border-bs': scaleColor()
+      }],
+      /**
+       * Border Color Block End
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-be': [{
+        'border-be': scaleColor()
+      }],
+      /**
+       * Border Color Top
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-t': [{
+        'border-t': scaleColor()
+      }],
+      /**
+       * Border Color Right
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-r': [{
+        'border-r': scaleColor()
+      }],
+      /**
+       * Border Color Bottom
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-b': [{
+        'border-b': scaleColor()
+      }],
+      /**
+       * Border Color Left
+       * @see https://tailwindcss.com/docs/border-color
+       */
+      'border-color-l': [{
+        'border-l': scaleColor()
+      }],
+      /**
+       * Divide Color
+       * @see https://tailwindcss.com/docs/divide-color
+       */
+      'divide-color': [{
+        divide: scaleColor()
+      }],
+      /**
+       * Outline Style
+       * @see https://tailwindcss.com/docs/outline-style
+       */
+      'outline-style': [{
+        outline: [...scaleLineStyle(), 'none', 'hidden']
+      }],
+      /**
+       * Outline Offset
+       * @see https://tailwindcss.com/docs/outline-offset
+       */
+      'outline-offset': [{
+        'outline-offset': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Outline Width
+       * @see https://tailwindcss.com/docs/outline-width
+       */
+      'outline-w': [{
+        outline: ['', isNumber, isArbitraryVariableLength, isArbitraryLength]
+      }],
+      /**
+       * Outline Color
+       * @see https://tailwindcss.com/docs/outline-color
+       */
+      'outline-color': [{
+        outline: scaleColor()
+      }],
+      // ---------------
+      // --- Effects ---
+      // ---------------
+      /**
+       * Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow
+       */
+      shadow: [{
+        shadow: [
+        // Deprecated since Tailwind CSS v4.0.0
+        '', 'none', themeShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
+       */
+      'shadow-color': [{
+        shadow: scaleColor()
+      }],
+      /**
+       * Inset Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
+       */
+      'inset-shadow': [{
+        'inset-shadow': ['none', themeInsetShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Inset Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
+       */
+      'inset-shadow-color': [{
+        'inset-shadow': scaleColor()
+      }],
+      /**
+       * Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-a-ring
+       */
+      'ring-w': [{
+        ring: scaleBorderWidth()
+      }],
+      /**
+       * Ring Width Inset
+       * @see https://v3.tailwindcss.com/docs/ring-width#inset-rings
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-w-inset': ['ring-inset'],
+      /**
+       * Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
+       */
+      'ring-color': [{
+        ring: scaleColor()
+      }],
+      /**
+       * Ring Offset Width
+       * @see https://v3.tailwindcss.com/docs/ring-offset-width
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-offset-w': [{
+        'ring-offset': [isNumber, isArbitraryLength]
+      }],
+      /**
+       * Ring Offset Color
+       * @see https://v3.tailwindcss.com/docs/ring-offset-color
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */
+      'ring-offset-color': [{
+        'ring-offset': scaleColor()
+      }],
+      /**
+       * Inset Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
+       */
+      'inset-ring-w': [{
+        'inset-ring': scaleBorderWidth()
+      }],
+      /**
+       * Inset Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
+       */
+      'inset-ring-color': [{
+        'inset-ring': scaleColor()
+      }],
+      /**
+       * Text Shadow
+       * @see https://tailwindcss.com/docs/text-shadow
+       */
+      'text-shadow': [{
+        'text-shadow': ['none', themeTextShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Text Shadow Color
+       * @see https://tailwindcss.com/docs/text-shadow#setting-the-shadow-color
+       */
+      'text-shadow-color': [{
+        'text-shadow': scaleColor()
+      }],
+      /**
+       * Opacity
+       * @see https://tailwindcss.com/docs/opacity
+       */
+      opacity: [{
+        opacity: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Mix Blend Mode
+       * @see https://tailwindcss.com/docs/mix-blend-mode
+       */
+      'mix-blend': [{
+        'mix-blend': [...scaleBlendMode(), 'plus-darker', 'plus-lighter']
+      }],
+      /**
+       * Background Blend Mode
+       * @see https://tailwindcss.com/docs/background-blend-mode
+       */
+      'bg-blend': [{
+        'bg-blend': scaleBlendMode()
+      }],
+      /**
+       * Mask Clip
+       * @see https://tailwindcss.com/docs/mask-clip
+       */
+      'mask-clip': [{
+        'mask-clip': ['border', 'padding', 'content', 'fill', 'stroke', 'view']
+      }, 'mask-no-clip'],
+      /**
+       * Mask Composite
+       * @see https://tailwindcss.com/docs/mask-composite
+       */
+      'mask-composite': [{
+        mask: ['add', 'subtract', 'intersect', 'exclude']
+      }],
+      /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */
+      'mask-image-linear-pos': [{
+        'mask-linear': [isNumber]
+      }],
+      'mask-image-linear-from-pos': [{
+        'mask-linear-from': scaleMaskImagePosition()
+      }],
+      'mask-image-linear-to-pos': [{
+        'mask-linear-to': scaleMaskImagePosition()
+      }],
+      'mask-image-linear-from-color': [{
+        'mask-linear-from': scaleColor()
+      }],
+      'mask-image-linear-to-color': [{
+        'mask-linear-to': scaleColor()
+      }],
+      'mask-image-t-from-pos': [{
+        'mask-t-from': scaleMaskImagePosition()
+      }],
+      'mask-image-t-to-pos': [{
+        'mask-t-to': scaleMaskImagePosition()
+      }],
+      'mask-image-t-from-color': [{
+        'mask-t-from': scaleColor()
+      }],
+      'mask-image-t-to-color': [{
+        'mask-t-to': scaleColor()
+      }],
+      'mask-image-r-from-pos': [{
+        'mask-r-from': scaleMaskImagePosition()
+      }],
+      'mask-image-r-to-pos': [{
+        'mask-r-to': scaleMaskImagePosition()
+      }],
+      'mask-image-r-from-color': [{
+        'mask-r-from': scaleColor()
+      }],
+      'mask-image-r-to-color': [{
+        'mask-r-to': scaleColor()
+      }],
+      'mask-image-b-from-pos': [{
+        'mask-b-from': scaleMaskImagePosition()
+      }],
+      'mask-image-b-to-pos': [{
+        'mask-b-to': scaleMaskImagePosition()
+      }],
+      'mask-image-b-from-color': [{
+        'mask-b-from': scaleColor()
+      }],
+      'mask-image-b-to-color': [{
+        'mask-b-to': scaleColor()
+      }],
+      'mask-image-l-from-pos': [{
+        'mask-l-from': scaleMaskImagePosition()
+      }],
+      'mask-image-l-to-pos': [{
+        'mask-l-to': scaleMaskImagePosition()
+      }],
+      'mask-image-l-from-color': [{
+        'mask-l-from': scaleColor()
+      }],
+      'mask-image-l-to-color': [{
+        'mask-l-to': scaleColor()
+      }],
+      'mask-image-x-from-pos': [{
+        'mask-x-from': scaleMaskImagePosition()
+      }],
+      'mask-image-x-to-pos': [{
+        'mask-x-to': scaleMaskImagePosition()
+      }],
+      'mask-image-x-from-color': [{
+        'mask-x-from': scaleColor()
+      }],
+      'mask-image-x-to-color': [{
+        'mask-x-to': scaleColor()
+      }],
+      'mask-image-y-from-pos': [{
+        'mask-y-from': scaleMaskImagePosition()
+      }],
+      'mask-image-y-to-pos': [{
+        'mask-y-to': scaleMaskImagePosition()
+      }],
+      'mask-image-y-from-color': [{
+        'mask-y-from': scaleColor()
+      }],
+      'mask-image-y-to-color': [{
+        'mask-y-to': scaleColor()
+      }],
+      'mask-image-radial': [{
+        'mask-radial': [isArbitraryVariable, isArbitraryValue]
+      }],
+      'mask-image-radial-from-pos': [{
+        'mask-radial-from': scaleMaskImagePosition()
+      }],
+      'mask-image-radial-to-pos': [{
+        'mask-radial-to': scaleMaskImagePosition()
+      }],
+      'mask-image-radial-from-color': [{
+        'mask-radial-from': scaleColor()
+      }],
+      'mask-image-radial-to-color': [{
+        'mask-radial-to': scaleColor()
+      }],
+      'mask-image-radial-shape': [{
+        'mask-radial': ['circle', 'ellipse']
+      }],
+      'mask-image-radial-size': [{
+        'mask-radial': [{
+          closest: ['side', 'corner'],
+          farthest: ['side', 'corner']
+        }]
+      }],
+      'mask-image-radial-pos': [{
+        'mask-radial-at': scalePosition()
+      }],
+      'mask-image-conic-pos': [{
+        'mask-conic': [isNumber]
+      }],
+      'mask-image-conic-from-pos': [{
+        'mask-conic-from': scaleMaskImagePosition()
+      }],
+      'mask-image-conic-to-pos': [{
+        'mask-conic-to': scaleMaskImagePosition()
+      }],
+      'mask-image-conic-from-color': [{
+        'mask-conic-from': scaleColor()
+      }],
+      'mask-image-conic-to-color': [{
+        'mask-conic-to': scaleColor()
+      }],
+      /**
+       * Mask Mode
+       * @see https://tailwindcss.com/docs/mask-mode
+       */
+      'mask-mode': [{
+        mask: ['alpha', 'luminance', 'match']
+      }],
+      /**
+       * Mask Origin
+       * @see https://tailwindcss.com/docs/mask-origin
+       */
+      'mask-origin': [{
+        'mask-origin': ['border', 'padding', 'content', 'fill', 'stroke', 'view']
+      }],
+      /**
+       * Mask Position
+       * @see https://tailwindcss.com/docs/mask-position
+       */
+      'mask-position': [{
+        mask: scaleBgPosition()
+      }],
+      /**
+       * Mask Repeat
+       * @see https://tailwindcss.com/docs/mask-repeat
+       */
+      'mask-repeat': [{
+        mask: scaleBgRepeat()
+      }],
+      /**
+       * Mask Size
+       * @see https://tailwindcss.com/docs/mask-size
+       */
+      'mask-size': [{
+        mask: scaleBgSize()
+      }],
+      /**
+       * Mask Type
+       * @see https://tailwindcss.com/docs/mask-type
+       */
+      'mask-type': [{
+        'mask-type': ['alpha', 'luminance']
+      }],
+      /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */
+      'mask-image': [{
+        mask: ['none', isArbitraryVariable, isArbitraryValue]
+      }],
+      // ---------------
+      // --- Filters ---
+      // ---------------
+      /**
+       * Filter
+       * @see https://tailwindcss.com/docs/filter
+       */
+      filter: [{
+        filter: [
+        // Deprecated since Tailwind CSS v3.0.0
+        '', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Blur
+       * @see https://tailwindcss.com/docs/blur
+       */
+      blur: [{
+        blur: scaleBlur()
+      }],
+      /**
+       * Brightness
+       * @see https://tailwindcss.com/docs/brightness
+       */
+      brightness: [{
+        brightness: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Contrast
+       * @see https://tailwindcss.com/docs/contrast
+       */
+      contrast: [{
+        contrast: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Drop Shadow
+       * @see https://tailwindcss.com/docs/drop-shadow
+       */
+      'drop-shadow': [{
+        'drop-shadow': [
+        // Deprecated since Tailwind CSS v4.0.0
+        '', 'none', themeDropShadow, isArbitraryVariableShadow, isArbitraryShadow]
+      }],
+      /**
+       * Drop Shadow Color
+       * @see https://tailwindcss.com/docs/filter-drop-shadow#setting-the-shadow-color
+       */
+      'drop-shadow-color': [{
+        'drop-shadow': scaleColor()
+      }],
+      /**
+       * Grayscale
+       * @see https://tailwindcss.com/docs/grayscale
+       */
+      grayscale: [{
+        grayscale: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Hue Rotate
+       * @see https://tailwindcss.com/docs/hue-rotate
+       */
+      'hue-rotate': [{
+        'hue-rotate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Invert
+       * @see https://tailwindcss.com/docs/invert
+       */
+      invert: [{
+        invert: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Saturate
+       * @see https://tailwindcss.com/docs/saturate
+       */
+      saturate: [{
+        saturate: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Sepia
+       * @see https://tailwindcss.com/docs/sepia
+       */
+      sepia: [{
+        sepia: ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Filter
+       * @see https://tailwindcss.com/docs/backdrop-filter
+       */
+      'backdrop-filter': [{
+        'backdrop-filter': [
+        // Deprecated since Tailwind CSS v3.0.0
+        '', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Blur
+       * @see https://tailwindcss.com/docs/backdrop-blur
+       */
+      'backdrop-blur': [{
+        'backdrop-blur': scaleBlur()
+      }],
+      /**
+       * Backdrop Brightness
+       * @see https://tailwindcss.com/docs/backdrop-brightness
+       */
+      'backdrop-brightness': [{
+        'backdrop-brightness': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Contrast
+       * @see https://tailwindcss.com/docs/backdrop-contrast
+       */
+      'backdrop-contrast': [{
+        'backdrop-contrast': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Grayscale
+       * @see https://tailwindcss.com/docs/backdrop-grayscale
+       */
+      'backdrop-grayscale': [{
+        'backdrop-grayscale': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Hue Rotate
+       * @see https://tailwindcss.com/docs/backdrop-hue-rotate
+       */
+      'backdrop-hue-rotate': [{
+        'backdrop-hue-rotate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Invert
+       * @see https://tailwindcss.com/docs/backdrop-invert
+       */
+      'backdrop-invert': [{
+        'backdrop-invert': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Opacity
+       * @see https://tailwindcss.com/docs/backdrop-opacity
+       */
+      'backdrop-opacity': [{
+        'backdrop-opacity': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Saturate
+       * @see https://tailwindcss.com/docs/backdrop-saturate
+       */
+      'backdrop-saturate': [{
+        'backdrop-saturate': [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Backdrop Sepia
+       * @see https://tailwindcss.com/docs/backdrop-sepia
+       */
+      'backdrop-sepia': [{
+        'backdrop-sepia': ['', isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      // --------------
+      // --- Tables ---
+      // --------------
+      /**
+       * Border Collapse
+       * @see https://tailwindcss.com/docs/border-collapse
+       */
+      'border-collapse': [{
+        border: ['collapse', 'separate']
+      }],
+      /**
+       * Border Spacing
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing': [{
+        'border-spacing': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Border Spacing X
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing-x': [{
+        'border-spacing-x': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Border Spacing Y
+       * @see https://tailwindcss.com/docs/border-spacing
+       */
+      'border-spacing-y': [{
+        'border-spacing-y': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Table Layout
+       * @see https://tailwindcss.com/docs/table-layout
+       */
+      'table-layout': [{
+        table: ['auto', 'fixed']
+      }],
+      /**
+       * Caption Side
+       * @see https://tailwindcss.com/docs/caption-side
+       */
+      caption: [{
+        caption: ['top', 'bottom']
+      }],
+      // ---------------------------------
+      // --- Transitions and Animation ---
+      // ---------------------------------
+      /**
+       * Transition Property
+       * @see https://tailwindcss.com/docs/transition-property
+       */
+      transition: [{
+        transition: ['', 'all', 'colors', 'opacity', 'shadow', 'transform', 'none', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Behavior
+       * @see https://tailwindcss.com/docs/transition-behavior
+       */
+      'transition-behavior': [{
+        transition: ['normal', 'discrete']
+      }],
+      /**
+       * Transition Duration
+       * @see https://tailwindcss.com/docs/transition-duration
+       */
+      duration: [{
+        duration: [isNumber, 'initial', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Timing Function
+       * @see https://tailwindcss.com/docs/transition-timing-function
+       */
+      ease: [{
+        ease: ['linear', 'initial', themeEase, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Transition Delay
+       * @see https://tailwindcss.com/docs/transition-delay
+       */
+      delay: [{
+        delay: [isNumber, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Animation
+       * @see https://tailwindcss.com/docs/animation
+       */
+      animate: [{
+        animate: ['none', themeAnimate, isArbitraryVariable, isArbitraryValue]
+      }],
+      // ------------------
+      // --- Transforms ---
+      // ------------------
+      /**
+       * Backface Visibility
+       * @see https://tailwindcss.com/docs/backface-visibility
+       */
+      backface: [{
+        backface: ['hidden', 'visible']
+      }],
+      /**
+       * Perspective
+       * @see https://tailwindcss.com/docs/perspective
+       */
+      perspective: [{
+        perspective: [themePerspective, isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Perspective Origin
+       * @see https://tailwindcss.com/docs/perspective-origin
+       */
+      'perspective-origin': [{
+        'perspective-origin': scalePositionWithArbitrary()
+      }],
+      /**
+       * Rotate
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      rotate: [{
+        rotate: scaleRotate()
+      }],
+      /**
+       * Rotate X
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-x': [{
+        'rotate-x': scaleRotate()
+      }],
+      /**
+       * Rotate Y
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-y': [{
+        'rotate-y': scaleRotate()
+      }],
+      /**
+       * Rotate Z
+       * @see https://tailwindcss.com/docs/rotate
+       */
+      'rotate-z': [{
+        'rotate-z': scaleRotate()
+      }],
+      /**
+       * Scale
+       * @see https://tailwindcss.com/docs/scale
+       */
+      scale: [{
+        scale: scaleScale()
+      }],
+      /**
+       * Scale X
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-x': [{
+        'scale-x': scaleScale()
+      }],
+      /**
+       * Scale Y
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-y': [{
+        'scale-y': scaleScale()
+      }],
+      /**
+       * Scale Z
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-z': [{
+        'scale-z': scaleScale()
+      }],
+      /**
+       * Scale 3D
+       * @see https://tailwindcss.com/docs/scale
+       */
+      'scale-3d': ['scale-3d'],
+      /**
+       * Skew
+       * @see https://tailwindcss.com/docs/skew
+       */
+      skew: [{
+        skew: scaleSkew()
+      }],
+      /**
+       * Skew X
+       * @see https://tailwindcss.com/docs/skew
+       */
+      'skew-x': [{
+        'skew-x': scaleSkew()
+      }],
+      /**
+       * Skew Y
+       * @see https://tailwindcss.com/docs/skew
+       */
+      'skew-y': [{
+        'skew-y': scaleSkew()
+      }],
+      /**
+       * Transform
+       * @see https://tailwindcss.com/docs/transform
+       */
+      transform: [{
+        transform: [isArbitraryVariable, isArbitraryValue, '', 'none', 'gpu', 'cpu']
+      }],
+      /**
+       * Transform Origin
+       * @see https://tailwindcss.com/docs/transform-origin
+       */
+      'transform-origin': [{
+        origin: scalePositionWithArbitrary()
+      }],
+      /**
+       * Transform Style
+       * @see https://tailwindcss.com/docs/transform-style
+       */
+      'transform-style': [{
+        transform: ['3d', 'flat']
+      }],
+      /**
+       * Translate
+       * @see https://tailwindcss.com/docs/translate
+       */
+      translate: [{
+        translate: scaleTranslate()
+      }],
+      /**
+       * Translate X
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-x': [{
+        'translate-x': scaleTranslate()
+      }],
+      /**
+       * Translate Y
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-y': [{
+        'translate-y': scaleTranslate()
+      }],
+      /**
+       * Translate Z
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-z': [{
+        'translate-z': scaleTranslate()
+      }],
+      /**
+       * Translate None
+       * @see https://tailwindcss.com/docs/translate
+       */
+      'translate-none': ['translate-none'],
+      // ---------------------
+      // --- Interactivity ---
+      // ---------------------
+      /**
+       * Accent Color
+       * @see https://tailwindcss.com/docs/accent-color
+       */
+      accent: [{
+        accent: scaleColor()
+      }],
+      /**
+       * Appearance
+       * @see https://tailwindcss.com/docs/appearance
+       */
+      appearance: [{
+        appearance: ['none', 'auto']
+      }],
+      /**
+       * Caret Color
+       * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
+       */
+      'caret-color': [{
+        caret: scaleColor()
+      }],
+      /**
+       * Color Scheme
+       * @see https://tailwindcss.com/docs/color-scheme
+       */
+      'color-scheme': [{
+        scheme: ['normal', 'dark', 'light', 'light-dark', 'only-dark', 'only-light']
+      }],
+      /**
+       * Cursor
+       * @see https://tailwindcss.com/docs/cursor
+       */
+      cursor: [{
+        cursor: ['auto', 'default', 'pointer', 'wait', 'text', 'move', 'help', 'not-allowed', 'none', 'context-menu', 'progress', 'cell', 'crosshair', 'vertical-text', 'alias', 'copy', 'no-drop', 'grab', 'grabbing', 'all-scroll', 'col-resize', 'row-resize', 'n-resize', 'e-resize', 's-resize', 'w-resize', 'ne-resize', 'nw-resize', 'se-resize', 'sw-resize', 'ew-resize', 'ns-resize', 'nesw-resize', 'nwse-resize', 'zoom-in', 'zoom-out', isArbitraryVariable, isArbitraryValue]
+      }],
+      /**
+       * Field Sizing
+       * @see https://tailwindcss.com/docs/field-sizing
+       */
+      'field-sizing': [{
+        'field-sizing': ['fixed', 'content']
+      }],
+      /**
+       * Pointer Events
+       * @see https://tailwindcss.com/docs/pointer-events
+       */
+      'pointer-events': [{
+        'pointer-events': ['auto', 'none']
+      }],
+      /**
+       * Resize
+       * @see https://tailwindcss.com/docs/resize
+       */
+      resize: [{
+        resize: ['none', '', 'y', 'x']
+      }],
+      /**
+       * Scroll Behavior
+       * @see https://tailwindcss.com/docs/scroll-behavior
+       */
+      'scroll-behavior': [{
+        scroll: ['auto', 'smooth']
+      }],
+      /**
+       * Scroll Margin
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-m': [{
+        'scroll-m': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Inline
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mx': [{
+        'scroll-mx': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Block
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-my': [{
+        'scroll-my': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Inline Start
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-ms': [{
+        'scroll-ms': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Inline End
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-me': [{
+        'scroll-me': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Block Start
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mbs': [{
+        'scroll-mbs': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Block End
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mbe': [{
+        'scroll-mbe': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Top
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mt': [{
+        'scroll-mt': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Right
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mr': [{
+        'scroll-mr': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Bottom
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-mb': [{
+        'scroll-mb': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Margin Left
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */
+      'scroll-ml': [{
+        'scroll-ml': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-p': [{
+        'scroll-p': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Inline
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-px': [{
+        'scroll-px': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Block
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-py': [{
+        'scroll-py': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Inline Start
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-ps': [{
+        'scroll-ps': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Inline End
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pe': [{
+        'scroll-pe': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Block Start
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pbs': [{
+        'scroll-pbs': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Block End
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pbe': [{
+        'scroll-pbe': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Top
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pt': [{
+        'scroll-pt': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Right
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pr': [{
+        'scroll-pr': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Bottom
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pb': [{
+        'scroll-pb': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Padding Left
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */
+      'scroll-pl': [{
+        'scroll-pl': scaleUnambiguousSpacing()
+      }],
+      /**
+       * Scroll Snap Align
+       * @see https://tailwindcss.com/docs/scroll-snap-align
+       */
+      'snap-align': [{
+        snap: ['start', 'end', 'center', 'align-none']
+      }],
+      /**
+       * Scroll Snap Stop
+       * @see https://tailwindcss.com/docs/scroll-snap-stop
+       */
+      'snap-stop': [{
+        snap: ['normal', 'always']
+      }],
+      /**
+       * Scroll Snap Type
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      'snap-type': [{
+        snap: ['none', 'x', 'y', 'both']
+      }],
+      /**
+       * Scroll Snap Type Strictness
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */
+      'snap-strictness': [{
+        snap: ['mandatory', 'proximity']
+      }],
+      /**
+       * Touch Action
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      touch: [{
+        touch: ['auto', 'none', 'manipulation']
+      }],
+      /**
+       * Touch Action X
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-x': [{
+        'touch-pan': ['x', 'left', 'right']
+      }],
+      /**
+       * Touch Action Y
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-y': [{
+        'touch-pan': ['y', 'up', 'down']
+      }],
+      /**
+       * Touch Action Pinch Zoom
+       * @see https://tailwindcss.com/docs/touch-action
+       */
+      'touch-pz': ['touch-pinch-zoom'],
+      /**
+       * User Select
+       * @see https://tailwindcss.com/docs/user-select
+       */
+      select: [{
+        select: ['none', 'text', 'all', 'auto']
+      }],
+      /**
+       * Will Change
+       * @see https://tailwindcss.com/docs/will-change
+       */
+      'will-change': [{
+        'will-change': ['auto', 'scroll', 'contents', 'transform', isArbitraryVariable, isArbitraryValue]
+      }],
+      // -----------
+      // --- SVG ---
+      // -----------
+      /**
+       * Fill
+       * @see https://tailwindcss.com/docs/fill
+       */
+      fill: [{
+        fill: ['none', ...scaleColor()]
+      }],
+      /**
+       * Stroke Width
+       * @see https://tailwindcss.com/docs/stroke-width
+       */
+      'stroke-w': [{
+        stroke: [isNumber, isArbitraryVariableLength, isArbitraryLength, isArbitraryNumber]
+      }],
+      /**
+       * Stroke
+       * @see https://tailwindcss.com/docs/stroke
+       */
+      stroke: [{
+        stroke: ['none', ...scaleColor()]
+      }],
+      // ---------------------
+      // --- Accessibility ---
+      // ---------------------
+      /**
+       * Forced Color Adjust
+       * @see https://tailwindcss.com/docs/forced-color-adjust
+       */
+      'forced-color-adjust': [{
+        'forced-color-adjust': ['auto', 'none']
+      }]
+    },
+    conflictingClassGroups: {
+      overflow: ['overflow-x', 'overflow-y'],
+      overscroll: ['overscroll-x', 'overscroll-y'],
+      inset: ['inset-x', 'inset-y', 'inset-bs', 'inset-be', 'start', 'end', 'top', 'right', 'bottom', 'left'],
+      'inset-x': ['right', 'left'],
+      'inset-y': ['top', 'bottom'],
+      flex: ['basis', 'grow', 'shrink'],
+      gap: ['gap-x', 'gap-y'],
+      p: ['px', 'py', 'ps', 'pe', 'pbs', 'pbe', 'pt', 'pr', 'pb', 'pl'],
+      px: ['pr', 'pl'],
+      py: ['pt', 'pb'],
+      m: ['mx', 'my', 'ms', 'me', 'mbs', 'mbe', 'mt', 'mr', 'mb', 'ml'],
+      mx: ['mr', 'ml'],
+      my: ['mt', 'mb'],
+      size: ['w', 'h'],
+      'font-size': ['leading'],
+      'fvn-normal': ['fvn-ordinal', 'fvn-slashed-zero', 'fvn-figure', 'fvn-spacing', 'fvn-fraction'],
+      'fvn-ordinal': ['fvn-normal'],
+      'fvn-slashed-zero': ['fvn-normal'],
+      'fvn-figure': ['fvn-normal'],
+      'fvn-spacing': ['fvn-normal'],
+      'fvn-fraction': ['fvn-normal'],
+      'line-clamp': ['display', 'overflow'],
+      rounded: ['rounded-s', 'rounded-e', 'rounded-t', 'rounded-r', 'rounded-b', 'rounded-l', 'rounded-ss', 'rounded-se', 'rounded-ee', 'rounded-es', 'rounded-tl', 'rounded-tr', 'rounded-br', 'rounded-bl'],
+      'rounded-s': ['rounded-ss', 'rounded-es'],
+      'rounded-e': ['rounded-se', 'rounded-ee'],
+      'rounded-t': ['rounded-tl', 'rounded-tr'],
+      'rounded-r': ['rounded-tr', 'rounded-br'],
+      'rounded-b': ['rounded-br', 'rounded-bl'],
+      'rounded-l': ['rounded-tl', 'rounded-bl'],
+      'border-spacing': ['border-spacing-x', 'border-spacing-y'],
+      'border-w': ['border-w-x', 'border-w-y', 'border-w-s', 'border-w-e', 'border-w-bs', 'border-w-be', 'border-w-t', 'border-w-r', 'border-w-b', 'border-w-l'],
+      'border-w-x': ['border-w-r', 'border-w-l'],
+      'border-w-y': ['border-w-t', 'border-w-b'],
+      'border-color': ['border-color-x', 'border-color-y', 'border-color-s', 'border-color-e', 'border-color-bs', 'border-color-be', 'border-color-t', 'border-color-r', 'border-color-b', 'border-color-l'],
+      'border-color-x': ['border-color-r', 'border-color-l'],
+      'border-color-y': ['border-color-t', 'border-color-b'],
+      translate: ['translate-x', 'translate-y', 'translate-none'],
+      'translate-none': ['translate', 'translate-x', 'translate-y', 'translate-z'],
+      'scroll-m': ['scroll-mx', 'scroll-my', 'scroll-ms', 'scroll-me', 'scroll-mbs', 'scroll-mbe', 'scroll-mt', 'scroll-mr', 'scroll-mb', 'scroll-ml'],
+      'scroll-mx': ['scroll-mr', 'scroll-ml'],
+      'scroll-my': ['scroll-mt', 'scroll-mb'],
+      'scroll-p': ['scroll-px', 'scroll-py', 'scroll-ps', 'scroll-pe', 'scroll-pbs', 'scroll-pbe', 'scroll-pt', 'scroll-pr', 'scroll-pb', 'scroll-pl'],
+      'scroll-px': ['scroll-pr', 'scroll-pl'],
+      'scroll-py': ['scroll-pt', 'scroll-pb'],
+      touch: ['touch-x', 'touch-y', 'touch-pz'],
+      'touch-x': ['touch'],
+      'touch-y': ['touch'],
+      'touch-pz': ['touch']
+    },
+    conflictingClassGroupModifiers: {
+      'font-size': ['leading']
+    },
+    orderSensitiveModifiers: ['*', '**', 'after', 'backdrop', 'before', 'details-content', 'file', 'first-letter', 'first-line', 'marker', 'placeholder', 'selection']
+  };
+};
+
+/**
+ * @param baseConfig Config where other config will be merged into. This object will be mutated.
+ * @param configExtension Partial config to merge into the `baseConfig`.
+ */
+const mergeConfigs = (baseConfig, {
+  cacheSize,
+  prefix,
+  experimentalParseClassName,
+  extend = {},
+  override = {}
+}) => {
+  overrideProperty(baseConfig, 'cacheSize', cacheSize);
+  overrideProperty(baseConfig, 'prefix', prefix);
+  overrideProperty(baseConfig, 'experimentalParseClassName', experimentalParseClassName);
+  overrideConfigProperties(baseConfig.theme, override.theme);
+  overrideConfigProperties(baseConfig.classGroups, override.classGroups);
+  overrideConfigProperties(baseConfig.conflictingClassGroups, override.conflictingClassGroups);
+  overrideConfigProperties(baseConfig.conflictingClassGroupModifiers, override.conflictingClassGroupModifiers);
+  overrideProperty(baseConfig, 'orderSensitiveModifiers', override.orderSensitiveModifiers);
+  mergeConfigProperties(baseConfig.theme, extend.theme);
+  mergeConfigProperties(baseConfig.classGroups, extend.classGroups);
+  mergeConfigProperties(baseConfig.conflictingClassGroups, extend.conflictingClassGroups);
+  mergeConfigProperties(baseConfig.conflictingClassGroupModifiers, extend.conflictingClassGroupModifiers);
+  mergeArrayProperties(baseConfig, extend, 'orderSensitiveModifiers');
+  return baseConfig;
+};
+const overrideProperty = (baseObject, overrideKey, overrideValue) => {
+  if (overrideValue !== undefined) {
+    baseObject[overrideKey] = overrideValue;
+  }
+};
+const overrideConfigProperties = (baseObject, overrideObject) => {
+  if (overrideObject) {
+    for (const key in overrideObject) {
+      overrideProperty(baseObject, key, overrideObject[key]);
+    }
+  }
+};
+const mergeConfigProperties = (baseObject, mergeObject) => {
+  if (mergeObject) {
+    for (const key in mergeObject) {
+      mergeArrayProperties(baseObject, mergeObject, key);
+    }
+  }
+};
+const mergeArrayProperties = (baseObject, mergeObject, key) => {
+  const mergeValue = mergeObject[key];
+  if (mergeValue !== undefined) {
+    baseObject[key] = baseObject[key] ? baseObject[key].concat(mergeValue) : mergeValue;
+  }
+};
+const extendTailwindMerge = (configExtension, ...createConfig) => typeof configExtension === 'function' ? createTailwindMerge(getDefaultConfig, configExtension, ...createConfig) : createTailwindMerge(() => mergeConfigs(getDefaultConfig(), configExtension), ...createConfig);
+const twMerge = /*#__PURE__*/createTailwindMerge(getDefaultConfig);
+
+//# sourceMappingURL=bundle-mjs.mjs.map
+
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!***********************!*\
+  !*** ./src/index.tsx ***!
+  \***********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _slots_LicenseTab__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./slots/LicenseTab */ "./src/slots/LicenseTab.tsx");
+/* harmony import */ var _slots_LicenseBanner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slots/LicenseBanner */ "./src/slots/LicenseBanner.tsx");
+/* harmony import */ var _slots_VariationsSlot__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./slots/VariationsSlot */ "./src/slots/VariationsSlot.tsx");
+/* harmony import */ var _slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./slots/PriceFilterSlot */ "./src/slots/PriceFilterSlot.tsx");
+/* harmony import */ var _slots_CustomFieldsSlot__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./slots/CustomFieldsSlot */ "./src/slots/CustomFieldsSlot.tsx");
+/* harmony import */ var _slots_ImportExportSlot__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./slots/ImportExportSlot */ "./src/slots/ImportExportSlot.tsx");
+
+
+
+
+
+
+
+_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default()(() => {
+  // If the free plugin exposes useExtensionStore, register our Fill
+  const store = window.productbay?.useExtensionStore;
+  if (store) {
+    store.getState().addFill(_slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_4__["default"]);
+    store.getState().addFill(_slots_VariationsSlot__WEBPACK_IMPORTED_MODULE_3__["default"]);
+    store.getState().addFill(_slots_CustomFieldsSlot__WEBPACK_IMPORTED_MODULE_5__["default"]);
+    store.getState().addFill(_slots_ImportExportSlot__WEBPACK_IMPORTED_MODULE_6__["default"]);
+    store.getState().addFill(_slots_LicenseBanner__WEBPACK_IMPORTED_MODULE_2__["default"]);
+    store.getState().addFill(_slots_LicenseTab__WEBPACK_IMPORTED_MODULE_1__["default"]);
+  }
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=productbay-pro-admin.js.map
