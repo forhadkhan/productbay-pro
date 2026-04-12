@@ -589,69 +589,6 @@ table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
 }
 
 
-/* ============================================================
-   GROUPED PRODUCT INLINE SELECT
-   ============================================================ */
-
-.productbay-grouped-inline-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-}
-
-.productbay-grouped-child-select {
-    max-width: 180px;
-    min-width: 120px;
-    padding: 7px 10px;
-    border: 1px solid var(--pb-color-border, #cbd5e1);
-    border-radius: var(--pb-radius-md, 6px);
-    font-size: 0.85rem;
-    color: var(--pb-color-text-primary, #0f172a);
-    background: var(--pb-color-bg, #fff);
-    cursor: pointer;
-    transition: border-color var(--pb-transition, 150ms ease),
-        box-shadow var(--pb-transition, 150ms ease);
-}
-
-.productbay-grouped-child-select:focus {
-    border-color: var(--pb-color-accent, #434343);
-    box-shadow: 0 0 0 3px var(--pb-color-accent-light, #e0f2fe);
-    outline: none;
-}
-
-.productbay-grouped-inline-price {
-    font-weight: 600;
-    font-size: 0.9rem;
-    white-space: nowrap;
-}
-
-/* Disabled state for grouped inline controls */
-.productbay-grouped-inline-wrap .productbay-qty:disabled,
-.productbay-grouped-inline-wrap .productbay-grouped-add-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
-.productbay-grouped-inline-wrap .productbay-qty-plus:disabled,
-.productbay-grouped-inline-wrap .productbay-qty-minus:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-}
-
-.productbay-grouped-inline-wrap .productbay-select-product:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-}
-
-.productbay-grouped-inline-wrap .productbay-select-product {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    accent-color: #3b82f6;
-}
-
 
 /* ============================================================
    POPUP / NESTED TRIGGER BUTTONS (main table)
