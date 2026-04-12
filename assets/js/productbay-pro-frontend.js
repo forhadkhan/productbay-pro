@@ -566,7 +566,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (rowCheckbox) {
 				rowCheckbox.disabled = false;
 				rowCheckbox.value = allIds.join(',');
-				rowCheckbox.setAttribute('data-price', '');
+				const totalPrice = childrenData.reduce((sum, c) => sum + parseFloat(c.price || 0), 0);
+				rowCheckbox.setAttribute('data-price', totalPrice);
 				rowCheckbox.setAttribute('data-multi', '1');
 				rowCheckbox.checked = true;
 				// Trigger change to update bulk selection
