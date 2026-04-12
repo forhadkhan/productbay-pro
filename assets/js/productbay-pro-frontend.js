@@ -543,6 +543,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		const row = select.closest('tr');
 		const rowCheckbox = row ? row.querySelector('.productbay-col-select .productbay-select-product') : null;
 
+		const selectedId = select.value;
+		const childrenData = JSON.parse(wrap.getAttribute('data-children') || '[]');
+
 		if (!selectedId) {
 			// No selection — disable controls
 			if (qtyInput) qtyInput.disabled = true;
