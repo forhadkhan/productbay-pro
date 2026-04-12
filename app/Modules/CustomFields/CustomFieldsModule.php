@@ -161,7 +161,13 @@ class CustomFieldsModule
 
 		// 1. Get all unique meta keys from product posts (cached for 1 hour).
 		$cache_key = 'productbay_pro_meta_keys';
-		$raw_keys  = \get_transient($cache_key);
+
+		if ($request->get_param('refresh')) {
+			\delete_transient($cache_key);
+			$raw_keys = false;
+		} else {
+			$raw_keys = \get_transient($cache_key);
+		}
 
 		if (false === $raw_keys) {
 			// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery

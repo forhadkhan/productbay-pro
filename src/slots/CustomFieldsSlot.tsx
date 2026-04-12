@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Fill } from '@wordpress/components';
-import { BoltIcon, PackageIcon, SearchIcon, SparklesIcon, StoreIcon, X } from 'lucide-react';
+import { BoltIcon, PackageIcon, RefreshCw, SearchIcon, SparklesIcon, StoreIcon, X } from 'lucide-react';
 import { Select } from '@/components/ui';
 import { __ } from '@wordpress/i18n';
 import { cn } from '@/utils/cn';
@@ -93,6 +93,7 @@ const CustomFieldsSlot = () => {
 const useMetaKeys = () => {
     const [metaKeys, setMetaKeys] = useState<MetaKeysResponse | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
     const [inputValue, setInputValue] = useState('');      // Raw typing value (fast)
     const [searchQuery, setSearchQuery] = useState('');     // Debounced value (slow, used for filtering)
     const [error, setError] = useState<string | null>(null);
@@ -110,40 +111,51 @@ const useMetaKeys = () => {
 
     /**
      * Fetch all available meta keys from the server.
-     * This happens only once when the first CF column is expanded.
      */
-    useEffect(() => {
-        const fetchMetaKeys = async () => {
+    const fetchMetaKeys = async (refresh = false) => {
+        if (refresh) {
+            setIsRefreshing(true);
+        } else {
             setIsLoading(true);
-            setError(null);
+        }
+        
+        setError(null);
 
-            try {
-                // Settings are localized via PHP in Includes/Pro/Assets.php
-                const settings = (window as any).productBaySettings || {};
-                const apiUrl = settings.apiUrl;
-                const endpoint = apiUrl 
-                    ? `${apiUrl}${REST_NAMESPACE}${API_ENDPOINTS.META_KEYS}`
-                    : `/wp-json/${REST_NAMESPACE}${API_ENDPOINTS.META_KEYS}`;
-                const nonce = settings.nonce || (window as any).wpApiSettings?.nonce || '';
+        try {
+            // Settings are localized via PHP in Includes/Pro/Assets.php
+            const settings = (window as any).productBaySettings || {};
+            const apiUrl = settings.apiUrl;
+            
+            // Fix: Construct endpoint without doubling the namespace
+            const endpoint = apiUrl 
+                ? `${apiUrl}${API_ENDPOINTS.META_KEYS}${refresh ? '?refresh=1' : ''}`
+                : `/wp-json/${REST_NAMESPACE}/${API_ENDPOINTS.META_KEYS}${refresh ? '?refresh=1' : ''}`;
+            
+            const nonce = settings.nonce || (window as any).wpApiSettings?.nonce || '';
 
-                const response = await fetch(endpoint, {
-                    headers: { 'X-WP-Nonce': nonce },
-                });
+            const response = await fetch(endpoint, {
+                headers: { 'X-WP-Nonce': nonce },
+            });
 
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-                const data = await response.json();
-                setMetaKeys(data);
-            } catch (err) {
-                setError(__('Failed to load meta keys.', 'productbay-pro'));
-                console.error('ProductBay Pro: Failed to fetch meta keys:', err);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+            const data = await response.json();
+            setMetaKeys(data);
+        } catch (err) {
+            setError(__('Failed to load meta keys.', 'productbay-pro'));
+            console.error('ProductBay Pro: Failed to fetch meta keys:', err);
+        } finally {
+            setIsLoading(false);
+            setIsRefreshing(false);
+        }
+    };
 
+    /** Initial load on mount */
+    useEffect(() => {
         fetchMetaKeys();
     }, []);
+
+    const refreshMetaKeys = () => fetchMetaKeys(true);
 
     /**
      * Compute the filtered list of meta keys based on the debounced search query.
@@ -178,12 +190,14 @@ const useMetaKeys = () => {
     return {
         metaKeys,
         isLoading,
+        isRefreshing,
         error,
         inputValue,
         setInputValue,
         searchQuery,
         filteredKeys,
         totalResults,
+        refreshMetaKeys,
     };
 };
 
@@ -203,12 +217,14 @@ const CustomFieldsPanel: React.FC<{
 }> = ({ column, onUpdate }) => {
     const {
         isLoading,
+        isRefreshing,
         error,
         inputValue,
         setInputValue,
         searchQuery,
         filteredKeys,
         totalResults,
+        refreshMetaKeys,
     } = useMetaKeys();
 
     // Sync UI with the column settings in the parent Store
@@ -325,10 +341,26 @@ const CustomFieldsPanel: React.FC<{
 
     return (
         <div className="space-y-3 bg-white rounded-lg p-3 border border-gray-200 mt-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-blue-700 uppercase tracking-widest">
                     {__('Advanced Meta Selector', 'productbay-pro')}
                 </span>
+                <button
+                    onClick={refreshMetaKeys}
+                    disabled={isLoading || isRefreshing}
+                    className={cn(
+                        "p-1.5 rounded-md transition-all duration-200",
+                        isRefreshing || isLoading 
+                            ? "text-blue-400 bg-blue-50 cursor-not-allowed" 
+                            : "text-gray-400 hover:text-blue-600 hover:bg-blue-50 active:scale-95"
+                    )}
+                    title={__('Refresh meta keys', 'productbay-pro')}
+                >
+                    <RefreshCw className={cn(
+                        "w-3.5 h-3.5",
+                        (isRefreshing || isLoading) && "animate-spin"
+                    )} />
+                </button>
             </div>
 
             <p className="text-xs text-gray-500 m-0 leading-relaxed">
