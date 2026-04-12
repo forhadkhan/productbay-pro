@@ -71,7 +71,6 @@ final class Config
 	 * Cache durations (in seconds).
 	 */
 	public const CACHE_TTL = DAY_IN_SECONDS;
-	public const GRACE_TTL = 259200; // 3 * DAY_IN_SECONDS
 
 	/**
 	 * HTTP request timeout.
