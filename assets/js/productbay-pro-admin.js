@@ -247,103 +247,6 @@ const PriceFilterFill = () => {
 
 /***/ },
 
-/***/ "./src/slots/VariationsSlot.tsx"
-/*!**************************************!*\
-  !*** ./src/slots/VariationsSlot.tsx ***!
-  \**************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ui */ "./src/components/ui/index.ts");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
-
-
-
-
-
-const {
-  SectionHeading,
-  SettingsOption
-} = window.productbay?.components || {};
-
-/**
- * SettingsSection Component (Internal Helper shadowed from Free)
- */
-
-const SettingsSection = ({
-  title,
-  description,
-  children
-}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
-  className: "space-y-6 pt-8 border-t border-gray-100 mt-8",
-  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SectionHeading, {
-    title: title,
-    description: description
-  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-    className: "space-y-2",
-    children: children
-  })]
-});
-
-/**
- * VariationsSlot component
- * 
- * Renders the Variations Config into the 'productbay-pro-options' slot.
- */
-const VariationsSlot = () => {
-  // Access the global store hook exposed by the Free plugin
-  const useTableStore = window.productbay?.useTableStore;
-  if (!useTableStore) {
-    return null;
-  }
-  const {
-    settings,
-    setFeatures
-  } = useTableStore();
-  const configMode = settings?.features?.variationsMode || 'inline';
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Fill, {
-    name: "productbay-pro-options",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SettingsSection, {
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Variable & Grouped Products (Pro)', 'productbay-pro'),
-      description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Configure how complex products are displayed in the table', 'productbay-pro'),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SettingsOption, {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display Mode', 'productbay-pro'),
-        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose how variations and grouped child products are shown', 'productbay-pro'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_3__.Select, {
-          value: configMode,
-          onChange: value => setFeatures({
-            variationsMode: value
-          }),
-          options: [{
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Inline Dropdown', 'productbay-pro'),
-            value: 'inline'
-          }, {
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Popup Modal', 'productbay-pro'),
-            value: 'popup'
-          }, {
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Nested Rows', 'productbay-pro'),
-            value: 'nested'
-          }],
-          className: "w-60"
-        })
-      })
-    })
-  });
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VariationsSlot);
-
-/***/ },
-
 /***/ "./src/utils/cn.ts"
 /*!*************************!*\
   !*** ./src/utils/cn.ts ***!
@@ -3816,8 +3719,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
 /* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./slots/PriceFilterSlot */ "./src/slots/PriceFilterSlot.tsx");
-/* harmony import */ var _slots_VariationsSlot__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slots/VariationsSlot */ "./src/slots/VariationsSlot.tsx");
-
 
 
 _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default()(() => {
@@ -3825,7 +3726,6 @@ _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default()(() => {
   const store = window.productbay?.useExtensionStore;
   if (store) {
     store.getState().addFill(_slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_1__["default"]);
-    store.getState().addFill(_slots_VariationsSlot__WEBPACK_IMPORTED_MODULE_2__["default"]);
   }
 });
 })();

@@ -102,7 +102,12 @@ class VariationsModule
 		}
 
 		$settings = $this->current_table['settings'] ?? [];
-		$mode     = $settings['features']['variationsMode'] ?? 'inline';
+		$mode = 'inline';
+		if ($product->is_type('variable')) {
+			$mode = $settings['features']['variableProductMode'] ?? $settings['features']['variationsMode'] ?? 'inline';
+		} elseif ($product->is_type('grouped')) {
+			$mode = $settings['features']['groupedProductMode'] ?? $settings['features']['variationsMode'] ?? 'popup';
+		}
 
 		if ($mode === 'inline') {
 			return $html;
@@ -135,11 +140,10 @@ class VariationsModule
 	{
 		$settings = $table['settings'] ?? [];
 		
-		// If explicit setting is missing, standard behavior is inline for free.
-		// If Pro is active but setting is empty, assume inline by default.
-		$mode     = $settings['features']['variationsMode'] ?? 'inline';
+		$var_mode = $settings['features']['variableProductMode'] ?? $settings['features']['variationsMode'] ?? 'inline';
+		$grp_mode = $settings['features']['groupedProductMode'] ?? $settings['features']['variationsMode'] ?? 'popup';
 
-		if ($mode !== 'popup') {
+		if ($var_mode !== 'popup' && $grp_mode !== 'popup') {
 			return;
 		}
 
@@ -161,14 +165,19 @@ class VariationsModule
 	 */
 	public function render_nested_rows($product, $table)
 	{
-		$settings = $table['settings'] ?? [];
-		$mode     = $settings['features']['variationsMode'] ?? 'inline';
-
-		if ($mode !== 'nested') {
+		if (!$product->is_type('variable') && !$product->is_type('grouped')) {
 			return;
 		}
 
-		if (!$product->is_type('variable') && !$product->is_type('grouped')) {
+		$settings = $table['settings'] ?? [];
+		$mode = 'inline';
+		if ($product->is_type('variable')) {
+			$mode = $settings['features']['variableProductMode'] ?? $settings['features']['variationsMode'] ?? 'inline';
+		} elseif ($product->is_type('grouped')) {
+			$mode = $settings['features']['groupedProductMode'] ?? $settings['features']['variationsMode'] ?? 'popup';
+		}
+
+		if ($mode !== 'nested') {
 			return;
 		}
 
