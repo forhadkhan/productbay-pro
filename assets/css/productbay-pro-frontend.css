@@ -46,38 +46,50 @@
    ============================================================ */
 
 dialog.productbay-pro-variations-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    background: transparent;
     padding: 0;
+    margin: 0;
     border: none;
-    border-radius: var(--pb-radius-xl);
-    box-shadow: var(--pb-shadow-lg);
-    width: min(92vw, 100%);
-    max-width: 800px;
-    background: var(--pb-color-bg);
-    overflow: hidden;
-    /* Entrance animation */
-    animation: pb-modal-in var(--pb-transition-md) both;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
 }
 
+dialog.productbay-pro-variations-modal[open] {
+    display: flex;
+}
+
+dialog.productbay-pro-variations-modal::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    animation: pb-backdrop-in var(--pb-transition-md) both;
+}
+
+.productbay-pro-variations-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    animation: pb-backdrop-in var(--pb-transition-md) both;
+}
+
+/* --- Entrance Animations --- */
 @keyframes pb-modal-in {
     from {
         opacity: 0;
-        transform: translateY(16px) scale(0.98);
+        transform: translateY(20px) scale(0.96);
     }
 
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
-}
-
-dialog.productbay-pro-variations-modal::backdrop,
-.productbay-pro-variations-backdrop {
-    background: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    inset: 0;
-    z-index: 9998;
-    width: 100%;
-    animation: pb-backdrop-in var(--pb-transition-md) both;
 }
 
 @keyframes pb-backdrop-in {
@@ -97,11 +109,16 @@ dialog.productbay-pro-variations-modal::backdrop,
 
 .productbay-pro-variations-content {
     position: relative;
-    z-index: 9999;
+    z-index: 2;
     display: flex;
     flex-direction: column;
-    max-height: min(82vh, 680px);
+    width: min(92vw, 800px);
+    max-height: min(90vh, 850px);
     background: var(--pb-color-bg);
+    border-radius: var(--pb-radius-xl);
+    box-shadow: var(--pb-shadow-lg);
+    overflow: hidden;
+    animation: pb-modal-in var(--pb-transition-md) both;
 }
 
 .productbay-pro-variations-inner {
@@ -187,7 +204,7 @@ dialog.productbay-pro-variations-modal::backdrop,
 .productbay-pro-popup-table-wrap {
     flex: 1;
     min-height: 100px;
-    max-height: 980px;
+    max-height: 480px;
     overflow-y: auto;
     border: 1px solid var(--pb-color-border);
     border-radius: var(--pb-radius-lg);
@@ -378,11 +395,25 @@ table.productbay-pro-popup-table .productbay-pro-popup-qty-input::-webkit-inner-
    ACTION COLUMN — Add Button + Checkbox
    ============================================================ */
 
-table.productbay-pro-popup-table td.productbay-pro-popup-col-action>div {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: flex-end;
+table.productbay-pro-popup-table td.productbay-pro-popup-col-action {
+    text-align: right;
+}
+
+/* Select All and per-row select column */
+table.productbay-pro-popup-table .productbay-pro-popup-col-select-all,
+table.productbay-pro-popup-table .productbay-pro-popup-col-select {
+    width: 36px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+table.productbay-pro-popup-table .productbay-pro-popup-col-select-all input[type="checkbox"],
+table.productbay-pro-popup-table .productbay-pro-popup-col-select input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin: 0;
+    accent-color: #3b82f6;
 }
 
 /* Add button */
@@ -465,7 +496,7 @@ table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
 
 
 /* ============================================================
-   NESTED ROW ITEMS (main table)
+   NESTED ROW ITEMS (main table) — Left-border visual grouping
    ============================================================ */
 
 .productbay-table tr.productbay-pro-nested-row-item {
@@ -473,34 +504,90 @@ table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
     transition: background var(--pb-transition);
 }
 
+.productbay-table tr.productbay-pro-nested-row-item td:first-child {
+    border-left: 3px solid var(--pb-color-accent);
+}
+
 .productbay-table tr.productbay-pro-nested-row-item:hover {
     background-color: var(--pb-color-accent-subtle);
 }
 
-.productbay-table tr.productbay-pro-nested-row-item td.productbay-col-name {
-    padding-left: 36px;
-    position: relative;
+
+/* ============================================================
+   SEPARATE ROW ITEMS (main table) — Independent child rows
+   ============================================================ */
+
+.productbay-table tr.productbay-pro-separate-row-item {
+    transition: background var(--pb-transition);
 }
 
-.productbay-table tr.productbay-pro-nested-row-item td.productbay-col-name::before {
-    content: '';
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    width: 14px;
-    height: 1px;
-    background: var(--pb-color-text-hint);
+.productbay-table tr.productbay-pro-separate-row-item td:first-child {
+    border-left: 3px solid var(--pb-color-border);
 }
 
-.productbay-table tr.productbay-pro-nested-row-item td.productbay-col-name::after {
-    content: '';
-    position: absolute;
-    left: 14px;
-    top: 0;
-    height: 50%;
-    width: 1px;
-    background: var(--pb-color-text-hint);
+.productbay-table tr.productbay-pro-separate-row-item:hover {
+    background-color: var(--pb-color-accent-subtle);
 }
+
+
+/* ============================================================
+   PARENT ROW (nested/separate modes) — Left-border visual hierarchy
+   ============================================================ */
+
+.productbay-table tr:has(.productbay-pro-btn-nested) td:first-child,
+.productbay-table tr:has(.productbay-pro-parent-label) td:first-child {
+    border-left: 4px solid var(--pb-color-border-dark, #94a3b8);
+}
+
+
+/* ============================================================
+   NESTED ROW CONTAINER (collapsible wrapper)
+   ============================================================ */
+
+.productbay-pro-nested-row-container .productbay-pro-nested-row-content {
+    padding: 0;
+}
+
+.productbay-pro-nested-row-container .productbay-pro-nested-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.productbay-pro-nested-row-container .productbay-pro-nested-loading {
+    padding: 16px;
+    text-align: center;
+    color: var(--pb-color-text-muted);
+    font-size: 0.875rem;
+}
+
+
+/* ============================================================
+   PARENT LABEL (for separate rows mode)
+   ============================================================ */
+
+.productbay-pro-parent-label {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--pb-color-text-muted);
+    font-style: italic;
+}
+
+
+/* ============================================================
+   PRODUCT SUBTITLE ("X options available")
+   ============================================================ */
+
+.productbay-product-subtitle {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--pb-color-text-muted, #64748b);
+    margin-top: 2px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
 
 
 /* ============================================================
@@ -509,7 +596,7 @@ table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
 
 .productbay-pro-btn-popup,
 .productbay-pro-btn-nested {
-    width: 100%;
+    width: max-content;
     margin-top: 4px;
     background: var(--pb-color-bg);
     color: var(--pb-color-text-secondary);
@@ -715,4 +802,48 @@ table.productbay-pro-popup-table .productbay-pro-popup-add-btn:active {
 .productbay-wrapper .productbay-price-sep {
     color: #64748b;
     font-size: 14px;
+}
+
+/* ==========================================================================
+   ProductBay Pro - Lazy Loading (Load More & Infinite Scroll)
+   ========================================================================== */
+
+.productbay-wrapper .productbay-load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 20px auto;
+}
+
+.productbay-wrapper .productbay-load-more-btn.loading .productbay-spinner {
+    display: inline-block !important;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: productbay-pro-spin 0.6s linear infinite;
+}
+
+.productbay-wrapper .productbay-infinite-sentinel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.productbay-wrapper .productbay-infinite-sentinel .productbay-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: productbay-pro-spin 0.6s linear infinite;
+}
+
+@keyframes productbay-pro-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

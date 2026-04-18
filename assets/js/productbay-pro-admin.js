@@ -76,6 +76,1381 @@ const {
 
 /***/ },
 
+/***/ "./src/slots/CustomFieldsSlot.tsx"
+/*!****************************************!*\
+  !*** ./src/slots/CustomFieldsSlot.tsx ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/sparkles.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/bolt.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/store.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var _components_ui__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/components/ui */ "./src/components/ui/index.ts");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/utils/constants */ "./src/utils/constants.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__);
+
+
+
+
+
+
+
+
+/**
+ * MetaKeyEntry Interface
+ *
+ * Defines the structure of an individual meta key object returned by the Pro API.
+ * These represent database keys like '_price', 'product_brand', etc.
+ */
+
+/**
+ * MetaKeysResponse Interface
+ *
+ * The shape of the JSON response from the `productbay/v1/pro/meta-keys` endpoint.
+ * Data is pre-grouped by the backend into common logical sources.
+ */
+
+/**
+ * Available display formats for Custom Field columns.
+ * These options allow users to hint how the raw meta value should be rendered on the frontend.
+ */
+const DISPLAY_FORMATS = [{
+  value: 'auto',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Auto Detect', 'productbay-pro')
+}, {
+  value: 'text',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Plain Text', 'productbay-pro')
+}, {
+  value: 'number',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Number', 'productbay-pro')
+}, {
+  value: 'date',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Date', 'productbay-pro')
+}, {
+  value: 'image',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Image', 'productbay-pro')
+}, {
+  value: 'link',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Link / URL', 'productbay-pro')
+}, {
+  value: 'boolean',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Yes / No Badge', 'productbay-pro')
+}];
+
+/**
+ * Human-readable mapping for meta key group identifiers.
+ */
+const GROUP_LABELS = {
+  woocommerce: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('WooCommerce', 'productbay-pro'),
+  acf: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Advanced Custom Fields', 'productbay-pro'),
+  custom: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Custom Meta', 'productbay-pro')
+};
+
+/**
+ * CustomFieldsSlot Component
+ *
+ * This is the entry point for the Pro-only Custom Field settings.
+ * It uses the WordPress `Fill` component to "inject" itself into the `productbay-pro-cf-settings`
+ * slot defined in the Free plugin's `ColumnItem.tsx`.
+ *
+ * IMPORTANT: It uses the function-as-child pattern to receive `fillProps` from the Slot.
+ * These props include the current `column` object and the `onUpdate` dispatcher.
+ */
+const CustomFieldsSlot = () => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Fill, {
+    name: "productbay-pro-cf-settings",
+    children: fillProps => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(CustomFieldsPanel, {
+      ...fillProps
+    })
+  });
+};
+
+/**
+ * useMetaKeys Hook
+ *
+ * A specialized state management hook for the Advanced Meta Selector.
+ * Handles:
+ * 1. Async fetching of meta keys from the WP REST API.
+ * 2. Search input state and debounced query syncing.
+ * 3. Client-side filtering of results across all groups.
+ *
+ * @returns {Object} State and setters for the meta selector UI.
+ */
+const useMetaKeys = () => {
+  const [metaKeys, setMetaKeys] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [isRefreshing, setIsRefreshing] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [inputValue, setInputValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''); // Raw typing value (fast)
+  const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''); // Debounced value (slow, used for filtering)
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+
+  /**
+   * Debounce the search input to prevent expensive filtering/re-renders
+   * on every single keystroke.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const timer = setTimeout(() => {
+      setSearchQuery(inputValue);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [inputValue]);
+
+  /**
+   * Fetch all available meta keys from the server.
+   */
+  const fetchMetaKeys = async (refresh = false) => {
+    if (refresh) {
+      setIsRefreshing(true);
+    } else {
+      setIsLoading(true);
+    }
+    setError(null);
+    try {
+      // Settings are localized via PHP in Includes/Pro/Assets.php
+      const settings = window.productBaySettings || {};
+      const apiUrl = settings.apiUrl;
+
+      // Fix: Construct endpoint without doubling the namespace
+      const endpoint = apiUrl ? `${apiUrl}${_utils_constants__WEBPACK_IMPORTED_MODULE_11__.API_ENDPOINTS.META_KEYS}${refresh ? '?refresh=1' : ''}` : `/wp-json/${_utils_constants__WEBPACK_IMPORTED_MODULE_11__.REST_NAMESPACE}/${_utils_constants__WEBPACK_IMPORTED_MODULE_11__.API_ENDPOINTS.META_KEYS}${refresh ? '?refresh=1' : ''}`;
+      const nonce = settings.nonce || window.wpApiSettings?.nonce || '';
+      const response = await fetch(endpoint, {
+        headers: {
+          'X-WP-Nonce': nonce
+        }
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      setMetaKeys(data);
+    } catch (err) {
+      setError((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Failed to load meta keys.', 'productbay-pro'));
+      console.error('ProductBay Pro: Failed to fetch meta keys:', err);
+    } finally {
+      setIsLoading(false);
+      setIsRefreshing(false);
+    }
+  };
+
+  /** Initial load on mount */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetchMetaKeys();
+  }, []);
+  const refreshMetaKeys = () => fetchMetaKeys(true);
+
+  /**
+   * Compute the filtered list of meta keys based on the debounced search query.
+   * Searches against key, label, and ACF group names.
+   */
+  const filteredKeys = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!metaKeys) return null;
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return metaKeys;
+    const filterGroup = group => group.filter(entry => entry.key.toLowerCase().includes(query) || entry.label.toLowerCase().includes(query) || entry.group && entry.group.toLowerCase().includes(query));
+    return {
+      woocommerce: filterGroup(metaKeys.woocommerce),
+      acf: filterGroup(metaKeys.acf),
+      custom: filterGroup(metaKeys.custom)
+    };
+  }, [metaKeys, searchQuery]);
+
+  /** Calculate total visibility count for the "Matched Results" indicator. */
+  const totalResults = filteredKeys ? filteredKeys.woocommerce.length + filteredKeys.acf.length + filteredKeys.custom.length : 0;
+  return {
+    metaKeys,
+    isLoading,
+    isRefreshing,
+    error,
+    inputValue,
+    setInputValue,
+    searchQuery,
+    filteredKeys,
+    totalResults,
+    refreshMetaKeys
+  };
+};
+
+/**
+ * CustomFieldsPanel Component
+ *
+ * The actual UI rendered inside the Slot. It provides:
+ * 1. A search-and-browse interface for meta keys.
+ * 2. A selection status indicator.
+ * 3. A display format dropdown.
+ *
+ * @param {Object} props Props injected by the Slot via Fill function-child.
+ */
+const CustomFieldsPanel = ({
+  column,
+  onUpdate
+}) => {
+  const {
+    isLoading,
+    isRefreshing,
+    error,
+    inputValue,
+    setInputValue,
+    searchQuery,
+    filteredKeys,
+    totalResults,
+    refreshMetaKeys
+  } = useMetaKeys();
+
+  // Sync UI with the column settings in the parent Store
+  const selectedKey = column.settings?.metaKey || '';
+  const selectedFormat = column.settings?.displayFormat || 'auto';
+
+  /**
+   * Persist selection to the global store.
+   * This instantly updates the "Meta Key (Manual Override)" input in the parent ColumnItem.
+   */
+  const handleMetaKeySelect = key => {
+    onUpdate({
+      settings: {
+        ...column.settings,
+        metaKey: key
+      }
+    });
+  };
+
+  /**
+   * Persist formatting choice to the global store.
+   */
+  const handleFormatChange = format => {
+    onUpdate({
+      settings: {
+        ...column.settings,
+        displayFormat: format
+      }
+    });
+  };
+
+  /**
+   * Renders a specific group of meta keys (WC, ACF, or Custom).
+   * ACF groups are rendered with an additional nesting layer for "Field Groups".
+   */
+  const renderGroup = (groupKey, entries) => {
+    if (entries.length === 0) return null;
+
+    // ACF fields require sub-grouping by their 'group' property for better organization
+    if (groupKey === 'acf') {
+      const subGroups = {};
+      entries.forEach(entry => {
+        const group = entry.group || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Ungrouped', 'productbay-pro');
+        if (!subGroups[group]) subGroups[group] = [];
+        subGroups[group].push(entry);
+      });
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        className: "mb-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+          className: "text-xs font-bold text-purple-700 uppercase tracking-widest mb-2 flex items-center gap-1.5 px-1 py-0.5 bg-purple-50 rounded-sm",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "w-4 h-4 text-purple-600"
+          }), GROUP_LABELS[groupKey]]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          className: "space-y-4",
+          children: Object.entries(subGroups).map(([subGroupName, subEntries]) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+            className: "ml-1 pl-3 border-l-2 border-purple-100",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+              className: "text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 flex items-center gap-1",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+                className: "w-1.5 h-1.5 rounded-full bg-purple-200"
+              }), subGroupName]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+              className: "space-y-0.5",
+              children: subEntries.map(entry => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(MetaKeyButton, {
+                entry: entry,
+                isSelected: selectedKey === entry.key,
+                onClick: () => handleMetaKeySelect(entry.key)
+              }, entry.key))
+            })]
+          }, subGroupName))
+        })]
+      }, groupKey);
+    }
+
+    // Standard icon mapping for common groups
+    const groupIcons = {
+      woocommerce: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        className: "w-4 h-4 text-blue-600"
+      }),
+      custom: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        className: "w-4 h-4 text-gray-600"
+      })
+    };
+    const groupStyles = {
+      woocommerce: 'text-blue-700 bg-blue-50',
+      custom: 'text-gray-700 bg-gray-50'
+    };
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "mb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_10__.cn)("text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-1.5 px-1 py-0.5 rounded-sm", groupStyles[groupKey] || 'text-gray-600 bg-gray-100'),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+          children: groupIcons[groupKey] || '📦'
+        }), GROUP_LABELS[groupKey]]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "space-y-0.5",
+        children: entries.map(entry => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(MetaKeyButton, {
+          entry: entry,
+          isSelected: selectedKey === entry.key,
+          onClick: () => handleMetaKeySelect(entry.key)
+        }, entry.key))
+      })]
+    }, groupKey);
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+    className: "space-y-3 bg-white rounded-lg p-3 border border-gray-200 mt-2",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "flex items-center justify-between",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+        className: "text-xs font-bold text-blue-700 uppercase tracking-widest",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Advanced Meta Selector', 'productbay-pro')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+        onClick: refreshMetaKeys,
+        disabled: isLoading || isRefreshing,
+        className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_10__.cn)("p-1.5 rounded-md transition-all duration-200", isRefreshing || isLoading ? "text-blue-400 bg-blue-50 cursor-not-allowed" : "text-gray-400 hover:text-blue-600 hover:bg-blue-50 active:scale-95"),
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Refresh meta keys', 'productbay-pro'),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_10__.cn)("w-3.5 h-3.5", (isRefreshing || isLoading) && "animate-spin")
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+      className: "text-xs text-gray-500 m-0 leading-relaxed",
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Browse all available product meta keys. Click any key to instantly use it.', 'productbay-pro')
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "relative group",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", {
+        type: "text",
+        value: inputValue,
+        onChange: e => setInputValue(e.target.value),
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Search meta keys…', 'productbay-pro'),
+        className: "w-full px-3 py-2 pr-10 text-sm border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-100 transition-all font-medium"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "absolute right-3 top-1/2 -translate-y-1/2 flex items-center",
+        children: inputValue ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+          onClick: () => setInputValue(''),
+          className: "cursor-pointer p-0.5 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-md text-gray-400 hover:text-gray-600 transition-colors",
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Clear search', 'productbay-pro'),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            className: "w-3.5 h-3.5"
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          className: "w-4 h-4 text-gray-400 pointer-events-none"
+        })
+      })]
+    }), selectedKey && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "flex items-center gap-2 px-2 py-1 px-2.5 py-1.5 bg-blue-50 border border-blue-100 rounded-md",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+        className: "text-[10px] font-bold text-blue-700 uppercase tracking-tight",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Active Key:', 'productbay-pro')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("code", {
+        className: "text-[11px] font-bold text-blue-700 truncate font-mono",
+        children: selectedKey
+      })]
+    }), isLoading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      className: "space-y-2 animate-pulse pr-1",
+      children: [1, 2, 3, 4].map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "h-8 bg-gray-100 rounded-md"
+      }, i))
+    }), searchQuery && !isLoading && totalResults > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "flex items-center justify-between px-1 border-b border-gray-100 pb-1.5 pt-0.5",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+        className: "text-[10px] text-gray-400 font-bold uppercase tracking-widest",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Matched Results', 'productbay-pro')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+        className: "text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-bold",
+        children: totalResults
+      })]
+    }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      className: "text-xs text-red-600 bg-red-50 border border-red-100 rounded-md p-2.5 font-medium animate-in fade-in",
+      children: error
+    }), filteredKeys && !isLoading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      className: "max-h-72 overflow-y-auto space-y-1 pr-1 custom-scrollbar",
+      children: totalResults === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        className: "flex flex-col items-center justify-center py-10 text-center bg-gray-50/50 rounded-lg border border-dashed border-gray-200",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          className: "p-3 bg-white rounded-full mb-3",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            className: "w-6 h-6 text-gray-300"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          className: "font-bold text-gray-600 text-sm",
+          children: searchQuery ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Key not found', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('No meta keys available', 'productbay-pro')
+        }), searchQuery && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          className: "text-xs text-gray-400 mt-1 max-w-[200px] leading-relaxed mx-auto",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Try searching for something else or manually enter a key below.', 'productbay-pro')
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.Fragment, {
+        children: [renderGroup('woocommerce', filteredKeys.woocommerce), renderGroup('acf', filteredKeys.acf), renderGroup('custom', filteredKeys.custom)]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "pt-2 border-t border-gray-100 mt-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        className: "flex items-center justify-between mb-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+          className: "block text-[11px] font-bold text-gray-700 uppercase tracking-wider",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Formatting Mode', 'productbay-pro')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+          className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_10__.cn)("text-[9px] font-bold px-1.5 py-0.5 rounded-sm uppercase tracking-tighter", selectedFormat === 'auto' ? "bg-amber-100 text-amber-700" : "bg-gray-100 text-gray-500"),
+          children: selectedFormat === 'auto' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Smart Mode', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Standard', 'productbay-pro')
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_8__.Select, {
+        className: "w-full h-9 text-sm",
+        value: selectedFormat,
+        onChange: handleFormatChange,
+        options: DISPLAY_FORMATS
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+        className: "text-[11px] text-gray-400 mt-2 m-0 leading-relaxed italic",
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Auto Detect intelligently renders links, images, and dates based on their content.', 'productbay-pro')
+      })]
+    })]
+  });
+};
+
+/**
+ * MetaKeyButton Component
+ *
+ * A specialized interactive button representing a single meta key entry.
+ * It shows the human label prominently and the technical key in a mono-font code badge.
+ */
+const MetaKeyButton = ({
+  entry,
+  isSelected,
+  onClick
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("button", {
+    onClick: onClick,
+    className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_10__.cn)('w-full flex items-center gap-2 px-2.5 py-1.5 text-xs border border-transparent rounded-lg text-left group/btn relative overflow-hidden', isSelected ? 'bg-blue-200 text-blue-700 border-blue-300' : 'bg-white hover:bg-blue-100 text-gray-700 hover:text-blue-700 hover:border-blue-100'),
+    title: `${entry.key} (${entry.type})`,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_10__.cn)("flex-1 truncate font-semibold text-gray-800"),
+      children: entry.label
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("code", {
+      className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_10__.cn)("flex-shrink-0 text-[9px] px-1.5 py-0.5 rounded font-mono font-bold", isSelected ? "bg-blue-500 text-blue-50 border border-blue-400" : "bg-gray-100 text-gray-400 border border-gray-200 group-hover/btn:bg-blue-100 group-hover/btn:text-blue-500 group-hover/btn:border-blue-200"),
+      children: entry.key
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CustomFieldsSlot);
+
+/***/ },
+
+/***/ "./src/slots/ImportExportSlot.tsx"
+/*!****************************************!*\
+  !*** ./src/slots/ImportExportSlot.tsx ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/circle-check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/file-braces.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/download.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/file-text.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/info.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/upload.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var _utils_cn__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/utils/cn */ "./src/utils/cn.ts");
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/utils/constants */ "./src/utils/constants.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__);
+
+
+
+
+
+
+/**
+ * ImportExportSlot Component
+ * 
+ * This component handles the global Modals for both Importing and Exporting
+ * table configurations and plugin settings.
+ * 
+ * It communicates with the Free plugin via the window.productbay bridge.
+ */
+
+const ImportExportSlot = () => {
+  // Access bridge utilities
+  const pb = window.productbay;
+  if (!pb || !pb.useImportExportStore) return null;
+  const {
+    importModalOpen,
+    closeImportModal,
+    exportModalOpen,
+    closeExportModal,
+    availableTables,
+    exportTableIds,
+    toggleTableSelection,
+    setExportSelection
+  } = pb.useImportExportStore();
+  const {
+    settings,
+    updateSettings
+  } = pb.useSettingsStore();
+  const apiFetch = pb.apiFetch;
+
+  // UI Components from bridge
+  const {
+    Modal,
+    Button,
+    Toggle,
+    Select,
+    Alert,
+    Tooltip
+  } = pb.ui;
+
+  // -- Import State --
+  const [importFile, setImportFile] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [importStatus, setImportStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('idle');
+  const [importMsg, setImportMsg] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [isDragging, setIsDragging] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [importOptions, setImportOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    overlapMode: 'create',
+    // 'skip', 'overwrite', 'create'
+    addImportedTitle: false
+  });
+  const fileInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // -- Export State --
+  const [exportLoading, setExportLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [includeSettings, setIncludeSettings] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+
+  /**
+   * Handle File Selection for Import
+   */
+  const handleFileChange = e => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+        setImportStatus('error');
+        setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please select a valid JSON file.', 'productbay-pro'));
+        return;
+      }
+      setImportFile(file);
+      setImportStatus('idle');
+      setImportMsg('');
+    }
+  };
+  const handleDragOver = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+  const handleDragLeave = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+  const handleDrop = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+        setImportStatus('error');
+        setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please select a valid JSON file.', 'productbay-pro'));
+        return;
+      }
+      setImportFile(file);
+      setImportStatus('idle');
+      setImportMsg('');
+    }
+  };
+
+  /**
+   * Run the Import Process
+   */
+  const handleRunImport = async () => {
+    if (!importFile) return;
+    setImportStatus('loading');
+    setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Processing import file...', 'productbay-pro'));
+    try {
+      const reader = new FileReader();
+      reader.onload = async e => {
+        try {
+          const content = e.target?.result;
+          const data = JSON.parse(content);
+
+          // Trigger backend import
+          const result = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_12__.API_ENDPOINTS.IMPORT, {
+            method: 'POST',
+            body: JSON.stringify({
+              data,
+              options: importOptions
+            })
+          });
+          setImportStatus('success');
+          setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Successfully imported %d tables and settings.', 'productbay-pro'), result.imported_count || 0));
+
+          // Refresh tables list if we are on the tables page
+          if (window.location.hash.includes('/tables')) {
+            window.location.reload();
+          }
+        } catch (err) {
+          setImportStatus('error');
+          setImportMsg(err.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Invalid import data format.', 'productbay-pro'));
+        }
+      };
+      reader.readAsText(importFile);
+    } catch (err) {
+      setImportStatus('error');
+      setImportMsg((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Failed to read the import file.', 'productbay-pro'));
+    }
+  };
+
+  /**
+   * Run the Export Process
+   */
+  const handleRunExport = async () => {
+    if (exportTableIds.length === 0 && !includeSettings) {
+      return;
+    }
+    setExportLoading(true);
+    try {
+      const result = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_12__.API_ENDPOINTS.EXPORT, {
+        method: 'POST',
+        body: JSON.stringify({
+          table_ids: exportTableIds,
+          include_settings: includeSettings
+        })
+      });
+
+      // Create a download link for the JSON
+      const blob = new Blob([JSON.stringify(result.data, null, 2)], {
+        type: 'application/json'
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `productbay-export-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      closeExportModal();
+    } catch (err) {
+      console.error('Export failed', err);
+    } finally {
+      setExportLoading(false);
+    }
+  };
+
+  /**
+   * Reset Import state on close
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!importModalOpen) {
+      setImportFile(null);
+      setImportStatus('idle');
+      setImportMsg('');
+    }
+  }, [importModalOpen]);
+
+  // Render Modals
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Modal, {
+      isOpen: importModalOpen,
+      onClose: closeImportModal,
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Import Tables & Settings', 'productbay-pro'),
+      className: "max-w-xl",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "space-y-6",
+        children: importStatus === 'success' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "text-center py-8 space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            className: "bg-green-100 text-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              className: "size-10"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h3", {
+            className: "text-xl font-bold text-gray-900",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Import Complete!', 'productbay-pro')
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+            className: "text-gray-600",
+            children: importMsg
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+            onClick: closeImportModal,
+            className: "mt-4 cursor-pointer",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Close', 'productbay-pro')
+          })]
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            onClick: () => fileInputRef.current?.click(),
+            onDragOver: handleDragOver,
+            onDragLeave: handleDragLeave,
+            onDrop: handleDrop,
+            className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_11__.cn)("border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all bg-gray-50 hover:bg-blue-50 border-gray-200 hover:border-blue-400 group", importFile && "border-blue-500 bg-blue-50/30", isDragging && "border-blue-500 bg-blue-50"),
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", {
+              type: "file",
+              ref: fileInputRef,
+              className: "hidden",
+              accept: ".json",
+              onChange: e => handleFileChange(e)
+            }), importFile ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              className: "flex flex-col items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+                className: "bg-blue-500 text-white p-3 rounded-lg mb-3 flex items-center justify-center",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  className: "size-8"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "font-bold text-blue-900",
+                children: importFile.name
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
+                className: "text-xs text-blue-600 mt-1",
+                children: [(importFile.size / 1024).toFixed(2), " KB"]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("button", {
+                type: "button",
+                onClick: e => {
+                  e.stopPropagation();
+                  setImportFile(null);
+                },
+                className: "mt-4 text-xs text-red-500 cursor-pointer rounded-full px-2 py-1 hover:underline flex items-center gap-1",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  className: "size-3"
+                }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Remove file', 'productbay-pro')]
+              })]
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              className: "flex flex-col items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                className: "size-8 text-gray-400 group-hover:text-blue-500 mb-4"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "text-gray-900 font-bold text-lg mb-1",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Drop JSON file here', 'productbay-pro')
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "text-gray-500 text-sm",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('or click to browse from your computer', 'productbay-pro')
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "space-y-4 pt-4 border-t border-gray-100",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
+              className: "text-sm font-bold text-gray-900 uppercase mb-2",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Import Options', 'productbay-pro')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              className: "grid grid-cols-1 gap-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                className: "space-y-1.5",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("label", {
+                  className: "text-xs font-bold text-gray-700",
+                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Conflict Resolution', 'productbay-pro')
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Select, {
+                  value: importOptions.overlapMode,
+                  onChange: val => setImportOptions(prev => ({
+                    ...prev,
+                    overlapMode: val
+                  })),
+                  options: [{
+                    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Create New (Keep both)', 'productbay-pro'),
+                    value: 'create'
+                  }, {
+                    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Overwrite Existing', 'productbay-pro'),
+                    value: 'overwrite'
+                  }, {
+                    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Skip Duplicates', 'productbay-pro'),
+                    value: 'skip'
+                  }]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                className: "flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                  className: "flex flex-col",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                    className: "text-xs font-bold text-gray-900",
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Rename Imported', 'productbay-pro')
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                    className: "text-xs text-gray-500",
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Add "(Imported)" to titles', 'productbay-pro')
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Toggle, {
+                  checked: importOptions.addImportedTitle,
+                  onChange: e => setImportOptions(prev => ({
+                    ...prev,
+                    addImportedTitle: e.target.checked
+                  }))
+                })]
+              })]
+            })]
+          }), importStatus === 'error' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Alert, {
+            variant: "destructive",
+            className: "mt-4",
+            children: importMsg
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "flex justify-end gap-3 pt-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              variant: "ghost",
+              className: "cursor-pointer",
+              onClick: closeImportModal,
+              disabled: importStatus === 'loading',
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Cancel', 'productbay-pro')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              onClick: handleRunImport,
+              disabled: !importFile || importStatus === 'loading',
+              className: "px-8 min-w-[140px] cursor-pointer",
+              children: importStatus === 'loading' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                  className: "size-4 mr-2 animate-spin"
+                }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Importing...', 'productbay-pro')]
+              }) : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Start Import', 'productbay-pro')
+            })]
+          })]
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Modal, {
+      isOpen: exportModalOpen,
+      onClose: closeExportModal,
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Export Tables & Settings', 'productbay-pro'),
+      className: "max-w-2xl",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: "space-y-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "bg-productbay-brand/10 border border-productbay-brand/25 rounded-xl p-4 flex items-center justify-between group hover:bg-orange-100/50 transition-colors",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "flex items-center gap-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "bg-productbay-brand text-white p-2 rounded-lg flex justify-center items-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                className: "size-5"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "block font-bold text-orange-900 text-sm",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Plugin Global Settings', 'productbay-pro')
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "block text-xs text-orange-800",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Includes general, API, and appearance defaults', 'productbay-pro')
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Toggle, {
+            checked: includeSettings,
+            onChange: e => setIncludeSettings(e.target.checked)
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "border border-gray-300 rounded-lg",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "flex items-center justify-between border-b border-gray-300 px-4 py-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
+                className: "text-sm font-bold text-gray-900",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select Items to Export', 'productbay-pro')
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                className: "text-xs text-gray-500 mt-1",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose which tables and configurations you want to include in the package.', 'productbay-pro')
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              variant: "outline",
+              size: "xs",
+              className: "cursor-pointer hover:bg-blue-600 hover:text-white",
+              onClick: () => {
+                const allIds = availableTables.map(t => t.id).filter(Boolean);
+                const isAllSelected = exportTableIds.length === allIds.length;
+                setExportSelection(isAllSelected ? [] : allIds);
+              },
+              children: exportTableIds.length === availableTables.length ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Deselect All', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select All', 'productbay-pro')
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            className: "max-h-[350px] overflow-y-auto custom-scrollbar",
+            children: availableTables.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                className: "text-gray-400 text-sm",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No tables found to export.', 'productbay-pro')
+              })
+            }) : availableTables.map(table => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              onClick: () => toggleTableSelection(table.id),
+              className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_11__.cn)("flex items-center justify-between p-3 cursor-pointer transition-all", exportTableIds.includes(table.id) ? "bg-blue-50 hover:bg-productbay-brand/10" : "hover:bg-blue-100"),
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                className: "flex items-center gap-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+                  className: (0,_utils_cn__WEBPACK_IMPORTED_MODULE_11__.cn)("w-5 h-5 rounded border flex items-center justify-center transition-colors", exportTableIds.includes(table.id) ? "bg-blue-500 border-blue-500" : "bg-white border-gray-300"),
+                  children: exportTableIds.includes(table.id) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                    className: "size-3.5 text-white"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                    className: "block font-bold text-gray-900 text-sm",
+                    children: table.title
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
+                    className: "block text-xs text-gray-500 uppercase tracking-tighter",
+                    children: ["ID: ", table.id, " \u2022 ", table.columns?.length || 0, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Columns', 'productbay-pro')]
+                  })]
+                })]
+              }), table.status === 'publish' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "text-xs font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full uppercase",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Published', 'productbay-pro')
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                className: "text-xs font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full uppercase",
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Private', 'productbay-pro')
+              })]
+            }, table.id))
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "bg-blue-50/50 border border-blue-100 rounded-lg p-3 flex items-start gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            className: "size-4 text-blue-500 mt-0.5 shrink-0"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+            className: "text-[11px] text-blue-700 leading-relaxed",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Exporting creates a .json file of selected data, which can be imported into any WooCommerce site running ProductBay.', 'productbay-pro')
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex items-center justify-between pt-4 border-t border-gray-100",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "text-sm font-bold text-gray-700",
+            children: [exportTableIds.length, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Tables Selected', 'productbay-pro')]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "flex gap-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              variant: "ghost",
+              className: "cursor-pointer",
+              onClick: closeExportModal,
+              disabled: exportLoading,
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Cancel', 'productbay-pro')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Button, {
+              onClick: handleRunExport,
+              disabled: exportLoading || exportTableIds.length === 0 && !includeSettings,
+              className: "min-w-[160px] cursor-pointer",
+              children: exportLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                  className: "size-4 mr-2 animate-spin"
+                }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Preparing...', 'productbay-pro')]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  className: "size-4 mr-2"
+                }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Generate Export', 'productbay-pro')]
+              })
+            })]
+          })]
+        })]
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ImportExportSlot);
+
+/***/ },
+
+/***/ "./src/slots/LicenseBanner.tsx"
+/*!*************************************!*\
+  !*** ./src/slots/LicenseBanner.tsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/utils/constants */ "./src/utils/constants.ts");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/key.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/shield-alert.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+const {
+  Button
+} = window.productbay?.ui || {};
+
+/**
+ * LicenseBanner component
+ * 
+ * Injects a persistent banner into the free plugin's AdminLayout if the Pro
+ * license is missing, expired, or invalid. Disappears completely when active.
+ */
+const LicenseBanner = () => {
+  const license = window.productBaySettings?.license;
+  const status = license?.status || 'inactive';
+
+  // If license is active, banner disappears completely
+  if (status === 'active') {
+    return null;
+  }
+  const handleGoToSettings = () => {
+    // Navigate to the license tab
+    window.location.hash = _utils_constants__WEBPACK_IMPORTED_MODULE_2__.PRO_ROUTES.LICENSE_TAB;
+  };
+  let bannerConfig = {
+    bgClass: 'bg-amber-50 border-b border-amber-200 text-amber-800',
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      className: "w-5 h-5 text-amber-600"
+    }),
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('License Required', 'productbay-pro'),
+    message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Activate your ProductBay Pro license to receive automatic updates and premium support.', 'productbay-pro'),
+    buttonText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Activate License', 'productbay-pro'),
+    buttonVariant: 'default'
+  };
+  if (status === 'expired') {
+    bannerConfig = {
+      bgClass: 'bg-amber-50 border-b border-amber-200 text-amber-800',
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        className: "w-5 h-5 text-amber-600"
+      }),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('License Expired', 'productbay-pro'),
+      message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Your ProductBay Pro license has expired. Renew to continue receiving updates.', 'productbay-pro'),
+      buttonText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Renew License', 'productbay-pro'),
+      buttonVariant: 'default'
+    };
+  } else if (status === 'invalid') {
+    bannerConfig = {
+      bgClass: 'bg-red-50 border-b border-red-200 text-red-800',
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        className: "w-5 h-5 text-red-600"
+      }),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('License Invalid', 'productbay-pro'),
+      message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Your ProductBay Pro license key is invalid or has been revoked.', 'productbay-pro'),
+      buttonText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Check License', 'productbay-pro'),
+      buttonVariant: 'destructive'
+    };
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Fill, {
+    name: "productbay-pro-banner",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: `w-full px-6 py-3 flex items-center justify-between shadow-sm ${bannerConfig.bgClass}`,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "flex items-center gap-3 text-base",
+        children: [bannerConfig.icon, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+            className: "font-semibold block sm:inline mr-2",
+            children: [bannerConfig.title, ":"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            className: "",
+            children: bannerConfig.message
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        children: Button && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Button, {
+          variant: bannerConfig.buttonVariant,
+          size: "sm",
+          onClick: handleGoToSettings,
+          className: "whitespace-nowrap cursor-pointer",
+          children: bannerConfig.buttonText
+        })
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LicenseBanner);
+
+/***/ },
+
+/***/ "./src/slots/LicenseTab.tsx"
+/*!**********************************!*\
+  !*** ./src/slots/LicenseTab.tsx ***!
+  \**********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/external-link.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/key.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/shield-alert.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/shield-check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/utils/constants */ "./src/utils/constants.ts");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__);
+
+
+
+
+
+
+const {
+  Button,
+  Input,
+  ConfirmButton
+} = window.productbay?.ui || {};
+const {
+  SectionHeading
+} = window.productbay?.components || {};
+const apiFetch = window.productbay?.apiFetch;
+
+// Types
+
+/**
+ * Parses a string to check if it's a JSON error message.
+ * If true, returns the 'message' property from the JSON.
+ * Otherwise returns the raw string.
+ */
+const parseErrorMessage = error => {
+  try {
+    const parsed = JSON.parse(error);
+    if (parsed && typeof parsed === 'object' && parsed.message) {
+      return parsed.message;
+    }
+  } catch (e) {
+    // Not JSON, return as is
+  }
+  return error;
+};
+const LicenseTab = () => {
+  const [license, setLicense] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(null);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(true);
+  const [actionLoading, setActionLoading] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(false);
+  const [inputKey, setInputKey] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)('');
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(null);
+  const [successMsg, setSuccessMsg] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(null);
+
+  // Fetch current status on mount
+  const fetchStatus = (0,react__WEBPACK_IMPORTED_MODULE_6__.useCallback)(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_7__.API_ENDPOINTS.LICENSE, {
+        method: 'GET'
+      });
+      setLicense(data);
+    } catch (err) {
+      setError(parseErrorMessage(err.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Failed to load license status.', 'productbay-pro')));
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
+    if (apiFetch) {
+      fetchStatus();
+    } else {
+      setLoading(false);
+      setError((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('API client not available. Please ensure ProductBay free is up to date.', 'productbay-pro'));
+    }
+  }, [fetchStatus]);
+
+  // Handle activation
+  const handleActivate = async () => {
+    if (!inputKey.trim()) {
+      setError((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Please enter a license key.', 'productbay-pro'));
+      return;
+    }
+    setActionLoading(true);
+    setError(null);
+    setSuccessMsg(null);
+    try {
+      const res = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_7__.API_ENDPOINTS.LICENSE, {
+        method: 'POST',
+        body: JSON.stringify({
+          license_key: inputKey.trim()
+        })
+      });
+      setSuccessMsg(res.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('License activated successfully.', 'productbay-pro'));
+      setInputKey('');
+
+      // Refresh state
+      await fetchStatus();
+
+      // Also update the global object so banner hides immediately
+      if (window.productBaySettings && window.productBaySettings.license) {
+        window.productBaySettings.license.status = 'active';
+      }
+
+      // Reload page after a delay to ensure everything is synchronized 
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    } catch (err) {
+      setError(parseErrorMessage(err.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Activation failed.', 'productbay-pro')));
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  // Handle removal
+  const handleRemove = async () => {
+    setActionLoading(true);
+    setError(null);
+    setSuccessMsg(null);
+    try {
+      const res = await apiFetch(_utils_constants__WEBPACK_IMPORTED_MODULE_7__.API_ENDPOINTS.LICENSE, {
+        method: 'DELETE'
+      });
+      setSuccessMsg(res.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('License removed.', 'productbay-pro'));
+      if (window.productBaySettings && window.productBaySettings.license) {
+        window.productBaySettings.license.status = 'inactive';
+      }
+      document.body.style.pointerEvents = 'none';
+      window.location.reload();
+    } catch (err) {
+      setError(parseErrorMessage(err.message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Failed to remove license.', 'productbay-pro')));
+      setActionLoading(false);
+    }
+  };
+  if (!SectionHeading) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.Fill, {
+    name: "productbay-pro-settings-license",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("section", {
+      className: "space-y-6 p-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(SectionHeading, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('ProductBay Pro License', 'productbay-pro'),
+        description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Manage your license key to receive automatic updates and premium support.', 'productbay-pro')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        className: "bg-white rounded-lg p-6",
+        children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "flex items-center space-x-3 text-gray-500",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "w-5 h-5 animate-spin"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Checking license status...', 'productbay-pro')
+          })]
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "space-y-6",
+          children: [error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md text-sm",
+            children: error
+          }), successMsg && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md text-sm",
+            children: successMsg
+          }), license && (license.status === 'active' || license.status === 'expired') ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "space-y-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                className: "flex items-center gap-3",
+                children: [license.status === 'active' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "w-12 h-12 bg-[#f05c2a]/10 flex items-center justify-center rounded-full shrink-0",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                    className: "w-6 h-6 text-[#f05c2a]"
+                  })
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "w-12 h-12 bg-amber-100 flex items-center justify-center rounded-full shrink-0",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                    className: "w-6 h-6 text-amber-600"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h3", {
+                    className: "font-medium text-gray-900",
+                    children: license.status === 'active' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('License Active', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('License Expired', 'productbay-pro')
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+                    className: "text-sm text-gray-500 font-mono mt-1",
+                    children: license.maskedKey
+                  })]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                className: "text-right",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: `text-sm font-medium ${license.status === 'active' ? 'text-green-600' : 'text-amber-600'}`,
+                  children: license.status === 'active' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Valid', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Expired', 'productbay-pro')
+                }), license.expiresAt ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("p", {
+                  className: "text-xs text-gray-500 mt-1",
+                  children: [license.status === 'active' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Valid till:', 'productbay-pro') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Expired on:', 'productbay-pro'), " ", new Date(license.expiresAt).toLocaleDateString()]
+                }) : license.status === 'active' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+                  className: "text-xs text-gray-500 mt-1",
+                  children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Valid till: Lifetime', 'productbay-pro')
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "flex gap-3 pt-2 justify-end",
+              children: [ConfirmButton && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ConfirmButton, {
+                confirmMessage: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Are you sure you want to remove this license? You will no longer receive updates.', 'productbay-pro'),
+                onConfirm: handleRemove,
+                variant: "outline",
+                className: "text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700",
+                disabled: actionLoading,
+                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                  className: "w-4 h-4 mr-2"
+                }),
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Remove License', 'productbay-pro')
+              }), license.status === 'expired' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
+                href: _utils_constants__WEBPACK_IMPORTED_MODULE_7__.PRO_ROUTES.ACCOUNT,
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+                children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Renew License', 'productbay-pro'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_0__["default"], {
+                  className: "w-4 h-4 ml-2"
+                })]
+              })]
+            })]
+          }) :
+          /*#__PURE__*/
+          /* Inactive/Invalid State */
+          (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "space-y-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+              className: "text-sm text-gray-600 mb-2",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Enter your license key below to activate ProductBay Pro and enable automatic updates.', 'productbay-pro')
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "flex gap-3 max-w-md",
+              children: [Input && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Input, {
+                type: "password",
+                placeholder: "WPAB-XXXX-XXXX-XXXX-XXXX",
+                value: inputKey,
+                onChange: e => setInputKey(e.target.value),
+                className: "flex-1",
+                disabled: actionLoading
+              }), Button && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(Button, {
+                variant: "default",
+                onClick: handleActivate,
+                disabled: actionLoading || !inputKey.trim(),
+                className: "cursor-pointer",
+                children: [actionLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  className: "w-4 h-4 mr-2 animate-spin"
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                  className: "w-4 h-4 mr-2"
+                }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Activate', 'productbay-pro')]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+              className: "pt-4 border-t border-gray-100 mt-6",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("p", {
+                className: "text-sm text-gray-500",
+                children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Don\'t have a license? ', 'productbay-pro'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
+                  href: _utils_constants__WEBPACK_IMPORTED_MODULE_7__.PRO_ROUTES.LEARN_MORE,
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "text-blue-600 hover:underline underline-offset-4 inline-flex items-center",
+                  children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Get ProductBay Pro', 'productbay-pro'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_0__["default"], {
+                    className: "w-3 h-3 ml-1"
+                  })]
+                })]
+              })
+            })]
+          })]
+        })
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LicenseTab);
+
+/***/ },
+
 /***/ "./src/slots/PriceFilterSlot.tsx"
 /*!***************************************!*\
   !*** ./src/slots/PriceFilterSlot.tsx ***!
@@ -264,6 +1639,1098 @@ __webpack_require__.r(__webpack_exports__);
 function cn(...inputs) {
   return (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_1__.twMerge)((0,clsx__WEBPACK_IMPORTED_MODULE_0__.clsx)(inputs));
 }
+
+/***/ },
+
+/***/ "./src/utils/constants.ts"
+/*!********************************!*\
+  !*** ./src/utils/constants.ts ***!
+  \********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   API_ENDPOINTS: () => (/* binding */ API_ENDPOINTS),
+/* harmony export */   EXTERNAL_URLS: () => (/* binding */ EXTERNAL_URLS),
+/* harmony export */   LICENSE_TAB_HASH: () => (/* binding */ LICENSE_TAB_HASH),
+/* harmony export */   PRO_CONFIG: () => (/* binding */ PRO_CONFIG),
+/* harmony export */   PRO_ROUTES: () => (/* binding */ PRO_ROUTES),
+/* harmony export */   REST_NAMESPACE: () => (/* binding */ REST_NAMESPACE)
+/* harmony export */ });
+/**
+ * Central constants for ProductBay Pro.
+ *
+ * Contains all configuration values, API endpoints, and external URLs.
+ * Update values here instead of scattered files.
+ */
+
+const PRO_CONFIG = {
+  VERSION: '1.0.0',
+  SLUG: 'productbay-pro'
+};
+const API_ENDPOINTS = {
+  LICENSE: 'pro/license',
+  EXPORT: 'pro/export',
+  IMPORT: 'pro/import',
+  META_KEYS: 'pro/meta-keys'
+};
+const REST_NAMESPACE = 'productbay/v1';
+const EXTERNAL_URLS = {
+  ACCOUNT: 'https://wpanchorbay.com/my-account',
+  PURCHASE: 'https://wpanchorbay.com/product/productbay/',
+  LEARN_MORE: 'https://wpanchorbay.com/plugins/productbay/',
+  DOCS: 'https://wpanchorbay.com/docs/productbay/',
+  SUPPORT: 'https://wpanchorbay.com/support/',
+  LICENSE_SERVER: 'https://wpanchorbay.com/wp-json/license-server/v1'
+};
+const LICENSE_TAB_HASH = '#/settings?tab=license';
+const PRO_ROUTES = {
+  ACCOUNT: EXTERNAL_URLS.ACCOUNT,
+  PURCHASE: EXTERNAL_URLS.PURCHASE,
+  LEARN_MORE: EXTERNAL_URLS.LEARN_MORE,
+  DOCS: EXTERNAL_URLS.DOCS,
+  SUPPORT: EXTERNAL_URLS.SUPPORT,
+  LICENSE_TAB: LICENSE_TAB_HASH
+};
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/Icon.js"
+/*!****************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/Icon.js ***!
+  \****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Icon)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./defaultAttributes.js */ "./node_modules/lucide-react/dist/esm/defaultAttributes.js");
+/* harmony import */ var _shared_src_utils_hasA11yProp_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/src/utils/hasA11yProp.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/hasA11yProp.js");
+/* harmony import */ var _shared_src_utils_mergeClasses_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared/src/utils/mergeClasses.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js");
+/* harmony import */ var _context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./context.js */ "./node_modules/lucide-react/dist/esm/context.js");
+
+"use client";
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+
+
+const Icon = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
+  ({ color, size, strokeWidth, absoluteStrokeWidth, className = "", children, iconNode, ...rest }, ref) => {
+    const {
+      size: contextSize = 24,
+      strokeWidth: contextStrokeWidth = 2,
+      absoluteStrokeWidth: contextAbsoluteStrokeWidth = false,
+      color: contextColor = "currentColor",
+      className: contextClass = ""
+    } = (0,_context_js__WEBPACK_IMPORTED_MODULE_4__.useLucideContext)() ?? {};
+    const calculatedStrokeWidth = absoluteStrokeWidth ?? contextAbsoluteStrokeWidth ? Number(strokeWidth ?? contextStrokeWidth) * 24 / Number(size ?? contextSize) : strokeWidth ?? contextStrokeWidth;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(
+      "svg",
+      {
+        ref,
+        ..._defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+        width: size ?? contextSize ?? _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__["default"].width,
+        height: size ?? contextSize ?? _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_1__["default"].height,
+        stroke: color ?? contextColor,
+        strokeWidth: calculatedStrokeWidth,
+        className: (0,_shared_src_utils_mergeClasses_js__WEBPACK_IMPORTED_MODULE_3__.mergeClasses)("lucide", contextClass, className),
+        ...!children && !(0,_shared_src_utils_hasA11yProp_js__WEBPACK_IMPORTED_MODULE_2__.hasA11yProp)(rest) && { "aria-hidden": "true" },
+        ...rest
+      },
+      [
+        ...iconNode.map(([tag, attrs]) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(tag, attrs)),
+        ...Array.isArray(children) ? children : [children]
+      ]
+    );
+  }
+);
+
+
+//# sourceMappingURL=Icon.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/context.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/context.js ***!
+  \*******************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LucideProvider: () => (/* binding */ LucideProvider),
+/* harmony export */   useLucideContext: () => (/* binding */ useLucideContext)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+"use client";
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const LucideContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+function LucideProvider({
+  children,
+  size,
+  color,
+  strokeWidth,
+  absoluteStrokeWidth,
+  className
+}) {
+  const value = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(
+    () => ({
+      size,
+      color,
+      strokeWidth,
+      absoluteStrokeWidth,
+      className
+    }),
+    [size, color, strokeWidth, absoluteStrokeWidth, className]
+  );
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(LucideContext.Provider, { value }, children);
+}
+const useLucideContext = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(LucideContext);
+
+
+//# sourceMappingURL=context.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/createLucideIcon.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/createLucideIcon.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ createLucideIcon)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_src_utils_mergeClasses_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shared/src/utils/mergeClasses.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js");
+/* harmony import */ var _shared_src_utils_toKebabCase_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/src/utils/toKebabCase.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js");
+/* harmony import */ var _shared_src_utils_toPascalCase_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared/src/utils/toPascalCase.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js");
+/* harmony import */ var _Icon_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Icon.js */ "./node_modules/lucide-react/dist/esm/Icon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+
+
+const createLucideIcon = (iconName, iconNode) => {
+  const Component = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
+    ({ className, ...props }, ref) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Icon_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      ref,
+      iconNode,
+      className: (0,_shared_src_utils_mergeClasses_js__WEBPACK_IMPORTED_MODULE_1__.mergeClasses)(
+        `lucide-${(0,_shared_src_utils_toKebabCase_js__WEBPACK_IMPORTED_MODULE_2__.toKebabCase)((0,_shared_src_utils_toPascalCase_js__WEBPACK_IMPORTED_MODULE_3__.toPascalCase)(iconName))}`,
+        `lucide-${iconName}`,
+        className
+      ),
+      ...props
+    })
+  );
+  Component.displayName = (0,_shared_src_utils_toPascalCase_js__WEBPACK_IMPORTED_MODULE_3__.toPascalCase)(iconName);
+  return Component;
+};
+
+
+//# sourceMappingURL=createLucideIcon.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/defaultAttributes.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/defaultAttributes.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ defaultAttributes)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+
+//# sourceMappingURL=defaultAttributes.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/bolt.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/bolt.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Bolt)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z",
+      key: "yt0hxn"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }]
+];
+const Bolt = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("bolt", __iconNode);
+
+
+//# sourceMappingURL=bolt.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/check.js"
+/*!***********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/check.js ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Check)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("check", __iconNode);
+
+
+//# sourceMappingURL=check.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/circle-check.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/circle-check.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ CircleCheck)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+const CircleCheck = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("circle-check", __iconNode);
+
+
+//# sourceMappingURL=circle-check.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/download.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/download.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Download)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 15V3", key: "m9g1x1" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
+  ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
+];
+const Download = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("download", __iconNode);
+
+
+//# sourceMappingURL=download.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/external-link.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/external-link.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ExternalLink)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
+  ["path", { d: "M10 14 21 3", key: "gplh6r" }],
+  ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
+];
+const ExternalLink = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("external-link", __iconNode);
+
+
+//# sourceMappingURL=external-link.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/file-braces.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/file-braces.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ FileBraces)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
+      key: "1oefj6"
+    }
+  ],
+  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
+  [
+    "path",
+    { d: "M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1", key: "1oajmo" }
+  ],
+  [
+    "path",
+    { d: "M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1", key: "mpwhp6" }
+  ]
+];
+const FileBraces = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("file-braces", __iconNode);
+
+
+//# sourceMappingURL=file-braces.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/file-text.js"
+/*!***************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/file-text.js ***!
+  \***************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ FileText)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
+      key: "1oefj6"
+    }
+  ],
+  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
+  ["path", { d: "M10 9H8", key: "b1mrlr" }],
+  ["path", { d: "M16 13H8", key: "t4e002" }],
+  ["path", { d: "M16 17H8", key: "z1uh3a" }]
+];
+const FileText = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("file-text", __iconNode);
+
+
+//# sourceMappingURL=file-text.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/info.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/info.js ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Info)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 16v-4", key: "1dtifu" }],
+  ["path", { d: "M12 8h.01", key: "e9boi3" }]
+];
+const Info = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("info", __iconNode);
+
+
+//# sourceMappingURL=info.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/key.js"
+/*!*********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/key.js ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Key)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4", key: "g0fldk" }],
+  ["path", { d: "m21 2-9.6 9.6", key: "1j0ho8" }],
+  ["circle", { cx: "7.5", cy: "15.5", r: "5.5", key: "yqb3hr" }]
+];
+const Key = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("key", __iconNode);
+
+
+//# sourceMappingURL=key.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/loader-circle.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/loader-circle.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ LoaderCircle)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("loader-circle", __iconNode);
+
+
+//# sourceMappingURL=loader-circle.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/refresh-cw.js"
+/*!****************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/refresh-cw.js ***!
+  \****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ RefreshCw)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
+  ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
+  ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
+  ["path", { d: "M8 16H3v5", key: "1cv678" }]
+];
+const RefreshCw = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("refresh-cw", __iconNode);
+
+
+//# sourceMappingURL=refresh-cw.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/search.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/search.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Search)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
+];
+const Search = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("search", __iconNode);
+
+
+//# sourceMappingURL=search.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/shield-alert.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/shield-alert.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ShieldAlert)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "M12 8v4", key: "1got3b" }],
+  ["path", { d: "M12 16h.01", key: "1drbdi" }]
+];
+const ShieldAlert = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("shield-alert", __iconNode);
+
+
+//# sourceMappingURL=shield-alert.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/shield-check.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/shield-check.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ShieldCheck)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+const ShieldCheck = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("shield-check", __iconNode);
+
+
+//# sourceMappingURL=shield-check.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/sparkles.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/sparkles.js ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Sparkles)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z",
+      key: "1s2grr"
+    }
+  ],
+  ["path", { d: "M20 2v4", key: "1rf3ol" }],
+  ["path", { d: "M22 4h-4", key: "gwowj6" }],
+  ["circle", { cx: "4", cy: "20", r: "2", key: "6kqj1y" }]
+];
+const Sparkles = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("sparkles", __iconNode);
+
+
+//# sourceMappingURL=sparkles.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/store.js"
+/*!***********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/store.js ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Store)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5", key: "slp6dd" }],
+  [
+    "path",
+    {
+      d: "M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244",
+      key: "o0xfot"
+    }
+  ],
+  ["path", { d: "M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05", key: "wn3emo" }]
+];
+const Store = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("store", __iconNode);
+
+
+//# sourceMappingURL=store.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/trash-2.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/trash-2.js ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Trash2)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M10 11v6", key: "nco0om" }],
+  ["path", { d: "M14 11v6", key: "outv1u" }],
+  ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
+  ["path", { d: "M3 6h18", key: "d0wm0j" }],
+  ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
+];
+const Trash2 = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("trash-2", __iconNode);
+
+
+//# sourceMappingURL=trash-2.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/upload.js"
+/*!************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/upload.js ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Upload)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M12 3v12", key: "1x0j5s" }],
+  ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
+];
+const Upload = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("upload", __iconNode);
+
+
+//# sourceMappingURL=upload.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/x.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/x.js ***!
+  \*******************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ X)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
+];
+const X = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("x", __iconNode);
+
+
+//# sourceMappingURL=x.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/hasA11yProp.js"
+/*!****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/hasA11yProp.js ***!
+  \****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasA11yProp: () => (/* binding */ hasA11yProp)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const hasA11yProp = (props) => {
+  for (const prop in props) {
+    if (prop.startsWith("aria-") || prop === "role" || prop === "title") {
+      return true;
+    }
+  }
+  return false;
+};
+
+
+//# sourceMappingURL=hasA11yProp.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js"
+/*!*****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.js ***!
+  \*****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mergeClasses: () => (/* binding */ mergeClasses)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const mergeClasses = (...classes) => classes.filter((className, index, array) => {
+  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
+}).join(" ").trim();
+
+
+//# sourceMappingURL=mergeClasses.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/toCamelCase.js"
+/*!****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/toCamelCase.js ***!
+  \****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toCamelCase: () => (/* binding */ toCamelCase)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const toCamelCase = (string) => string.replace(
+  /^([A-Z])|[\s-_]+(\w)/g,
+  (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase()
+);
+
+
+//# sourceMappingURL=toCamelCase.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js"
+/*!****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js ***!
+  \****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toKebabCase: () => (/* binding */ toKebabCase)
+/* harmony export */ });
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+
+
+//# sourceMappingURL=toKebabCase.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js"
+/*!*****************************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js ***!
+  \*****************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toPascalCase: () => (/* binding */ toPascalCase)
+/* harmony export */ });
+/* harmony import */ var _toCamelCase_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toCamelCase.js */ "./node_modules/lucide-react/dist/esm/shared/src/utils/toCamelCase.js");
+/**
+ * @license lucide-react v1.7.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const toPascalCase = (string) => {
+  const camelCase = (0,_toCamelCase_js__WEBPACK_IMPORTED_MODULE_0__.toCamelCase)(string);
+  return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+};
+
+
+//# sourceMappingURL=toPascalCase.js.map
+
 
 /***/ },
 
@@ -3718,14 +6185,26 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
 /* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./slots/PriceFilterSlot */ "./src/slots/PriceFilterSlot.tsx");
+/* harmony import */ var _slots_LicenseTab__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./slots/LicenseTab */ "./src/slots/LicenseTab.tsx");
+/* harmony import */ var _slots_LicenseBanner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slots/LicenseBanner */ "./src/slots/LicenseBanner.tsx");
+/* harmony import */ var _slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./slots/PriceFilterSlot */ "./src/slots/PriceFilterSlot.tsx");
+/* harmony import */ var _slots_CustomFieldsSlot__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./slots/CustomFieldsSlot */ "./src/slots/CustomFieldsSlot.tsx");
+/* harmony import */ var _slots_ImportExportSlot__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./slots/ImportExportSlot */ "./src/slots/ImportExportSlot.tsx");
+
+
+
+
 
 
 _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default()(() => {
   // If the free plugin exposes useExtensionStore, register our Fill
   const store = window.productbay?.useExtensionStore;
   if (store) {
-    store.getState().addFill(_slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    store.getState().addFill(_slots_PriceFilterSlot__WEBPACK_IMPORTED_MODULE_3__["default"]);
+    store.getState().addFill(_slots_CustomFieldsSlot__WEBPACK_IMPORTED_MODULE_4__["default"]);
+    store.getState().addFill(_slots_ImportExportSlot__WEBPACK_IMPORTED_MODULE_5__["default"]);
+    store.getState().addFill(_slots_LicenseBanner__WEBPACK_IMPORTED_MODULE_2__["default"]);
+    store.getState().addFill(_slots_LicenseTab__WEBPACK_IMPORTED_MODULE_1__["default"]);
   }
 });
 })();

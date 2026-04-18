@@ -124,10 +124,10 @@
 				});
 
 				if (this.$tooltipMin.length) {
-					this.$tooltipMin.text(this.formatPrice(minVal)).css('left', minPercent + '%');
+					this.$tooltipMin.text(this.formatPrice(minVal)).css('left', `calc(${minPercent}% + ${8 - minPercent * 0.16}px)`);
 				}
 				if (this.$tooltipMax.length) {
-					this.$tooltipMax.text(this.formatPrice(maxVal)).css('left', maxPercent + '%');
+					this.$tooltipMax.text(this.formatPrice(maxVal)).css('left', `calc(${maxPercent}% + ${8 - maxPercent * 0.16}px)`);
 				}
 			}
 		}
@@ -141,11 +141,6 @@
 		}
 
 		triggerFilter() {
-			// Re-use logic from the main table instance
-			const wrapperId = this.$wrapper.attr('id');
-			// We need to find the instance. The free plugin doesn't store instances globally yet.
-			// But we can trigger a refresh by calling the internal fetch logic if we can access it.
-			// For now, let's trigger a custom event that the main script can listen for.
 			this.$wrapper.trigger('productbay_filter_trigger', {
 				price_min: this.$rangeMin.length ? this.$rangeMin.val() : this.$inputMin.val(),
 				price_max: this.$rangeMax.length ? this.$rangeMax.val() : this.$inputMax.val()
@@ -168,15 +163,97 @@
 		});
 	});
 
+	/**
+	 * ProductBay Pro - Lazy Loading (Load More & Infinite Scroll)
+	 */
+	class ProductBayProLazyLoading {
+		constructor(wrapper) {
+			this.$wrapper = window.jQuery(wrapper);
+			this.observer = null;
+			this.init();
+		}
+
+		init() {
+			this.bindEvents();
+			this.initInfiniteScroll();
+		}
+
+		bindEvents() {
+			// 1. Load More Button Click
+			this.$wrapper.on('click', '.productbay-load-more-btn', (e) => {
+				e.preventDefault();
+				this.$wrapper.trigger('productbay_next_page');
+			});
+
+			// 2. Re-init Infinite Scroll after any AJAX fetch (as pagination container is replaced)
+			this.$wrapper.on('productbay_after_fetch', () => {
+				this.initInfiniteScroll();
+			});
+		}
+
+		initInfiniteScroll() {
+			const $pagination = this.$wrapper.find('.productbay-pagination');
+			const mode = $pagination.data('mode');
+
+			if (mode !== 'infinite') return;
+
+			const sentinel = this.$wrapper.find('.productbay-infinite-sentinel')[0];
+			if (!sentinel) return;
+
+			if (this.observer) {
+				this.observer.disconnect();
+			}
+
+			this.observer = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting) {
+					// Check if already loading. The free plugin adds .loading to search or button.
+					const isLoading = this.$wrapper.hasClass('productbay-loading') ||
+						this.$wrapper.find('.productbay-load-more-btn').hasClass('loading') ||
+						this.$wrapper.find('.productbay-search').hasClass('loading');
+
+					if (!isLoading) {
+						this.$wrapper.trigger('productbay_next_page');
+					}
+				}
+			}, {
+				rootMargin: '200px'
+			});
+
+			this.observer.observe(sentinel);
+		}
+	}
+
+	// Initialize Lazy Loading
+	window.jQuery(document).ready(function ($) {
+		$('.productbay-wrapper').each(function () {
+			new ProductBayProLazyLoading(this);
+		});
+	});
+
 })(jQuery);
 
 /**
  * ProductBay Pro - Variations Frontend Interactivity
+ *
+ * Handles popup modal, nested row toggle, separate rows, grouped inline select,
+ * quantity +/- delegation, and bulk selection sync with parent table.
  */
-// productbay-pro-frontend.js
 document.addEventListener('DOMContentLoaded', () => {
 
-	// 1. Popup Trigger
+	// ─── Helper: Find parent table's ProductBayTable instance ──────────────────
+	function getTableInstance(wrapper) {
+		// The free plugin stores instances on the wrapper element via jQuery .data()
+		if (window.jQuery && wrapper) {
+			const $wrapper = window.jQuery(wrapper);
+			// Try to access via the class instance stored by the free plugin
+			// The free plugin initializes: new ProductBayTable(wrapper)
+			// We can access it via the restoreModalSelections event or selectedProducts map
+			return $wrapper;
+		}
+		return null;
+	}
+
+	// ─── 1. Popup Trigger ─────────────────────────────────────────────────────────
 	document.body.addEventListener('click', (e) => {
 		const target = e.target.closest('.productbay-pro-btn-popup');
 		if (!target) return;
@@ -190,11 +267,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		const modal = wrapper.parentNode.querySelector('.productbay-pro-variations-modal') || document.querySelector('.productbay-pro-variations-modal');
 		if (!modal) return;
 
+		// Move modal into the wrapper so base plugin event delegation (for bulk select) catches the events
+		if (modal.parentNode !== wrapper) {
+			wrapper.appendChild(modal);
+		}
+
 		const content = modal.querySelector('.productbay-pro-variations-inner');
 		content.innerHTML = `<p style="padding: 20px; text-align: center;">Loading variations...</p>`;
 
-		// Store the button that triggered it so we can update its message later if needed
+		// Store the originating wrapper and trigger product ID for later sync
 		modal.setAttribute('data-trigger-btn', productId);
+		modal.setAttribute('data-wrapper-id', wrapper.id || '');
 
 		modal.showModal();
 
@@ -204,6 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		data.append('product_id', productId);
 		data.append('table_id', tableId);
 		data.append('mode', 'popup');
+		data.append('nonce', productbay_pro_ajax.nonce);
 
 		fetch(productbay_pro_ajax.ajax_url, {
 			method: 'POST',
@@ -222,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 	});
 
-	// 2. Add to Cart inside Popup
+	// ─── 2. Add to Cart inside Popup ──────────────────────────────────────────────
 	document.body.addEventListener('click', (e) => {
 		const btn = e.target.closest('.productbay-pro-popup-add-btn');
 		if (!btn) return;
@@ -251,7 +335,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		btn.innerHTML = 'Adding...';
 		btn.disabled = true;
 
-		// We use jQuery here to match the free plugin's approach and variable availability
 		const $ = window.jQuery;
 		if (!$) {
 			console.error('jQuery not loaded');
@@ -320,7 +403,58 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
-	// 3. Nested Rows Trigger
+	// ─── 4. Nested Rows Trigger ───────────────────────────────────────────────────
+	// Helper: load AJAX content into a nested container OR inject rows
+	function loadNestedContent(target, productId, tableId, row, originalText) {
+		target.disabled = true;
+		target.textContent = 'Loading...';
+
+		const data = new URLSearchParams();
+		data.append('action', 'productbay_pro_get_variation_html');
+		data.append('product_id', productId);
+		data.append('table_id', tableId);
+		data.append('mode', 'nested');
+		data.append('nonce', productbay_pro_ajax.nonce);
+
+		fetch(productbay_pro_ajax.ajax_url, {
+			method: 'POST',
+			body: data,
+		})
+			.then(res => res.json())
+			.then(response => {
+				if (response.success) {
+					const nextRow = row.nextElementSibling;
+
+					// If a nested container <tr> exists, populate its inner content
+					if (nextRow && nextRow.classList.contains('productbay-pro-nested-row-container') && nextRow.getAttribute('data-parent-id') === productId) {
+						const contentCell = nextRow.querySelector('.productbay-pro-nested-row-content');
+						if (contentCell) {
+							contentCell.innerHTML = '<table class="productbay-table productbay-pro-nested-table"><tbody>' + response.data.html + '</tbody></table>';
+						}
+						nextRow.style.display = 'table-row';
+						nextRow.setAttribute('data-loaded', '1');
+					} else {
+						// No container — inject rows directly after the current row
+						const template = document.createElement('template');
+						template.innerHTML = response.data.html;
+						const newRows = template.content.querySelectorAll('tr');
+						newRows.forEach(nr => nr.setAttribute('data-parent-id', productId));
+						row.after(template.content);
+					}
+					target.textContent = 'Hide Products';
+				} else {
+					console.error(response.data);
+					target.textContent = 'Error';
+				}
+			})
+			.finally(() => {
+				target.disabled = false;
+				if (target.textContent === 'Loading...') {
+					target.textContent = originalText;
+				}
+			});
+	}
+
 	document.body.addEventListener('click', (e) => {
 		const target = e.target.closest('.productbay-pro-btn-nested');
 		if (!target) return;
@@ -330,65 +464,70 @@ document.addEventListener('DOMContentLoaded', () => {
 		const tableId = target.getAttribute('data-table-id');
 		const row = target.closest('tr');
 
-		// Check if we already loaded it
-		const nextRow = row.nextElementSibling;
-		if (nextRow && nextRow.classList.contains('productbay-pro-nested-row-item') && nextRow.getAttribute('data-parent-id') === productId) {
-			// Toggle visibility
-			let isHidden = nextRow.style.display === 'none';
+		// Store original text for toggle (data-original-text pattern)
+		if (!target.hasAttribute('data-original-text')) {
+			target.setAttribute('data-original-text', target.textContent.trim());
+		}
+		const originalText = target.getAttribute('data-original-text');
 
-			// Select all sibling rows that belong to this parent and toggle them
+		const nextRow = row.nextElementSibling;
+
+		// Case 1: Pre-rendered nested container exists
+		if (nextRow && nextRow.classList.contains('productbay-pro-nested-row-container') && nextRow.getAttribute('data-parent-id') === productId) {
+			const isHidden = nextRow.style.display === 'none';
+
+			if (isHidden) {
+				// If content was never loaded via AJAX, load it now
+				if (!nextRow.getAttribute('data-loaded') && nextRow.getAttribute('data-default-expanded') !== '1') {
+					loadNestedContent(target, productId, tableId, row, originalText);
+					return;
+				}
+				nextRow.style.display = 'table-row';
+				target.textContent = 'Hide Products';
+			} else {
+				nextRow.style.display = 'none';
+				target.textContent = originalText;
+			}
+			return;
+		}
+
+		// Case 2: Previously injected individual nested rows
+		if (nextRow && nextRow.classList.contains('productbay-pro-nested-row-item') && nextRow.getAttribute('data-parent-id') === productId) {
+			let isHidden = nextRow.style.display === 'none';
 			let sibling = nextRow;
 			while (sibling && sibling.classList.contains('productbay-pro-nested-row-item') && sibling.getAttribute('data-parent-id') === productId) {
 				sibling.style.display = isHidden ? 'table-row' : 'none';
 				sibling = sibling.nextElementSibling;
 			}
+			target.textContent = isHidden ? 'Hide Products' : originalText;
 			return;
 		}
 
-		// First load
-		target.disabled = true;
-		const originalText = target.innerHTML;
-		target.innerHTML = 'Loading...';
-
-		const data = new URLSearchParams();
-		data.append('action', 'productbay_pro_get_variation_html');
-		data.append('product_id', productId);
-		data.append('table_id', tableId);
-		data.append('mode', 'nested');
-
-		fetch(productbay_pro_ajax.ajax_url, {
-			method: 'POST',
-			body: data,
-		})
-			.then(res => res.json())
-			.then(response => {
-				if (response.success) {
-					// We need to inject the rows directly after `row`
-					// Convert HTML string to nodes
-					const template = document.createElement('template');
-					template.innerHTML = response.data.html;
-
-					// Tag the new rows with data-parent-id so we can toggle them later
-					const newRows = template.content.querySelectorAll('tr');
-					newRows.forEach(nr => nr.setAttribute('data-parent-id', productId));
-
-					// Insert after the current row
-					row.after(template.content);
-					target.innerHTML = 'Hide Products';
-				} else {
-					console.error(response.data);
-					target.innerHTML = 'Error';
-				}
-			})
-			.finally(() => {
-				target.disabled = false;
-				if (target.innerHTML === 'Loading...') {
-					target.innerHTML = originalText;
-				}
-			});
+		// Case 3: First-time load via AJAX
+		loadNestedContent(target, productId, tableId, row, originalText);
 	});
 
-	// Handle Modal Close
+	// ─── 5. Default-Expanded Nested Rows Initialization ───────────────────────────
+	// For nested containers that are pre-rendered with data-default-expanded="1",
+	// set the trigger button text to "Hide Products" on page load.
+	document.querySelectorAll('.productbay-pro-nested-row-container[data-default-expanded="1"]').forEach((container) => {
+		const parentId = container.getAttribute('data-parent-id');
+		if (!parentId) return;
+
+		// Find the trigger button in the preceding row
+		const parentRow = container.previousElementSibling;
+		if (parentRow) {
+			const btn = parentRow.querySelector('.productbay-pro-btn-nested[data-product-id="' + parentId + '"]');
+			if (btn) {
+				if (!btn.hasAttribute('data-original-text')) {
+					btn.setAttribute('data-original-text', btn.textContent.trim());
+				}
+				btn.textContent = 'Hide Products';
+			}
+		}
+	});
+
+	// ─── 7. Handle Modal Close ────────────────────────────────────────────────────
 	document.body.addEventListener('click', (e) => {
 		const closeBtn = e.target.closest('.productbay-pro-variations-close');
 		const backdrop = e.target.closest('.productbay-pro-variations-backdrop');
@@ -400,5 +539,26 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 	});
+
+	// ─── 8. Popup "Select All" Checkbox ──────────────────────────────────────────
+	// In the popup table header, a "select all" checkbox toggles all variation checkboxes.
+	document.body.addEventListener('change', (e) => {
+		if (!e.target.classList.contains('productbay-pro-popup-select-all')) return;
+
+		const modal = e.target.closest('.productbay-pro-variations-modal');
+		if (!modal) return;
+
+		const isChecked = e.target.checked;
+		const checkboxes = modal.querySelectorAll('.productbay-pro-popup-table .productbay-select-product');
+
+		checkboxes.forEach(cb => {
+			if (cb.checked !== isChecked) {
+				cb.checked = isChecked;
+				cb.dispatchEvent(new Event('change', { bubbles: true }));
+			}
+		});
+	});
+
+
 
 });

@@ -14,6 +14,10 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+use WpabProductBayPro\Api\LicenseController;
+use WpabProductBayPro\Config\Config;
+use WpabProductBayPro\License\LicenseClient;
+
 /**
  * Class ProPlugin
  *
@@ -42,6 +46,10 @@ class ProPlugin
 		// Hook into the free plugin's loaded action.
 		\add_action('productbay_loaded', array($this, 'on_free_loaded'));
 
+		// Setup cron job hook for license
+		\add_action('admin_init', array($this, 'schedule_cron_job'));
+		\add_action('productbay_pro_daily_license_check', array(LicenseClient::class, 'cron_validate'));
+
 		// Extend admin script data to signal pro is active.
 		\add_filter('productbay_admin_script_data', array($this, 'extend_admin_data'));
 
@@ -56,6 +64,85 @@ class ProPlugin
 
 		// Inject Pro JS into the live preview iframe.
 		\add_filter('productbay_preview_js_urls', array($this, 'inject_preview_js'));
+
+		// Inject Pro CSS into the Gutenberg block editor's iframe.
+		\add_filter('productbay_block_editor_css_paths', array($this, 'inject_block_editor_css'));
+
+		// Register REST API routes.
+		\add_action('rest_api_init', array($this, 'register_rest_routes'));
+
+		// Add admin notices for license status.
+		\add_action('admin_notices', array($this, 'admin_notices'));
+	}
+
+	/**
+	 * Register REST API routes.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_rest_routes()
+	{
+		$controller = new LicenseController();
+		$controller->register();
+	}
+
+	/**
+	 * Schedule the daily license verification cron job.
+	 *
+	 * @since 1.0.0
+	 */
+	public function schedule_cron_job()
+	{
+		if (!\wp_next_scheduled('productbay_pro_daily_license_check')) {
+			\wp_schedule_event(time(), 'daily', 'productbay_pro_daily_license_check');
+		}
+	}
+
+	/**
+	 * Display admin notices based on license status.
+	 *
+	 * Uses standard WordPress notice styles across all admin pages,
+	 * except the ProductBay admin pages where the React banner handles it.
+	 *
+	 * @since 1.0.0
+	 */
+	public function admin_notices()
+	{
+		// Don't show standard notices on our React app page to avoid double-bannering.
+		$screen = get_current_screen();
+		if ($screen && strpos($screen->id, 'productbay') !== false) {
+			return;
+		}
+
+		$client = new LicenseClient();
+		$status = $client->get_status();
+		$settings_url = admin_url('admin.php?page=productbay-settings&tab=license');
+
+		if ($status === 'inactive' || empty($client->get_key())) {
+			echo '<div class="notice notice-info is-dismissible"><p>';
+			echo wp_kses_post(sprintf(
+				/* translators: %s: settings page url */
+				__('<strong>ProductBay Pro</strong> is almost ready. Please <a href="%s">activate your license key</a> to receive automatic updates and premium support.', 'productbay-pro'),
+				esc_url($settings_url)
+			));
+			echo '</p></div>';
+		} elseif ($status === 'expired') {
+			echo '<div class="notice notice-warning"><p>';
+			echo wp_kses_post(sprintf(
+				/* translators: %s: settings page url */
+				__('Your <strong>ProductBay Pro</strong> license has expired. Please <a href="%s">renew your license</a> to continue receiving updates and premium support.', 'productbay-pro'),
+				esc_url($settings_url)
+			));
+			echo '</p></div>';
+		} elseif ($status === 'invalid') {
+			echo '<div class="notice notice-error"><p>';
+			echo wp_kses_post(sprintf(
+				/* translators: %s: settings page url */
+				__('Your <strong>ProductBay Pro</strong> license is invalid. Please <a href="%s">check your license key</a>.', 'productbay-pro'),
+				esc_url($settings_url)
+			));
+			echo '</p></div>';
+		}
 	}
 
 	/**
@@ -93,6 +180,23 @@ class ProPlugin
 	}
 
 	/**
+	 * Inject Pro frontend CSS into the Gutenberg block editor iframe.
+	 *
+	 * Hooks into the free plugin's `productbay_block_editor_css_paths` filter
+	 * so Pro UI elements (price slider, variation modals, etc.) render correctly
+	 * in the ServerSideRender preview.
+	 *
+	 * @since 1.0.0
+	 * @param string[] $paths Existing CSS file paths.
+	 * @return string[] Modified paths.
+	 */
+	public function inject_block_editor_css($paths)
+	{
+		$paths[] = PRODUCTBAY_PRO_PATH . 'assets/css/productbay-pro-frontend.css';
+		return $paths;
+	}
+
+	/**
 	 * Enqueue Pro admin assets.
 	 *
 	 * @since 1.0.0
@@ -108,7 +212,7 @@ class ProPlugin
 
 		\wp_enqueue_script(
 			'productbay-pro-admin',
-			PRODUCTBAY_PRO_URL . 'assets/js/productbay-pro-admin.js',
+			Config::admin_js_url(),
 			array_merge($asset['dependencies'], array('productbay-admin', 'wp-components', 'wp-element', 'wp-i18n')),
 			(string) time(),
 			true
@@ -116,8 +220,8 @@ class ProPlugin
 
 		\wp_enqueue_style(
 			'productbay-pro-admin',
-			PRODUCTBAY_PRO_URL . 'assets/css/productbay-pro-admin.css',
-			array('productbay-admin'),
+			Config::admin_css_url(),
+			array('productbay-admin-css'),
 			(string) time()
 		);
 	}
@@ -139,6 +243,12 @@ class ProPlugin
 		
 		$variations_module = new \WpabProductBayPro\Modules\Variations\VariationsModule();
 		$variations_module->init();
+
+		$custom_fields_module = new \WpabProductBayPro\Modules\CustomFields\CustomFieldsModule();
+		$custom_fields_module->init();
+
+		$import_export_module = new \WpabProductBayPro\Modules\ImportExport\ImportExportModule();
+		$import_export_module->init();
 	}
 
 	/**
@@ -155,6 +265,14 @@ class ProPlugin
 	{
 		$data['proActive'] = true;
 		$data['proVersion'] = PRODUCTBAY_PRO_VERSION;
+
+		$client = new LicenseClient();
+		$data['license'] = array(
+			'status'    => $client->get_status(),
+			'isValid'   => $client->is_valid(),
+			'maskedKey' => $client->get_masked_key(),
+			'expiresAt' => $client->get_expires(),
+		);
 
 		return $data;
 	}

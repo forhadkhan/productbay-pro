@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace WpabProductBayPro\Modules\PriceFilter;
 
+use WpabProductBayPro\Config\Config;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -77,14 +79,14 @@ class PriceFilterModule {
 
 		\wp_enqueue_style(
 			'productbay-pro-frontend',
-			PRODUCTBAY_PRO_URL . 'assets/css/productbay-pro-frontend.css',
+			Config::frontend_css_url(),
 			array( 'productbay-frontend' ),
 			$version
 		);
 
 		\wp_enqueue_script(
 			'productbay-pro-frontend',
-			PRODUCTBAY_PRO_URL . 'assets/js/productbay-pro-frontend.js',
+			Config::frontend_js_url(),
 			array( 'jquery', 'productbay-frontend' ),
 			$version,
 			true
@@ -119,17 +121,18 @@ class PriceFilterModule {
 				return $args;
 			}
 
+			// phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			if ( ! isset( $args['meta_query'] ) ) {
 				$args['meta_query'] = array();
 			}
 
-			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			$args['meta_query'][] = array(
 				'key'     => '_price',
 				'value'   => array( $min >= 0 ? $min : 0, $max ? $max : 999999999 ),
 				'compare' => 'BETWEEN',
 				'type'    => 'NUMERIC',
 			);
+			// phpcs:enable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		}
 
 		return $args;
