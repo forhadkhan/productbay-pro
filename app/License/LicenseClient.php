@@ -148,7 +148,7 @@ class LicenseClient
 		$query = \http_build_query(array(
 			'license_key' => $key,
 			'slug' => self::SLUG,
-			'domain' => $this->get_domain(),
+			'url' => $this->get_domain(),
 		));
 
 		$response = $this->resilient_request('GET', '/check?' . $query);
@@ -210,7 +210,7 @@ class LicenseClient
 	 */
 	public function is_valid(): bool
 	{
-		$cached = \get_transient(self::TRANSIENT_KEY);
+		$cached = \get_site_transient(self::TRANSIENT_KEY);
 		if (false !== $cached) {
 			return 'active' === $cached;
 		}
@@ -296,7 +296,8 @@ class LicenseClient
 		\delete_option(Config::OPT_LICENSE_STATUS);
 		\delete_option(Config::OPT_LICENSE_EXPIRES);
 
-		\delete_transient(self::TRANSIENT_KEY);
+		\delete_site_transient(self::TRANSIENT_KEY);
+		\delete_site_transient(Config::TRANSIENT_CONN_STRATEGY);
 		\delete_site_transient('update_plugins');
 	}
 
@@ -327,7 +328,7 @@ class LicenseClient
 	private function resilient_request(string $method, string $endpoint, array $extra_args = array())
 	{
 		$strategies = $this->build_strategies($endpoint, $extra_args);
-		$preferred = \get_transient('productbay_pro_conn_strategy');
+		$preferred  = \get_site_transient(Config::TRANSIENT_CONN_STRATEGY);
 
 		// If we have a known-good strategy, try it first.
 		if ($preferred && isset($strategies[$preferred])) {
@@ -358,7 +359,7 @@ class LicenseClient
 				if ($http_code > 0) {
 					// Remember this strategy for future requests.
 					if ($preferred !== $name) {
-						\set_transient('productbay_pro_conn_strategy', $name, 12 * HOUR_IN_SECONDS);
+						\set_site_transient(Config::TRANSIENT_CONN_STRATEGY, $name, 12 * HOUR_IN_SECONDS);
 					}
 					return $response;
 				}
@@ -372,7 +373,7 @@ class LicenseClient
 
 		// All strategies failed. Clear the cached strategy so next
 		// attempt starts fresh.
-		\delete_transient('productbay_pro_conn_strategy');
+		\delete_site_transient(Config::TRANSIENT_CONN_STRATEGY);
 
 		// Log the full diagnostics.
 		ActivityLog::error(
@@ -496,7 +497,7 @@ class LicenseClient
 	 */
 	private function cache_status(string $status): void
 	{
-		\set_transient(self::TRANSIENT_KEY, $status, self::CACHE_TTL);
+		\set_site_transient(self::TRANSIENT_KEY, $status, self::CACHE_TTL);
 	}
 
 

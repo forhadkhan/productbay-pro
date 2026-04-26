@@ -17,6 +17,14 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+// Fallback for WordPress time constants if they aren't defined yet.
+defined('MINUTE_IN_SECONDS') || define('MINUTE_IN_SECONDS', 60);
+defined('HOUR_IN_SECONDS')   || define('HOUR_IN_SECONDS',   60 * MINUTE_IN_SECONDS);
+defined('DAY_IN_SECONDS')    || define('DAY_IN_SECONDS',    24 * HOUR_IN_SECONDS);
+defined('WEEK_IN_SECONDS')   || define('WEEK_IN_SECONDS',   7 * DAY_IN_SECONDS);
+defined('MONTH_IN_SECONDS')  || define('MONTH_IN_SECONDS',  30 * DAY_IN_SECONDS);
+defined('YEAR_IN_SECONDS')   || define('YEAR_IN_SECONDS',   365 * DAY_IN_SECONDS);
+
 /**
  * Central configuration class for ProductBay Pro.
  *
@@ -66,6 +74,7 @@ final class Config
 	 * Transient keys.
 	 */
 	public const TRANSIENT_LICENSE_CACHE = 'productbay_pro_license_cache';
+	public const TRANSIENT_CONN_STRATEGY = 'productbay_pro_conn_strategy';
 
 	/**
 	 * Cache durations (in seconds).
